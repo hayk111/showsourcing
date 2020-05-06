@@ -31,7 +31,7 @@
 		<!-- carousel -->
 		<preview-carousel-app
 			[entity]="product"
-			[entityMD]="erm.PRODUCT"
+			[entityMD]="'Product' | erm"
 			[images]="product?.images"
 			objectFit="contain">
 		</preview-carousel-app>
@@ -54,7 +54,7 @@
 			<button class="icon" (click)="selectThirdTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
 				<icon-app class="color-txt-secondary" name="comments"></icon-app>
 			</button>
-			<button class="icon" (click)="dialogCommonSrv.openSupplierRequest([product])" toolTip [toolTipMessage]="'tooltip.contact-supplier' | translate">
+			<button class="icon" (click)="dlgCommonSrv.openSupplierRequest([product])" toolTip [toolTipMessage]="'tooltip.contact-supplier' | translate">
 				<icon-app class="color-vibrant" name="envelope"></icon-app>
 			</button>
 		</preview-header-buttons-app>
@@ -77,7 +77,7 @@
 		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>
-			<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
+			<rating-badge-app class="pointer"	[vote]="vote$ | async" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
 			<div class="txt-btn capitalize" (click)="selectSecondTab('sample')">{{ ((product?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
 			<div class="txt-btn capitalize" (click)="selectSecondTab('task')">{{ ((product?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
 			<div class="txt-btn capitalize" (click)="selectThirdTab()">{{ ((product?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
@@ -94,7 +94,7 @@
 		<!-- Badge supplier -->
 		<badge-selector-app
 			[hasOpenAction]="true"
-			[badge]="erm.SUPPLIER"
+			[badge]="'Supplier' | erm"
 			[value]="product?.supplier?.name"
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
@@ -102,7 +102,7 @@
 
 		<!-- Badge category -->
 		<badge-selector-app
-			[badge]="erm.CATEGORY"
+			[badge]="'Category' | erm"
 			[value]="product?.category"
 			(update)="update($event, 'category')">
 		</badge-selector-app>
@@ -110,7 +110,7 @@
 		<!-- Badge event -->
 		<badge-selector-app
 			*ngIf="product?.event"
-			[badge]="erm.EVENT"
+			[badge]="'Event' | erm"
 			[value]="product?.event"
 			(update)="update($event, 'event')">
 		</badge-selector-app>
@@ -141,31 +141,12 @@
 
 	<!-- Product details -->
 	<preview-section-app #contentTab1 [title]="'title.product-details' | translate">
-		<dynamic-form-app
-			[fields]="productDescriptor1?.descriptor"
-			[value]="product"
-			[config]="formConfig"
-			(update)="updateProduct($event)">
-		</dynamic-form-app>
-
-		<!-- Extended Fields -->
-		<extended-form-app
-			*ngIf="(fieldDefinitions$ | async)?.length"
-			[definitions]="fieldDefinitions$ | async"
-			[config]="formConfig"
-			[fields]="product?.extendedFields"
-			(update)="update($event, 'extendedFields')">
-		</extended-form-app>
-	</preview-section-app>
-
-	<!-- Trading information -->
-	<preview-section-app #contentTab1 [title]="'title.trading-information' | translate">
-		<dynamic-form-app
-			[fields]="productDescriptor2?.descriptor"
-			[value]="product"
-			[config]="formConfig"
-			(update)="updateProduct($event)">
-		</dynamic-form-app>
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 	<!-- Activity -->
@@ -173,9 +154,9 @@
 	<preview-section-app #contentTab2 [title]="'title.product-owner' | translate">
 		<editable-container-app
 			[hasAction]="false"
-			[openOnClick]="false"
+			[readonly]="true"
 			(click)="sel?.selector?.openMenu()">
-			<editable-display-app>
+			<editable-value-app>
 				<selector-app
 					#sel
 					typename="User"
@@ -187,7 +168,7 @@
 					</div>
 					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
-				</editable-display-app>
+				</editable-value-app>
 		</editable-container-app>
 	</preview-section-app>
 
@@ -227,10 +208,9 @@
 	<!-- Rating -->
 	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
 		<rating-dashboard-app
-			[votes]="product?.votes"
-			[type]="erm.PRODUCT.singular"
-			(update)="update($event, 'votes')"
-			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+			[vote]="vote$ | async"
+			[nodeId]="'product:' + product?.id"
+			(update)="updateVote($event)">
 		</rating-dashboard-app>
 	</preview-section-app>
 
@@ -257,13 +237,13 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab2 [title]="'title.about-product' | translate">
-		<div class="mg-top-xs">
+		<!-- <div class="mg-top-xs">
 			{{ 'OBJ.created-by-on' | translate : { name: (product?.createdBy | formatUserName), date: (product?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
 			<br>
 			{{ 'OBJ.last-updated-by-on' | translate: { name: (product?.lastUpdatedBy | formatUserName), date: (product?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
 			<br>
 			<span *ngIf="product?.event">{{ 'OBJ.found-at' | translate: { name: (product?.event?.description?.name) } }}</span>
-		</div>
+		</div> -->
 	</preview-section-app>
 
 	<!-- Comment -->
@@ -286,7 +266,7 @@
 	<preview-banner-app>
 		<preview-carousel-app
 			[entity]="product"
-			[entityMD]="erm.PRODUCT"
+			[entityMD]="'Product' | erm"
 			[images]="product?.images"
 			[hasPreview]="!isPreview"
 			objectFit="cover">
@@ -310,7 +290,7 @@
 		<!-- Badge supplier -->
 		<badge-selector-app
 			[hasOpenAction]="true"
-			[badge]="erm.SUPPLIER"
+			[badge]="'Supplier' | erm"
 			[value]="product?.supplier?.name"
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
@@ -318,7 +298,7 @@
 
 		<!-- Badge category -->
 		<badge-selector-app
-			[badge]="erm.CATEGORY"
+			[badge]="'Category' | erm"
 			[value]="product?.category"
 			(update)="update($event, 'category')">
 		</badge-selector-app>
@@ -326,7 +306,7 @@
 		<!-- Badge event -->
 		<badge-selector-app
 			*ngIf="product?.event"
-			[badge]="erm.EVENT"
+			[badge]="'Event' | erm "
 			[value]="product?.event"
 			(update)="update($event, 'event')">
 		</badge-selector-app>
@@ -362,10 +342,10 @@
 	<!-- Rating -->
 	<preview-section-app #contentTab2 [title]="'team rating'">
 		<rating-dashboard-app
-			[votes]="product?.votes"
-			[type]="erm.PRODUCT.singular"
-			(update)="update($event, 'votes')"
-			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+			[vote]="vote$ | async"
+			[nodeId]="'product:' + product?.id"
+			(update)="updateVote($event)"
+			(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)">
 		</rating-dashboard-app>
 	</preview-section-app>
 

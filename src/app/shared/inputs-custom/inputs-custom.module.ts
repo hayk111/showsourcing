@@ -3,21 +3,21 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
-import { EditableFieldModule } from '~shared/editable-field';
+import { EditableModule } from '~shared/editable';
 import { ERMModule } from '~shared/erm/erm.module';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
-import { InputPriceComponent } from '~shared/inputs-custom/components/input-price/input-price.component';
 import { LogoModule } from '~shared/logo';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
+import {
+	BadgeSelectorComponent, InputPriceComponent, InputDescriptionComponent,
+	InputBadgeSelectorComponent, SelectCheckboxComponent,
+	InputPackagingComponent, InputPriceMatrixComponent,
+	EditablePriceMatrixComponent,
+	EditablePackagingComponent
+} from './components';
 
-import { BadgeSelectorComponent } from './components/badge-selector/badge-selector.component';
-import { InputBadgeSelectorComponent } from './components/input-badge-selector/input-badge-selector.component';
-import { InputDescriptionComponent } from './components/input-description/input-description.component';
-import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
-import { SelectCheckboxComponent } from './components/select-checkbox/select-checkbox.component';
-import { InputPackagingComponent } from './components-directives/input-packaging/input-packaging.component';
 
 @NgModule({
 	imports: [
@@ -29,7 +29,7 @@ import { InputPackagingComponent } from './components-directives/input-packaging
 		LogoModule,
 		UtilsModule,
 		InputsModule,
-		EditableFieldModule,
+		EditableModule,
 		ERMModule,
 		BadgeModule,
 		TranslateModule
@@ -37,19 +37,27 @@ import { InputPackagingComponent } from './components-directives/input-packaging
 	declarations: [
 		BadgeSelectorComponent,
 		InputPriceComponent,
-		InputPriceInlineComponent,
 		InputDescriptionComponent,
 		InputBadgeSelectorComponent,
 		SelectCheckboxComponent,
+		InputPriceComponent,
 		InputPackagingComponent,
+		InputPriceMatrixComponent,
+		InputPriceComponent,
+		EditablePriceMatrixComponent,
+		EditablePackagingComponent
 	],
 	exports: [
 		BadgeSelectorComponent,
 		InputPriceComponent,
-		InputPriceInlineComponent,
 		InputDescriptionComponent,
 		InputBadgeSelectorComponent,
-		SelectCheckboxComponent
+		SelectCheckboxComponent,
+		InputPriceComponent,
+		InputPackagingComponent,
+		InputPriceMatrixComponent,
+		EditablePriceMatrixComponent,
+		EditablePackagingComponent
 	]
 })
 export class InputsCustomModule { }

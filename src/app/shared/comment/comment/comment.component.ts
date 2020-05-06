@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { switchMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { switchMap, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { CommentService, UserService } from '~core/erm';
-import { Comment, User } from '~core/erm';
+import { UserService } from '~core/auth';
+import { ApiService, Comment } from '~core/erm3';
 
 @Component({
 	selector: 'comment-app',
@@ -13,30 +12,21 @@ import { Comment, User } from '~core/erm';
 })
 export class CommentComponent implements OnInit {
 
-	@Input() user: User;
 	@Input() comment: Comment;
-
-	// if we don't have this viewChild, we cannot send the height of the item, since the HTML doesn't know
-	// what does it have to read
-	@ViewChild('text', { static: false, read: ElementRef }) text: ElementRef;
-
+	@Output() deleted = new EventEmitter<Comment>();
 	/** if the comment belings to the current user or not */
 	isMine = false;
 	/** if we are currently editing the comment */
 	isEditing = false;
-	currentHeight = 0;
-	/** minimum height to display */
-	minHeight = 46;
 
 	constructor(
-		private userSrv: UserService,
-		private commentSrv: CommentService,
+		private apiSrv: ApiService,
 		private dlgCommonSrv: DialogCommonService,
-		public translate: TranslateService
+		private userSrv: UserService,
 	) { }
 
 	ngOnInit() {
-		this.isMine = this.userSrv.userSync.id === this.user.id;
+		this.isMine = this.userSrv.user.id === this.comment.createdBy.id;
 	}
 
 	urlify(text) {
@@ -50,23 +40,22 @@ export class CommentComponent implements OnInit {
 		});
 	}
 
-	enableEdit(height: number) {
+	enableEdit() {
 		this.isEditing = true;
-		this.currentHeight = height + 26; // +26 is for the padding inside the textarea
 	}
 
-	onSave(text: string) {
-		if (text)
-			this.commentSrv.update({ id: this.comment.id, text }).subscribe();
+	onSave(message: string) {
+		if (message)
+			this.apiSrv.update('Comment', { id: this.comment.id, message }).subscribe();
 		this.isEditing = false;
 	}
 
 	onDelete() {
-		// TODO i18n
 		const text = `Are you sure you want to delete this comment ?`;
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
-				switchMap(_ => this.commentSrv.delete(this.comment.id))
+				tap(_ => this.deleted.emit(this.comment)),
+				switchMap(_ => this.apiSrv.delete('Comment', { id: this.comment.id }))
 			).subscribe();
 	}
 

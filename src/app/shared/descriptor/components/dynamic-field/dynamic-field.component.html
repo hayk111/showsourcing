@@ -5,7 +5,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="text"
 				[required]="descriptor.required"
@@ -20,9 +19,9 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="number"
+				restrictInput="number"
 				[value]="control.value"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
@@ -36,7 +35,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				restrictInput="tel"
 				[readonly]="descriptor.readonly"
@@ -51,11 +49,24 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="email"
 				restrictInput="email"
 				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+				<hint-app>{{ descriptor.hint }}</hint-app>
+			</form-field-app>
+	</ng-container>
+
+	<!-- COLOR -->
+	<ng-container *ngSwitchCase="type.COLOR">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				inputApp
+				type="color"
+				[disabled]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control"/>
 				<hint-app>{{ descriptor.hint }}</hint-app>
@@ -67,7 +78,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="date"
 				[readonly]="descriptor.readonly"
@@ -82,10 +92,9 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
-				restrictInput="decimal"
 				type="number"
+				restrictInput="decimal"
 				step="any"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
@@ -99,7 +108,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<textarea 
-				#inp
 				inputApp
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
@@ -111,19 +119,31 @@
 
 	<!-- CHECKBOX -->
 	<ng-container *ngSwitchCase="type.CHECKBOX">
-		<form-field-app>
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<checkbox-app 
 				#checkbox 
 				inputApp 
+				[required]="descriptor.required"
 				[readonly]="descriptor.readonly"
 				[formControl]="control">
 				{{ checkbox.value ? 'Yes' : 'No' }}
 			</checkbox-app>
 		</form-field-app>
 	</ng-container>
-	
 
+	<!-- RADIO -->
+	<ng-container *ngSwitchCase="type.RADIO">
+		<form-field-app>
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<radio-app 
+				inputApp 
+				[readonly]="descriptor.readonly"
+				[formControl]="control"
+				[choices]="">
+			</radio-app>
+		</form-field-app>
+	</ng-container>
 	
 	<!-- PACKAGING -->
 	<ng-container *ngSwitchCase="type.PACKAGING">
@@ -139,13 +159,47 @@
 
 	<!-- PRICE -->
 	<ng-container *ngSwitchCase="type.PRICE">
-		<form-field-app>
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
-			<input-price2-app 
+			<input-price-app 
 				inputApp 
 				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
 				[formControl]="control">
-			</input-price2-app>
+			</input-price-app>
 		</form-field-app>
 	</ng-container>
+
+	<!-- PRICE MATRIX -->
+	<ng-container *ngSwitchCase="type.PRICE_MATRIX">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input-price-matrix-app 
+				inputApp 
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control">
+			</input-price-matrix-app>
+		</form-field-app>
+	</ng-container>
+
+	<!-- SELECTOR -->
+	<ng-container *ngSwitchCase="type.SELECTOR">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<selector-app 
+				inputApp
+				[typename]="descriptor.definition.selectorSettings.type"
+				[customType]="descriptor.definition.selectorSettings.propertyOptionType"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control">
+				<selector-placeholder-app 
+					[readonly]="descriptor.readonly">
+					{{ control.value }}
+				</selector-placeholder-app>
+			</selector-app>
+		</form-field-app>
+	</ng-container>
+
 </ng-container>

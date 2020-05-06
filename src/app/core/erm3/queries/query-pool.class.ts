@@ -1,34 +1,38 @@
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
+import { ProductQueries } from './custom/product.queries';
+import { StatusQueries } from './custom/status.queries';
 
 export class QueryPool {
 	static map = {
-		Category: new BaseQueries('Category'),
-		Company: new BaseQueries('Company'),
+		Attachment: new BaseQueries('Attachment', 'id fileName _version'),
+		Category: new BaseQueries('Category', 'id name'),
+		Company: new BaseQueries('Company', 'id name'),
+		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
+		Comment: new BaseQueries('Comment', 'id message _version'),
 		Contact: new BaseQueries('Contact'),
-		Descriptor: new BaseQueries('Descriptor', 'id target'),
-		Image: new BaseQueries('Image', `id fileName`),
-		Product: new BaseQueries('Product', 'id name _version'),
-		Supplier: new BaseQueries('Supplier', 'id name _version'),
-		Task: new BaseQueries('Task', 'id name _version'),
-		User: new BaseQueries('User', `firstName`),
-		Team: new BaseQueries('Team'),
-		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
-		Attachment: new BaseQueries('Attachment', 'id fileName'),
-		Comment: new BaseQueries('Comment', 'id message'),
-		Constant: new BaseQueries('Constant', 'id code label helperType'),
+		Descriptor: new BaseQueries('Descriptor', 'id target _version'),
 		Event: new BaseQueries('Event', 'id _version', []),
 		EventDescription: new BaseQueries('EventDescription'),
-		Venue: new BaseQueries('Venue'),
-		Industry: new BaseQueries('Industry'),
-		Invitation: new BaseQueries('Invitation', 'id email status'),
 		Export: new BaseQueries('Export'),
-		Project: new BaseQueries('Project', 'id name _version'),
+		Image: new BaseQueries('Image', `id fileName _version`),
+		Industry: new BaseQueries('Industry'),
+		Invitation: new BaseQueries('Invitation', 'id email status _version'),
+		// tslint:disable-next-line:max-line-length
+		Product: new BaseQueries('Product', 'id name _version favorite category { name } supplier { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
+		Project: new BaseQueries('Project', 'id name _version dueDate status { name } createdBy { firstName lastName } createdAt'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
-		Sample: new BaseQueries('Sample', 'id name _version'),
+		// tslint:disable-next-line:max-line-length
+		Supplier: new BaseQueries('Supplier', 'id name _version favorite category { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
+		Sample: new BaseQueries('Sample'),
+		Task: new BaseQueries('Task', 'id name _version'),
 		Tag: new BaseQueries('Tag'),
-		Vote: new BaseQueries('Vote', 'id message nodeId'),
+		Team: new BaseQueries('Team', 'id name'),
+		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
+		User: new BaseQueries('User', `id firstName lastName`),
+		Venue: new BaseQueries('Venue'),
+		Vote: new BaseQueries('Vote', 'id message rating nodeId _version createdBy { id }'),
 		WorkflowStatus: new BaseQueries('WorkflowStatus')
 	};
 

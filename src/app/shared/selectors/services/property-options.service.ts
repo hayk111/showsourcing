@@ -42,7 +42,7 @@ export class PropertyOptionsService {
 	}
 
 	deletePropertyOption(
-		entity: { type: String, value: String, _version: number } & Entity,
+		entity: { type: String, value: String } & Entity,
 		apiOptions: ApiQueryOption = {}) {
 		const options = apiOptions as MutationOptions;
 		return this.apiSrv.delete('PropertyOption', entity, options);

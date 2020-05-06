@@ -1,53 +1,40 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	HostListener,
-	Input,
-	OnChanges,
-	OnInit,
-	Output,
-	QueryList,
-	ViewChild,
-	ViewChildren,
-	OnDestroy,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subject, Subscription } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/erm';
-import { DynamicField } from '~shared/dynamic-forms';
-import { FilterList } from '~shared/filters/models/filter-list.class';
-import { AbstractInput, InputDirective } from '~shared/inputs';
-import { SelectorsService } from '~shared/selectors/services/selectors.service';
-import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { ERM } from '~core/erm';
+import { Typename } from '~core/erm3/typename.type';
+import { FilterService } from '~core/filters';
+import { isLocalList } from '~core/list-page2/is-local-list.function';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { ListHelperService } from '~core/list-page2/list-helper.service';
-import { FilterService } from '~core/filters';
-import { Typename } from '~core/erm3/typename.type';
-import { ID, RegexpApp } from '~utils';
-import { filterTypeToTypename } from '~shared/filters/components';
-import { isLocalList } from '~core/list-page2/is-local-list.function';
+import { FilterList } from '~shared/filters/models/filter-list.class';
+import { AbstractInput, InputDirective } from '~shared/inputs';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
+import { SelectorsService } from '~shared/selectors/services/selectors.service';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'selector-picker-app',
 	templateUrl: './selector-picker.component.html',
 	styleUrls: ['./selector-picker.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListHelperService,
+		ListFuseHelperService,
+		SelectorsService,
+		FilterService
+	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 	@Input() typename: Typename;
 	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
-	@Input() dynamicFields: DynamicField[];
 	@Input() filterList = new FilterList([]);
 	/**
 	 * this is used when we have a selector that uses Selector Elements, so we can know which selectors elements
@@ -123,7 +110,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.filterSrv.setup([], ['name']);
 
 		if (this.typename === 'PropertyOption') {
-			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			// this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
 			this.cd.markForCheck();
 		} else {
 			if (isLocalList(this.typename)) {
@@ -132,7 +119,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.cd.markForCheck();
 			} else {
 				this.listHelperSrv.setup(this.typename);
-				this.choices$ = this.listHelperSrv.filteredItems$;
+				this.choices$ = this.listHelperSrv.filteredItems$ as Observable<any[]>;
 				this.cd.markForCheck();
 			}
 		}
@@ -239,42 +226,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * Emits the new single value so it can be updated
 	 */
 	private updateSingle() {
-		let item;
-		// depending on the entity the way we update it can be different (we only care to update the value that we display)
-		switch (this.typename) {
-			case 'TeamUser':
-			case 'User':
-				item = {
-					id: this.value.id,
-					firstName: this.value.firstName ? this.value.firstName : '',
-					lastName: this.value.lastName ? this.value.lastName : '',
-					__typename: this.value.__typename
-				};
-				break;
-			case 'Contact':
-				item = {
-					id: this.value.id,
-					email: this.value.email,
-					supplier: this.value.supplier ? this.value.supplier : null,
-					__typename: this.value.__typename
-				};
-				break;
-			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
-			// we only need a string (e.g. supplier -> country -> string)
-			case 'Constant':
-				item = this.value;
-				break;
-			// this is the default if we are updating an entity with name field
-			default:
-				item = {
-					id: this.value.id,
-					name: this.value.name ? this.value.name : '',
-					__typename: this.value.__typename
-				};
-				break;
-		}
-		if (item)
-			this.update.emit(item);
+		this.update.emit({
+			[this.value.__typename.toLowerCase() + 'Id']: this.value.id
+		});
 		this.close.emit();
 	}
 
@@ -284,6 +238,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	onSelect(item) {
 		let itemToReturn = item;
+		itemToReturn.__typename = this.typename;
+
 		switch (this.typename) {
 			case 'Constant':
 				itemToReturn = item.name;

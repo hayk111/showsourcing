@@ -60,13 +60,13 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 	}
 
 	onThumbUp(product) {
-		const votes = this.ratingSrv.thumbUp(product, EntityName.PRODUCT);
-		this.updateProduct({ id: product.id, votes });
+		// const votes = this.ratingSrv.thumbUp(product, EntityName.PRODUCT);
+		// this.updateProduct({ id: product.id, votes });
 	}
 
 	onThumbDown(product) {
-		const votes = this.ratingSrv.thumbDown(product, EntityName.PRODUCT);
-		this.updateProduct({ id: product.id, votes });
+		// const votes = this.ratingSrv.thumbDown(product, EntityName.PRODUCT);
+		// this.updateProduct({ id: product.id, votes });
 	}
 
 	openProductPreview(product: Product) {

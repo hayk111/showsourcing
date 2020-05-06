@@ -10,6 +10,7 @@ import { Attachment } from './attachment.model';
 import { ProjectProduct } from './project-product.model';
 // import { LeadTimeUnit } from '../../../../../generated/API.service';
 
+
 export class Product extends Entity<Product> {
 	__typename?: Typename = 'Product';
 	id?: string;
@@ -119,5 +120,6 @@ export class Product extends Entity<Product> {
 	archived?: boolean | null;
 	reference?: string | null;
 	referenceKey?: number | null;
+	properties?: any;
 	comments?: any;
 }

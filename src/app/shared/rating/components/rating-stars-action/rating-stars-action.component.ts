@@ -10,9 +10,9 @@ import {
 	Renderer2,
 	ViewChildren,
 } from '@angular/core';
-import { UserService } from '~core/erm';
+import { UserService } from '~core/auth';
 import { IconComponent } from '~shared/icons';
-import { Vote } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-stars-action-app',
@@ -22,22 +22,19 @@ import { Vote } from '~shared/rating/services/rating.service';
 })
 export class RatingStarsActionComponent implements AfterViewInit {
 
-	private _votes: Vote[];
-	@Input() set votes(votes: Vote[]) {
-		this._votes = votes;
-		const voteIndex = (votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
-		if (~voteIndex) {
-			const myVote = votes[voteIndex];
-			// we filter the array to get only the values LEQ than the value of the vote
-			// e.g vote.value == 40 -> then the array would be [20, 40]
-			// making the index for the slice 2 (the lenght of the array)
-			this.sliceIndexStar = this.stars.filter(starValue => starValue <= myVote.value).length;
-			// adds initial color to stars
+	private _vote: Vote;
+	@Input() set vote(vote: Vote) {
+		this._vote = vote;
+
+		if (vote) {
+			this.sliceIndexStar = this.stars.filter(starValue => starValue <= vote.rating).length;
 			this.changeStarsColor(this.sliceIndexStar);
+		} else if (vote === null) {
+			this.changeStarsColor(0);
 		}
 	}
 	get votes() {
-		return this._votes;
+		return this._vote;
 	}
 
 	@Output() valueVoted = new EventEmitter<number>();
@@ -77,6 +74,14 @@ export class RatingStarsActionComponent implements AfterViewInit {
 				this.renderer.setStyle(star.nativeElement, 'color', 'var(--color-secondary)');
 			});
 		}
+	}
+
+	onValueVoted(value) {
+		const vote = Object.assign({}, this._vote);
+		// set rating to "no stars" when the value is equal to the previous
+		vote.rating = value === vote.rating ? 0 : vote.rating;
+		this.vote = vote;
+		this.valueVoted.emit(value);
 	}
 
 }

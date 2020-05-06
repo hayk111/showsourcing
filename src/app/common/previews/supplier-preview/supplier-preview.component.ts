@@ -1,29 +1,20 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SupplierDescriptor } from '~core/descriptors';
-import { AppImage, Comment, CommentService, ERM, ExtendedFieldDefinition } from '~core/erm';
-import { Supplier } from '~core/erm3/models';
+import { AppImage, Comment, CommentService, ERM } from '~core/erm';
+import { Supplier, Vote } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -32,7 +23,16 @@ import { AutoUnsub, translate } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
-	@Input() supplier: Supplier;
+	private _supplier: Supplier;
+	vote$: Observable<Vote>;
+	@Input()
+	set supplier(value: Supplier) {
+		this._supplier = value;
+	}
+	get supplier() {
+		return this._supplier;
+	}
+
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */
 	@Input() isPreview = true;
@@ -47,13 +47,11 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	ratingDashboard: ElementRef;
 
 	supplier$: Observable<Supplier>;
-	supplierDescirptor: SupplierDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
+	descriptor = descriptorMock;
 
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
 		private listHelper: ListHelperService,
@@ -62,38 +60,25 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		public dlgCommonSrv: DialogCommonService,
 		public translateService: TranslateService,
-		private apiSrv: ApiService
+		private apiSrv: ApiService,
+		public ratingSrv: RatingService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.supplierDescirptor = new SupplierDescriptor([
-			'name',
-			ERM.SUPPLIER_TYPE.singular,
-			'generalMOQ',
-			'generalLeadTime',
-			'country',
-			'address',
-			'harbour',
-			'incoTerm',
-			'website',
-			'officeEmail',
-			'officePhone',
-			'createdBy',
-			'creationDate',
-			'lastUpdatedBy',
-			'lastUpdatedDate',
-		]);
+		this.vote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id);
+	}
 
-		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"', sortBy: 'order' });
+	updateVote(vote: Observable<Vote>) {
+		this.vote$ = vote;
 	}
 
 	// UPDATE FUNCTIONS
-	updateSupplier(supplier: Supplier) {
-		const newSupplier = { ...supplier, id: this.supplier.id, _version: this.supplier._version };
-		this.listHelper.update(newSupplier);
-		this.supplier = newSupplier;
+	updateSupplier(supplierConfig: Supplier) {
+		const supplier = { ...supplierConfig, id: this.supplier.id };
+		this.listHelper.update(supplier);
+		this._supplier = supplier;
 	}
 
 	update(value: any, prop: string) {

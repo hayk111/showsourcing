@@ -3,13 +3,13 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
 import { CardModule } from '~shared/card';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { DividerModule } from '~shared/divider/divider.module';
-import { EditableFieldModule } from '~shared/editable-field';
+import { EditableModule } from '~shared/editable';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
@@ -31,7 +31,6 @@ import { CommentModule } from './comment/comment.module';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { ControllerTableModule } from './controller-table/controller-table.module';
 import { DialogModule } from './dialog/dialog.module';
-import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
 import { EntityPlaceholderModule } from './entity-placeholder/entity-placeholder.module';
 import { ERMModule } from './erm/erm.module';
 import { FileModule } from './file/file.module';
@@ -68,6 +67,7 @@ const modules = [
 	CommonModule,
 	ReactiveFormsModule,
 	HttpClientModule,
+	FormsModule,
 
 	// cdk modules
 	DragDropModule,
@@ -89,8 +89,7 @@ const modules = [
 	DescriptorModule,
 	DialogModule,
 	DividerModule,
-	DynamicFormsModule,
-	EditableFieldModule,
+	EditableModule,
 	EntityPlaceholderModule,
 	ERMModule,
 	FileModule,

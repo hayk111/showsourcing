@@ -224,7 +224,6 @@ export class ListPageService<T extends Entity, G extends GlobalServiceInterface<
 	// read comment on deleteOne function
 	deleteSelected(refetch = false) {
 		const itemIds = this.selectionSrv.getSelectedIds();
-		// TODO i18n + erm pipe
 		const text =
 			`Delete ${itemIds.length} ` +
 			(itemIds.length <= 1

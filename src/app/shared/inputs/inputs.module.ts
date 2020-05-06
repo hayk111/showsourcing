@@ -14,8 +14,6 @@ import {
 	LabelComponent,
 	TextareaAutoGrowsDirective,
 	FormFieldControlDirective,
-	InputPackagingComponent,
-	InputPriceComponent,
 	FocusableDirective
 } from '~shared/inputs/components-directives';
 import { UtilsModule } from '~shared/utils';
@@ -35,9 +33,6 @@ export const components = [
 	HintComponent,
 	ErrorComponent,
 	TextareaAutoGrowsDirective,
-	InputPriceComponent,
-	InputPackagingComponent,
-
 
 
 	RadioComponent,

@@ -58,15 +58,15 @@
 
 			<!-- remove this switch case when property is added (its already on default columns) -->
 			<ng-container *ngSwitchCase="'reference'">
-				<div class="bold-s color-warn"> Property on backend </div>
+				<div> {{ row?.reference }} </div>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'dueDate'">
-				<div class="bold-s color-warn"> Property on backend </div>
+				<div> {{ row?.dueDate || '-'}} </div>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'status'">
-				<div class="bold-s color-warn"> Property on backend </div>
+				<div> {{ row?.dueDate || '-'}}</div>
 			</ng-container>
 
 		</ng-container>

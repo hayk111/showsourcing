@@ -2,9 +2,9 @@
 
 	<header-details-title-app *ngIf="product">
 		<editable-container-app #edt [defaultStyle]="false" (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
-			<editable-display-app style="line-height: normal;">
+			<editable-value-app style="line-height: normal;">
 				{{ product?.name || ('message.unnamed-product' | translate) }}
-			</editable-display-app>
+			</editable-value-app>
 			<input inputApp type="text" #inpName [value]="product?.name" (keyup.enter)="edt.close()">
 		</editable-container-app>
 		<!-- {{ product?.name || ('message.unnamed-product' | translate) }} -->

@@ -2,14 +2,15 @@
 	background: white;
 	display: block;
 	cursor: pointer;
-	padding: var(--spacing-s);
+	height: 30px;
+	padding-right: var(--spacing-s);
   border: 1px solid var(--color-divider);
 	border-radius: var(--border-radius);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 
-	&.disabled {
+	&.disabled, &.readonly {
 		cursor: default;
 		background: var(--color-secondary-light);
 		color: var(--color-txt-primary);

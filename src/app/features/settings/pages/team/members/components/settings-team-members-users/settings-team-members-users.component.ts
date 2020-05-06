@@ -9,9 +9,7 @@ import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { FilterService } from '~core/filters/filter.service';
-import { DialogService } from '~shared/dialog/services';
-import { InviteUserDlgComponent } from '~common/dialogs/custom-dialogs/invite-user-dlg/invite-user-dlg.component';
-import { ApiService } from '~core/erm3/services/api.service';
+import { MembersInvitationService } from '../../services/members-invitation.service';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -34,19 +32,18 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	constructor(
 		private featureSrv: SettingsMembersService,
 		public listHelper: ListFuseHelperService,
-		private dlgSrv: DialogService,
-		private apiSrv: ApiService,
 		public filterSrv: FilterService,
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<TeamUser>,
 		private translate: TranslateService,
-		public selectionSrv: SelectionService
+		public selectionSrv: SelectionService,
+		public membersInvitationSrv: MembersInvitationService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.filterSrv.setup([], ['name']);
+		this.filterSrv.setup([], ['user.firstName']);
 		this.listHelper.setup('TeamUser', 'Team'); // search initialized in controller-table
 
 		this.viewSrv.setup({
@@ -62,24 +59,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 				this.teamOwner = teamOwner;
 				this.user = <User>user;
 			});
-	}
-
-	/** Opens the dialog for inviting a new user */
-	openInviteDialog() {
-		this.dlgSrv
-			.open(InviteUserDlgComponent, {
-				typename: 'Invitation',
-				extra: {},
-			})
-			.data$.pipe(
-				switchMap((entity) => {
-					return this.apiSrv.create('Invitation', {
-						...entity,
-						teamRole: 'TEAMOWNER'
-					});
-				})
-			)
-			.subscribe();
 	}
 
 	updateAccessType({

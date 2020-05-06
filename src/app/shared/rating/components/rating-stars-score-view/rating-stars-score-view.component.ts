@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { RatingService, Vote } from '~shared/rating/services/rating.service';
+import { RatingService } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-stars-score-view-app',
@@ -9,16 +10,16 @@ import { RatingService, Vote } from '~shared/rating/services/rating.service';
 })
 export class RatingStarsScoreViewComponent {
 
-	private _votes: Vote[];
-	@Input() set votes(votes: Vote[]) {
-		this._votes = votes;
+	private _vote: Vote;
+	@Input() set vote(vote: Vote) {
+		this._vote = vote;
 		this.setValues();
 	}
-	get votes() {
-		return this._votes;
+	get vote() {
+		return this._vote;
 	}
 
-	/** map that contains the key and values of the stars -> [ rate-star, number-votes ] */
+	/** map that contains the key and values of the stars -> [ rate-star, number-vote ] */
 	votesMap: Map<number, number>;
 	totalVotes = 1;
 	score = 0;
@@ -36,13 +37,12 @@ export class RatingStarsScoreViewComponent {
 	 * sets votesmap, total values and score
 	 */
 	private setValues() {
-		this.totalVotes = this.votes && this.votes.length;
 		// creates a new map [ [1, 0] ... [5, 0] ]
 		this.votesMap = new Map(Array.from({ length: 5 }, (x, i) => ([i + 1, 0])));
 		// we increate the total votes inside the switchase instead of doing totalVotes = votes.length
 		// because sometimes we have votes that have score 0 and we don't want those to be in the total
-		(this.votes || []).forEach(vote => {
-			switch (vote.value) {
+		if (this._vote) {
+			switch (this._vote.rating || this._vote) {
 				case 20:
 					this.votesMap.set(1, this.votesMap.get(1) + 1);
 					break;
@@ -59,8 +59,10 @@ export class RatingStarsScoreViewComponent {
 					this.votesMap.set(5, this.votesMap.get(5) + 1);
 					break;
 			}
-		});
-		this.score = this.ratingSrv.computeScoreVotes(this.votes);
+			this.score = this.vote.rating;
+		} else {
+			this.score = 0;
+		}
 		this.cdr.markForCheck();
 	}
 

@@ -18,7 +18,7 @@ export class DescriptorService {
 					validators.push(Validators.required);
 				}
 				ctrls[prop.definition.name] = [
-					prop.defaultValue || null,
+					prop.defaultValue ? JSON.parse(prop.defaultValue) : null,
 					...validators
 				];
 			})
@@ -30,21 +30,21 @@ export class DescriptorService {
 		const obj = {};
 		descriptor.sections
 			.forEach(section => section.properties.forEach(prop => {
-				obj[prop.definition.name] = prop.defaultValue || null;
+				obj[prop.definition.name] = prop.defaultValue ? JSON.parse(prop.defaultValue) : null;
 			}));
 		return obj;
 	}
 
-	propertiesToObject(properties: Property[]): {} {
+	propertiesToObject(properties: Property[] = []): {} {
 		const obj = {};
 		properties.forEach(prop => {
-			obj[prop.name] = prop.value;
+			obj[prop.name] = JSON.parse(prop.value);
 		});
 		return obj;
 	}
 
 	objectToProperties(obj: {}): Property[] {
 		return Object.entries(obj)
-		.map(([name, value]) => ({ name,  value }));
+		.map(([name, value]) => ({ name,  value: JSON.stringify(value) }));
 	}
 }

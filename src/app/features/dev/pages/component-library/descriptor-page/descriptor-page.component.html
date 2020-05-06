@@ -1,13 +1,13 @@
 <div class="flex">
 	<card-app class="mg-l">
 		<card-title-app>Costumize it</card-title-app>
-		<!-- <checkbox-app
+		<checkbox-app
 			class="mg-v-ms"
 			[value]="style === 'form'"
 			(check)="style = 'form'"
 			(uncheck)="style = 'editable'">
 			Form style
-		</checkbox-app> -->
+		</checkbox-app>
 
 		<checkbox-app
 			class="mg-v-ms"
@@ -64,9 +64,11 @@
 		[showRequiredMarker]="showRequiredMarker"
 		(update)="properties = $event">
 	</dynamic-form2-app>
-	valid ? {{ form.valid }}
 
-	<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
-	<button [disabled]="!form.valid">submit</button>
+	<div class="mg-v-ms">
+		valid ? {{ form.valid }}
+		<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
+		<button [disabled]="!form.valid">submit</button>
+	</div>
 </card-app>
 

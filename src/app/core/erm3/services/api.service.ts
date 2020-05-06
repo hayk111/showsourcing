@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
 import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'apollo-client';
 import { from, Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, tap, take, startWith } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { uuid } from '~utils';
 import { log } from '~utils/log';
@@ -13,6 +13,7 @@ import { Typename } from '../typename.type';
 import { client } from './client';
 import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
+import gql from 'graphql-tag';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	response$: Observable<any>;
@@ -40,8 +41,8 @@ export interface FilterParams {
 	skip?: number;
 }
 
-export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'variables' | 'query'>>;
-export type ApiMutationOption = Partial<Omit<MutationOptions, 'variables' | 'mutation'>>;
+export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'query'>>;
+export type ApiMutationOption = Partial<Omit<MutationOptions, 'mutation'>>;
 
 /**
  * service to do crud operations on entities
@@ -103,7 +104,8 @@ export class ApiService {
 		delete options.variables.input?.__typename;
 		return from(client.mutate(options)).pipe(
 			map(({ data }) => data[queryName] || data), // if we use aliases, there is no queryName
-			tap((data) => ApiLogger.logResponse(options, data))
+			tap((data) => ApiLogger.logResponse(options, data)),
+			take(1)
 		);
 	}
 
@@ -139,13 +141,12 @@ export class ApiService {
 	searchBy<T>(
 		typename: Typename,
 		variables: FilterParams = {},
-		apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
+		apiOptions: ApiQueryOption = { fetchPolicy: 'cache-and-network' },
 		byTypeName: Typename = 'Team',
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
-		if (!variables.sort?.direction)
-			variables.sort = {property: 'createdAt', direction: 'DESC'};
+		if (!variables.sort?.direction) variables.sort = { property: 'createdAt', direction: 'DESC' };
 
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
 
@@ -178,11 +179,39 @@ export class ApiService {
 		apiOptions: ApiQueryOption = {}
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
+		options.variables = { ...options.variables, byId, limit: 10000 };
+		const queryFn = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
+		options.query = queryFn(byProperty);
 		options.variables = { byId, limit: 10000 };
-		const queryBuilder = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
-		options.query = queryBuilder(byProperty);
 		return this.query<T[]>(options);
 	}
+
+		/////////////////////////////
+	//         LIST            //
+	/////////////////////////////
+	/**
+	 * Query many entities
+	 * (Query, optimistic UI)
+	 * @param typename: the type listed
+	 * @param variables: variables for filtering, sorting, and paginate
+	 * @param options: apollo options, variable and query will be overrided
+	 */
+	// list<T>(
+	// 	typename: Typename,
+	// 	variables: FilterParams = {},
+	// 	apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
+	// ): ObservableQuery<T[]> {
+	// 	const options = apiOptions as WatchQueryOptions;
+	// 	if (!variables.sort?.direction)
+	// 		variables.sort = { property: 'createdAt', direction: 'DESC' };
+
+	// 	const query = QueryPool.getQuery(typename, QueryType.LIST);
+
+	// 	options.query = query;
+	// 	options.variables = variables;
+
+	// 	return this.query(options, true);
+	// }
 
 	/////////////////////////////
 	//        SYNC        //
@@ -238,7 +267,8 @@ export class ApiService {
 			entity.teamId = this._teamId;
 		}
 
-		options.variables = { input: { ...entity } };
+		entity.__typename = typename;
+		options.variables = { ...options.variables, input: { ...entity } };
 		return this.mutate(options);
 	}
 
@@ -259,20 +289,43 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
 		if (typename !== 'Company' && typename !== 'Team') {
+			entity._version = this._getCachedVersion(typename, entity.id);
 			entity.lastUpdatedAt = new Date().toISOString();
 			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
-		options.variables = { input: entity };
+		options.variables = { ...options.variables, input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
 		options.optimisticResponse = this.getOptimisticResponse(options);
 		return this.mutate(options);
 	}
 
-	/** Update many entities
-	 * @param typename: name of the entity we want to update
-	 * @param entities : entities we want to update
-	 * @param options: apollo options, variable and mutation will be overrided
+	/** Update the status of an entity (product | supplier | sample | task)
+	 * @param typename: name of the entity we want to change status
+	 * @param entityId: the id of the entity (product.id)
+	 * @param statusId: the id of the status we want to set to the entity
+	*/
+	updateStatus(
+		typename: Typename,
+		entityId: string,
+		statusId: string,
+		apiOptions: ApiMutationOption = {}
+	) {
+		const options = apiOptions as MutationOptions;
+		options.variables = { ...options.variables, entityId, statusId };
+		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE_STATUS);
+		// set inputs for optimistic response
+		// ? optimistic response not working
+		options.optimisticResponse = this.getOptimisticResponse(options);
+		return this.mutate(options);
+	}
+
+	/////////////////////////////
+
+	/** Update one entity
+	 * @param typename: name of the entity we want to create
+	 * @param entities : entities we want to create
+	 * @param options: apollo options, variable and query will be overrided
 	 */
 	updateMany<T extends Entity>(
 		typename: Typename,
@@ -312,12 +365,16 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.variables = {
+			...options.variables,
 			input: { id: entity.id, _version: entity._version },
 		};
-		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption' && typename !== 'Invitation') {
-			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
-			// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
-			options.variables.input.teamId = this._teamId;
+		if (typename !== 'Company' && typename !== 'Team') {
+			options.variables.input._version = this._getCachedVersion(typename, entity.id);
+			if ( typename !== 'PropertyOption' && typename !== 'Invitation') {
+				// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
+				// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
+				options.variables.input.teamId = this._teamId;
+			}
 		}
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
@@ -356,9 +413,14 @@ export class ApiService {
 	 **/
 	addToList(query: ObservableQuery, elem: any) {
 		const r: any = client.readQuery(query.options);
-		const items = r[query.queryName].items;
-		r[query.queryName].items = [elem, ...items.filter((item) => item.id !== elem.id)];
-		if (r[query.queryName].items.length === items.length + 1) r[query.queryName].total++;
+		const queryResult = r[query.queryName];
+		const items = queryResult.items;
+		queryResult.items = [
+			elem,
+			...items.filter((item) => item.id !== elem.id)
+		];
+		if (queryResult.items.length === items.length + 1)
+			queryResult.total++;
 		client.writeQuery({ ...query.options, data: r });
 	}
 
@@ -366,7 +428,7 @@ export class ApiService {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
 		const initialQueryLength = r[query.queryName].items;
-		r[query.queryName].items = items.filter(item => !ids.includes(item.id));
+		r[query.queryName].items = items.filter((item) => !ids.includes(item.id));
 		const totalDiff = initialQueryLength - r[query.queryName].items.length;
 		r[query.queryName].total -= totalDiff;
 		client.writeQuery({ ...query.options, data: r });
@@ -382,7 +444,9 @@ export class ApiService {
 		// if options.variables.input undefined, that means we have aliases
 		if (!options.variables.input) {
 			Object.values(options.variables).forEach((inputValue, i) => {
-				predicateResp['alias' + i] = { ...inputValue }; // the properties alias + i is matching the alias mutations from the query-builder
+				// for update many
+				// the properties alias + i is matching the alias mutations from the query-builder
+				predicateResp['alias' + i] = { ...inputValue };
 			});
 		} else {
 			predicateResp[queryName] = { ...options.variables.input };
@@ -391,6 +455,27 @@ export class ApiService {
 			__typename: 'Mutation',
 			...predicateResp,
 		};
+	}
+
+	/** get the _version of an entity from the cache */
+	private _getCachedVersion(typename: Typename, id: string): number {
+		let cachedItem: Entity;
+		const fragmentOptions = {
+			id: `${typename}:${id}`, // the id format registered in the apollo cache
+			fragment: gql`
+				fragment test on ${typename} {
+					id
+					_version
+				}
+			`,
+		};
+		try {
+			cachedItem = client.readFragment(fragmentOptions);
+		} catch (err) {
+			throw Error('The _version field must exist in the cache (_version have to be fetched)');
+		}
+		if (!cachedItem) throw Error(`this item (${typename}:${id}) doesn't exist in the cache.`);
+		return cachedItem._version;
 	}
 
 	/** check if a graphql call has given any error */

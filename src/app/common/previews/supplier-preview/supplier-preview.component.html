@@ -68,7 +68,7 @@
 		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>
-			<rating-badge-app class="pointer"	[votes]="supplier?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
+			<rating-badge-app class="pointer"	[vote]="vote$ | async" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
 			<div class="txt-btn capitalize" (click)="selectSecondTab('sample')">{{ ((supplier?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (supplier?.samplesLinked?.count || 0)} }}</div>
 			<div class="txt-btn capitalize" (click)="selectSecondTab('task')">{{ ((supplier?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (supplier?.tasksLinked?.count || 0)} }}</div>
 			<div class="txt-btn capitalize" (click)="selectThirdTab()">{{ ((supplier?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (supplier?.comments?.length || 0)} }}</div>
@@ -122,12 +122,12 @@
 
 	<!-- Supplier Details -->
 	<preview-section-app #contentTab1 [title]="'title.supplier-details' | translate">
-		<dynamic-form-app
-			[fields]="supplierDescirptor?.descriptor"
-			[config]="formConfig"
-			[value]="supplier"
-			(update)="updateSupplier($event)">
-		</dynamic-form-app>
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 
@@ -146,9 +146,9 @@
 	<preview-section-app #contentTab2 [title]="'title.supplier-owner' | translate">
 		<editable-container-app
 			[hasAction]="false"
-			[openOnClick]="false"
+			[readonly]="true"
 			(click)="sel?.selector?.openMenu()">
-			<editable-display-app>
+			<editable-value-app>
 				<selector-app
 					#sel
 					typename="User"
@@ -160,7 +160,7 @@
 					</div>
 					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
-				</editable-display-app>
+				</editable-value-app>
 		</editable-container-app>
 	</preview-section-app>
 
@@ -200,10 +200,10 @@
 	<!-- Rating -->
 	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
 		<rating-dashboard-app
-			[votes]="supplier?.votes"
-			[type]="erm.SUPPLIER.singular"
-			(update)="update($event, 'votes')"
-			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+			[vote]="vote$ | async"
+			[nodeId]="'supplier:' + supplier?.id"
+			(update)="updateVote($event)"
+			(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)">
 		</rating-dashboard-app>
 	</preview-section-app>
 
@@ -291,12 +291,12 @@
 
 	<!-- Supplier Details -->
 	<preview-section-app [title]="'title.supplier-details' | translate">
-		<dynamic-form-app
-			[config]="formConfig"
-			[fields]="supplierDescirptor?.descriptor"
-			[value]="supplier"
-			(update)="updateSupplier($event)">
-		</dynamic-form-app>
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 

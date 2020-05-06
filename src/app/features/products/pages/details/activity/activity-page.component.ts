@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { CommentService, ProductService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { Comment, Product } from '~core/erm';
-import { AutoUnsub } from '~utils';
+import { tap } from 'rxjs/operators';
+import { UserService } from '~core/auth';
+import { ApiService, Comment, ObservableQuery } from '~core/erm3';
+import { customQueries } from '~core/erm3/queries/custom-queries';
+import { AutoUnsub, uuid } from '~utils';
 
 
 
@@ -13,41 +13,41 @@ import { AutoUnsub } from '~utils';
 	selector: 'activity-page-app',
 	templateUrl: './activity-page.component.html',
 	styleUrls: ['./activity-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService
-	]
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityPageComponent extends AutoUnsub implements OnInit {
-	product$: Observable<Product>;
-	private product: Product;
+	listRef: ObservableQuery;
+	comments$: Observable<Comment[]>;
+	private nodeId: string;
 
 	constructor(
 		private route: ActivatedRoute,
-		private productSrv: ProductService,
-		private commentSrv: CommentService
+		private apiSrv: ApiService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
-			map(params => params.id)
-		);
-		this.product$ = id$.pipe(
-			switchMap(id => this.productSrv.selectOne(id)),
-			tap(product => this.product = product)
-		);
+		const id = this.route.snapshot.parent.params.id;
+		this.nodeId = `Product:${id}`;
+		this.listRef = this.apiSrv.query<Comment[]>({
+				query: customQueries.comments,
+				variables: { nodeId: this.nodeId }
+			}, true);
+		this.comments$ = this.listRef.data$;
 	}
 
-	sendComment(text: string) {
-		const comment = new Comment({ text });
-		const commentUser = { ...comment };
-		const comments = [...(this.product.comments || [])];
-		comments.push(commentUser);
-		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.productSrv.update({ id: this.product.id, comments }))
-		).subscribe();
+	sendComment(message: string) {
+		const comment: Comment = {
+			message,
+			nodeId: this.nodeId
+		};
+		this.apiSrv.create<Comment>('Comment', comment)
+			.subscribe(_ => this.listRef.refetch());
+	}
+
+	onCommentDeleted(comment: Comment) {
+		this.apiSrv.deleteManyFromList(this.listRef, [comment.id]);
 	}
 
 

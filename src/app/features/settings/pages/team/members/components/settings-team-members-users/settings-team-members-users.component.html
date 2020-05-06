@@ -5,27 +5,25 @@
 	[hasFilters]="false">
 	<controller-table-content-app>
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
-			<button (click)="openInviteDialog()" i18n="@@invite-team-member">Invite Team Member</button>
+			<button (click)="membersInvitationSrv.openInvitationDlg()">Invite Team Member</button>
 		</div>
 
 		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
 			<context-menu-trigger-app class="button flex pointer">
-				<div class="text capitalize" i18n="@@selection">selection</div>
+				<div class="text capitalize">selection</div>
 				<div class="selector"><icon-app name="angle-down"></icon-app></div>
 			</context-menu-trigger-app>
 			<context-menu-item-app
-				(click)="updateAccessTypeSelected({ accessType: 'TeamMember' })"
-				i18n="@@team-member">
+				(click)="updateAccessTypeSelected({ accessType: 'TeamMember' })">
 				Team Member
 			</context-menu-item-app>
 			<context-menu-item-app
-				(click)="updateAccessTypeSelected({ accessType: 'Contributor' })"
-				i18n="@@contributor">
+				(click)="updateAccessTypeSelected({ accessType: 'Contributor' })">
 				contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
 			<context-menu-item-warn-app class="remove-user" (click)="listHelper.deleteSelected()">
-				<span i18n="@@remove-user">Remove User</span>
+				<span>Remove User</span>
 			</context-menu-item-warn-app>
 		</context-menu-app>
 	</controller-table-content-app>

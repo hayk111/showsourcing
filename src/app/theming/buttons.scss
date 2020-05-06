@@ -31,7 +31,7 @@ button, input[type="submit"], .button {
 	font-family: inherit;
 	white-space: nowrap;
 	text-align: center;
-	transition: 0.3s;
+	transition: background 0.3s;
 
 
 	height: 32px;
@@ -129,7 +129,7 @@ button, input[type="submit"], .button {
 	}
 
 	&.icon.big {
-		width: 36px;
+		width: 64px;
 		height: 36px;
 		icon-app {
 			font-size: var(--font-size-l);
@@ -147,7 +147,7 @@ button, input[type="submit"], .button {
 }
 
 .txt-btn {
-	transition: 0.3s;
+	transition: background 0.3s;
 	cursor: pointer;
 	&:hover {
 		// we always want to replace the color when hovering, no matter what
@@ -159,7 +159,7 @@ button, input[type="submit"], .button {
 
 .clickable, .hoverable {
 	cursor: pointer;
-	transition: 0.3s;
+	transition: background 0.3s;
 	&:hover {
 		background: var(--color-hover);
 	}

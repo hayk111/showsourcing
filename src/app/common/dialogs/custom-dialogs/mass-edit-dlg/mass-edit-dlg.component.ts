@@ -7,11 +7,9 @@ import {
 } from '~core/erm';
 import { EntityMetadata, ERM, ExtendedFieldDefinition, EntityName } from '~core/erm';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { DynamicField } from '~shared/dynamic-forms';
 import { ToastService, ToastType } from '~shared/toast';
-import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, uuid } from '~utils';
-import { ProductDescriptor } from '~core/descriptors';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,11 +23,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	@Input() type: EntityMetadata;
 	@Input() items: any[];
 
-	dynamicFields: DynamicField[];
 	erm = ERM;
-	choice$: ReplaySubject<DynamicField> = new ReplaySubject<DynamicField>(1);
 	definitions$: Observable<ExtendedFieldDefinition[]>;
-	private _productDescriptor: ProductDescriptor;
 	value: any;
 	like = false;
 	dislike = false;
@@ -45,63 +40,10 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	) { super(); }
 
 	ngOnInit() {
-		switch (this.type) {
-			case ERM.PRODUCT:
-				this._productDescriptor = new ProductDescriptor([
-					'name', 'assignee', 'description', 'category', 'supplier', 'price', 'event', 'tags', 'extendedFields',
-					'innerCarton', 'masterCarton', 'minimumOrderQuantity', 'moqDescription', 'votes', 'samplePrice', 'projects',
-					'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC', 'incoTerm', 'harbour', 'status'
-				]);
-				// TODO check placeholder is the same
-				this._productDescriptor.modify([
-					{ name: 'assignee', metadata: { placeholder: this.translate.instant('placeholder.choose-assignee'), width: 500 } },
-					{
-						name: 'category', metadata: {
-							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.CATEGORY.singular')}`,
-							width: 500
-						}
-					},
-					{
-						name: 'supplier', metadata: {
-							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.SUPPLIER.singular')}`,
-							width: 500
-						}
-					},
-					{
-						name: 'event', metadata: {
-							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.EVENT.singular')}`,
-							width: 500
-						}
-					},
-					{
-						name: 'tags', metadata: {
-							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.TAG.plural')}`,
-							width: 500
-						}
-					},
-					{
-						name: 'projects', metadata: {
-							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.PROJECT.plural')}`,
-							width: 500
-						}
-					},
-					{ name: 'incoTerm', metadata: { width: 500 } },
-					{ name: 'harbour', metadata: { width: 500 } }
-				]);
-				this.dynamicFields = this._productDescriptor.descriptor;
-				this.definitions$ = this.extendedFDSrv.queryAll(undefined, {
-					query: 'target == "Product"',
-					sortBy: 'order',
-					descending: false
-				});
-				break;
-			default: throw Error(`No DynamicField associated to this ERM ${this.type}`);
-		}
+
 	}
 
 	updateChoice(choice) {
-		const temp = this.dynamicFields.find(field => field.label === choice || field.name === choice);
-		this.choice$.next(temp || null);
 		this.value = null;
 	}
 
@@ -118,24 +60,24 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	// TODO extract update logic
 	update() {
 		this.pending = true;
-		this.choice$.pipe(
-			takeUntil(this._destroy$),
-			map(choice => this.mapItems(choice)),
-			switchMap(items => this.productSrv.updateMany(items))
-		).subscribe(_ => {
-			this.pending = true;
-			this.dlgSrv.close();
-			this.notificationSrv.add({
-				type: ToastType.SUCCESS,
-				title: this.translate.instant('title.multiple-edition'),
-				message: this.translate.instant('message.your-items-updated'),
-				timeout: 3500
-			});
-		});
+		// this.choice$.pipe(
+		// 	takeUntil(this._destroy$),
+		// 	map(choice => this.mapItems(choice)),
+		// 	switchMap(items => this.productSrv.updateMany(items))
+		// ).subscribe(_ => {
+		// 	this.pending = true;
+		// 	this.dlgSrv.close();
+		// 	this.notificationSrv.add({
+		// 		type: ToastType.SUCCESS,
+		// 		title: this.translate.instant('title.multiple-edition'),
+		// 		message: this.translate.instant('message.your-items-updated'),
+		// 		timeout: 3500
+		// 	});
+		// });
 
 	}
 
-	private mapItems(choice: DynamicField) {
+	private mapItems(choice: any) {
 		const prop = choice.name;
 		let mapped;
 		// checks if the type needs to update the id's so they don't share the same entity (Price, ExtendedField, Packaging)

@@ -1,38 +1,21 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+	EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { first, switchMap, tap } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProductDescriptor } from '~core/descriptors';
-import {
-	AppImage,
-	Comment,
-	CommentService,
-	ERM,
-	ExtendedFieldDefinition,
-	Sample,
-	Task,
-} from '~core/erm';
-import { Product } from '~core/erm3/models';
+import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
+import { Product, Vote } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, PendingImage } from '~utils';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -42,9 +25,11 @@ import { AutoUnsub, PendingImage } from '~utils';
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
-	private _product: Product;
+	private _product: any;
+	vote$: Observable<Vote>;
+
 	@Input()
-	set product(value: Product) {
+	set product(value: any) {
 		this._product = value;
 	}
 	get product() {
@@ -73,15 +58,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false })
 	ratingDashboard: ElementRef;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
-
-	/** this is the fully loaded product */
-	productDescriptor1: ProductDescriptor;
-	productDescriptor2: ProductDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
-	erm = ERM;
-
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-
+	descriptor = descriptorMock;
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
@@ -92,56 +69,23 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private apiSrv: ApiService,
 		private router: Router,
 		private commentSrv: CommentService,
-		private previewSrv: PreviewService
+		private previewSrv: PreviewService,
+		public ratingSrv: RatingService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.productDescriptor1 = new ProductDescriptor([
-			'name',
-			'reference',
-			'supplier',
-			'supplier-reference',
-			'price',
-			'category',
-			'event',
-			'minimumOrderQuantity',
-			'moqDescription',
-			'assignee',
-		]);
-		this.productDescriptor1.modify([
-			{ name: 'reference', label: 'item-reference' },
-			{ name: 'supplier', metadata: { hasBadge: false } },
-			{ name: 'event', label: 'trade-show', metadata: { hasBadge: false } },
-		]);
+		this.vote$ = this.ratingSrv.getUserVote('product:' + this._product.id);
+	}
 
-		this.productDescriptor2 = new ProductDescriptor([
-			'innerCarton',
-			'masterCarton',
-			'priceMatrix',
-			'sample',
-			'samplePrice',
-			'incoTerm',
-			'harbour',
-			'masterCbm',
-			'quantityPer20ft',
-			'quantityPer40ft',
-			'quantityPer40ftHC',
-		]);
-		// this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
-		// this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
-
-		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
-		// 	query: 'target == "Product"',
-		// 	sortBy: 'order',
-		// 	descending: false
-		// });
+	updateVote(vote: Observable<Vote>) {
+		this.vote$ = vote;
 	}
 
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
-		const product = { ...productConfig, id: this._product.id, _version: this._product._version };
+		const product = { ...productConfig, id: this._product.id };
 		this.listHelper.update(product);
 		this._product = product;
 	}

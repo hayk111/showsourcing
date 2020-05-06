@@ -1,9 +1,16 @@
 <h2 class="l">Comments</h2>
-
-<ng-container *ngIf="product$ | async as product; else spinner">
-	<add-comment-app #comment (added)="sendComment($event)"></add-comment-app>
-	<divider-app *ngIf="product.comments.length > 0"></divider-app>
-	<comment-list-app [amountViewMore]="8" [comments]="product.comments" sizeLogo="xxl" (addComment)="comment?.focus()"></comment-list-app>
+<ng-container *ngIf="comments$ | async as comments; else spinner">
+	<add-comment-app #comment 
+		(added)="sendComment($event)">
+	</add-comment-app>
+	<divider-app *ngIf="comments.length > 0"></divider-app>
+	<comment-list-app 
+		sizeLogo="xxl" 
+		[amountViewMore]="8" 
+		[comments]="comments"
+		(addComment)="comment?.focus()"
+		(deleted)="onCommentDeleted($event)">
+	</comment-list-app>
 </ng-container>
 
 <ng-template #spinner>

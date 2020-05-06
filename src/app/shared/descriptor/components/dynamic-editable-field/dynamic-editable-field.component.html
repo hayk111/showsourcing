@@ -1,3 +1,255 @@
-<p>
-  dynamic-editable-field works!
-</p>
+
+<ng-container [ngSwitch]="descriptor.definition.type">
+
+	<!-- STRING -->
+	<ng-container *ngSwitchDefault>
+		<editable-field-app 
+			#edt 
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				inputApp
+				#inp
+				type="text"
+				[required]="descriptor.required"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field-app>
+	</ng-container>
+
+	
+	<!-- INT -->
+	<ng-container *ngSwitchCase="type.INT">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				type="number"
+				[value]="control.value"
+				[required]="descriptor.required"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field-app>
+	</ng-container>
+
+	<!-- TEL -->
+	<ng-container *ngSwitchCase="type.TEL">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				restrictInput="tel"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field-app>
+	</ng-container>
+
+	<!-- EMAIL -->
+	<ng-container *ngSwitchCase="type.EMAIL">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				type="email"
+				restrictInput="email"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field-app>
+	</ng-container>
+
+	<!-- COLOR -->
+	<ng-container *ngSwitchCase="type.COLOR">
+		<editable-field-app 
+			#edt 
+			[clickableReadonly]="!descriptor.readonly"
+			[readonly]="true"
+			(click)="inp.click()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>
+				<div 
+					class="color-square"
+					[ngStyle]="{ 'background': control.value }">
+				</div>
+			</editable-value-app>
+		</editable-field-app>
+		<input 
+			#inp
+			inputApp
+			type="color"
+			[hidden]="true"
+			[readonly]="descriptor.readonly"
+			[formControl]="control"
+			(keyup.enter)="edt.save()"/>
+	</ng-container>
+
+	<!-- DATE -->
+	<ng-container *ngSwitchCase="type.DATE">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				type="date"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field-app>
+	</ng-container>
+
+	<!-- FLOAT -->
+	<ng-container *ngSwitchCase="type.FLOAT">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				restrictInput="decimal"
+				type="number"
+				step="any"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field-app>
+	</ng-container>
+
+	
+	<!-- TEXTAREA -->
+	<ng-container *ngSwitchCase="type.TEXTAREA">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<textarea 
+				#inp
+				inputApp
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control">
+			</textarea>
+		</editable-field-app>
+	</ng-container>
+
+	<!-- CHECKBOX -->
+	<ng-container *ngSwitchCase="type.CHECKBOX">
+		<editable-field-app 
+			#edt
+			[readonly]="true"
+			[clickableReadonly]="!descriptor.readonly"
+			(click)="toggleValue()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>
+				<checkbox-app 
+					[readonly]="true" 
+					[value]="control.value">
+				</checkbox-app>
+			</editable-value-app>
+		</editable-field-app>
+	</ng-container>
+
+	<!-- PRICE -->
+	<ng-container *ngSwitchCase="type.PRICE">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()"
+			(opened)="priceInput.focus()">
+			<editable-label-app>
+				{{ descriptor.definition.label }}
+			</editable-label-app>
+			<editable-value-app>
+				{{ control?.value?.amount }} 
+				{{ control?.value?.currency }}
+			</editable-value-app>
+			<input-price-app
+				#priceInput 
+				[inline]="true"
+				[readonly]="descriptor.readonly"
+				[formControl]="control">
+			</input-price-app>
+		</editable-field-app>
+	</ng-container>
+
+	<!-- PRICE MATRIX -->
+	<ng-container *ngSwitchCase="type.PRICE_MATRIX">
+		<h3 class="mg-v-ms">{{ descriptor.definition.label }}</h3>
+		<editable-price-matrix-app
+			[readonly]="descriptor.readonly"
+			[formControl]="control"
+			[required]="descriptor.required">
+		</editable-price-matrix-app>
+	</ng-container>
+
+	<!-- PACKAGING -->
+	<ng-container *ngSwitchCase="type.PACKAGING">
+		<h3 class="mg-v-ms">{{ descriptor.definition.label }}</h3>
+		<editable-packaging-app
+			[readonly]="descriptor.readonly"
+			[formControl]="control"
+			[required]="descriptor.required">
+		</editable-packaging-app>
+	</ng-container>
+
+	<!-- SELECTOR -->
+	<ng-container *ngSwitchCase="type.SELECTOR">
+		<editable-field-app 
+			[readonly]="true"
+			[clickableReadonly]="!descriptor.readonly"
+			(click)="sel.openMenu()">
+			<editable-label-app>
+				{{ descriptor.definition.label }}
+			</editable-label-app>
+			<editable-value-app>
+				<selector-app 
+					#sel
+					[typename]="descriptor.definition.selectorSettings.type"
+					[customType]="descriptor.definition.selectorSettings.propertyOptionType"
+					[readonly]="descriptor.readonly"
+					[required]="descriptor.required"
+					[formControl]="control">
+					<span>{{ control.value }}</span>
+				</selector-app>
+			</editable-value-app>		
+		</editable-field-app>
+
+	</ng-container>
+
+</ng-container>
+
+

@@ -10,6 +10,7 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentComponent } from './comment/comment.component';
 import { ERMModule } from '~shared/erm/erm.module';
+import { UtilsModule } from '~shared/utils';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ERMModule } from '~shared/erm/erm.module';
 		TranslateModule,
 		UserPictureModule,
 		LogoModule,
-		ERMModule
+		ERMModule,
+		UtilsModule
 	],
 	declarations: [
 		CommentComponent,

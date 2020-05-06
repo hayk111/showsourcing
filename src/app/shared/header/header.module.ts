@@ -6,7 +6,7 @@ import { BadgeModule } from '~shared/badge';
 import { CardModule } from '~shared/card';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { DividerModule } from '~shared/divider/divider.module';
-import { EditableFieldModule } from '~shared/editable-field';
+import { EditableModule } from '~shared/editable';
 import { FiltersModule } from '~shared/filters/filters.module';
 import { IconsModule } from '~shared/icons';
 import { ListModule } from '~shared/list/list.module';
@@ -40,7 +40,7 @@ import { LogoModule } from '~shared/logo/logo.module';
 		CardModule,
 		ContextMenuModule,
 		DividerModule,
-		EditableFieldModule,
+		EditableModule,
 		FiltersModule,
 		FormsModule,
 		IconsModule,

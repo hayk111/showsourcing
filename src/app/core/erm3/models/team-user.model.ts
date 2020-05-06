@@ -11,9 +11,6 @@ export class TeamUser extends Entity<TeamUser> {
 	team?: Team;
 	user?: User;
 	role?: 'TEAMOWNER' | 'TEAMMEMBER' | 'TEAMVIEWER';
-	_version?: number;
-	_deleted?: boolean;
-	_lastChangedAt?: number;
 }
 
 // TODO mission audits
