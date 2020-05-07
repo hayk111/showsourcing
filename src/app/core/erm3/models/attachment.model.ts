@@ -11,4 +11,5 @@ export class Attachment extends Entity<Attachment> {
 	url?: string | null;
 	size?: number | null;
 	deleted?: boolean;
+	nodeId?: string;
 }

@@ -11,4 +11,5 @@ export class Image extends Entity<Image> {
 	fileName?: string;
 	orientation?: number;
 	imageType?: 'JPG' | 'PNG' | 'GIF';
+	nodeId?: string;
 }

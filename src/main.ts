@@ -14,8 +14,7 @@ console.log(`%c 🎱 App version: ${environment.version}, code salomon`, 'color:
 
 /** AWS CONFIGURATION START */
 import Amplify from 'aws-amplify';
-import awsconfig from '../generated/aws-exports';
-Amplify.configure(awsconfig);
+Amplify.configure(environment.awsConfig);
 /** END */
 
 if (environment.production) {
