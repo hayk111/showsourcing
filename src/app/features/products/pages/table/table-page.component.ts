@@ -58,7 +58,7 @@ export class TablePageComponent implements OnInit {
 	}
 
 	addProject() {
-		this.dialogCommonSrv.openSelectionDlg('Project', this.selectionSrv.getSelectedValues());
+		// this.dialogCommonSrv.openSelectionDlg('Project', this.selectionSrv.getSelectedValues());
 		// TODO add the correct logic for submit
 	}
 

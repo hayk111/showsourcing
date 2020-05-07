@@ -20,8 +20,10 @@ export class QueryPool {
 		Industry: new BaseQueries('Industry'),
 		Invitation: new BaseQueries('Invitation', 'id email status _version'),
 		// tslint:disable-next-line:max-line-length
-		Product: new BaseQueries('Product', 'id name _version favorite category { name } supplier { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
-		Project: new BaseQueries('Project', 'id name _version dueDate status { name } createdBy { firstName lastName } createdAt'),
+		Product: new BaseQueries('Product', ProductQueries.defaultFields),
+		// tslint:disable-next-line:max-line-length
+		Project: new BaseQueries('Project', `id name _version dueDate createdBy { firstName lastName } createdAt`),
+		ProjectProduct: new BaseQueries('ProjectProduct', 'id projectId productId'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
 		// tslint:disable-next-line:max-line-length
 		Supplier: new BaseQueries('Supplier', 'id name _version favorite category { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),

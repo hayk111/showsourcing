@@ -252,7 +252,10 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			if (typename !== 'Invitation') { // temporary solution for invitations only id and createdAt are not needed
 				entity.id = uuid();
-				entity.createdAt = new Date().toISOString();
+
+				if (typename !== 'ProjectProduct') {
+					entity.createdAt = new Date().toISOString();
+				}
 			}
 
 			// entity.createdByUserId = this._userId;

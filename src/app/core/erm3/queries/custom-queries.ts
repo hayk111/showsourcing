@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-
+import { ProductQueries } from './custom/product.queries';
 
 export const customQueries = {
 	comments: gql(`query listComments($nodeId: String) {
@@ -10,6 +10,18 @@ export const customQueries = {
 	votes: gql(`query listVotes($nodeId: String, $filter: ModelVoteFilterInput) {
 		listVoteByNode(nodeId: $nodeId, filter: $filter){
 			items { id rating createdBy { id firstName lastName } createdAt _version }
+		}
+	}`),
+	getProjectProducts: gql(`query GetProject($id: ID!) {
+		getProject(id: $id){
+			id
+			products {
+				items {
+					product {
+						${ProductQueries.defaultFields}
+					}
+				}
+			}
 		}
 	}`)
 };

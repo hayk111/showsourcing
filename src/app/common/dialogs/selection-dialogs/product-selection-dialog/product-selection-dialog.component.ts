@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { Product } from '~core/erm3/models';
 import { FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelperService, ListPageViewService, SelectionService, ExcludedService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 
@@ -15,7 +15,7 @@ import { AutoUnsub } from '~utils';
 	host: { class: 'table-dialog' }
 })
 export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit {
-	@Input() initialSelecteds: Product[] = [];
+	@Input() ignoredIds: string[] = [];
 
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
@@ -36,14 +36,16 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		private dlgSrv: DialogService,
 		public listHelper: ListHelperService,
 		public selectionSrv: SelectionService,
-		public viewSrv: ListPageViewService<Product>
+		public viewSrv: ListPageViewService<Product>,
+		private excludedSrv: ExcludedService
 	) {
 		super();
 	}
 
 	ngOnInit() {
+		this.excludedSrv.excludedIds = this.ignoredIds;
 		this.listHelper.setup('Product');
-		this.selectionSrv.selectAll(this.initialSelecteds);
+		// this.selectionSrv.selectAll(this.initialSelecteds);
 	}
 
 	// submit() {
