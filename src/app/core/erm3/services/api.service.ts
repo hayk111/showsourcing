@@ -49,11 +49,7 @@ export type ApiMutationOption = Partial<Omit<MutationOptions, 'mutation'>>;
  */
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-	// set by UserService so we don't have circular dep
-	private _userId: string;
-	setUserId(id: string) {
-		this._userId = id;
-	}
+
 	// set by TeamService so we don't have circular dep
 	private _teamId: string;
 	setTeamId(id: string) {
