@@ -45,7 +45,11 @@ export class StatusQueries extends BaseQueries {
 			$statusId: ID!
 		) {
 			update${typename}Status(${typename.toLowerCase()}Id: $entityId, statusId: $statusId) {
-				${this.defaultFields}
+				id
+				name
+				status {
+					${this.defaultFields}
+				}
 			}
   	}`;
 	}
