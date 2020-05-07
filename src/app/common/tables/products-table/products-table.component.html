@@ -75,13 +75,13 @@
 					class="full-width"
 					[hasAction]="false"
 					(opened)="inp.focus()"
-					(closed)="listHelper.updateProperties(row?.id, inp.value)">
-					<editable-value-app>
+					(closed)="listHelper.updateProperties(row?.id, { price: inp.value.value, currency: inp.value.currency || 'USD'})">
+					<editable-value-app #price>
 						<price-app [price]="row | property:'price'" [currency]="row | property: 'currency'"></price-app>
 					</editable-value-app>
 					<input-price-app
 						#inp
-						[price]="row?.price"
+						[value]="{currency: price.currency, value: price.price}"
 						(keyup.enter)="editable.close()">
 					</input-price-app>
 				</editable-container-app>

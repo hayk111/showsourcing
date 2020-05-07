@@ -13,7 +13,11 @@ export class PropertyPipe implements PipeTransform {
 			const index = row.properties.findIndex(property => property.name === propertyName);
 
 			if (index !== -1) {
-				return index !== -1 ? row.properties[index].value : null;
+				if (row.properties[index]) {
+					return row.properties[index].value;
+				}
+
+				return null;
 			}
 		}
 
