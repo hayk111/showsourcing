@@ -12,6 +12,14 @@
 	&.readonly {
 		background: var(--color-secondary-light);
 	}
+	// add border color when focussed
+	&.focussed .currency-price, &.focussed .label{
+		border-color: var(--color-primary);
+	}
+	&.ng-invalid:not(.ng-untouched) .currency-price, 
+	&.ng-invalid:not(.ng-untouched) .label {
+		border-color: var(--color-warn);
+	}
 }
 
 .label {

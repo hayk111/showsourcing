@@ -41,7 +41,7 @@ export class AuthenticationService {
 	/** Amplify Auth for easy access */
 	private awsAuth = this.amplifySrv.auth();
 	/** State returned by amplifyAuth */
-	private authState: AuthState;
+	authState: AuthState;
 	authState$: Observable<AuthState> = this.amplifySrv.authStateChange$.pipe(
 		tap(state => this.authState = state),
 		tap(state => showsourcing.auth.state = state),

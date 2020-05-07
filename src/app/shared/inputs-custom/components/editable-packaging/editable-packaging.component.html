@@ -15,6 +15,7 @@
 		inputApp
 		type="number"
 		min="0" 
+		step="0.01"
 		[(ngModel)]="value.length"
 		[required]="required"
 		(keyup.enter)="edtLength.save()"
@@ -38,6 +39,7 @@
 		inputApp
 		type="number"
 		min="0" 
+		step="0.01"
 		[(ngModel)]="value.width"
 		[required]="required"
 		(keyup.enter)="edtWidth.save()"
@@ -61,6 +63,7 @@
 		inputApp
 		type="number"
 		min="0" 
+		step="0.01"
 		[(ngModel)]="value.height"
 		[required]="required"
 		(keyup.enter)="edtHeight.save()"
@@ -132,6 +135,7 @@
 		inputApp
 		type="number"
 		min="0" 
+		step="0.01"
 		[(ngModel)]="value.weight"
 		[required]="required"
 		(keyup.enter)="edtWeight.save()"
