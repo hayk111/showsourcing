@@ -59,7 +59,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private listHelper: ListHelperService,
 		public dlgCommonSrv: DialogCommonService,
-		private uploader: UploaderService,
+		private uploaderSrv: UploaderService,
 		private cd: ChangeDetectorRef,
 		private apiSrv: ApiService,
 		private router: Router,
@@ -114,7 +114,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 		const uuids: string[] = await this._addPendingImg(files);
 		this.cd.markForCheck();
-		this.uploader
+		this.uploaderSrv
 			.uploadImages(files, this.product)
 			.pipe(first())
 			.subscribe(

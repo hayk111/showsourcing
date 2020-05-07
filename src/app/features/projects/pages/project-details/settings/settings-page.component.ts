@@ -26,11 +26,10 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 
 	constructor(
-		private	router: Router,
 		private route: ActivatedRoute,
 		private projectSrv: ProjectService,
 		private fb: FormBuilder,
-		private uploader: UploaderService,
+		private uploaderSrv: UploaderService,
 		public translate: TranslateService
 	) {
 		super();
@@ -59,8 +58,9 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onNewFiles(files: File[]) {
-		this.uploader.uploadImages(files)
-			.subscribe(imgs => this.updateProject({ logoImage: imgs[0] }));
+		// this.uploaderSrv.uploadImages(files, this.nodeId)
+		// 	.onTempImages( tempImgs => do something with pending imgs)
+		// 	.subscribe(_ => do something when upload finishes)
 	}
 
 	updateProject(proj: Project) {

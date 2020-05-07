@@ -1,6 +1,6 @@
+import { Entity } from './_entity.model';
 
-export class User {
-	__typename ? = 'User';
+export class User extends Entity {
 	id?: string;
 	email?: string;
 	firstName?: string;
@@ -8,7 +8,6 @@ export class User {
 	phoneNumber?: string | null;
 	preferredLanguage?: 'EN' | 'FR' | 'CN';
 	avatar?: string | null;
-	createdAt?: number | null;
 	_version?: number;
 	_deleted?: boolean | null;
 	_lastChangedAt?: number;

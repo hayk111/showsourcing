@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
-import { UploaderService2 } from '~shared/file/services/uploader.service2';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Component({
 	selector: 'upload-page-app',
@@ -15,7 +15,7 @@ export class UploadPageComponent {
 	selectExample;
 	dropExample;
 
-	constructor(private uploadSrv: UploaderService2, private cd: ChangeDetectorRef) {}
+	constructor(private uploaderSrv: UploaderService, private cd: ChangeDetectorRef) {}
 
 	onFileSelect(files: File[]) {
 		if (!this.productSelected) {
@@ -23,14 +23,11 @@ export class UploadPageComponent {
 		}
 
 		this.uploading = true;
-		this.uploadSrv.uploadFiles(files, `Product:${this.productSelected.id}`)
-			.subscribe(r => {
-				if (r.pending) {
-					this.pendingFiles = r.files;
-				} else {
+		this.uploaderSrv.uploadFiles(files, `Product:${this.productSelected.id}`)
+			.onTempFiles(attachements => this.pendingFiles = attachements)
+			.subscribe(_ => {
 					this.uploading = false;
 					this.cd.detectChanges();
-				}
 			});
 	}
 
@@ -40,14 +37,11 @@ export class UploadPageComponent {
 		}
 
 		this.uploading = true;
-		this.uploadSrv.uploadImages(files, `Product:${this.productSelected.id}`)
-			.subscribe(r => {
-				if (r.pending) {
-					this.pendingImgs = r.files;
-				} else {
+		this.uploaderSrv.uploadImages(files, `Product:${this.productSelected.id}`)
+			.onTempImages(tempImgs => this.pendingImgs = tempImgs)
+			.subscribe(_ => {
 					this.uploading = false;
 					this.cd.detectChanges();
-				}
 			});
 	}
 

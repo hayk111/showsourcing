@@ -57,7 +57,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private apiSrv: ApiService,
-		private uploader: UploaderService,
+		private uploaderSrv: UploaderService,
 		private cd: ChangeDetectorRef,
 		private renderer: Renderer2
 	) {
@@ -65,7 +65,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.apiSrv.listBy();
+		// Todo get images waiting for filters
 	}
 
 	back(event) {
@@ -94,7 +94,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
-		this.uploader.uploadImages(files, this.nodeId)
+		this.uploaderSrv.uploadImages(files, this.nodeId)
 			.onTempImages(temp => this.images.push(...temp))
 			.subscribe(_ => this.uploaded.emit());
 		// index at the end for instant feedback

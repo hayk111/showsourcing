@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Attachment } from '~core/erm';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { defaultConfig } from '../default-columns/default-config';
 import { TableConfig, EntityTableComponent } from '../entity-table.component';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 
 const config: TableConfig = {
@@ -19,19 +19,11 @@ const config: TableConfig = {
 		'./attachments-table.component.scss',
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		UploaderFeedbackService
-	]
 })
 export class AttachmentsTableComponent extends EntityTableComponent<Attachment> implements OnInit {
 	@ViewChild('inpFile', { static: true }) inpFile: ElementRef<HTMLInputElement>;
 	@Input() linkedEntity;
-	@Input() set rows(attachments: Attachment[]) {
-		this.uploadFeedback.setFiles(attachments);
-	}
-	get rows() {
-		return this.uploadFeedback.getFiles();
-	}
+	@Input() rows: Attachment[];
 	@Output() upload = new EventEmitter<Attachment[]>();
 
 	tableConfig = config;
@@ -45,17 +37,17 @@ export class AttachmentsTableComponent extends EntityTableComponent<Attachment> 
 
 	constructor(
 		public translate: TranslateService,
-		protected uploadFeedback: UploaderFeedbackService,
+		protected uploader: UploaderService,
 	) { super(); }
 
 	ngOnInit() {
 		super.ngOnInit();
-		this.uploadFeedback.init({ linkedEntity: this.linkedEntity });
 	}
 
 	addFile(files: Array<File>) {
-		this.uploadFeedback.addFiles(files)
-			.subscribe(attachments => this.upload.emit(attachments));
+		// this.uploader.uploadFiles(files, this.nodeId)
+		// 	.onTempFiles(_ => do something with temp files)
+		// 	.subscribe(attachments => do something when upload finishes);
 	}
 
 	download(attachment: Attachment) {

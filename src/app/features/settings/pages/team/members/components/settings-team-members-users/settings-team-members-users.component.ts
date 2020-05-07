@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ERM, SelectParamsConfig, TeamUser, User } from '~core/erm';
+import { FilterService } from '~core/filters/filter.service';
+import { ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
-import { SelectionService, ListPageViewService } from '~core/list-page2';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
-import { FilterService } from '~core/filters/filter.service';
 import { MembersInvitationService } from '../../services/members-invitation.service';
 
 @Component({
@@ -57,7 +57,9 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(({ user, teamOwner }) => {
 				this.teamOwner = teamOwner;
-				this.user = <User>user;
+				// commenting this because of build errors,
+				// there is no good reason to still have erm imports here
+				// this.user = <User>user;
 			});
 	}
 
