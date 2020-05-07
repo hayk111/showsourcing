@@ -11,3 +11,9 @@ export class Invitation extends Entity<Invitation> {
 	status?: any;
 	secret?: string | null;
 }
+
+export enum InvitationStatus {
+	SENT = 'SENT',
+	ACCEPTED = 'ACCEPTED',
+	REFUSED = 'REFUSED'
+}

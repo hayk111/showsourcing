@@ -13,3 +13,25 @@ export class Export extends Entity<Export> {
 	documentUrl?: string | null;
 	errors?: Array<string | null> | null;
 }
+
+
+export enum ExportFormat {
+	XLS = 'XLS',
+	PDF = 'PDF',
+	IMAGE = 'IMAGE'
+}
+
+export enum ExportTarget {
+	SUPPLIER = 'SUPPLIER',
+	PRODUCT = 'PRODUCT',
+	CONTACT = 'CONTACT',
+	SAMPLE = 'SAMPLE'
+}
+
+export enum ExportStatus {
+	PENDING = 'PENDING',
+	PROCESSING = 'PROCESSING',
+	READY = 'READY',
+	ERROR = 'ERROR'
+}
+
