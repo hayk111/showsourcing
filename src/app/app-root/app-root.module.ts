@@ -6,14 +6,14 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2Module } from 'angulartics2';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { AmplifyService } from 'aws-amplify-angular';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
 import { CreationDialogsCommonModule } from '~common/dialogs/creation-dialogs/creation-dialogs-common.module';
 import { CustomDialogsCommonModule } from '~common/dialogs/custom-dialogs/custom-dialogs-common.module';
 import { SelectionDialogsCommonModule } from '~common/dialogs/selection-dialogs/selection-dialogs-common.module';
-import * as i18n from '~core/i18n/i18n.service';
+import { createTranslateLoader } from '~core/i18n/loader';
 import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.service';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 import { SharedModule } from '~shared/shared.module';
@@ -26,7 +26,6 @@ import { SharedModule } from '~shared/shared.module';
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
-		AmplifyAngularModule,
 		SharedModule,
 		CreationDialogsCommonModule,
 		SelectionDialogsCommonModule,
@@ -51,7 +50,7 @@ import { SharedModule } from '~shared/shared.module';
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
-				useFactory: i18n.HttpLoaderFactory,
+				useFactory: createTranslateLoader,
 				deps: [HttpClient]
 			},
 			// quick fix for having things nested

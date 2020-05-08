@@ -50,6 +50,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() definitionReference: ID;
 
 	@Output() menuClosed = new EventEmitter<any>();
+	@Output() menuOpened = new EventEmitter<any>();
 	@Output() update = new EventEmitter<any>();
 
 	// some times we want to focus the focus directive on the content inside the selector
@@ -90,6 +91,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			this.menuOpen = true;
 			this.cdr.markForCheck();
 		}
+		this.menuOpened.emit();
 	}
 
 	/** Closes the menu. */

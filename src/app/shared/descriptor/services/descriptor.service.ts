@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControlOptions } from '@ang
 import { Injectable } from '@angular/core';
 import { Descriptor } from '~core/erm3/models/descriptor.model';
 import { Property } from '../components/dynamic-form/dynamic-form.component';
-
+import { PropertyDescriptor, PropertyType } from '~core/erm3';
 
 @Injectable({ providedIn: 'root' })
 export class DescriptorService {
@@ -24,6 +24,13 @@ export class DescriptorService {
 			})
 		);
 		return this.fb.group(ctrls, options);
+	}
+
+	private getValidators(prop: PropertyDescriptor) {
+		const validators = [];
+		if (prop.required) {
+			validators.push(Validators.required);
+		}
 	}
 
 	descriptorToValueObject(descriptor: Descriptor) {

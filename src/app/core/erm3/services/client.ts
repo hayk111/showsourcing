@@ -1,12 +1,12 @@
 import { Auth } from 'aws-amplify';
 import { AUTH_TYPE, AWSAppSyncClient } from 'aws-appsync';
-import awsconfig from '~app/../../generated/aws-exports';
+import { environment } from 'environments/environment';
 
 export const client = new AWSAppSyncClient({
-	url: awsconfig.aws_appsync_graphqlEndpoint,
-	region: awsconfig.aws_appsync_region,
+	url: environment.awsConfig.aws_appsync_graphqlEndpoint,
+	region: environment.awsConfig.aws_appsync_region,
 	auth: {
-		type: AUTH_TYPE[awsconfig.aws_appsync_authenticationType] as any,
+		type: AUTH_TYPE[environment.awsConfig.aws_appsync_authenticationType] as any,
 		jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
-	}
+	},
 });
