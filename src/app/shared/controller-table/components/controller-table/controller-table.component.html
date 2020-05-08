@@ -2,6 +2,7 @@
 <div class="left flexVAlign">
 
 	<search-bar-app
+		#searchBar
 		searchType="short"
 		[formControl]="searchControl"
 		[inputFocus]="inputFocus"
@@ -20,7 +21,7 @@
 	<button
 		*ngIf="filterSrv.getFilterAmount() > 0"
 		class="light"
-		(click)="filterSrv.reset()">
+		(click)="reset()">
 		Clear filters ({{ filterSrv.getFilterAmount() }})
 	</button>
 
