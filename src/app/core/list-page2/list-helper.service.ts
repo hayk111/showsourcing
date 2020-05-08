@@ -33,11 +33,10 @@ export class ListHelperService<G = any> {
 		this.filterSrv.valueChanges$,
 		this.paginationSrv.page$,
 		this.paginationSrv.limit$,
-		this.sortSrv.sort$,
-		this.ratingSrv.valueChanges$
+		this.sortSrv.sort$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, page, limit, sort, votes]) => {
+		map(([{ queryArg }, page, limit, sort]) => {
 			return this.apiSrv.searchBy<G>(
 				this.typename, {
 					filter: queryArg,
@@ -53,14 +52,14 @@ export class ListHelperService<G = any> {
 		tap(total => this._total$.next(total)),
 		// add total to the paginationSrv
 		tap(total => this.paginationSrv.setupTotal(total)),
-		switchMap(_ => {
-			const options = {} as WatchQueryOptions;
-			options.variables = { limit: 10000, filter: { deleted: {eq: false}} };
-			options.fetchPolicy = 'network-only';
-			options.query = QueryPool.getQuery('Vote', QueryType.LIST_BY)('Team');
-			return this.apiSrv.query<G[]>(options).data$;
-		}),
-		tap(items => this.ratingSrv.setup(items)),
+		// switchMap(_ => {
+		// 	const options = {} as WatchQueryOptions;
+		// 	options.variables = { limit: 10000, filter: { deleted: {eq: false}} };
+		// 	options.fetchPolicy = 'network-only';
+		// 	options.query = QueryPool.getQuery('Vote', QueryType.LIST_BY)('Team');
+		// 	return this.apiSrv.query<G[]>(options).data$;
+		// }),
+		// tap(items => this.ratingSrv.setup(items)),
 		// add the next token for infiniscroll
 		// TODO
 		// return the result

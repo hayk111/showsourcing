@@ -15,6 +15,7 @@ import { defaultConfig } from '../default-columns/default-config';
 export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> {
 	static DEFAULT_COLUMNS = [
 		'name',
+		'email',
 		'status'
 	];
 	static DEFAULT_TABLE_CONFIG = defaultConfig;

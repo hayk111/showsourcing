@@ -82,7 +82,7 @@ export class QueryBuilder {
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
-				${this.typename !== 'Vote' ? '$byId: ID' : ''}
+				${(this.typename !== 'Vote') && (this.typename !== 'Category') ? '$byId: ID' : ''}
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
 				$limit: Int
@@ -90,7 +90,7 @@ export class QueryBuilder {
 			) {
 				list${this.typename}${byPropertyString}(
 					${this.typename === 'PropertyOption' ? 'type: $type' : ''}
-					${this.typename !== 'Vote' ? `${byId}: $byId` : ''}
+					${(this.typename !== 'Vote') && (this.typename !== 'Category') ? `${byId}: $byId` : ''}
 					sortDirection: $sortDirection
 					filter: $filter
 					limit: $limit
