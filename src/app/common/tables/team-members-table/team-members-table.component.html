@@ -6,6 +6,7 @@
 	[selected]="selection"
 	[hasMenu]="false"
 	[hasSelection]="false"
+	[hasPagination]="true"
 	[placeholder]="'placeholder.no-team-member' | translate"
 	(bottomReached)="bottomReached.emit()">
 
@@ -29,7 +30,7 @@
 		[sortOrder]="'DESC'">
 		<div class="flexVAlign">
 			<span>
-				{{ row.user.firstName }} {{ row.user.lastName }}
+				{{ row?.user ? row?.user?.firstName + ' ' +  row?.user?.lastName : '-' }}
 			</span>
 		</div>
 	</ng-template>
@@ -43,7 +44,7 @@
 		sortBy="user.email"
 		width="250">
 		<div class="email ellipsis">
-			{{ row.user.email  }}
+			{{ row?.user?.email || row?.email || '-'  }}
 		</div>
 	</ng-template>
 
@@ -54,7 +55,7 @@
 		sortBy="status"
 		width="140">
 		<span class="status capitalize">
-			{{ row.accessType }}
+			{{ row?.accessType || '-' }}
 		</span>
 	</ng-template>
 

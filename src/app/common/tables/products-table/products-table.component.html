@@ -51,7 +51,6 @@
 				<editable-container-app
 					class="full-width"
 					[hasAction]="false"
-					[openOnClick]="false"
 					(click)="sel.openMenu()">
 					<editable-value-app>
 						<selector-app
@@ -60,7 +59,7 @@
 							[hasPicker]="canUpdate"
 							[canCreate]="true"
 							[width]="370"
-							(update)="update.emit({ id: row.id, category: $event })">
+							(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
 							<div class="pointer" >
 								{{ row?.category?.name || '-' }}
 							</div>

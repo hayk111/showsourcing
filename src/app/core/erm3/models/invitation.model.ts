@@ -1,4 +1,3 @@
-import { InvitationStatus } from '../../../../../generated/API.service';
 import { Typename } from '../typename.type';
 import { Entity } from './_entity.model';
 
@@ -9,6 +8,12 @@ export class Invitation extends Entity<Invitation> {
 	email?: string;
 	firstName?: string | null;
 	lastName?: string | null;
-	status?: InvitationStatus;
+	status?: any;
 	secret?: string | null;
+}
+
+export enum InvitationStatus {
+	SENT = 'SENT',
+	ACCEPTED = 'ACCEPTED',
+	REFUSED = 'REFUSED'
 }

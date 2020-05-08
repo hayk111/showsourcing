@@ -85,7 +85,7 @@ export class ListFuseHelperService<G = any> {
 		this.filterSrv.valueChanges$
 	).pipe(
 		debounce(() => timer(400)),
-		switchMap(([fuse]: any) => {
+		switchMap(([fuse, filters]: any) => {
 			// the value changed should concern the FilterType search
 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
 			if (searchValue) return of(fuse.search(searchValue.value).map((data) => data.item));
