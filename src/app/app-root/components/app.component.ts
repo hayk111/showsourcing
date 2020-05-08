@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
+import { StatusSeederService } from '~app-root/seeder/status-seeder.service';
 
 @Component({
 	selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userSrv: UserService,
 		private translate: TranslateService,
+		private statusSeeder: StatusSeederService
 	) {}
 
 	ngOnInit(): void {
@@ -34,5 +36,12 @@ export class AppComponent implements OnInit {
 		registerLocaleData(localeZh, 'zh');
 		this.translate.setDefaultLang('en');
 		this.translate.use('en');
+
+		this.seeder();
+	}
+
+	async seeder() {
+
+		// this.statusSeeder.createAllStatus();
 	}
 }

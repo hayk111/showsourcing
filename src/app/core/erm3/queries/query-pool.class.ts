@@ -36,7 +36,7 @@ export class QueryPool {
 		User: new BaseQueries('User', `id firstName lastName`),
 		Venue: new BaseQueries('Venue'),
 		Vote: new BaseQueries('Vote', 'id message rating nodeId _version createdBy { id }'),
-		WorkflowStatus: new BaseQueries('WorkflowStatus')
+		WorkflowStatus: new StatusQueries(),
 	};
 
 	static getQuery(

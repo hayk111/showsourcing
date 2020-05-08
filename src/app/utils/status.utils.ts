@@ -3,11 +3,11 @@ import { Task } from '~core/erm';
 import { WorkflowStatus } from '~core/erm3/models';
 
 export enum StatusCategory {
-	NEW = 'new',
-	PREPARATION = 'preparation',
-	IN_PROGRESS = 'inProgress',
-	VALIDATED = 'validated',
-	REFUSED = 'refused',
+	PREPARATION = 'Preparation', // ? What is preparation ?
+	NEW = 'NEW',
+	IN_PROGRESS = 'INPROGRESS',
+	VALIDATED = 'VALIDED',
+	REFUSED = 'REFUSED',
 }
 
 
@@ -26,7 +26,6 @@ export class StatusUtils {
 
 	static statusColorMap = {
 		[StatusCategory.NEW]: Color.SECONDARY,
-		[StatusCategory.PREPARATION]: Color.SECONDARY_LIGHT,
 		[StatusCategory.IN_PROGRESS]: Color.PRIMARY,
 		[StatusCategory.VALIDATED]: Color.SUCCESS,
 		[StatusCategory.REFUSED]: Color.WARN,
@@ -34,7 +33,6 @@ export class StatusUtils {
 
 	static statusIconColorMap = {
 		[StatusCategory.NEW]: Color.THIRD,
-		[StatusCategory.PREPARATION]: Color.SECONDARY_LIGHT,
 		[StatusCategory.IN_PROGRESS]: Color.PRIMARY,
 		[StatusCategory.VALIDATED]: Color.SUCCESS,
 		[StatusCategory.REFUSED]: Color.WARN,
