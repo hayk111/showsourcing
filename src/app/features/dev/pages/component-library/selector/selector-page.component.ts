@@ -32,8 +32,8 @@ export class SelectorPageComponent implements OnInit {
 		// });
 
 		// this.propertyOptionSrv.createPropertyOption({
-		// 	type: 'Color',
-		// 	value: 'pink'
+		// 	type: 'Country',
+		// 	value: 'Armenia'
 		// }).subscribe(created => {
 		// 	console.log('SelectorPageComponent -> ngOnInit -> created', created);
 		// 	this.propertyOptionSrv.deletePropertyOption(created).subscribe(deleted => {

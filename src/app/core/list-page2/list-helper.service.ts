@@ -124,7 +124,7 @@ export class ListHelperService<G = any> {
 			updatedProperties.push({ name: propertyName, value: this.parseProperty(propertyName, properties[propertyName]) });
 		});
 
-		this.apiSrv.update(this.typename, { id: entityId, properties: updatedProperties }, {}).subscribe();
+		this.apiSrv.update(this.typename, { id: entityId, properties: updatedProperties }).subscribe();
 	}
 
 	delete(entity: any) {

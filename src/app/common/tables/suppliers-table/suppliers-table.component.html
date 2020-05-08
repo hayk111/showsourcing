@@ -58,7 +58,7 @@
 			<!-- categories -->
 			<!-- TODO: implement categories as property option and use length here -->
 			<ng-container *ngSwitchCase="'categories'">
-				{{ row?.categories?.count }}
+				{{ row?.categories?.count || '-' }}
 			</ng-container>
 
 			<!-- category -->
@@ -94,12 +94,14 @@
 						<!-- TODO check how to manage Country from Constant selector -->
 						<selector-app
 							#sel
-							typename="Constant"
+							typename="PropertyOption"
+							customType="Country"
+							[canCreate]="true"
 							[offsetX]="4"
 							[width]="320"
-							(update)="update.emit({ id: row?.id, country: $event })">
+							(update)="listHelper.updateProperties(row?.id, { country: $event.value })">
 							<span>
-								{{ row?.country ? (row?.country | const: 'country') : '-' }}
+								{{ row | property:'country' }}
 							</span>
 						</selector-app>
 					</editable-value-app>

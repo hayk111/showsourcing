@@ -110,7 +110,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.filterSrv.setup([], ['name']);
 
 		if (this.typename === 'PropertyOption') {
-			// this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
 			this.cd.markForCheck();
 		} else {
 			if (isLocalList(this.typename)) {
@@ -227,7 +227,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateSingle() {
 		this.update.emit({
-			[this.value.__typename.toLowerCase() + 'Id']: this.value.id
+			[this.value.__typename.toLowerCase() + 'Id']: this.value.id,
+			value: this.value.value
 		});
 		this.close.emit();
 	}
