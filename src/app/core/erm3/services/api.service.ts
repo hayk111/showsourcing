@@ -258,7 +258,7 @@ export class ApiService {
 			entity.teamId = this._teamId;
 		}
 
-		if (typename === 'PropertyOption' || typename === 'PropertyDefinition') {
+		if (typename === 'PropertyOption') {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();

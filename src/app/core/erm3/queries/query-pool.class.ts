@@ -10,14 +10,20 @@ export class QueryPool {
 		Company: new BaseQueries('Company', 'id name'),
 		Comment: new BaseQueries('Comment', 'id message _version'),
 		Contact: new BaseQueries('Contact'),
-		Descriptor: new BaseQueries('Descriptor', 'id target _version'),
+		Descriptor: new BaseQueries(
+			'Descriptor',
+			'id sections { name properties { id definitionId defaultValue readonly required} } name type _version'
+		),
 		Image: new BaseQueries('Image', `id fileName _version`),
 		Product: new ProductQueries(),
 		Supplier: new BaseQueries('Supplier', 'id name _version'),
 		Task: new BaseQueries('Task', 'id name'), // Version to be dadded
 		User: new BaseQueries('User', `firstName`),
 		Team: new BaseQueries('Team', 'id name'),
-		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
+		TeamUser: new BaseQueries(
+			'TeamUser',
+			'team { id name } user { firstName lastName email } role'
+		),
 		Attachment: new BaseQueries('Attachment', 'id fileName _version'),
 		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
 		Event: new BaseQueries('Event', 'id _version', []),
@@ -35,10 +41,7 @@ export class QueryPool {
 		PropertyDefinition: new BaseQueries('PropertyDefinition'),
 	};
 
-	static getQuery(
-		typename: Typename,
-		queryType: QueryType,
-	) {
+	static getQuery(typename: Typename, queryType: QueryType) {
 		const queries = QueryPool.map[typename];
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${typename}`);
@@ -49,5 +52,4 @@ export class QueryPool {
 		}
 		return query;
 	}
-
 }

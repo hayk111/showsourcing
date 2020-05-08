@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
-import { DescriptorSeederService } from '~app-root/descriptor-seeder.service';
+import { SeederService } from '~core/seeder/seeder.service';
 
 @Component({
 	selector: 'app-root',
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userSrv: UserService,
 		private translate: TranslateService,
-		private descriptor: DescriptorSeederService
+		private seederSrv: SeederService
 	) {}
 
 	ngOnInit(): void {
@@ -37,19 +37,7 @@ export class AppComponent implements OnInit {
 		this.translate.setDefaultLang('en');
 		this.translate.use('en');
 
-		this.descriptorSeeder();
+		this.seederSrv.seed();
 	}
 
-	async descriptorSeeder() {
-		// this.descriptor.listAllDefinitions$.subscribe((r) => console.log(r));
-		// await this.descriptor.deleteAllDefinitions();
-
-		// const definitions: any = await this.descriptor.createAllTypesDefinitions();
-		// console.log('definitions : ', definitions);
-
-		// const descriptor: any = await this.descriptor.createAllTypesDefDescriptor();
-		// console.log('descriptor : ', descriptor);
-
-		// this.descriptor.listDescriptors$.subscribe(r => console.log(r));
-	}
 }
