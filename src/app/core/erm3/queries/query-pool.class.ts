@@ -19,17 +19,18 @@ export class QueryPool {
 		Image: new BaseQueries('Image', `id fileName _version`),
 		Industry: new BaseQueries('Industry'),
 		Invitation: new BaseQueries('Invitation', 'id email status _version'),
+		// TODO: status needs to be added on product
 		// tslint:disable-next-line:max-line-length
 		Product: new BaseQueries('Product', 'id name _version favorite category { name } supplier { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
 		// tslint:disable-next-line:max-line-length
-		Project: new BaseQueries('Project', 'id name _version dueDate createdBy { firstName lastName } assignee { firstName lastName } createdAt'),
+		Project: new BaseQueries('Project', 'id name _version dueDate status { name } createdBy { firstName lastName } assignee { firstName lastName } createdAt'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
 		// tslint:disable-next-line:max-line-length
-		Supplier: new BaseQueries('Supplier', 'id name _version favorite category { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
+		Supplier: new BaseQueries('Supplier', 'id name _version favorite status { name } category { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
 		// tslint:disable-next-line:max-line-length
-		Sample: new BaseQueries('Sample', 'id name createdBy { firstName lastName } assignee { firstName lastName } supplier { name } createdAt _version'),
+		Sample: new BaseQueries('Sample', 'id name createdBy { firstName lastName } status { name } assignee { firstName lastName } supplier { name } createdAt _version'),
 		// tslint:disable-next-line:max-line-length
-		Task: new BaseQueries('Task', 'id name _version dueDate product { name } createdBy { firstName lastName } assignee { firstName lastName } supplier { name } createdAt'),
+		Task: new BaseQueries('Task', 'id name _version dueDate product { name } status { name } createdBy { firstName lastName } assignee { firstName lastName } supplier { name } createdAt'),
 		Tag: new BaseQueries('Tag'),
 		Team: new BaseQueries('Team', 'id name'),
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
