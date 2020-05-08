@@ -127,6 +127,26 @@
 
 	</ng-container>
 
+	<!-- product -->
+	<ng-container *ngSwitchCase="'product'">
+		<editable-container-app
+			class="full-width"
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel.openMenu()">
+			<editable-value-app>
+				<selector-app
+					#sel
+					typename="Product"
+					[offsetX]="4"
+					[width]="350"
+					(update)="updateProduct(row?.id, $event?.productId)">
+					<span>{{ row?.product?.name || '-'}}</span>
+				</selector-app>
+			</editable-value-app>
+		</editable-container-app>
+	</ng-container>
+
 	<!-- creation date -->
 	<ng-container *ngSwitchCase="'creationDate'">
 		{{ row?.createdAt | date: 'dd MMM y':'':translate.currentLang  }}
@@ -140,49 +160,29 @@
 
 	<!-- due date -->
 	<ng-container *ngSwitchCase="'dueDate'">
-		<!-- <editable-container-app #edt
+		<editable-container-app #edt
 			class="full-width"
-			(closed)="update.emit({ id: row.id, dueDate: inp.value })">
+			(closed)="updateDueDate(row.id, inp.value)">
 			<editable-value-app class="ellipsis">
 				{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : '-' }}
 			</editable-value-app>
 			<input #inp inputApp type="date" (keyup.enter)="edt.close()">
-		</editable-container-app> -->
+		</editable-container-app>
 	</ng-container>
 
 	<!-- product count -->
 	<ng-container *ngSwitchCase="'productCount'">
-		{{ row?.productsLinked?.count }}
+		{{ row?.productsLinked?.count || '-' }}
 	</ng-container>
 
 	<!-- task count -->
 	<ng-container *ngSwitchCase="'taskCount'">
-		{{ row?.tasksLinked?.count }}
+		{{ row?.tasksLinked?.count || '-' }}
 	</ng-container>
 
 	<!-- sample count -->
 	<ng-container *ngSwitchCase="'sampleCount'">
-		{{ row?.samplesLinked?.count }}
-	</ng-container>
-
-	<!-- product -->
-	<ng-container *ngSwitchCase="'product'">
-		<!-- <editable-container-app
-			class="full-width"
-			[hasAction]="false"
-			[openOnClick]="false"
-			(click)="sel.openMenu()">
-			<editable-value-app>
-				<selector-app
-					#sel
-					typename="Product"
-					[offsetX]="4"
-					[width]="350"
-					(update)="update.emit({ id: row?.id, product: $event })">
-					<span>{{ row?.product?.name || '-'}}</span>
-				</selector-app>
-			</editable-value-app>
-		</editable-container-app> -->
+		{{ row?.samplesLinked?.count || '-' }}
 	</ng-container>
 
 </ng-container>

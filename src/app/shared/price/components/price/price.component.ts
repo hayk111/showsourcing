@@ -21,6 +21,6 @@ export class PriceComponent {
 	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
 
 	get currency(): string {
-		return this._currency ? this._currency.slice(1, -1) : null; // removing the "" from the currency
+		return this._currency || null;
 	}
 }

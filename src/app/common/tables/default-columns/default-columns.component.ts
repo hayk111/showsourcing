@@ -4,6 +4,7 @@ import { ColumnConfig } from '../entity-table.component';
 import { Color } from '~utils/colors.enum';
 import { Router } from '@angular/router';
 import { Typename } from '~core/erm3/typename.type';
+import { Product } from '~core/erm3';
 
 
 export interface EditableEntity {
@@ -59,6 +60,14 @@ export class DefaultColumnsComponent {
 			return;
 
 		this.nameClick.emit(row);
+	}
+
+	updateDueDate(entityId: string, dueDate: Date) {
+		this.update.emit({ id: entityId, dueDate: new Date(dueDate).toISOString() } as EditableEntity);
+	}
+
+	updateProduct(entityId: string, productId: string) {
+		this.update.emit({ id: entityId, [this.typename.toLowerCase() + 'ProductId']: productId });
 	}
 
 }

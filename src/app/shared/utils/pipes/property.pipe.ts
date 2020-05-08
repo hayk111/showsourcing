@@ -14,7 +14,7 @@ export class PropertyPipe implements PipeTransform {
 
 			if (index !== -1) {
 				if (row.properties[index]) {
-					return row.properties[index].value;
+					return row.properties[index].value.split('"').join('');
 				}
 
 				return null;

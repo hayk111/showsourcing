@@ -96,13 +96,13 @@
 							#sel
 							typename="PropertyOption"
 							customType="Country"
-							[canCreate]="true"
-							[offsetX]="4"
 							[width]="320"
 							(update)="listHelper.updateProperties(row?.id, { country: $event.value })">
-							<span>
-								{{ row | property:'country' }}
-							</span>
+							<div class="flex pointer">
+								<div class="flexVAlign ellipsis pointer">
+									{{ row | property:'country' : '-' }}
+								</div>
+							</div>
 						</selector-app>
 					</editable-value-app>
 				</editable-container-app>
