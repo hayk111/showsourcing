@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ChangeDetectorRef,  NgZone, ViewChild, ElementRef } from '@angular/core';
 import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Component({
@@ -15,34 +15,52 @@ export class UploadPageComponent {
 	selectExample;
 	dropExample;
 
-	constructor(private uploaderSrv: UploaderService, private cd: ChangeDetectorRef) {}
+	@ViewChild('inpFile') inpFile: ElementRef<HTMLInputElement>;
+	@ViewChild('inpImg') inpImg: ElementRef<HTMLInputElement>;
+
+	constructor(
+		private uploaderSrv: UploaderService,
+		private cdRef: ChangeDetectorRef
+	) {}
 
 	onFileSelect(files: File[]) {
-		if (!this.productSelected) {
-			return alert('pick a product first');
-		}
+		this.checkSelected();
 
 		this.uploading = true;
 		this.uploaderSrv.uploadFiles(files, `Product:${this.productSelected.id}`)
-			.onTempFiles(attachements => this.pendingFiles = attachements)
-			.subscribe(_ => {
-					this.uploading = false;
-					this.cd.detectChanges();
-			});
+			// local files
+			.onTempFiles(attachements => {
+				this.pendingFiles = attachements;
+				this.cdRef.markForCheck();
+			})
+			.subscribe(() => this.onSuccess());
 	}
 
 	onImageSelect(files: File[]) {
-		if (!this.productSelected) {
-			return alert('pick a product first');
-		}
+		this.checkSelected();
 
 		this.uploading = true;
 		this.uploaderSrv.uploadImages(files, `Product:${this.productSelected.id}`)
-			.onTempImages(tempImgs => this.pendingImgs = tempImgs)
-			.subscribe(_ => {
-					this.uploading = false;
-					this.cd.detectChanges();
-			});
+			// local img, the url is base64 encoded image
+			.onTempImages(tempImgs => {
+				this.pendingImgs = tempImgs;
+				this.cdRef.markForCheck();
+			})
+			.subscribe(() => this.onSuccess());
+	}
+
+	private onSuccess() {
+		this.uploading = false;
+		this.pendingFiles = undefined;
+		this.pendingImgs = undefined;
+		this.cdRef.detectChanges();
+	}
+
+	private checkSelected() {
+		if (!this.productSelected) {
+			alert('pick a product first, i am going to reload the page now');
+			location.reload();
+		}
 	}
 
 }

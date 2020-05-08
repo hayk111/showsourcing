@@ -1,9 +1,69 @@
-
-<card-app class="mg-v-ms">
-	<card-title-app>Settings</card-title-app>
-</card-app>
-
-<card-app class="mg-v-ms">
+<card-app class="mg-ms">
+	 {{ product | json }}
 	<card-title-app>Carousel</card-title-app>
-	<carousel-app></carousel-app>
+	<carousel-app
+		#carousel
+		[static]="static"
+		[size]="size"
+		[hasPreview]="hasPreview"
+		[hasZoomEffect]="hasZoomEffect"
+		[showConfirmOnDelete]="showConfirmOnDelete"
+		[objectFit]="objectFit">
+	</carousel-app>
 </card-app>
+
+<card-app class="mg-ms">
+	<card-title-app>Settings</card-title-app>
+
+	<form-field-app>
+		<label-app>Node Id</label-app>
+		<selector-app
+			inputApp
+			typename="Product"
+			class="mg-v-ms"
+			[(ngModel)]="product"
+			(update)="carousel.fetchImages('Product:' + product.id)">
+			<selector-placeholder-app>
+				{{ product?.name }}
+			</selector-placeholder-app>
+		</selector-app>
+	</form-field-app>
+
+	<form-field-app>
+		<label-app>static</label-app>
+		<checkbox-app 
+			inputApp
+			[(ngModel)]="static">
+		</checkbox-app>
+	</form-field-app>
+
+	<form-field-app>
+		<label-app>Size</label-app>
+		<input inputApp type="number" [(ngModel)]="size"/>
+	</form-field-app>
+
+	<form-field-app>
+		<label-app>hasPreview</label-app>
+		<checkbox-app inputApp [(ngModel)]="hasPreview"></checkbox-app>
+	</form-field-app>
+
+	<form-field-app>
+		<label-app>hasZoomEffect</label-app>
+		<checkbox-app inputApp [(ngModel)]="hasZoomEffect"></checkbox-app>
+	</form-field-app>
+
+	<form-field-app>
+		<label-app>showConfirmOnDelete</label-app>
+		<checkbox-app inputApp [(ngModel)]="showConfirmOnDelete"></checkbox-app>
+	</form-field-app>
+
+	<form-field-app>
+		<label-app>objectFit</label-app>
+		<radio-app 
+			inputApp
+			[choices]="objectFitChoices"
+			[(ngModel)]="objectFit"></radio-app>
+	</form-field-app>
+
+</card-app>
+

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
 import { switchMap, startWith, tap } from 'rxjs/operators';
@@ -43,7 +43,6 @@ export class UploaderService {
 		const cognitoId = this.getCognitoId();
 
 		const obsArray = files.map(file => this.s3upload(file).pipe(
-			tap(_ => this.showToast(`Uploaded ${files.length} images(s)`)),
 			switchMap(_ => this.apiSrv.create<Image>('Image', {
 				fileName: `${cognitoId}/${file.name}`,
 				nodeId
@@ -51,7 +50,7 @@ export class UploaderService {
 		));
 
 		const obsResponses = forkJoin(obsArray).pipe(
-			tap(_ => this.showToast(`Uploaded ${files.length} file(s)`))
+			tap(_ => this.showToast(`Uploaded ${files.length} image(s)`))
 		) as ObservableImageUpload;		// casting to add the temp function
 
 		obsResponses.onTempImages = (fn) => {
