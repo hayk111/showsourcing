@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 		registerLocaleData(localeFr, 'fr');
 		registerLocaleData(localeEs, 'es');
 		registerLocaleData(localeZh, 'zh');
-		this.translate.setDefaultLang('en');
-		this.translate.use('en');
+		this.translate.setDefaultLang('en-US');
+		this.translate.use('en-US');
 	}
 }
