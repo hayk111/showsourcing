@@ -5,6 +5,7 @@ import { WorkflowStatus } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { ListFuseHelperService } from '~core/list-page2';
+import { QueryPool } from '~core/erm3/queries/query-pool.class';
 
 @Injectable({
 	providedIn: 'root',
@@ -27,13 +28,14 @@ export class StatusSelectorService {
 	}
 
 	updateStatus(status: WorkflowStatus, entity?: any) {
-		const optimisticEntity = {...entity}; // ? optimistic response not working
-		optimisticEntity.status = {...status};
-		this.apiSrv
-			.updateStatus(this.typename, entity.id, status.id , { variables: { input: { ...optimisticEntity } } } )
-			.subscribe((updatedEntity) => {
-				this._entityUpdate$.next(updatedEntity);
-			});
+		const variables = {
+			entityId: entity.id,
+			statusId: status.id,
+		};
+		const mutation = QueryPool.map.WorkflowStatus.getUpdateStatusQuery(this.typename);
+		this.apiSrv.mutate({ mutation, variables }).subscribe(updatedEntity => {
+			this._entityUpdate$.next(updatedEntity);
+		});
 		return this.entityUpdate$.pipe(first());
 	}
 
@@ -60,13 +62,11 @@ export class StatusSelectorService {
 			.pipe(
 				first(),
 				// we sort the status by step and remove spaces
-				map((statuses) => {
-					// ? Do we realy need this ? if yes we can do a pype for the tables
-					// statuses.forEach((status) => (status.name = status.name.replace(' ', '-')));
-					statuses.sort((first, second) => first.step - second.step);
+				map(statuses => {
+					statuses.sort((firstStatus, secondStatus) => firstStatus.step - secondStatus.step);
 					return statuses;
 				})
 			)
-			.subscribe((statuses) => this._listStatus$.next(statuses));
+			.subscribe(statuses => this._listStatus$.next(statuses));
 	}
 }

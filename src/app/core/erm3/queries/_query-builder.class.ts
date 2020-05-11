@@ -75,7 +75,10 @@ export class QueryBuilder {
 		const byId = paramEntityName + 'Id';
 
 		let byPropertyString = '';
-		if (this.typename !== 'TeamUser' || (this.typename === 'TeamUser' && byProperty === 'User')) {
+		if (
+			this.typename !== 'WorkflowStatus' &&
+			(this.typename !== 'TeamUser' || (this.typename === 'TeamUser' && byProperty === 'User'))
+		) {
 			// temporary solution for TeamUser, as we don't have a query TeamUsers
 			byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
 		}
@@ -169,18 +172,6 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
-
-	[QueryType.UPDATE_STATUS] = (str: string) => {
-		return gql`
-		mutation Update${this.typename}Status(
-			$entityId: ID!
-			$statusId: ID!
-		) {
-			update${this.typename}Status(${this.typename.toLowerCase()}Id: $entityId, statusId: $statusId) {
-				${str}
-			}
-  	}`;
 	};
 
 	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
