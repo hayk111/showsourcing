@@ -149,7 +149,7 @@
 					typename="Product"
 					[offsetX]="4"
 					[width]="350"
-					(update)="updateProduct(row?.id, $event?.productId)">
+					(update)="update.emit({ id: row?.id, productId: $event?.productId})">
 					<span>{{ row?.product?.name || '-'}}</span>
 				</selector-app>
 			</editable-value-app>

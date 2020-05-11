@@ -66,8 +66,8 @@ export class DefaultColumnsComponent {
 		this.update.emit({ id: entityId, dueDate: new Date(dueDate).toISOString() } as EditableEntity);
 	}
 
-	updateProduct(entityId: string, productId: string) {
-		this.update.emit({ id: entityId, [this.typename.toLowerCase() + 'ProductId']: productId });
-	}
+	// updateProduct(entityId: string, productId: string) {
+	// 	this.update.emit({ id: entityId, [this.typename.toLowerCase() + 'ProductId']: productId });
+	// }
 
 }

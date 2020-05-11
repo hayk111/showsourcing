@@ -59,9 +59,9 @@
 							[hasPicker]="canUpdate"
 							[canCreate]="true"
 							[width]="370"
-							(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
+							(update)="listHelper.updateProperties(row?.id, { category: $event.value })">
 							<div class="pointer" >
-								{{ row?.category?.name || '-' }}
+								{{ (row | property: 'category') || '-' }}
 							</div>
 						</selector-app>
 					</editable-value-app>

@@ -1,8 +1,7 @@
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
-import { ProductQueries } from './custom/product.queries';
-import { StatusQueries } from './custom/status.queries';
+import { ProductQueries, ProjectQueries, StatusQueries, SampleQueries, SupplierQueries } from './custom';
 
 export class QueryPool {
 	static map = {
@@ -21,14 +20,14 @@ export class QueryPool {
 		Invitation: new BaseQueries('Invitation', 'id email status _version'),
 		// TODO: status needs to be added on product
 		// tslint:disable-next-line:max-line-length
-		Product: new BaseQueries('Product', 'id name _version favorite category { name } supplier { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
+		Product: new BaseQueries('Product', `${ProductQueries.defaultFields}`),
 		// tslint:disable-next-line:max-line-length
-		Project: new BaseQueries('Project', 'id name _version dueDate status { name } createdBy { firstName lastName } assignee { firstName lastName } createdAt'),
+		Project: new BaseQueries('Project', `${ProjectQueries.defaultFields}`),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
 		// tslint:disable-next-line:max-line-length
-		Supplier: new BaseQueries('Supplier', 'id name _version favorite status { name } category { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
+		Supplier: new BaseQueries('Supplier', `${SupplierQueries.defaultFields}`),
 		// tslint:disable-next-line:max-line-length
-		Sample: new BaseQueries('Sample', 'id name createdBy { firstName lastName } status { name } assignee { firstName lastName } supplier { name } createdAt _version'),
+		Sample: new BaseQueries('Sample', `${SampleQueries.defaultFields}`),
 		// tslint:disable-next-line:max-line-length
 		Task: new BaseQueries('Task', 'id name _version dueDate product { name } status { name } createdBy { firstName lastName } assignee { firstName lastName } supplier { name } createdAt'),
 		Tag: new BaseQueries('Tag'),

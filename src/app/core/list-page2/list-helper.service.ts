@@ -152,7 +152,7 @@ export class ListHelperService<G = any> {
 
 		if (propertyVal.toString().match(/^[0-9]+$/)) { // if the property value contains only digits - return it
 			return propertyVal;
-		} else if (propertyVal.toString().match(/^[0-9a-zA-Z]+$/)) { // if the property value contains alphanumeric value - stringify
+		} else if (propertyVal) {
 			return JSON.stringify(propertyVal);
 		}
 
