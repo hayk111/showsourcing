@@ -97,11 +97,6 @@ export class ListHelperService<G = any> {
 		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
-	// local filtering for one entity by another id
-	filterBy() {
-		// this.;
-	}
-
 	update(entity: any, options?: any, typename?: Typename) {
 		this.apiSrv.update(typename || this.typename, entity, options).subscribe();
 	}

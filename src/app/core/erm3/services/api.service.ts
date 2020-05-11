@@ -178,7 +178,6 @@ export class ApiService {
 		options.variables = { ...options.variables, byId, limit: 10000 };
 		const queryFn = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryFn(byProperty);
-		options.variables = { byId, limit: 10000 };
 		return this.query<T[]>(options);
 	}
 
@@ -299,25 +298,6 @@ export class ApiService {
 		return this.mutate(options);
 	}
 
-	/** Update the status of an entity (product | supplier | sample | task)
-	 * @param typename: name of the entity we want to change status
-	 * @param entityId: the id of the entity (product.id)
-	 * @param statusId: the id of the status we want to set to the entity
-	*/
-	updateStatus(
-		typename: Typename,
-		entityId: string,
-		statusId: string,
-		apiOptions: ApiMutationOption = {}
-	) {
-		const options = apiOptions as MutationOptions;
-		options.variables = { ...options.variables, entityId, statusId };
-		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE_STATUS);
-		// set inputs for optimistic response
-		// ? optimistic response not working
-		options.optimisticResponse = this.getOptimisticResponse(options);
-		return this.mutate(options);
-	}
 
 	/////////////////////////////
 
@@ -365,7 +345,7 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		options.variables = {
 			...options.variables,
-			input: { id: entity.id, _version: entity._version },
+			input: { id: entity.id },
 		};
 		if (typename !== 'Company' && typename !== 'Team') {
 			options.variables.input._version = this._getCachedVersion(typename, entity.id);
