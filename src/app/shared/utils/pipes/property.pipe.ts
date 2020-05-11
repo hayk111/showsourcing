@@ -9,7 +9,7 @@ export class PropertyPipe implements PipeTransform {
 
 		const propertyName = args[0];
 
-		if (!!row.properties.length) {
+		if (row && row.properties && !!row.properties.length) {
 			const index = row.properties.findIndex(property => property.name === propertyName);
 
 			if (index !== -1) {
