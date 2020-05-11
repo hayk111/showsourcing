@@ -44,12 +44,10 @@ export class StatusSeederService {
 		return this.apiSrv.listBy('WorkflowStatus').data$.pipe(first()).toPromise();
 	}
 
+	/** delete all WorkflowStatus in current team */
 	async deleteAllStatuses(): Promise<any> {
 		const allStatuses: any = await this.listStatuses();
-		const promises = allStatuses.map(status => {
-			return this.apiSrv.delete('WorkflowStatus', status).pipe(first()).toPromise();
-		});
-		return await Promise.all(promises);
+		return await this.apiSrv.deleteMany('WorkflowStatus', allStatuses).pipe(first()).toPromise();
 	}
 
 	async createAllStatus(): Promise<any> {
