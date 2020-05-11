@@ -1,7 +1,7 @@
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
-import { ProductQueries, ProjectQueries, StatusQueries, SampleQueries, SupplierQueries } from './custom';
+import { ProductQueries, ProjectQueries, StatusQueries, SampleQueries, SupplierQueries, TaskQueries } from './custom';
 
 export class QueryPool {
 	static map = {
@@ -29,7 +29,7 @@ export class QueryPool {
 		// tslint:disable-next-line:max-line-length
 		Sample: new BaseQueries('Sample', `${SampleQueries.defaultFields}`),
 		// tslint:disable-next-line:max-line-length
-		Task: new BaseQueries('Task', 'id name _version dueDate product { name } status { name } createdBy { firstName lastName } assignee { firstName lastName } supplier { name } createdAt'),
+		Task: new BaseQueries('Task', `${TaskQueries.defaultFields}`),
 		Tag: new BaseQueries('Tag'),
 		Team: new BaseQueries('Team', 'id name'),
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),

@@ -1,23 +1,22 @@
 import { BaseQueries } from '../base.queries';
 import { StatusQueries } from './status.queries';
 
-export class SupplierQueries extends BaseQueries {
+export class TaskQueries extends BaseQueries {
 	static defaultFields = `
 		id
 		name
 		_version
-		favorite
-		status {
-			${StatusQueries.defaultFields}
-		}
-		properties { name value }
+		dueDate
+		product { name }
+		supplier { name }
+		status { name }
+		createdBy { firstName lastName }
 		assignee { firstName lastName }
 		createdAt
-		_version
 	`;
 
 	constructor() {
-		super('Supplier', SupplierQueries.defaultFields);
+		super('Task', TaskQueries.defaultFields);
 	}
 }
-
+//
