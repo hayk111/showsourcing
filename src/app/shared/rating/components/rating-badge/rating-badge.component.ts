@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { RatingService } from '~shared/rating/services/rating.service';
-import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-badge-app',
@@ -10,24 +8,21 @@ import { Vote } from '~core/erm3/models';
 })
 export class RatingBadgeComponent {
 
-	private _votes: Vote[];
-	@Input() set votes(votes: Vote[]) {
-		this._votes = votes;
-		this.score = this.ratingSrv.computeScoreVotes(votes);
+	private _score: number | null;
+	@Input() set score(value: number | null) {
+		this._score = value;
 	}
-	get votes() {
-		return this._votes;
+	get score() {
+		return this._score;
 	}
 	@Input() activeColor = 'accent';
 	/** whether we display the number on the side or not */
 	@Input() hasNumber = false;
 
-	score: number = null;
-
-	constructor(public ratingSrv: RatingService) { }
+	constructor() { }
 
 	setWidth() {
-		return (this.score * 20 || 0) + '%';
+		return (this._score * 20 || 0) + '%';
 	}
 
 }

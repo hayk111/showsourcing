@@ -254,14 +254,6 @@ export class ApiService {
 			entity.teamId = this._teamId;
 		}
 
-		if (typename === 'PropertyOption') {
-			entity.id = uuid();
-			entity.createdAt = new Date().toISOString();
-			entity.lastUpdatedAt = new Date().toISOString();
-			entity.deleted = false;
-			entity.teamId = this._teamId;
-		}
-
 		entity.__typename = typename;
 		options.variables = { ...options.variables, input: { ...entity } };
 		return this.mutate(options);

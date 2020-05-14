@@ -21,6 +21,11 @@ const AUDIT = ``;
 			}
  *
  */
+
+function withById(typename: Typename): boolean {
+	return typename !== 'Category' && typename !== 'Vote' && typename !== 'User';
+}
+
 export class QueryBuilder {
 	constructor(private typename: Typename) {
 		if (!typename) {
@@ -41,7 +46,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
@@ -67,7 +72,7 @@ export class QueryBuilder {
 					count
 				}
 			}`;
-	};
+	}
 
 	[QueryType.LIST_BY] = (str: string): Record<string, any> => (byProperty: string) => {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
@@ -85,16 +90,16 @@ export class QueryBuilder {
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
-				${(this.typename !== 'Vote') && (this.typename !== 'Category') ? '$byId: ID' : ''}
-				$sortDirection: ModelSortDirection
+				${withById(this.typename) ? '$byId: ID' : ''}
+				${this.typename !== 'User' ? '$sortDirection: ModelSortDirection' : ''}
 				$filter: Model${this.typename}FilterInput
 				$limit: Int
 				$nextToken: String
 			) {
 				list${this.typename}${byPropertyString}(
 					${this.typename === 'PropertyOption' ? 'type: $type' : ''}
-					${(this.typename !== 'Vote') && (this.typename !== 'Category') ? `${byId}: $byId` : ''}
-					sortDirection: $sortDirection
+					${withById(this.typename) ? `${byId}: $byId` : ''}
+					${this.typename !== 'User' ? 'sortDirection: $sortDirection' : ''}
 					filter: $filter
 					limit: $limit
 					nextToken: $nextToken
@@ -106,7 +111,7 @@ export class QueryBuilder {
 					nextToken
 				}
 			}`;
-	};
+	}
 
 	[QueryType.SYNC] = (str: string): Record<string, any> => {
 		return gql`
@@ -128,7 +133,7 @@ export class QueryBuilder {
 						nextToken
 				  }
 			}`;
-	};
+	}
 
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
@@ -140,7 +145,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.UPDATE_MANY] = (str: string) => (inputs: any[]) => {
 		const aliasParams = inputs.map(
@@ -160,7 +165,7 @@ export class QueryBuilder {
 			) {
 				${aliasMutations}
 			}`;
-	};
+	}
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -172,7 +177,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
 		const aliasParams = inputs.map(
@@ -192,7 +197,7 @@ export class QueryBuilder {
 			) {
 				${aliasMutation}
 			}`;
-	};
+	}
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`
@@ -204,5 +209,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 }

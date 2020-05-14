@@ -1,7 +1,5 @@
 import { BaseQueries } from '../base.queries';
-import { MutationOptions } from 'apollo-client';
 import { Typename } from '~core/erm3/typename.type';
-import { ApiMutationOption, ApiService } from '~core/erm3/services/api.service';
 import gql from 'graphql-tag';
 
 export class StatusQueries extends BaseQueries {

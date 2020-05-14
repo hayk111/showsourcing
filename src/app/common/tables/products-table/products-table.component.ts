@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~core/erm';
+import { ListHelperService } from '~core/list-page2';
 import { config } from './config';
 
 @Component({
@@ -36,7 +37,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
 	@Output() openAddSampleDialog = new EventEmitter<Product>();
 
-	constructor(public translate: TranslateService) {
+	constructor(public listHelper: ListHelperService) {
 		super();
 	}
 

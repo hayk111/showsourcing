@@ -22,7 +22,13 @@ import { ID } from '~utils';
 	selector: 'selector-picker-app',
 	templateUrl: './selector-picker.component.html',
 	styleUrls: ['./selector-picker.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListHelperService,
+		ListFuseHelperService,
+		SelectorsService,
+		FilterService
+	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 	@Input() typename: Typename;
@@ -104,7 +110,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.filterSrv.setup([], ['name']);
 
 		if (this.typename === 'PropertyOption') {
-			// this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
 			this.cd.markForCheck();
 		} else {
 			if (isLocalList(this.typename)) {
@@ -221,7 +227,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateSingle() {
 		this.update.emit({
-			[this.value.__typename.toLowerCase() + 'Id']: this.value.id
+			[this.value.__typename.toLowerCase() + 'Id']: this.value.id,
+			value: this.value.value || this.value.name || null
 		});
 		this.close.emit();
 	}
@@ -232,6 +239,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	onSelect(item) {
 		let itemToReturn = item;
+		itemToReturn.__typename = this.typename;
+
 		switch (this.typename) {
 			case 'Constant':
 				itemToReturn = item.name;

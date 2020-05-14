@@ -66,7 +66,7 @@ export class ListHelperService<G = any> {
 		switchMap(_ => this.queryRef.data$),
 		// setting pending to false because we received data
 		tap(_ => this._pending$.next(false)),
-		map(items => this.ratingSrv.applyRatings(items, this.ratingSrv.ratings)),
+		// map(items => this.ratingSrv.applyRatings(items, this.ratingSrv.ratings)),
 		shareReplay(1)
 	);
 
@@ -104,8 +104,8 @@ export class ListHelperService<G = any> {
 		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
-	update(entity: any, options?: any) {
-		this.apiSrv.update(this.typename, entity, options).subscribe();
+	update(entity: any, options?: any, typename?: Typename) {
+		this.apiSrv.update(typename || this.typename, entity, options).subscribe();
 	}
 
 	updateSelected(entity) {
@@ -114,6 +114,17 @@ export class ListHelperService<G = any> {
 			.pipe(
 				switchMap(_ => this.refetch())
 			).subscribe();
+	}
+
+	updateProperties(entityId: string, properties: any) {
+		const updatedProperties = [];
+		const propertyNames = Object.keys(properties);
+
+		propertyNames.forEach((propertyName) => {
+			updatedProperties.push({ name: propertyName, value: this.parseProperty(propertyName, properties[propertyName]) });
+		});
+
+		this.apiSrv.update(this.typename, { id: entityId, properties: updatedProperties }).subscribe();
 	}
 
 	delete(entity: any) {
@@ -132,6 +143,20 @@ export class ListHelperService<G = any> {
 
 	loadMore() {
 		throw Error('not implemented yet');
+	}
+
+	private parseProperty(propertyName, propertyVal) {
+		if (propertyName === 'price') { // temporary solution for the price, as the price should be passed as a string
+			return JSON.stringify(propertyVal);
+		}
+
+		if (propertyVal.toString().match(/^[0-9]+$/)) { // if the property value contains only digits - return it
+			return propertyVal;
+		} else if (propertyVal) {
+			return JSON.stringify(propertyVal);
+		}
+
+		return null;
 	}
 
 }
