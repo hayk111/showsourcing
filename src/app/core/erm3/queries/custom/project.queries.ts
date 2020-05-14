@@ -6,9 +6,6 @@ export class ProjectQueries extends BaseQueries {
 		id
 		name
 		_version
-		status {
-			${StatusQueries.defaultFields}
-		}
 		createdBy { firstName lastName }
 		assignee { firstName lastName }
 		createdAt

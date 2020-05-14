@@ -139,8 +139,45 @@ export class ListFuseHelperService<G = any> {
 			.subscribe();
 	}
 
-	update(entity: any, options?: any) {
-		this.apiSrv.update(this.typename, entity, options);
+	update(entity: any, options?: any, typename?: Typename) {
+		this.apiSrv.update(typename || this.typename, entity, options).subscribe();
+	}
+
+	updateProperties(entityId: string, propertyName: string, properties: any | string) {
+		let propertiesToUpdate;
+
+		if (typeof properties === 'object') {
+			propertiesToUpdate = {
+				...properties
+			};
+
+			if ('additionalFields' in properties) {
+				propertiesToUpdate = {
+					...properties.additionalFields,
+					...properties,
+				};
+
+				delete propertiesToUpdate.additionalFields;
+			}
+		} else {
+			propertiesToUpdate = properties;
+		}
+
+		this.apiSrv.update(this.typename, { id: entityId,
+			properties: [{
+				name: propertyName,
+				value: JSON.stringify(propertiesToUpdate)
+			}]
+		}).subscribe();
+	}
+
+	getProperty(propertyName, properties) {
+		const index = properties.findIndex(property => property.name === propertyName);
+
+		if (index !== -1) {
+			const property = JSON.parse(properties[index].value);
+			return property || null;
+		}
 	}
 
 	delete(entity: any) {

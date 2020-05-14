@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Typename } from '~core/erm3/typename.type';
 import { Product } from '~core/erm3';
 
-
 export interface EditableEntity {
 	id: string;
 	status?: any;

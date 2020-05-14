@@ -97,7 +97,7 @@
 							typename="PropertyOption"
 							customType="Country"
 							[width]="320"
-							(update)="listHelper.updateProperties(row?.id, { country: $event.value })">
+							(update)="listHelper.updateProperties(row?.id, 'country', $event.value)">
 							<div class="flex pointer">
 								<div class="flexVAlign ellipsis pointer">
 									{{ row | property:'country' : '-' }}

@@ -230,6 +230,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			[this.value.__typename.toLowerCase() + 'Id']: this.value.id,
 			value: this.value.value || this.value.name || null
 		});
+
+		console.log('close emitttt.....');
 		this.close.emit();
 	}
 
