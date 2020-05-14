@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { UserService } from '~core/auth';
 import { Typename } from '~core/erm3/typename.type';
 import { DialogService } from '~shared/dialog';
-import { ToastService } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -21,7 +20,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	toUpdate: { callback: string; property: string; value: any };
 	fieldsChoice: any[] = [
 		{ label: 'Name', property: 'name', type: 'string' },
-		{ label: '...', property: 'custom', type: 'descriptor' },
+		// { label: '...', property: 'custom', type: 'descriptor' },
 		{ label: 'Supplier', property: 'supplierId', type: 'selector', typename: 'Supplier' },
 		{
 			label: 'Category',
@@ -48,7 +47,6 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	propertySelected: any;
 	constructor(
 		private dlgSrv: DialogService,
-		private translate: TranslateService,
 		private userSrv: UserService
 	) {
 		super();
