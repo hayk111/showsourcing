@@ -126,7 +126,7 @@ export class ListFuseHelperService<G = any> {
 			.then((_) => this._pending$.next(false));
 	}
 
-	create(addedProperties: any) {
+	create(addedProperties: any = {}) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
 				typename: this.typename,
@@ -146,6 +146,14 @@ export class ListFuseHelperService<G = any> {
 	delete(entity: any) {
 		this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
 		this.apiSrv.delete(this.typename, entity).subscribe();
+	}
+
+	updateSelected(entity) {
+		const selected = this.selectionSrv.getSelectedValues();
+		this.apiSrv.updateMany(this.typename, selected.map(ent => ({ id: ent.id, ...entity})))
+			.pipe(
+				switchMap(_ => this.refetch())
+			).subscribe();
 	}
 
 	deleteSelected() {

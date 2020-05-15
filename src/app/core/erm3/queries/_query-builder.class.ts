@@ -84,9 +84,13 @@ export class QueryBuilder {
 			this.typename !== 'WorkflowStatus' &&
 			(this.typename !== 'TeamUser' || (this.typename === 'TeamUser' && byProperty === 'User'))
 		) {
-			// temporary solution for TeamUser, as we don't have a query TeamUsers
-			byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
+			if (this.typename === 'Supplier') {
+				byPropertyString = 'sBy' + byProperty; // listEntity is "by Team" in default
+			} else {
+				byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty;
+			}
 		}
+		console.log('QueryBuilder -> queryproduct -> byPropertyString', byPropertyString);
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}

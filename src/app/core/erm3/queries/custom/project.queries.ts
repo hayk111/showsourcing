@@ -9,6 +9,7 @@ export class ProjectQueries extends BaseQueries {
 		status {
 			${StatusQueries.defaultFields}
 		}
+		dueDate
 		createdBy { firstName lastName }
 		assignee { firstName lastName }
 		createdAt

@@ -1,7 +1,8 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener,
+				 Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -113,15 +114,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
 			this.cd.markForCheck();
 		} else {
-			if (isLocalList(this.typename)) {
-				this.fuseHelperSrv.setup(this.typename);
-				this.choices$ = this.fuseHelperSrv.paginedItems$;
-				this.cd.markForCheck();
-			} else {
-				this.listHelperSrv.setup(this.typename);
-				this.choices$ = this.listHelperSrv.filteredItems$ as Observable<any[]>;
-				this.cd.markForCheck();
-			}
+			this.fuseHelperSrv.setup(this.typename);
+			this.choices$ = this.fuseHelperSrv.paginedItems$;
+			this.cd.markForCheck();
 		}
 
 		if (this.canCreate) {

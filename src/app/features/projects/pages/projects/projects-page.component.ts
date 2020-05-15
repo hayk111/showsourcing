@@ -43,7 +43,6 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Project');
-		this.items$ = this.listHelper.filteredItems$ as Observable<any[]>;
 	}
 
 	create() {

@@ -12,6 +12,7 @@ export class SupplierQueries extends BaseQueries {
 		}
 		properties { name value }
 		assignee { firstName lastName }
+		createdBy { firstName lastName }
 		createdAt
 		_version
 	`;
