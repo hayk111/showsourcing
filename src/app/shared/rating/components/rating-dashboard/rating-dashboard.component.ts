@@ -11,15 +11,19 @@ import { Vote } from '~core/erm3/models';
 })
 export class RatingDashboardComponent {
 
-	@Input() vote: Vote;
+	@Input() teamVotes: Vote[];
+	@Input() userVote: Vote;
 	@Input() nodeId: string;
+
 	@Output() viewRatings = new EventEmitter<Vote[]>();
 	@Output() update = new EventEmitter<Observable<Vote>>();
 
 	constructor(private ratingSrv: RatingService) { }
 
 	onStarVote(value: number) {
-		this.update.emit(this.ratingSrv.starVote(this.vote, value, this.nodeId));
+		if (!this.userVote || value !== this.userVote.rating) {
+			this.update.emit(this.ratingSrv.starVote(this.userVote, value, this.nodeId));
+		}
 	}
 
 }

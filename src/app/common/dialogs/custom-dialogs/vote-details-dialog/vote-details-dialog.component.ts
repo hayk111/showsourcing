@@ -9,16 +9,12 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./vote-details-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VoteDetailsDialogComponent extends TrackingComponent implements OnInit {
+export class VoteDetailsDialogComponent extends TrackingComponent {
 
 	@Input() votes: Vote[];
 
 	constructor(private dlgSrv: DialogService) {
 		super();
-	}
-
-	ngOnInit() {
-
 	}
 
 	closeDlg() {
