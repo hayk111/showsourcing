@@ -2,11 +2,11 @@
 	<span 
 		class="currency" 
 		[ngStyle]="{'font-size': '--font-size-' + size}">
-		{{ currency | const : 'currency' : 'symbol' : '1.0-2'}}
+		{{ price?.currency | const : 'currency' : 'symbol' : '1.0-2'}}
 	</span>
 	<span 
 		class="amount ellipsis"
 		[ngStyle]="{'font-size': '--font-size-' + size}">
-		{{ price | appPrice }}
+		{{ price?.value | appPrice }}
 	</span>
 </div>

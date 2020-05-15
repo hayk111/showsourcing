@@ -1,4 +1,9 @@
 <button class="capitalize" [class.big]="size === 'l'" [ngClass]="statusUtils.getStatusColor(status)">
 	<span *ngIf="displayStep">{{ status?.step + '. ' }}</span>
-	{{ '_user-defined.status.' + (status && status[displayAttribute]) | translate }}
+	<ng-container *ngIf="status?.name; else defaultStatus">
+		{{ '_user-defined.status.' + (status && status[displayAttribute]) | translate }}
+	</ng-container>
+	<ng-template #defaultStatus>
+		{{ 'new ' + this.typename | translate }}
+	</ng-template>
 </button>

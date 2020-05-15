@@ -98,6 +98,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	closeMenu(emit = false): void {
 		this.menuOpen = false;
 		if (emit) {
+			console.log('close menu');
 			this.menuClosed.emit();
 			this.searchTxt = '';
 			// when we close the menu we want to be focused again

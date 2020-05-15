@@ -8,13 +8,19 @@ export class PropertyPipe implements PipeTransform {
 	transform(row: any, ...args: unknown[]): any {
 
 		const propertyName = args[0];
+		const propertyField: any = args[1];
 
-		if (!!row.properties.length) {
+		if (row && row.properties && !!row.properties.length) {
 			const index = row.properties.findIndex(property => property.name === propertyName);
 
 			if (index !== -1) {
 				if (row.properties[index]) {
-					return row.properties[index].value.split('"').join('');
+					try {
+						const property = JSON.parse(row.properties[index].value);
+						return propertyField ? property[propertyField] : property;
+					} catch {
+						return null;
+					}
 				}
 
 				return null;
