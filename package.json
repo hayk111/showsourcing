@@ -1,6 +1,6 @@
 {
   "name": "showsourcin-supplier-app",
-  "version": "4.0.0-1",
+  "version": "4.0.0-2",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -10,8 +10,8 @@
     "serve:fr": "ng serve --configuration=fr",
     "serve:local": "ng serve --configuration=local",
     "build": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build",
-    "build:dev": "ng build",
-    "build:sta": "ng build --configuration=sta",
+    "build:dev": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build",
+    "build:sta": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --configuration=sta",
     "build:prod": "npm run build",
     "build:supp": "ng build supplier --prod",
     "build:supp:dev": "ng build supplier",
