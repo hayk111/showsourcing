@@ -85,7 +85,7 @@ export class ListFuseHelperService<G = any> {
 		this.filterSrv.valueChanges$
 	).pipe(
 		debounce(() => timer(400)),
-		switchMap(([fuse]: any) => {
+		switchMap(([fuse, filters]: any) => {
 			// the value changed should concern the FilterType search
 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
 			if (searchValue) return of(fuse.search(searchValue.value).map((data) => data.item));
@@ -126,7 +126,7 @@ export class ListFuseHelperService<G = any> {
 			.then((_) => this._pending$.next(false));
 	}
 
-	create(addedProperties: any) {
+	create(addedProperties: any = {}) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
 				typename: this.typename,
@@ -139,13 +139,58 @@ export class ListFuseHelperService<G = any> {
 			.subscribe();
 	}
 
-	update(entity: any, options?: any) {
-		this.apiSrv.update(this.typename, entity, options);
+	update(entity: any, options?: any, typename?: Typename) {
+		this.apiSrv.update(typename || this.typename, entity, options).subscribe();
+	}
+
+	updateProperties(entityId: string, propertyName: string, properties: any | string) {
+		let propertiesToUpdate;
+
+		if (typeof properties === 'object') {
+			propertiesToUpdate = {
+				...properties
+			};
+
+			if ('additionalFields' in properties) {
+				propertiesToUpdate = {
+					...properties.additionalFields,
+					...properties,
+				};
+
+				delete propertiesToUpdate.additionalFields;
+			}
+		} else {
+			propertiesToUpdate = properties;
+		}
+
+		this.apiSrv.update(this.typename, { id: entityId,
+			properties: [{
+				name: propertyName,
+				value: JSON.stringify(propertiesToUpdate)
+			}]
+		}).subscribe();
+	}
+
+	getProperty(propertyName, properties) {
+		const index = properties.findIndex(property => property.name === propertyName);
+
+		if (index !== -1) {
+			const property = JSON.parse(properties[index].value);
+			return property || null;
+		}
 	}
 
 	delete(entity: any) {
 		this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
 		this.apiSrv.delete(this.typename, entity).subscribe();
+	}
+
+	updateSelected(entity) {
+		const selected = this.selectionSrv.getSelectedValues();
+		this.apiSrv.updateMany(this.typename, selected.map(ent => ({ id: ent.id, ...entity})))
+			.pipe(
+				switchMap(_ => this.refetch())
+			).subscribe();
 	}
 
 	deleteSelected() {

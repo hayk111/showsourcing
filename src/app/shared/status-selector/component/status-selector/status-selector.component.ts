@@ -53,7 +53,9 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	isLast() {
 		const statuses = this.statusSrv.listStatus;
-		if (!statuses || !this.entity) return true;
+		if (!statuses || !this.entity || !this.entity.status) {
+			return true;
+		}
 		const lastStep = statuses[statuses.length - 1].step;
 		return this.entity.status.step < lastStep ? false : true;
 	}

@@ -9,14 +9,23 @@ export class ProductQueries extends BaseQueries {
 
 	// we can also add entiere custom queries to pass with apiSrv.query()
 
-	constructor() {
-		const defaultFields = `
+	static defaultFields = `
 		id
 		name
+		_version
+		favorite
 		status {
 			${StatusQueries.defaultFields}
 		}
+		supplier { name }
+		assignee { firstName lastName }
+		score
+		properties { name value }
+		createdBy { firstName lastName }
+		createdAt
 	`;
-		super('Product', defaultFields);
+
+	constructor() {
+		super('Product', ProductQueries.defaultFields);
 	}
 }

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Supplier } from '~core/erm';
 import { config } from './config';
+import { ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'suppliers-table-app',
@@ -17,22 +18,18 @@ export class SuppliersTableComponent extends EntityTableComponent<Supplier> impl
 		'name',
 		'preview',
 		'categories',
-		'productCount',
-		'taskCount',
-		'sampleCount',
 		'favorite',
 		'rating',
 		'status',
 		'assignee',
 		'country',
 		'createdBy',
-		'creationDate',
 	];
 	static DEFAULT_TABLE_CONFIG = config;
 	@Input() columns = SuppliersTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
-	constructor() {
+	constructor(public listHelper: ListHelperService) {
 		super();
 	}
 

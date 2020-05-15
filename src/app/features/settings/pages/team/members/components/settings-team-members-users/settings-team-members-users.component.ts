@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ERM, SelectParamsConfig, TeamUser, User } from '~core/erm';
+import { forkJoin, Observable, combineLatest, timer } from 'rxjs';
+import { switchMap, map, debounce, tap } from 'rxjs/operators';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
-import { FilterService } from '~core/filters/filter.service';
+import { FilterService, FilterType } from '~core/filters';
 import { MembersInvitationService } from '../../services/members-invitation.service';
+import { Invitation, TeamUser, User, ApiService } from '~core/erm3';
+import { QueryPool } from '~core/erm3/queries/query-pool.class';
+import { QueryType } from '~core/erm3/queries/query-type.enum';
+import { TeamService } from '~core/auth';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -19,17 +22,19 @@ import { MembersInvitationService } from '../../services/members-invitation.serv
 		ListPageViewService,
 		ListFuseHelperService,
 		SelectionService,
-	]
+	],
+	host: { class: 'table-page' }
 })
 export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	implements OnInit {
 	teamOwner: boolean;
+	teamMembers: TeamUser[] = [];
+	rows$: Observable<any[]>;
 	user: User;
 	hasSelected = false;
-	selectItemsConfig: SelectParamsConfig;
-	erm = ERM;
 
 	constructor(
+		private dlgCommonSrv: DialogCommonService,
 		private featureSrv: SettingsMembersService,
 		public listHelper: ListFuseHelperService,
 		public filterSrv: FilterService,
@@ -38,6 +43,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		private translate: TranslateService,
 		public selectionSrv: SelectionService,
 		public membersInvitationSrv: MembersInvitationService,
+		private apiSrv: ApiService
 	) {
 		super();
 	}
@@ -46,19 +52,67 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		this.filterSrv.setup([], ['user.firstName']);
 		this.listHelper.setup('TeamUser', 'Team'); // search initialized in controller-table
 
+		this.rows$ = combineLatest(
+			this.listHelper.searchedItems$,
+			this.filterSrv.valueChanges$
+		).pipe(
+			debounce(() => timer(400)),
+			switchMap(([members, filters]: any) => {
+				const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
+				this.teamMembers = members;
+
+				const options: any = {};
+				const invitationFilters: any = {
+					deleted: { eq: false },
+					// teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
+				};
+
+				if (searchValue && searchValue.value !== '') {
+					invitationFilters.email = {
+						contains: searchValue.value
+					};
+				}
+
+				options.variables = {
+					// byId: TeamService.teamSelected.id,
+					limit: 10000,
+					filter: invitationFilters
+				};
+				options.fetchPolicy = 'network-only';
+				options.query = QueryPool.getQuery('Invitation', QueryType.LIST_BY)('Team');
+				return this.apiSrv.query<Invitation[]>(options).data$;
+			}),
+			map((invitations: Invitation[]) => [...this.teamMembers, ...invitations])
+		);
+
 		this.viewSrv.setup({
 			typename: 'TeamUser',
 			destUrl: 'settings/team/members/components/settings-team-members-users',
 			view: 'table',
 		});
 
-		this.featureSrv
-			.selectTeamOwner()
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(({ user, teamOwner }) => {
-				this.teamOwner = teamOwner;
-				this.user = <User>user;
-			});
+		// this.featureSrv
+		// 	.selectTeamOwner()
+		// 	.pipe(takeUntil(this._destroy$))
+		// 	.subscribe(({ user, teamOwner }) => {
+		// 		this.teamOwner = teamOwner;
+		// 		this.user = <User>user;
+		// 	});
+	}
+
+	/** Opens the dialog for inviting a new user */
+	openInviteDialog() {
+		this.dlgCommonSrv.openInvitationDialog().data$
+			.pipe(
+				switchMap((entity) => {
+					return this.apiSrv.create('Invitation', {
+						...entity,
+						teamRole: 'TEAMMEMBER'
+					});
+				}),
+				tap(_ => this.listHelper.refetch())
+		)
+		.subscribe();
 	}
 
 	updateAccessType({

@@ -16,7 +16,7 @@
 </controller-table-app>
 
 <projects-table-app
-	[rows]="items$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	(select)="selectionSrv.selectOne($event, true)"

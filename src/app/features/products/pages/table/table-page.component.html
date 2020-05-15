@@ -21,9 +21,10 @@
 </controller-table-app>
 
 <products-table-app
-	[rows]="listHelper.filteredItems$ | async"
+	[rows]="listHelper.paginedItems$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
+	[hasMenu]="false"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="listHelper.create()"
 	(update)="listHelper.update($event, {}, 'Product')"

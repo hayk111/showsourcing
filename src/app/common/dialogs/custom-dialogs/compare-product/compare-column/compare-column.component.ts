@@ -7,15 +7,12 @@ import { Product, ERM } from '~core/erm';
 	styleUrls: ['./compare-column.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CompareColumnComponent implements OnInit {
+export class CompareColumnComponent {
 	@Input() product: Product;
 	@Output() update = new EventEmitter<any>();
 	erm = ERM;
 
 	constructor() { }
-
-	ngOnInit() {
-	}
 
 	/** Trackby function for ngFor */
 	trackByFn(index, tag) {
