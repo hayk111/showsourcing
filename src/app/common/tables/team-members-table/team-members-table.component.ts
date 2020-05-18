@@ -38,6 +38,17 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> {
 	}
 
 	getStatus(status: string) {
-		return status === 'CREATED' ? 'Invitation Sent' : status;
+		switch (status) {
+			case 'CREATED':
+				return 'Invitation Sent';
+			case 'TEAMOWNER':
+				return 'Team Owner';
+			case 'TEAMMEMBER':
+				return 'Team Member';
+			case 'TEAMVIEWER':
+				return 'Team Viewer';
+			default:
+				return status;
+		}
 	}
 }
