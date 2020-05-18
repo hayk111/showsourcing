@@ -8,6 +8,7 @@ import { Product, ApiService } from '~core/erm3';
 import { forkJoin } from 'rxjs';
 import { ToastService, Toast, ToastType } from '~shared/toast';
 import { translate } from '~utils';
+import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 
 @Component({
 	selector: 'product-selection-bar-app',
@@ -28,7 +29,8 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 		private listHelper: ListHelperService,
 		private ratingSrv: RatingService,
 		private apiSrv: ApiService,
-		private notificationSrv: ToastService
+		private notificationSrv: ToastService,
+		private statusSrv: StatusSelectorService
 	) {
 		super();
 	}
@@ -94,17 +96,18 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 		const products: Product[] = this.selectionSrv.getSelectedValues();
 		// TODO starVote should return an observable to do action after BE response
 		const updates = products.map(product => {
-			return this.ratingSrv.starVote(product.votes, value.rating, 'Product:' + product.id, false);
+			// return this.ratingSrv.starVote(product.votes, value.rating, 'Product:' + product.id, false);
 		});
 	}
 
 	statusUpdate({ value }) {
 		const products = this.selectionSrv.getSelectedValues();
-		const updates = products.map(product =>
-			this.apiSrv.updateStatus('Product', product.id, value.id)
-		);
-		forkJoin(updates).subscribe(resp => {
-			this.notificationSrv.add(this.massUpdateToast);
-		});
+		// const updates = products.map(product =>
+			// this.statusSrv.setupStatuses()
+			// this.statusSrv.updateStatus()
+		// );
+		// forkJoin(updates).subscribe(resp => {
+			// this.notificationSrv.add(this.massUpdateToast);
+		// });
 	}
 }

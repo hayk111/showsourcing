@@ -46,5 +46,9 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			.subscribe(_ => this.listRef.refetch());
 	}
 
+	onCommentDeleted(comment: Comment) {
+		this.apiSrv.deleteManyFromList(this.listRef, [comment.id]);
+	}
+
 
 }

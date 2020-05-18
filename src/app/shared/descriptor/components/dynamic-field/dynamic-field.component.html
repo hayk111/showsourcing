@@ -7,6 +7,7 @@
 			<input 
 				inputApp
 				type="text"
+				placeholder="Your text"
 				[required]="descriptor.required"
 				[readonly]="descriptor.readonly"
 				[formControl]="control"/>
@@ -21,6 +22,8 @@
 			<input 
 				inputApp
 				type="number"
+				restrictInput="number"
+				placeholder="42"
 				[value]="control.value"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
@@ -36,6 +39,7 @@
 			<input 
 				inputApp
 				restrictInput="tel"
+				placeholder="+32 0477 88 45 95"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control"/>
@@ -51,6 +55,7 @@
 				inputApp
 				type="email"
 				restrictInput="email"
+				placeholder="johndoe@company.com"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control"/>
@@ -65,7 +70,7 @@
 			<input 
 				inputApp
 				type="color"
-				[readonly]="descriptor.readonly"
+				[ngClass]="{ 'pass-through': descriptor.readonly }"
 				[required]="descriptor.required"
 				[formControl]="control"/>
 				<hint-app>{{ descriptor.hint }}</hint-app>
@@ -92,9 +97,9 @@
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
 				inputApp
-				restrictInput="decimal"
 				type="number"
-				step="any"
+				restrictInput="decimal"
+				step="0.01"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control"/>
@@ -108,6 +113,7 @@
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<textarea 
 				inputApp
+				placeholder="Type here"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control">
@@ -118,11 +124,12 @@
 
 	<!-- CHECKBOX -->
 	<ng-container *ngSwitchCase="type.CHECKBOX">
-		<form-field-app>
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<checkbox-app 
 				#checkbox 
 				inputApp 
+				[required]="descriptor.required"
 				[readonly]="descriptor.readonly"
 				[formControl]="control">
 				{{ checkbox.value ? 'Yes' : 'No' }}
@@ -147,6 +154,13 @@
 	<ng-container *ngSwitchCase="type.PACKAGING">
 		<div class="capitalize mg-bottom-ms bold color-txt-secondary">
 			{{ descriptor.definition.label }}
+			<!-- since it's not using the form field 
+			we have to add the required marker manually -->
+			<span 
+				*ngIf="descriptor.required"
+				class="color-warn">
+				*
+			</span>
 		</div>
 		<input-packaging-app
 			[readonly]="descriptor.readonly"
@@ -157,7 +171,7 @@
 
 	<!-- PRICE -->
 	<ng-container *ngSwitchCase="type.PRICE">
-		<form-field-app>
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input-price-app 
 				inputApp 
@@ -170,7 +184,7 @@
 
 	<!-- PRICE MATRIX -->
 	<ng-container *ngSwitchCase="type.PRICE_MATRIX">
-		<form-field-app>
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input-price-matrix-app 
 				inputApp 
@@ -183,14 +197,21 @@
 
 	<!-- SELECTOR -->
 	<ng-container *ngSwitchCase="type.SELECTOR">
-		<selector-app 
-			[typename]="descriptor.definition.selectorSettings.type"
-			[customType]="descriptor.definition.selectorSettings.propertyOptionType"
-			[readonly]="descriptor.readonly"
-			[required]="descriptor.required"
-			[formControl]="control">
-			<span>{{ control.value }}</span>
-		</selector-app>
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<selector-app 
+				inputApp
+				[typename]="descriptor.definition.selectorSettings.type"
+				[customType]="descriptor.definition.selectorSettings.propertyOptionType"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control">
+				<selector-placeholder-app 
+					[readonly]="descriptor.readonly">
+					{{ control.value }}
+				</selector-placeholder-app>
+			</selector-app>
+		</form-field-app>
 	</ng-container>
 
 </ng-container>

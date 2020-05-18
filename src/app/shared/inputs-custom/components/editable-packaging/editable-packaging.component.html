@@ -14,6 +14,8 @@
 	<input 
 		inputApp
 		type="number"
+		min="0" 
+		step="0.01"
 		[(ngModel)]="value.length"
 		[required]="required"
 		(keyup.enter)="edtLength.save()"
@@ -36,6 +38,8 @@
 	<input 
 		inputApp
 		type="number"
+		min="0" 
+		step="0.01"
 		[(ngModel)]="value.width"
 		[required]="required"
 		(keyup.enter)="edtWidth.save()"
@@ -58,6 +62,8 @@
 	<input 
 		inputApp
 		type="number"
+		min="0" 
+		step="0.01"
 		[(ngModel)]="value.height"
 		[required]="required"
 		(keyup.enter)="edtHeight.save()"
@@ -69,8 +75,8 @@
 <!-- LENGTH UNIT-->
 <editable-field-app 
 	#edtLengthUnit
-	class="clickable"
 	[readonly]="true"
+	[clickableReadonly]="!readonly"
 	(click)="lengthUnitSelector.openMenu()"
 	(saved)="onChangeFn(value)"
 	(opened)="storeValue('lengthUnit', value.lengthUnit)"
@@ -81,8 +87,9 @@
 			#lengthUnitSelector
 			typename="PropertyOption"
 			customType="lengthUnit"
-			[(ngModel)]="value.lengthUnit"
+			[readonly]="readonly"
 			[required]="required"
+			[(ngModel)]="value.lengthUnit"
 			(input)="onChangeFn(value)"
 			(blur)="onTouchedFn()">
 			{{ value?.lengthUnit }}
@@ -104,6 +111,7 @@
 	<input 
 		inputApp
 		type="number"
+		min="0" 
 		[(ngModel)]="value.quantity"
 		[required]="required"
 		(keyup.enter)="edtQuantity.save()"
@@ -126,6 +134,8 @@
 	<input 
 		inputApp
 		type="number"
+		min="0" 
+		step="0.01"
 		[(ngModel)]="value.weight"
 		[required]="required"
 		(keyup.enter)="edtWeight.save()"
@@ -137,8 +147,8 @@
 <!-- WEIGHT UNIT-->
 <editable-field-app 
 	#edtWeightUnit
-	class="clickable"
 	[readonly]="true"
+	[clickableReadonly]="!readonly"
 	(click)="weightUnitSelector.openMenu()"
 	(saved)="onChangeFn(value)"
 	(opened)="storeValue('weightUnit', value.weightUnit)"
@@ -149,8 +159,9 @@
 			#weightUnitSelector
 			typename="PropertyOption"
 			customType="weightUnit"
-			[(ngModel)]="value.weightUnit"
 			[required]="required"
+			[readonly]="readonly"
+			[(ngModel)]="value.weightUnit"
 			(input)="onChangeFn(value)"
 			(blur)="onTouchedFn()">
 			{{ value?.weightUnit }}

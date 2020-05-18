@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+	EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import {Observable} from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
@@ -13,6 +15,7 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, PendingImage } from '~utils';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -23,6 +26,8 @@ import { AutoUnsub, PendingImage } from '~utils';
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	private _product: any;
+	vote$: Observable<Vote>;
+
 	@Input()
 	set product(value: any) {
 		this._product = value;
@@ -64,17 +69,18 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		private apiSrv: ApiService,
 		private router: Router,
 		private commentSrv: CommentService,
-		private previewSrv: PreviewService
+		private previewSrv: PreviewService,
+		public ratingSrv: RatingService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
+		this.vote$ = this.ratingSrv.getUserVote('product:' + this._product.id);
 	}
 
-	updateVote(votes: Vote[]) {
-		console.log('ProductPreviewComponent -> updateVote -> votes', votes);
-		this.product.votes = [...votes];
+	updateVote(vote: Observable<Vote>) {
+		this.vote$ = vote;
 	}
 
 	// UPDATE FUNCTIONS

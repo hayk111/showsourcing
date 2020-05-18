@@ -1,4 +1,9 @@
 <badge-app [size]="size" [color]="statusUtils.getStatusColor(status)">
 	<ng-container *ngIf="displayStep">{{ status?.step }}.</ng-container>
-	{{ status?.name || 'no-status'}}
+	<ng-container *ngIf="status?.name; else defaultStatus">
+		{{ '_user-defined.status.' + status?.name | translate }}
+	</ng-container>
+	<ng-template #defaultStatus>
+		{{ 'new ' + this.typename | translate }}
+	</ng-template>
 </badge-app>

@@ -29,4 +29,5 @@ export * from './spacing/spacing-page.component';
 export * from './table/table-page.component';
 export * from './typography/typography-page.component';
 export * from './custom-inputs/custom-inputs-page.component';
+export * from './upload/upload-page.component';
 

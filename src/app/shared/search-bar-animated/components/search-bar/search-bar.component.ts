@@ -8,12 +8,12 @@ import {
 	OnChanges,
 	OnInit,
 	Output,
+	Renderer2,
 	ViewChild
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-
 
 @Component({
 	selector: 'search-bar-app',
@@ -38,7 +38,7 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 
 	@ViewChild('inp', { static: true }) inputRef: ElementRef;
 
-	constructor(protected cd: ChangeDetectorRef) {
+	constructor(protected cd: ChangeDetectorRef, private renderer: Renderer2) {
 		super(cd);
 	}
 
@@ -68,6 +68,11 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	onChange(value: string) {
 		this.onChangeFn(value);
 		this._searchSubject$.next(value);
+	}
+
+	reset() {
+		this.onChange('');
+		this.renderer.setProperty(this.inputRef.nativeElement, 'value', '');
 	}
 
 	onClick() {

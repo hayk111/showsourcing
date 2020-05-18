@@ -7,15 +7,13 @@ import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, On
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[attr.tabindex]': '0',
-		// this class adds the left border when focussed
-		'[class.focus-left-border]': 'true'
+		'[class.readonly]': 'readonly'
 	}
 })
 export class SelectorPlaceholderComponent implements OnInit {
-
-	@Input() name: string;
 	@Input() placeholder: string;
 	@Input() hasArrow = true;
+	@Input() readonly = false;
 
 	// if we are using transclusion on this component, we must give to the transcluded child the #content (id)
 	@ContentChild('content', { static: false }) content: ElementRef;

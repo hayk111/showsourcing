@@ -70,7 +70,7 @@ const fields1: PropertyDescriptor[] = [
 			type: PropertyType.COLOR,
 			name: 'color',
 		},
-		required: false,
+		required: true,
 		readonly: false
 	}
 ];
@@ -82,6 +82,7 @@ const fields2: PropertyDescriptor[] = [
 			type: PropertyType.CHECKBOX,
 			name: 'checkbox',
 		},
+		required: true,
 		readonly: false,
 	},
 	{

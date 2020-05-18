@@ -38,6 +38,7 @@ export const routes: Array<Route> = [
 			{ path: 'packaging', component: Pages.PackagingPageComponent },
 			{ path: 'price', component: Pages.PricePageComponent },
 			{ path: 'custom-inputs', component: Pages.CustomInputsPageComponent },
+			{ path: 'upload', component: Pages.UploadPageComponent }
 
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
 			// { path: 'preview', component: Pages.PreviewPageComponent },

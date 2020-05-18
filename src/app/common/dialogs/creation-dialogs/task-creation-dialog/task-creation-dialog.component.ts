@@ -44,7 +44,6 @@ export class TaskCreationDialogComponent implements OnInit {
 	}
 
 	save() {
-		console.log(this.task);
 		if (!this.task.properties || !this.task.name) return;
 		this.dlgSrv.data({ ...this.product });
 		this.createAnother ?	this.form.reset() : this.dlgSrv.close();

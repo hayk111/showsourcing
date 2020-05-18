@@ -5,6 +5,7 @@ import { ProductService } from '~core/erm';
 import { TeamService } from '~core/erm';
 import { ApiService } from '~core/erm3/services/api.service';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'selector-page-app',
@@ -17,6 +18,13 @@ export class SelectorPageComponent implements OnInit {
 	entityNames = ['Product', 'Project', 'PropertyOption', 'Category', 'Currency', 'Supplier', 'User', 'Country'];
 
 	product$: Observable<Product>;
+
+	/** ===== STATUS PART ===== */
+	statusTypenames = ['Product', 'Task', 'Sample', 'Supplier'];
+	typenameSelected: Typename;
+	entitySelected: any;
+	triggerType: 'badge' | 'button' = 'badge';
+
 
 	constructor(private propertyOptionSrv: PropertyOptionsService, private apiSrv: ApiService) { }
 
@@ -32,8 +40,8 @@ export class SelectorPageComponent implements OnInit {
 		// });
 
 		// this.propertyOptionSrv.createPropertyOption({
-		// 	type: 'Color',
-		// 	value: 'pink'
+		// 	type: 'Country',
+		// 	value: 'Armenia'
 		// }).subscribe(created => {
 		// 	console.log('SelectorPageComponent -> ngOnInit -> created', created);
 		// 	this.propertyOptionSrv.deletePropertyOption(created).subscribe(deleted => {
@@ -45,11 +53,19 @@ export class SelectorPageComponent implements OnInit {
 	update(item, prop) {
 	}
 
-	showSelectedItem(item: any) {
-		alert(JSON.stringify(item));
+	/** ===== STATUS PART ===== */
+
+		selectTypename(typename) {
+		this.typenameSelected = typename;
+		this.entitySelected = null;
 	}
-	logSearchedText(text: string) {
-		console.log(text);
+
+	selectEntity(entity) {
+		this.entitySelected = entity;
+	}
+
+	selectTrigger(e) {
+		this.triggerType = e.target.value;
 	}
 
 }

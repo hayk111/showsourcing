@@ -7,28 +7,34 @@
 	placeholder="Label"
 	[ngClass]="{ 'inline': inline }"
 	[readonly]="readonly"
-	[(ngModel)]="value.label"
-	(blur)="onTouchedFn()"
+	[(ngModel)]="valueTemp.label"
+	(focus)="focussed = true"
+	(blur)="focussed = false; onTouchedFn()"
 	(input)="onChangeFn(value)"/>
 
 <div class="currency-price">
 	<input 
 		#amountInp
 		inputApp
-		autofocus
 		class="amount inline"
 		type="number" 
 		restrictInput="number"
 		placeholder="100"
 		[readonly]="readonly"
-		[(ngModel)]="value.value"
-		(blur)="onTouchedFn()"
+		[required]="required"
+		[(ngModel)]="valueTemp.value"
+		(focus)="focussed = true"
+		(blur)="focussed = false; onTouchedFn()"		
 		(input)="onChangeFn(value)"/>
 	
 	<selector-app 
 		typename="PropertyOption"
 		customType="currency"
-		[(ngModel)]="value.currency">
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="valueTemp.currency"
+		(menuOpened)="focussed = true"
+		(menuClosed)="focussed = false; onTouchedFn()">
 		<div class="currency pointer">
 			<span class="mg-h-s">{{ value?.currency || 'USD'}}</span>
 			<icon-app 

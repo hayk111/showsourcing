@@ -56,4 +56,94 @@
 		</selector-app>
 	</ng-template>
 </ng-container>
-<status-demo-app></status-demo-app>
+
+<!-- STATUS SELECTOR CARD -->
+<div class="flex">
+	<card-app class="mg-l col-50">
+		<card-title-app>Status Selectors</card-title-app>
+		<p>
+			This "dropdown" is different from the other selectors:
+		</p>
+		<p class="mg-bottom-s">
+			It take a single entity and display his status through a button or a badge. <br />
+			This entity should correspond to a typename 'Product' | 'Task' | 'Supplier' | 'sample'. <br />
+			This way, the status-selector can get the correct 'WorkflowStatus' to display statuses
+			disponibles for this typename. <br />
+			When picking up a status, the component update the entity's status with the query "update[Typename]Status"
+		</p>
+
+		<!-- Setup the demo to use status-selector -->
+		<ul>
+			<!-- Typename Selector -->
+			<li class="mg-bottom-s">
+				<context-menu-app [closeOnScroll]="true" [offsetY]="5">
+					<context-menu-trigger-app class="flex">
+						<button class="">Select a Typename</button>
+					</context-menu-trigger-app>
+					<context-menu-item-app
+						*ngFor="let typename of statusTypenames"
+						(click)="selectTypename(typename)"
+						>{{ typename }}</context-menu-item-app
+					>
+				</context-menu-app>
+				Typename selected: {{ typenameSelected || '--' }}
+			</li>
+			<!-- End -- Typename Selector -->
+
+			<!-- Entity Selector -->
+			<li *ngIf="typenameSelected" class="mg-bottom-s">
+				<selector-app [typename]="typenameSelected" (update)="selectEntity($event)">
+					<button>Select a {{ typenameSelected }}</button>
+				</selector-app>
+				{{ typenameSelected }} selected: {{ entitySelected?.name || '--' }}
+			</li>
+			<!-- End -- Entity Selector -->
+
+			<!-- Select trigger type -->
+			<li *ngIf="entitySelected">
+				select a trigger type
+				<div class="flex">
+					<input
+						type="radio"
+						style="width: 0.8rem; height: 1rem;"
+						id="badge"
+						name="triggertype"
+						(change)="selectTrigger($event)"
+						value="badge"
+						checked
+					/>
+					<label for="badge">badge</label>
+				</div>
+				<div class="flex">
+					<input
+						type="radio"
+						style="width: 0.8rem; height: 1rem;"
+						id="button"
+						name="triggertype"
+						(change)="selectTrigger($event)"
+						value="button"
+					/>
+					<label for="button">button</label>
+				</div>
+			</li>
+			<!-- End -- Select trigger type -->
+		</ul>
+		<!-- End -- Setup the demo -->
+
+		<!-- Demo : Display and update status of Entity Selected -->
+		<ul>
+			<li class="mg-bottom-s" *ngIf="entitySelected">
+				{{triggerType}} status selector of {{typenameSelected}} "{{entitySelected.name}}":
+				<status-selector-app
+					class="flex"
+					[entity]="entitySelected"
+					[typename]="typenameSelected"
+					[displayStep]="true"
+					selectSize="m"
+					[type]="triggerType"
+				></status-selector-app>
+			</li>
+		</ul>
+		<!-- End -- Demo -->
+	</card-app>
+</div>

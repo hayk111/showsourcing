@@ -83,8 +83,8 @@
 	<!-- COLOR -->
 	<ng-container *ngSwitchCase="type.COLOR">
 		<editable-field-app 
-			class="clickable"
 			#edt 
+			[clickableReadonly]="!descriptor.readonly"
 			[readonly]="true"
 			(click)="inp.click()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
@@ -138,7 +138,7 @@
 				inputApp
 				restrictInput="decimal"
 				type="number"
-				step="any"
+				step="0.01"
 				[readonly]="descriptor.readonly"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
@@ -169,11 +169,16 @@
 	<ng-container *ngSwitchCase="type.CHECKBOX">
 		<editable-field-app 
 			#edt
-			class="clickable"
 			[readonly]="true"
+			[clickableReadonly]="!descriptor.readonly"
 			(click)="toggleValue()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value ? 'Yes' : 'No' }}</editable-value-app>
+			<editable-value-app>
+				<checkbox-app 
+					[readonly]="true" 
+					[value]="control.value">
+				</checkbox-app>
+			</editable-value-app>
 		</editable-field-app>
 	</ng-container>
 
@@ -224,8 +229,8 @@
 	<!-- SELECTOR -->
 	<ng-container *ngSwitchCase="type.SELECTOR">
 		<editable-field-app 
-			class="clickable" 
 			[readonly]="true"
+			[clickableReadonly]="!descriptor.readonly"
 			(click)="sel.openMenu()">
 			<editable-label-app>
 				{{ descriptor.definition.label }}

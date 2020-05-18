@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild, ElementRef } from '@angular/core';
-import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { Price } from '~core/erm3';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { InputDirective } from '~shared/inputs/components-directives';
 
 @Component({
 	selector: 'input-price-app',
@@ -8,17 +10,40 @@ import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(InputPriceComponent)],
 	host: {
-		'[class.inline]': 'inline'
+		'[class.inline]': 'inline',
+		'[class.readonly]': 'readonly',
+		'[class.focussed]': 'focussed'
 	}
 })
 export class InputPriceComponent extends AbstractInput {
-	@Input() value: any = {};
+
+	@Input()
+	set value(value: Price) {
+		this.valueTemp = value;
+	}
+	get value() {
+		// we want to return a value only if the amount (value.value)
+		// is not null or undefined
+		if (this.valueTemp.value != null) {
+			return this.valueTemp;
+		} else {
+			return null;
+		}
+	}
+
+	valueTemp: Price = {};
 	@Input() hasLabel = false;
 	/** whether the input has borders */
 	@Input() inline = false;
-	@ViewChild('amountInp') amountInp: ElementRef<HTMLInputElement>;
+	@ViewChild(InputDirective) amountInp: InputDirective;
+	focussed = false;
+
+	constructor() {
+		super();
+	}
 
 	focus() {
-		this.amountInp.nativeElement.focus();
+		this.amountInp.focus();
 	}
+
 }
