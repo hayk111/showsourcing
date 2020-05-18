@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DialogService } from '~shared/dialog/services/dialog.service';
-import { CloseEventType } from '~shared/dialog/interfaces';
 
 @Component({
 	selector: 'confirm-dialog-app',
@@ -17,7 +16,7 @@ export class ConfirmDialogComponent {
 	constructor(protected srv: DialogService) { }
 
 	onConfirm() {
-		this.srv.data('');
+		this.srv.data(true);
 		this.srv.close();
 	}
 

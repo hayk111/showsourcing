@@ -1,9 +1,8 @@
-import { Component, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
-import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'status-selector-app',
@@ -36,6 +35,8 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	@Input() type: 'badge' | 'button' = 'badge';
 
+	@Output() statusUpdated = new EventEmitter();
+
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 
 	statusUtils = StatusUtils; // TODO adapt this for colors and move it in service
@@ -45,6 +46,9 @@ export class StatusSelectorComponent extends AutoUnsub {
 	}
 
 	updateStatus(newStatus, entity) {
+		this.statusUpdated.emit(newStatus);
+		this.entity.status = newStatus;
+		if (!entity.id) return;
 		this.statusSrv.updateStatus(newStatus, entity).subscribe((newEntity) => {
 			this.entity = newEntity;
 			this.cd.markForCheck();
