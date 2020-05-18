@@ -11,58 +11,58 @@
   </div>
 
   <div class="pd-h-s">
-    <price-app [price]="product?.price"></price-app>
+    <price-app [price]="product | property: 'price'" [currency]="product | property: 'currency'"></price-app>
   </div>
 
   <div class="pd-h-s">
-    <span class="ellipsis">{{ product.minimumOrderQuantity }}</span>
+    <span class="ellipsis">{{ product | property: 'minimumOrderQuantity' }}</span>
   </div>
 
   <div class="pd-h-s">
-    <span class="ellipsis" title="{{ product?.moqDescription }}">{{ product.moqDescription }}</span>
+    <span class="ellipsis" title="{{ product | property: 'moqDescription' }}">{{ product | property: 'moqDescription' }}</span>
   </div>
 
   <div class="pd-h-s">
-    <span class="ellipsis" title="{{ product?.category?.name }}">{{ product?.category?.name }}</span>
+    <span class="ellipsis" title="{{ product | property: 'category'}}">{{ product | property: 'category' }}</span>
   </div>
 
   <div class="pd-h-s ellipsis" title="{{ getTagsName() }}">
-    <span *ngFor="let tag of product?.tags; last as last; trackBy: trackByFn">{{ !last ? tag?.name + ', &nbsp;' : tag?.name }}</span>
+    <span *ngFor="let tag of (product | property: 'tags'); last as last; trackBy: trackByFn">{{ !last ? tag?.name + ', &nbsp;' : tag?.name }}</span>
   </div>
 
 	<h3></h3>
 
 	<div class="pd-h-s">
-    <span class="ellipsis">{{ product?.supplier?.incoTerm }}</span>
+    <span class="ellipsis">{{ product?.supplier | property: 'incoTerm' }}</span>
   </div>
 
   <div class="pd-h-s">
-    <span class="ellipsis">{{ product?.supplier?.harbour }}</span>
+    <span class="ellipsis">{{ product?.supplier | property: 'harbour' }}</span>
   </div>
 
   <h3></h3>
 
   <div class="pd-h-s">
-    <ng-container *ngIf="product.innerCarton as c">
+    <ng-container *ngIf="product | property: 'innerCarton' as c">
       <packaging-app [packaging]="c"></packaging-app>
     </ng-container>
   </div>
 
   <div class="pd-h-s">
-    <ng-container *ngIf="product.masterCarton as c">
+    <ng-container *ngIf="product | property: 'masterCarton' as c">
       <packaging-app [packaging]="c"></packaging-app>
     </ng-container>
   </div>
 
   <div class="pd-h-s">
-    <span class="ellipsis">{{ product?.masterCarton?.itemsQuantity }}</span>
+    <span class="ellipsis">{{ (product | property: 'masterCarton')?.itemsQuantity }}</span>
 	</div>
 
 	<div class="status-selector">
 		<status-selector-app
 			[entity]="product"
-			 typename="Product"
-			 type="button"
+      typename="Product"
+      type="button"
 		 	selectSize="m"
 		 	(statusUpdated)="updateProp($event, 'status')">
 		</status-selector-app>

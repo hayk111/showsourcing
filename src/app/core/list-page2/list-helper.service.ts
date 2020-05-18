@@ -123,15 +123,16 @@ export class ListHelperService<G = any> {
 		return deleteMany$;
 	}
 
-	updateProperties(entityId: string, properties: any) {
-		const updatedProperties = [];
-		const propertyNames = Object.keys(properties);
+	updateProperties(entityId: string, propertyName: string, properties: any) {
+		const keys = Object.keys(properties);
+		// keys.forEach(key => properties[key] = JSON.stringify(properties[key]));
 
-		propertyNames.forEach((propertyName) => {
-			updatedProperties.push({ name: propertyName, value: this.parseProperty(propertyName, properties[propertyName]) });
-		});
-
-		this.apiSrv.update(this.typename, { id: entityId, properties: updatedProperties }).subscribe();
+		this.apiSrv.update(this.typename, { id: entityId,
+			properties: [{
+				name: propertyName,
+				value: JSON.stringify(properties)
+			}]
+		}).subscribe();
 	}
 
 	delete(entity: any) {

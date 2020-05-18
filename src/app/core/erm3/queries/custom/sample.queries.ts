@@ -9,6 +9,8 @@ export class SampleQueries extends BaseQueries {
 		status {
 			${StatusQueries.defaultFields}
 		}
+		product { name }
+		supplier { name }
 		createdBy { firstName lastName }
 		assignee { firstName lastName }
 		createdAt

@@ -64,7 +64,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 				const options: any = {};
 				const invitationFilters: any = {
 					deleted: { eq: false },
-					teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
+					// teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
 				};
 
 				if (searchValue && searchValue.value !== '') {
@@ -74,7 +74,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 				}
 
 				options.variables = {
-					byId: TeamService.teamSelected.id,
+					// byId: TeamService.teamSelected.id,
 					limit: 10000,
 					filter: invitationFilters
 				};
