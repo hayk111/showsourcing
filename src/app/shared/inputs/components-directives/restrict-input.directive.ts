@@ -16,6 +16,9 @@ export class RestrictInputDirective {
 			case 'number':
 				this.regex = new RegExp(RegexpApp.DIGITS);
 				break;
+			case 'number-positive':
+				this.regex = new RegExp(RegexpApp.POSITIVE_NUMBER);
+				break;
 			case 'decimal':
 				this.regex = new RegExp(RegexpApp.DECIMAL);
 				break;
