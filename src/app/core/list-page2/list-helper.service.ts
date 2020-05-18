@@ -13,6 +13,7 @@ import { Entity } from '~core/erm3/models/_entity.model';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
 import { QueryType } from '~core/erm3/queries/query-type.enum';
 import { RatingService } from '~shared/rating/services/rating.service';
@@ -38,16 +39,18 @@ export class ListHelperService<G = any> {
 		// gets the query
 		map(([{ queryArg }, page, limit, sort]) => {
 			return this.apiSrv.searchBy<G>(
-				this.typename, {
+				this.typename,
+				{
 					filter: queryArg,
 					take: limit,
 					skip: page * limit,
-					sort
-				}, {});
-			}
-		),
+					sort,
+				},
+				{}
+			);
+		}),
 		// save it
-		tap(query => this.queryRef = query),
+		tap(query => (this.queryRef = query)),
 		mergeMap(query => query.total$),
 		tap(total => this._total$.next(total)),
 		// add total to the paginationSrv
@@ -80,7 +83,7 @@ export class ListHelperService<G = any> {
 		// private dlgCommonSrv: DialogCommonService, // ! Circular dependency
 		private dlgSrv: DialogService
 	) {
-		this.total$.subscribe(total => this.total = total);
+		this.total$.subscribe(total => (this.total = total));
 	}
 
 	setup(typename: Typename) {
@@ -90,18 +93,19 @@ export class ListHelperService<G = any> {
 
 	refetch(options?: WatchQueryOptions) {
 		this._pending$.next(true);
-		return this.queryRef.refetch({ ...options, fetchPolicy: 'network-only' })
-		.then(_ => this._pending$.next(false));
+		return this.queryRef
+			.refetch({ ...options, fetchPolicy: 'network-only' })
+			.then(_ => this._pending$.next(false));
 	}
 
 	/** Open a dialog to get entity properties depending on the typename. Then, create the new entity */
 	create(linkedEntities?: Record<string, Entity<any>>) {
 		// TODO change this default dialog with openCreationDlg
-		this.dlgSrv.open(DefaultCreationDialogComponent, linkedEntities).data$
-		// this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
-		.pipe(
-			switchMap(entity => this.apiSrv.create(this.typename, entity)),
-		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
+		this.dlgSrv
+			.open(DefaultCreationDialogComponent, linkedEntities)
+			.data$ // this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
+			.pipe(switchMap(entity => this.apiSrv.create(this.typename, entity)))
+			.subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any, options?: any, typename?: Typename) {
@@ -110,10 +114,13 @@ export class ListHelperService<G = any> {
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		this.apiSrv.updateMany(this.typename, selected.map(ent => ({ id: ent.id, ...entity})))
-			.pipe(
-				switchMap(_ => this.refetch())
-			).subscribe();
+		const deleteMany$ = this.apiSrv.updateMany(
+			this.typename,
+			selected.map(ent => ({ id: ent.id, ...entity }))
+		);
+		// .pipe(switchMap(_ => this.refetch()))
+		deleteMany$.subscribe();
+		return deleteMany$;
 	}
 
 	updateProperties(entityId: string, propertyName: string, properties: any) {
@@ -129,17 +136,24 @@ export class ListHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		this.apiSrv.delete(this.typename, entity).pipe(
-			switchMap(_ => this.refetch())
-		).subscribe();
+		this.apiSrv
+			.delete(this.typename, entity)
+			.pipe(switchMap(_ => this.refetch()))
+			.subscribe();
 	}
 
 	deleteSelected() {
-		const selected = this.selectionSrv.getSelectedValues();
-		this.apiSrv.deleteMany(this.typename, selected)
-			.pipe(
-				switchMap(_ => this.refetch())
-			).subscribe(_ => this.selectionSrv.unselectAll());
+		const selecteds = this.selectionSrv.getSelectedValues();
+		this.dlgSrv
+			.open(ConfirmDialogComponent)
+			.data$.pipe(switchMap(_ => this.apiSrv.deleteMany(this.typename, selecteds)))
+			.subscribe(_ => {
+				this.apiSrv.deleteManyFromList(
+					this.queryRef,
+					selecteds.map(el => el.id)
+				);
+				this.selectionSrv.unselectAll();
+			});
 	}
 
 	loadMore() {

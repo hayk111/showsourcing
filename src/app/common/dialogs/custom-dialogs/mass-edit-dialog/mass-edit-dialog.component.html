@@ -1,0 +1,102 @@
+<dialog-app class="vertical-scroll-content">
+	<dialog-header-app>
+		{{
+			((items?.length || 0) > 1 ? 'OBJ.mass-edit.plural' : 'OBJ.mass-edit.singular')
+				| translate: { count: items?.length || 0 }
+		}}
+	</dialog-header-app>
+
+	<div class="container">
+		<h5 class="ms" translate="text.property-update"></h5>
+
+		<!-- Selection of the property to edit -->
+		<div class="mg-bottom-l">
+			<selector-default-app
+				itemKey="label"
+				[items]="fieldsChoice"
+				(selected)="setPropertySelected($event)"
+				[minWidth]="500"
+				textHint="you can use the search"
+				textLabel="properties"
+				textPlaceholder=""
+			>
+				<selector-placeholder-app
+					trigger
+					autoFocus
+					[name]="(propertySelected$ | async)?.label"
+					[placeholder]="'placeholder.select-property' | translate"
+				></selector-placeholder-app>
+			</selector-default-app>
+		</div>
+
+		<!-- #####  inputs switcher  ##### -->
+		<ng-container [ngSwitch]="(propertySelected$ | async)?.type">
+			<!-- edit of descriptor property -->
+			<!-- <dynamic-field-app
+			*ngFor="let descriptor of propertyDescriptors"
+			[descriptor]="descriptor"
+			[control]="formGroup.controls[descriptor.definition.name]"
+			[showRequiredMarker]="showRequiredMarker">
+		</dynamic-field-app> -->
+
+			<!-- edit of status -->
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					(statusUpdated)="setProperty('status', $event, propertySelected)"
+					[typename]="typename"
+					[displayStep]="false"
+					selectSize="l"
+					type="button"
+				></status-selector-app>
+			</ng-container>
+
+			<!-- edit of rating -->
+			<ng-container *ngSwitchCase="'rating'">
+				<rating-stars-action-app (valueVoted)="setRating($event)" [votes]="fakeVotes">
+				</rating-stars-action-app>
+			</ng-container>
+
+			<!-- edit of property type string => name -->
+			<ng-container *ngSwitchCase="'string'">
+				<form-field-app>
+					<input
+						inputApp
+						type="text"
+						#stringInput
+						required
+						(input)="setProperty('string', stringInput.value, propertySelected)"
+					/>
+					<hint-app>write the new name</hint-app>
+				</form-field-app>
+			</ng-container>
+
+			<!-- edit of property type SELECTOR (supplier, category, assignee, tags) -->
+			<ng-container *ngSwitchCase="'selector'">
+				<selector-app
+					[typename]="propertySelected.typename"
+					[customType]="propertySelected.typePropertyOption"
+					[canCreate]="true"
+					(update)="setProperty('selector', $event, propertySelected)"
+				>
+					<button>
+						{{ toUpdate?.value?.name || 'select a ' + propertySelected.label }} selector
+					</button>
+				</selector-app>
+			</ng-container>
+		</ng-container>
+	</div>
+
+	<dialog-footer-app>
+		<button
+			tabFocusAction
+			class="capitalize secondary"
+			(click)="cancel()"
+			translate="button.cancel"
+		></button>
+		<button tabFocusAction class="capitalize" (click)="update()" translate="button.update"></button>
+	</dialog-footer-app>
+</dialog-app>
+
+<!-- <ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template> -->

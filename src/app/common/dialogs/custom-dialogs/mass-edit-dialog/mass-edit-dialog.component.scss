@@ -3,16 +3,16 @@ dialog-app {
 	max-height: 80vh;
 	width: 500px;
 
-	.status-selector {
-		width: 500px;
-    box-sizing: border-box;
-	}
+	// .status-selector {
+	// 	width: 500px;
+  //   box-sizing: border-box;
+	// }
 
 	.container {
 		margin-bottom: var(--spacing-ms);
-		selector-placeholder-app:not(.status-selector), status-selector-app {
-			margin-bottom: var(--spacing-l);
-		}
+		// selector-placeholder-app:not(.status-selector), status-selector-app {
+			// margin-bottom: var(--spacing-l);
+		// }
 	}
 
 	dialog-footer-app {
@@ -20,6 +20,13 @@ dialog-app {
 			margin-right: var(--spacing-ms);
 		}
 	}
+}
+
+:host::ng-deep .trigger-container {
+	width: 100%;
+}
+selector-placeholder-app {
+	box-sizing: border-box;
 }
 
 input::placeholder {

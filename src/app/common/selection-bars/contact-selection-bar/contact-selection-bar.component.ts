@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
 
 import { TrackingComponent } from '~utils/tracking-component';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'contact-selection-bar-app',
@@ -9,8 +10,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactSelectionBarComponent extends TrackingComponent {
-
-	constructor() {
+	@Output() deleteSelected = new EventEmitter();
+	constructor(public apiSrv: ApiService) {
 		super();
 	}
 
