@@ -90,7 +90,6 @@ export class QueryBuilder {
 				byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty;
 			}
 		}
-		console.log('QueryBuilder -> queryproduct -> byPropertyString', byPropertyString);
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
