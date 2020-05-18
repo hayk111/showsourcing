@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable, combineLatest, timer } from 'rxjs';
-import { switchMap, map, debounce, tap } from 'rxjs/operators';
+import { switchMap, map, debounce, tap, first } from 'rxjs/operators';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
@@ -52,19 +52,15 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		this.filterSrv.setup([], ['user.firstName']);
 		this.listHelper.setup('TeamUser', 'Team'); // search initialized in controller-table
 
-		this.rows$ = combineLatest(
-			this.listHelper.searchedItems$,
-			this.filterSrv.valueChanges$
-		).pipe(
+		this.rows$ = this.listHelper.searchedItems$.pipe(
 			debounce(() => timer(400)),
-			switchMap(([members, filters]: any) => {
+			switchMap((members: any[]) => {
 				const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
 				this.teamMembers = members;
 
 				const options: any = {};
 				const invitationFilters: any = {
 					deleted: { eq: false },
-					teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
 				};
 
 				if (searchValue && searchValue.value !== '') {
@@ -140,5 +136,9 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		return !this.teamOwner
 			? this.translate.instant('message.only-team-owners-can-invite')
 			: null;
+	}
+
+	deleteItem(item: TeamUser | Invitation) {
+		this.apiSrv.delete(item.__typename, item).pipe(first()).subscribe();
 	}
 }

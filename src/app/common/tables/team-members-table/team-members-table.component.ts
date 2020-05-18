@@ -36,4 +36,8 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> {
 		return true;
 		// return (this.user && this.teamOwner$ && user.user.id !== this.user.id);
 	}
+
+	getStatus(status: string) {
+		return status === 'CREATED' ? 'Invitation Sent' : status;
+	}
 }

@@ -55,7 +55,7 @@
 		sortBy="status"
 		width="140">
 		<span class="status capitalize">
-			{{ row?.accessType || '-' }}
+			{{ getStatus(row?.status) || '-' }}
 		</span>
 	</ng-template>
 
