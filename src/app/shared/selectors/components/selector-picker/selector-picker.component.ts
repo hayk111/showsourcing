@@ -271,9 +271,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	create() {
 		let createObs$: Observable<any>;
 		let added;
-		const name = this.searchTxt;
-		if (name && this.typename) {
-			added = { name };
+		const value = this.searchTxt;
+		if (value && this.typename) {
+			added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
 			createObs$ = this.selectorSrv.create(this.typename, added);
 
 			// we add it directly to the value

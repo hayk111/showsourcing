@@ -16,7 +16,7 @@ import { ExportDialogComponent } from './export-dialog/export-dialog.component';
 import { ExportSelectionViewComponent } from './export-dialog/export-selection-view/export-selection-view.component';
 import { ExportWaitingViewComponent } from './export-dialog/export-waiting-view/export-waiting-view.component';
 import { InviteUserDlgComponent } from './invite-user-dlg/invite-user-dlg.component';
-import { MassEditDlgComponent } from './mass-edit-dlg/mass-edit-dlg.component';
+import { MassEditDialogComponent } from './mass-edit-dialog/mass-edit-dialog.component';
 import { MergeDialogComponent } from './merge-dialog/merge-dialog.component';
 import { NewContactDlgComponent } from './new-contact-dlg/new-contact-dlg.component';
 import {
@@ -38,7 +38,7 @@ const modals = [
 	EditionDialogComponent,
 	ExportDialogComponent,
 	InviteUserDlgComponent,
-	MassEditDlgComponent,
+	MassEditDialogComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,

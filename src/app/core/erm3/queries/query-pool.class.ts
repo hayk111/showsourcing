@@ -11,7 +11,10 @@ export class QueryPool {
 		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
 		Comment: new BaseQueries('Comment', 'id message _version'),
 		Contact: new BaseQueries('Contact'),
-		Descriptor: new BaseQueries('Descriptor', 'id target _version'),
+		Descriptor: new BaseQueries(
+			'Descriptor',
+			'id sections { name properties { id definitionId defaultValue readonly required} } name type _version'
+		),
 		Event: new BaseQueries('Event', 'id _version', []),
 		EventDescription: new BaseQueries('EventDescription'),
 		Export: new BaseQueries('Export'),
@@ -39,10 +42,7 @@ export class QueryPool {
 		WorkflowStatus: new StatusQueries(),
 	};
 
-	static getQuery(
-		typename: Typename,
-		queryType: QueryType,
-	) {
+	static getQuery(typename: Typename, queryType: QueryType) {
 		const queries = QueryPool.map[typename];
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${typename}`);
@@ -53,5 +53,4 @@ export class QueryPool {
 		}
 		return query;
 	}
-
 }

@@ -26,14 +26,7 @@
 	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
 </products-table-app>
 
-<product-selection-bar-app
-	(addProject)="addProject()"
-	(export)="dialogCommonSrv.openExportDlg('Product', selectionSrv.getSelectedValues())"
-	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
-	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
-	(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
-	(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues())"
-	(deleted)="listHelper.deleteSelected()">
+<product-selection-bar-app>
 </product-selection-bar-app>
 
 	<!-- <product-preview-app

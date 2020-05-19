@@ -1,3 +1,41 @@
+<p>
+	Selector default. This selector use a default selector style. we don't have to pass templates, the
+	content is customisable with props
+</p>
+<selector-default-app
+	[items]="[{ label: 'laqsmdlf- 1' }, { label: 'label - 2' }]"
+	itemKey="label"
+	(selected)="showSelectedItem($event)"
+	(searched)="logSearchedText($event)"
+></selector-default-app>
+<hr />
+
+<p>
+	selector overlay. A container that is completely customisable. It accept templates for items,
+	search, footer
+</p>
+<selector-overlay-app
+	[items]="['test', 'autre']"
+	scrollOption="reposition"
+	[itemTemplate]="itemTemplate"
+>
+	<button trigger>trigger</button>
+
+	<div search>
+		<input type="text" />
+		<hr />
+	</div>
+
+	<div footer>
+		text or button in footer
+	</div>
+</selector-overlay-app>
+
+<ng-template #itemTemplate let-item>
+	<p>item : {{ item }}</p>
+</ng-template>
+<hr />
+
 <ng-container *ngFor="let entity of entityNames">
 	<ng-container *ngIf="entity === 'PropertyOption'; else regularEntity">
 		<selector-app
