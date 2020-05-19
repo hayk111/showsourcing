@@ -9,18 +9,25 @@ import { Price, Currency } from '~core/erm';
 })
 export class PriceComponent {
 
-	private _currency: string;
-	@Input() set currency(currency: string) {
-		this._currency = currency;
+	private _price: Price;
+	@Input() set price(price: Price) {
+		this._price = price;
 	}
 
-	@Input() price: Price;
+	get price(): Price {
+		return this._price;
+	}
+
 	@Input() moq: number;
 	@Input() moqDesc: string;
 
 	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
 
 	get currency(): string {
-		return this._currency ? this._currency.slice(1, -1) : null; // removing the "" from the currency
+		return this._price.currency || null;
+	}
+
+	get value(): number {
+		return this._price.value || null;
 	}
 }

@@ -58,7 +58,7 @@
 			<!-- categories -->
 			<!-- TODO: implement categories as property option and use length here -->
 			<ng-container *ngSwitchCase="'categories'">
-				{{ row?.categories?.count }}
+				{{ row?.categories?.count || '-' }}
 			</ng-container>
 
 			<!-- category -->
@@ -76,7 +76,7 @@
 							[width]="320"
 							(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
 							<div class="pointer" >
-								{{ row?.category?.name || '-' }}
+								{{ row | property: 'category' }}
 							</div>
 						</selector-app>
 					</editable-value-app>
@@ -88,31 +88,22 @@
 				<editable-container-app
 					class="full-width"
 					[hasAction]="false"
-					[openOnClick]="false"
 					(click)="sel.openMenu()">
 					<editable-value-app>
-						<!-- TODO check how to manage Country from Constant selector -->
 						<selector-app
 							#sel
-							typename="Constant"
-							[offsetX]="4"
+							typename="PropertyOption"
+							customType="Country"
+							[hasPicker]="canUpdate"
+							[canCreate]="true"
 							[width]="320"
-							(update)="update.emit({ id: row?.id, country: $event })">
-							<span>
-								{{ row?.country ? (row?.country | const: 'country') : '-' }}
-							</span>
+							(update)="listHelper.updateProperties(row?.id, 'country', $event.value)">
+							<div class="pointer" >
+								{{ row | property: 'country' }}
+							</div>
 						</selector-app>
 					</editable-value-app>
 				</editable-container-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="'status'">
-				<status-selector-app
-					[displayStep]="true"
-					typename="Supplier"
-					[entity]="row"
-				>
-				</status-selector-app>
 			</ng-container>
 
 			<!-- type -->

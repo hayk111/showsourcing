@@ -7,7 +7,7 @@ import { SelectParamsConfig } from '~core/erm';
 import { ERM, Supplier } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { FilterService } from '~core/filters';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -24,7 +24,7 @@ import { CloseEventType } from '~shared/dialog';
 	templateUrl: './table-page.component.html',
 	styleUrls: ['./table-page.component.scss'],
 	providers: [
-		ListHelperService,
+		ListFuseHelperService,
 		ListPageViewService,
 		FilterService,
 		SelectionService
@@ -48,13 +48,15 @@ export class TablePageComponent implements OnInit {
 	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
-		public listHelper: ListHelperService,
+		public filterSrv: FilterService,
+		public listHelper: ListFuseHelperService,
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<any>,
 		public selectionSrv: SelectionService
 	) { }
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Supplier');
 		this.viewSrv.setup({ typename: 'Supplier', destUrl: 'suppliers', view: 'table' });
 	}

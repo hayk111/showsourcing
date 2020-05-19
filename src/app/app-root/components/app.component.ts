@@ -36,6 +36,9 @@ export class AppComponent implements OnInit {
 		registerLocaleData(localeZh, 'zh-CH');
 		this.translate.setDefaultLang('en-US');
 		this.translate.use('en-US');
+
+
+		this.seederSrv.seed();
 	}
 
 }

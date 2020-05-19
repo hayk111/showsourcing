@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
 
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -9,6 +9,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SampleSelectionBarComponent extends TrackingComponent {
+
+	@Output() deleteSelected = new EventEmitter();
 
 	constructor() {
 		super();

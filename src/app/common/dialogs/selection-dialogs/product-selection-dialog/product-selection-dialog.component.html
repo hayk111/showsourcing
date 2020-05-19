@@ -16,7 +16,7 @@
 
 	<div class="flex table-ctnr">
 		<products-table-app
-			[rows]="listHelper.filteredItems$ | async"
+			[rows]="listHelper.paginedItems$ | async"
 			[hasMenu]="false"
 			[hasPagination]="false"
 			[pending]="listHelper.pending$ | async"

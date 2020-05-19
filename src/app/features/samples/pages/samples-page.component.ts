@@ -11,16 +11,17 @@ import {
 } from '~core/erm';
 import { UserService } from '~core/auth/services';
 import { FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { FilterService } from '~core/filters';
+import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils';
+
 
 @Component({
 	selector: 'samples-page-app',
 	templateUrl: './samples-page.component.html',
 	styleUrls: ['./samples-page.component.scss'],
 	providers: [
-		ListHelperService,
+		ListFuseHelperService,
 		ListPageViewService,
 		FilterService,
 		SelectionService
@@ -48,9 +49,10 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
+		public filterSrv: FilterService,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
-		public listHelper: ListHelperService,
+		public listHelper: ListFuseHelperService,
 		public viewSrv: ListPageViewService<any>,
 		public elem: ElementRef,
 		private userSrv: UserService,
@@ -59,8 +61,8 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Sample');
-		this.items$ = this.listHelper.filteredItems$ as Observable<any[]>;
 	}
 
 	// toggleMyProducts(show: boolean) {

@@ -12,34 +12,16 @@ export class ProductQueries extends BaseQueries {
 	static defaultFields = `
 		id
 		name
+		_version
+		favorite
 		status {
 			${StatusQueries.defaultFields}
 		}
-		favorite
-		projects {
-			items {
-				projectId
-			}
-		}
-		category {
-			name
-		}
-		supplier {
-			name
-		}
-		assignee {
-			firstName
-			lastName
-		}
+		supplier { name }
+		assignee { firstName lastName }
 		score
-		properties {
-			name
-			value
-		}
-		createdBy {
-			firstName
-			lastName
-		}
+		properties { name value }
+		createdBy { firstName lastName }
 		createdAt
 	`;
 

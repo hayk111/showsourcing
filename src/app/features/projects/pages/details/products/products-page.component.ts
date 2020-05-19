@@ -23,7 +23,7 @@ import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { FilterService } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService, ExcludedService } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperService } from '~core/list-page2';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import _ from 'lodash';
 import { TeamService } from '~core/auth';
@@ -36,8 +36,9 @@ import { customQueries } from '~core/erm3/queries/custom-queries';
 	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListHelperService,
+		ListFuseHelperService,
 		ListPageViewService,
+		FilterService,
 		SelectionService
 	],
 	host: {
@@ -73,7 +74,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
-		public listHelper: ListHelperService,
+		public listHelper: ListFuseHelperService,
 		public viewSrv: ListPageViewService<any>,
 		private excludedSrv: ExcludedService,
 		private dlgSrv: DialogService,
@@ -89,7 +90,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('Product');
 		this.projectId =  this.route.parent.snapshot.params.id;
 		this.paginationSrv.setLimit(10000);
 
