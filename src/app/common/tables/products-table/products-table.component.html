@@ -49,17 +49,20 @@
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
 				<editable-container-app
+					#eca
 					class="full-width"
 					[hasAction]="false"
 					(click)="sel.openMenu()">
 					<editable-value-app>
 						<selector-app
 							#sel
-							typename="Category"
+							typename="PropertyOption"
+							customType="category"
 							[hasPicker]="canUpdate"
 							[canCreate]="true"
 							[width]="370"
-							(update)="listHelper.updateProperties(row?.id, { category: $event.value })">
+							(menuClosed)="eca.close()"
+							(update)="this.listHelper.updateProperties(row?.id, 'category', $event.value)">
 							<div class="pointer" >
 								{{ (row | property: 'category') || '-' }}
 							</div>
@@ -75,13 +78,13 @@
 					class="full-width"
 					[hasAction]="false"
 					(opened)="inp.focus()"
-					(closed)="listHelper.updateProperties(row?.id, { price: inp.value.value, currency: inp.value.currency || 'USD'})">
+					(closed)="listHelper.updateProperties(row?.id, 'price', { value: inp.value.value, currency: inp.value.currency || 'USD', additionalFields: listHelper.getProperty('price', row?.properties)})">
 					<editable-value-app #price>
-						<price-app [price]="row | property:'price'" [currency]="row | property: 'currency'"></price-app>
+						<price-app [price]="row | property:'price'"></price-app>
 					</editable-value-app>
 					<input-price-app
 						#inp
-						[value]="{currency: price.currency, value: price.price}"
+						[value]="{currency: price?.currency, value: price?.price}"
 						(keyup.enter)="editable.close()">
 					</input-price-app>
 				</editable-container-app>
@@ -94,17 +97,17 @@
 					class="full-width"
           [hasAction]="false"
           (opened)="inp.focus()"
-          (closed)="listHelper.updateProperties(row?.id, { minimumOrderQuantity: inp.value })">
+          (closed)="listHelper.updateProperties(row?.id, 'price', { minimumOrderQuantity: inp.value, additionalFields: listHelper.getProperty('price', row?.properties)})">
           <editable-value-app>
             <moq-app
-							*ngIf="row | property:'minimumOrderQuantity'"
-							[moq]="row | property:'minimumOrderQuantity'"
+							*ngIf="row | property:'price':'minimumOrderQuantity'"
+							[moq]="row | property:'price':'minimumOrderQuantity'"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
-						<div *ngIf="!(row | property:'minimumOrderQuantity')">-</div>
+						<div *ngIf="!(row | property:'price':'minimumOrderQuantity')">-</div>
           </editable-value-app>
 					<input #inp inputApp type="number"
-						[value]="row | property:'minimumOrderQuantity'" (keyup.enter)="editable.close()"/>
+						[value]="row | property:'price':'minimumOrderQuantity'" (keyup.enter)="editable.close()"/>
         </editable-container-app>
       </ng-container>
 

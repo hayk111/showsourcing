@@ -47,13 +47,14 @@
 
 	<!-- rating -->
 	<ng-container *ngSwitchCase="'rating'">
-		<rating-badge-app [vote]="row?.score"></rating-badge-app>
+		<rating-badge-app [score]="row?.score"></rating-badge-app>
 	</ng-container>
 
 	<!-- supplier -->
 	<ng-container *ngSwitchCase="'supplier'">
 		<div class="flex action-hover-container-0">
 			<editable-container-app
+				#eca
 				class="edit-with-icon"
 				[hasAction]="false"
 				(click)="sel.openMenu()">
@@ -64,6 +65,7 @@
 						class="full-width"
 						[width]="350"
 						[offsetX]="4"
+						(menuClosed)="eca.close()"
 						(update)="update.emit({ id: row?.id, supplierId: $event?.supplierId})">
 						<span>{{ row?.supplier?.name || '-'}}</span>
 					</selector-app>
@@ -109,9 +111,9 @@
 	<!-- assignee -->
 	<ng-container *ngSwitchCase="'assignee'">
 		<editable-container-app
+			#eca
 			class="full-width"
 			[hasAction]="false"
-			[openOnClick]="false"
 			(click)="sel.openMenu()">
 			<editable-value-app>
 				<selector-app
@@ -119,6 +121,7 @@
 					typename="User"
 					[width]="320"
 					[offsetX]="4"
+					(menuClosed)="eca.close()"
 					(update)="update.emit({ id: row?.id, assigneeId: $event?.userId })">
 					<div class="flex pointer">
 						<user-picture-app
@@ -139,9 +142,9 @@
 	<!-- product -->
 	<ng-container *ngSwitchCase="'product'">
 		<editable-container-app
+			#eca
 			class="full-width"
 			[hasAction]="false"
-			[openOnClick]="false"
 			(click)="sel.openMenu()">
 			<editable-value-app>
 				<selector-app
@@ -149,6 +152,7 @@
 					typename="Product"
 					[offsetX]="4"
 					[width]="350"
+					(menuClosed)="eca.close()"
 					(update)="update.emit({ id: row?.id, productId: $event?.productId})">
 					<span>{{ row?.product?.name || '-'}}</span>
 				</selector-app>

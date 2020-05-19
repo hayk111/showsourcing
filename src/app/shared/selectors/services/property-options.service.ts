@@ -27,6 +27,7 @@ export class PropertyOptionsService {
 		options.variables = { byId: teamId, limit: 10000, type: {
 			'eq': type
 		} };
+		options.fetchPolicy = 'network-only';
 		const queryBuilder = QueryPool.getQuery('PropertyOption', QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryBuilder('Team');
 
