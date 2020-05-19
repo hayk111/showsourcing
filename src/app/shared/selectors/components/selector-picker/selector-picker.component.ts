@@ -222,7 +222,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateSingle() {
 		this.update.emit({
-			[this.value.__typename.toLowerCase() + 'Id']: this.value.id,
+			[this.value.__typename.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
 			value: this.value.value || this.value.name || null
 		});
 

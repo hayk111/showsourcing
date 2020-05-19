@@ -39,8 +39,8 @@
 			<ng-container *ngSwitchDefault>
 				<selector-option-name-app #abstract *ngFor="let item of choices; trackBy: trackById" class="selector-row"  [item]="item" (click)="onSelect(item)"></selector-option-name-app>
 			</ng-container>
-			<ng-container *ngSwitchCase="'User'">
-				<selector-option-user-app #abstract *ngFor="let item of choices; trackBy: trackById" class="selector-row"  [user]="item" (click)="onSelect(item)"></selector-option-user-app>
+			<ng-container *ngSwitchCase="'TeamUser'">
+				<selector-option-user-app #abstract *ngFor="let item of choices; trackBy: trackById" class="selector-row"  [user]="item.user" (click)="onSelect(item)"></selector-option-user-app>
 			</ng-container>
 	 </ng-container>
 
