@@ -64,6 +64,11 @@ export class StatusSelectorComponent extends AutoUnsub {
 		return this.entity.status.step < lastStep ? false : true;
 	}
 
+	// this is only done for tasks since we don't have it on the DB
+	updateTask(done: boolean) {
+		this.statusUpdated.emit(done);
+	}
+
 	getNextStatus() {
 		const statuses = this.statusSrv.listStatus;
 		const nextStep = this.entity.status.step + 1;

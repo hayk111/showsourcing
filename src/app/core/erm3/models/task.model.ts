@@ -23,4 +23,5 @@ export class Task extends Entity<Task> {
 	referenceKey?: number | null;
 	inProgress?: boolean | null;
 	properties?: any;
+	status?: any;
 }

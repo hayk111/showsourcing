@@ -44,6 +44,16 @@
 				(logoClick)="previewClick.emit($event)">
 			</default-columns-app>
 
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					class="flex"
+					[entity]="row"
+					typename="Task"
+					selectSize="m"
+					(statusUpdated)="toggleStatus($event)"
+				></status-selector-app>
+			</ng-container>
+
 			<!-- TODO remove the bottom columns or not depending on what we are going to receive in the upcoming designs -->
 
 			<!-- done -->
@@ -82,7 +92,7 @@
 			</ng-container> -->
 
 			<!-- small done -->
-			<!-- <ng-container *ngSwitchCase="'small done name'">
+			<ng-container *ngSwitchCase="'done'">
 				<div class="flex">
 					<icon-app
 						class="pointer mg-right-ms"
@@ -93,7 +103,7 @@
 					</icon-app>
 					<span class="ellipsis pointer task-name txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 				</div>
-			</ng-container> -->
+			</ng-container>
 
 		</ng-container>
 

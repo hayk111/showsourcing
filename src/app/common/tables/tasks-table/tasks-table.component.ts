@@ -68,7 +68,8 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 		return (task && task.done) || this.isOverdue(task) ? 'check-circle' : 'check-circle-light';
 	}
 
-	toggleStatus(task: Task) {
+	toggleStatus(done: boolean) {
+		console.log('TasksTableComponent -> toggleStatus -> task', task);
 		this.taskSrv.updateTask({ id: task.id, done: !task.done });
 	}
 

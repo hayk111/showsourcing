@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Task } from '~core/erm';
+import { Task } from '~core/erm3/models';
 
 @Component({
 	selector: 'task-status-badge-app',
@@ -11,26 +11,29 @@ export class TaskStatusBadgeComponent implements OnInit {
 
 	@Input() task: Task;
 	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
-	@Output() update = new EventEmitter<boolean>();
+	@Output() update = new EventEmitter<{task: Task, done: boolean}>();
 
 	constructor() { }
 
-	ngOnInit() { }
+	ngOnInit() {
+		console.log('TaskStatusBadgeComponent -> ngOnInit -> this.task', this.task);
+	}
 
 	// this is only done for tasks since we don't have it on the DB
 	getTaskStatus() {
-		// let taskStatus = TaskStatus.PENDING;
-		// if (this.task && this.task.done)
-		// 	taskStatus = TaskStatus.DONE;
-		// else if (this.task && this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString())))
-		// 	taskStatus = TaskStatus.OVERDUE;
-		// return taskStatus;
+		if (this.task.status) {
+			return this.task.status.name;
+		} else if (this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString()))) {
+			return 'overdue';
+		} else {
+			return 'new task';
+		}
 	}
 
 	// this is only done for tasks since we don't have it on the DB
 	getType() {
 		let taskStatusColor = 'secondary'; // pending
-		if (this.task && this.task.done)
+		if (this.task && this.task.status.name === 'done')
 			taskStatusColor = 'success'; // done
 		else if (this.task && this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString())))
 			taskStatusColor = 'warn'; // overdue
