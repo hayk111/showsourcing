@@ -66,10 +66,12 @@ export class ListFuseHelperService<G = any> {
 		typename: Typename,
 		byProperty: string = 'Team',
 		byId: string = TeamService.teamSelected.teamId,
-		queryOptions: ApiQueryOption = {}
+		queryOptions: ApiQueryOption = {},
+		fuseOptions: any = this.fuseOptions
 	) {
 		byId = byId || TeamService.teamSelected.id;
 		this.typename = typename;
+		this.fuseOptions = fuseOptions;
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
 		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;

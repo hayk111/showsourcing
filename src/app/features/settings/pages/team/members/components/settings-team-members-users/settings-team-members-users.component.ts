@@ -33,6 +33,15 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	user: User;
 	hasSelected = false;
 
+	fuseOptions = {
+		shouldSort: true,
+		includeScore: true,
+		threshold: 0, // for full match
+		location: 0,
+		distance: 100,
+		minMatchCharLength: 1,
+	};
+
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private featureSrv: SettingsMembersService,
@@ -49,37 +58,38 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
-		this.filterSrv.setup([], ['user.firstName']);
-		this.listHelper.setup('TeamUser', 'Team'); // search initialized in controller-table
+		this.filterSrv.setup([], ['user.firstName', 'user.lastName']);
+		this.listHelper.setup('TeamUser', 'Team', TeamService.teamSelected.teamId, {}, this.fuseOptions);
 
-		this.rows$ = this.listHelper.searchedItems$.pipe(
-			debounce(() => timer(400)),
-			switchMap((members: any[]) => {
-				const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-				this.teamMembers = members;
+		this.rows$ = this.listHelper.searchedItems$
+			.pipe(
+				switchMap((members: any[]) => {
+					const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
+					this.teamMembers = members;
 
-				const options: any = {};
-				const invitationFilters: any = {
-					deleted: { eq: false },
-				};
-
-				if (searchValue && searchValue.value !== '') {
-					invitationFilters.email = {
-						contains: searchValue.value
+					const options: any = {};
+					const invitationFilters: any = {
+						deleted: { eq: false },
+						// teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
 					};
-				}
 
-				options.variables = {
-					// byId: TeamService.teamSelected.id,
-					limit: 10000,
-					filter: invitationFilters
-				};
-				options.fetchPolicy = 'network-only';
-				options.query = QueryPool.getQuery('Invitation', QueryType.LIST_BY)('Team');
-				return this.apiSrv.query<Invitation[]>(options).data$;
-			}),
-			map((invitations: Invitation[]) => [...this.teamMembers, ...invitations])
-		);
+					if (searchValue && searchValue.value !== '') {
+						invitationFilters.email = {
+							contains: searchValue.value
+						};
+					}
+
+					options.variables = {
+						// byId: TeamService.teamSelected.id,
+						limit: 10000,
+						filter: invitationFilters
+					};
+					options.fetchPolicy = 'network-only';
+					options.query = QueryPool.getQuery('Invitation', QueryType.LIST_BY)('Team');
+					return this.apiSrv.query<Invitation[]>(options).data$;
+				}),
+				map((invitations: Invitation[]) => [...this.teamMembers, ...invitations])
+			);
 
 		this.viewSrv.setup({
 			typename: 'TeamUser',
