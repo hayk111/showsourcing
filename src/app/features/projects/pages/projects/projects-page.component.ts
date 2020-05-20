@@ -27,7 +27,7 @@ import { UserService } from '~core/auth/services';
 	}
 })
 export class ProjectsPageComponent extends AutoUnsub implements OnInit {
-	items$: Observable<any[]>;
+	items$: Observable<Project[]>;
 
 	filterTypes = [FilterType.CREATED_BY];
 

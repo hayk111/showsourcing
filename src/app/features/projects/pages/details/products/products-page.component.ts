@@ -1,29 +1,34 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
 	OnInit,
-	Output
+	Output,
+	ChangeDetectorRef
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import {
 	ERM,
 	Product,
-	ProductService,
 	Project,
 	SelectParamsConfig
 } from '~core/erm';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { FilterService } from '~core/filters';
+import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperService } from '~core/list-page2';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
+import _ from 'lodash';
+import { TeamService } from '~core/auth';
+import { ApiService } from '~core/erm3/services/api.service';
+import { customQueries } from '~core/erm3/queries/custom-queries';
 
 @Component({
 	selector: 'products-page-app',
@@ -31,8 +36,9 @@ import { ListHelperService, ListPageViewService, SelectionService } from '~core/
 	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListHelperService,
+		ListFuseHelperService,
 		ListPageViewService,
+		FilterService,
 		SelectionService
 	],
 	host: {
@@ -43,8 +49,23 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	@Output() delete = new EventEmitter<Project>();
 	@Output() archive = new EventEmitter<Project>();
 
+	filterTypes = [
+		FilterType.ARCHIVED,
+		FilterType.CATEGORY,
+		FilterType.CREATED_BY,
+		FilterType.EVENT,
+		FilterType.FAVORITE,
+		FilterType.STATUS,
+		FilterType.PROJECTS,
+		FilterType.TAGS
+	];
+
+	filteredProducts$: Observable<any>;
+	projectProducts = [];
+	projectId: string;
+
+	pending = true;
 	project$: Observable<Project>;
-	private project: Project;
 	filterTypeEnum = FilterType;
 	erm = ERM;
 
@@ -53,19 +74,42 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
-		public listHelper: ListHelperService,
+		public listHelper: ListFuseHelperService,
 		public viewSrv: ListPageViewService<any>,
+		private excludedSrv: ExcludedService,
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		public dialogCommonSrv: DialogCommonService,
-		public selectionSrv: SelectionService
+		public selectionSrv: SelectionService,
+		private paginationSrv: PaginationService,
+		private filterSrv: FilterService,
+		private apiSrv: ApiService,
+		private cdr: ChangeDetectorRef,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('Product');
-		// const id = this.route.parent.snapshot.params.id;
+		this.projectId =  this.route.parent.snapshot.params.id;
+		this.paginationSrv.setLimit(10000);
+
+		this.apiSrv.query<any>({
+			query: customQueries.getProjectProducts,
+			variables: { id: this.projectId },
+			fetchPolicy: 'network-only'
+		}, false)
+		.data$
+			.pipe(
+				map(project => {
+					return project.products.items.map(item => item.product);
+				}),
+				tap(products => {
+					this.excludedSrv.excludedIds = products.map(product => product.id );
+					this.projectProducts = products;
+					this.pending = false;
+					this.cdr.markForCheck();
+				})
+			).subscribe();
 	}
 
 	/**
@@ -114,7 +158,24 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	addProducts() {
-		this.dialogCommonSrv.openSelectionDlg('Product');
-		// TODO add products to this.project
+		this.dialogCommonSrv.openSelectionDlg('Product', this.excludedSrv.excludedIds).data$
+			.pipe(
+				tap(products => this.projectProducts.push(...products)),
+				map(products => products.map(p => p.id)),
+				tap(productIds => {
+					this.excludedSrv.excludedIds = this.excludedSrv.excludedIds.concat(productIds);
+				})
+			)
+			.subscribe((productIds: string[]) => {
+				if (productIds.length) {
+					productIds.forEach(productId => {
+						this.apiSrv.create('ProjectProduct', {
+							teamId: TeamService.teamSelected.id,
+							productId,
+							projectId: this.projectId
+						}).subscribe();
+					});
+				}
+			});
 	}
 }

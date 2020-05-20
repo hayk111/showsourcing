@@ -1,0 +1,72 @@
+<controller-table-app [hasExtra]="true">
+	<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
+	<div class="extra">
+		<button (click)="addProducts()">Add Product</button>
+	</div>
+	<controller-table-quick-actions-app
+		typename="Project"
+		[columns]="columns"
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app [hasBoard]="false"></controller-table-view-switcher-app>
+</controller-table-app>
+
+<products-table-app
+	[rows]="projectProducts"
+	[columns]="columns"
+	[pending]="pending"
+	[selection]="selectionSrv.selection$ | async"
+	createEntityBtnName="Add Product"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(open)="viewSrv.goToDetails($event)"
+	(createClick)="addProducts()"
+	(update)="listHelper.update($event)"
+	(delete)="deassociateProductById(($event)?.id)">
+</products-table-app>
+
+	<!-- <products-grid-app
+		infiniScroll
+		cdk-scrollable
+		*ngIf="viewSrv.view === 'card'"
+		[rows]="listSrv.items$ | async"
+		[selection]="selectionSrv.selection$ | async"
+		(addToProject)="dialogCommonSrv.openAddToProjectDialog([$event])"
+		(bottomReached)="listSrv.loadMore()"
+		(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
+		(liked)="ratingSrv.onThumbUp($event)"
+		(open)="viewSrv.goToDetails($event)"
+		(previewClick)="viewSrv.openPreview($event)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(unselect)="selectionSrv.unselectOne($event, true)"
+		(update)="listSrv.update($event)">
+	</products-grid-app>
+
+	<products-board-app
+		*ngIf="viewSrv.view === 'board'"
+		(selectOne)="selectionSrv.selectOne($event, true)"
+		(unselectOne)="selectionSrv.unselectOne($event, true)"
+		(preview) = "viewSrv.openPreview($event)">
+	</products-board-app>
+
+	<product-selection-bar-app
+	</product-selection-bar-app> -->
+
+	<side-panel-app *ngIf="viewSrv.filterPanelOpen">
+		<filters-app
+			[filterTypes]="filterTypes"
+			(clickOutside)="viewSrv.closeFilterPanel()"
+			(close)="viewSrv.closeFilterPanel()">
+		</filters-app>
+	</side-panel-app>
+
+	<!-- <product-preview-app
+		*ngIf="viewSrv.previewOpen"
+		[product]="viewSrv.previewed"
+		[isPreview]="false"
+		(close)="viewSrv.closePreview()">
+	</product-preview-app> -->

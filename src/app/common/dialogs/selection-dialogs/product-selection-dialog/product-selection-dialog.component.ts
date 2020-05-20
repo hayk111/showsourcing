@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { Product } from '~core/erm3/models';
-import { FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { FilterService, FilterType } from '~core/filters';
+import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 
@@ -11,11 +11,16 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './product-selection-dialog.component.html',
 	styleUrls: ['./product-selection-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageViewService, ListHelperService, SelectionService],
+	providers: [
+		ListPageViewService,
+		FilterService,
+		ListFuseHelperService,
+		SelectionService
+	],
 	host: { class: 'table-dialog' }
 })
 export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit {
-	@Input() initialSelecteds: Product[] = [];
+	@Input() ignoredIds: string[] = [];
 
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
@@ -33,17 +38,20 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 	];
 
 	constructor(
+		public filterSrv: FilterService,
 		private dlgSrv: DialogService,
-		public listHelper: ListHelperService,
+		public listHelper: ListFuseHelperService,
 		public selectionSrv: SelectionService,
-		public viewSrv: ListPageViewService<Product>
+		public viewSrv: ListPageViewService<Product>,
+		private excludedSrv: ExcludedService
 	) {
 		super();
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Product');
-		this.selectionSrv.selectAll(this.initialSelecteds);
+		this.excludedSrv.excludedIds = this.ignoredIds;
 	}
 
 	// submit() {

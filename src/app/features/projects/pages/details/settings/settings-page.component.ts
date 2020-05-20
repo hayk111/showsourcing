@@ -8,6 +8,7 @@ import { ERM, Project } from '~core/erm';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'settings-page-app',
@@ -31,7 +32,8 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		private projectSrv: ProjectService,
 		private fb: FormBuilder,
 		private uploader: UploaderService,
-		public translate: TranslateService
+		public translate: TranslateService,
+		private apiSrv: ApiService
 	) {
 		super();
 	}
@@ -46,15 +48,15 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		this.project$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			tap(id => this.id = id),
-			switchMap(id => this.projectSrv.selectOne(id)),
+			switchMap(id => this.apiSrv.get('Project', id).data$),
 		);
 
-		this.project$.pipe(
-			take(1),
-			tap(proj => this.form.patchValue(proj)),
-			switchMap(_ => this.form.valueChanges.pipe(takeUntil(this._destroy$))),
-			takeUntil(this._destroy$)
-		).subscribe(proj => this.updateProject(proj));
+		// this.project$.pipe(
+		// 	take(1),
+		// 	tap(proj => this.form.patchValue(proj)),
+		// 	switchMap(_ => this.form.valueChanges.pipe(takeUntil(this._destroy$))),
+		// 	takeUntil(this._destroy$)
+		// ).subscribe(proj => this.updateProject(proj));
 
 	}
 
