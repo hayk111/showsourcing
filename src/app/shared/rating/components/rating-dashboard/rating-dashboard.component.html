@@ -1,14 +1,15 @@
 <rating-stars-score-view-app
 	class="mg-bottom-l"
-	[vote]="vote">
+	[userVote]="userVote"
+	[teamVotes]="teamVotes">
 </rating-stars-score-view-app>
 <divider-app></divider-app>
 <h4 class="flexCenter mg-top-ms ms">Your Rating</h4>
 <rating-stars-action-app
 	class="flexCenter"
-	[vote]="vote"
+	[userVote]="userVote"
 	(valueVoted)="onStarVote($event)">
 </rating-stars-action-app>
-<button class="primary-light full-width mg-top-ms flexCenter" (click)="viewRatings.emit(votes)">
+<button class="primary-light full-width mg-top-ms flexCenter" (click)="viewRatings.emit(teamVotes)">
 	View ratings
 </button>

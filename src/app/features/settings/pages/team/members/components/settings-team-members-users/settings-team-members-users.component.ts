@@ -80,7 +80,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 					}
 
 					options.variables = {
-						// byId: TeamService.teamSelected.id,
+						byId: TeamService.teamSelected.id,
 						limit: 10000,
 						filter: invitationFilters
 					};

@@ -37,7 +37,6 @@ export class EditableContainerComponent {
 	constructor(private cd: ChangeDetectorRef) { }
 
 	close(isOutsideClick?: boolean) {
-		console.log('EditableContainerComponent -> close -> isOutsideClick', isOutsideClick);
 		if (!this.isOpen || (isOutsideClick && !this.closeOnOutsideClick)) {
 			return;
 		}

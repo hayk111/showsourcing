@@ -26,7 +26,8 @@ import { RatingService } from '~shared/rating/services/rating.service';
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	private _product: any;
-	vote$: Observable<Vote>;
+	teamVotes$: Observable<Vote[]>;
+	userVote$: Observable<Vote>;
 
 	@Input()
 	set product(value: any) {
@@ -76,11 +77,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.vote$ = this.ratingSrv.getUserVote('product:' + this._product.id);
+		this.userVote$ = this.ratingSrv.getUserVote('product:' + this._product.id);
+		this.teamVotes$ = this.ratingSrv.getTeamVotes('product:' + this._product.id);
 	}
 
 	updateVote(vote: Observable<Vote>) {
-		this.vote$ = vote;
+		this.userVote$ = vote;
 	}
 
 	// UPDATE FUNCTIONS

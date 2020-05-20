@@ -73,9 +73,7 @@ export class RatingService {
 	 * @param value value received to update
 	 */
 	starVote(vote: Vote, value: number, nodeId?: string): Observable<Vote> | null {
-		if (vote && vote.rating === value) {
-			return this.deleteVote(vote);
-		} else if (vote === null) {
+		if (vote === null) {
 			return this.createVote(nodeId, value);
 		} else {
 			return this.updateVote(vote, value);
@@ -185,6 +183,14 @@ export class RatingService {
 		);
 	}
 
+	getTeamVotes(nodeId: string): Observable<Vote[] | null> {
+		return this.apiSrv.query<Vote[]>({
+			query: customQueries.votes,
+			variables: { nodeId, filter: { deleted: { eq: false } } },
+			fetchPolicy: 'network-only'
+		}).data$;
+	}
+
 	// Component functions
 	private updateVote(vote: Vote, value: number): Observable<Vote> {
 		const { id } = vote;
@@ -197,21 +203,6 @@ export class RatingService {
  		return this.apiSrv.update('Vote', {
 			...ratingInfo
 		} as Vote);
-	}
-
-	private deleteVote(vote: Vote): null {
-		const { id, rating } = vote;
-
-		const ratingInfo = {
-			id,
-			rating,
-		};
-
-		this.apiSrv.delete('Vote', {
-			...ratingInfo
-		} as Vote).subscribe();
-
-		return null;
 	}
 
 	private createVote(nodeId: string, rating: number): Observable<Vote> {
