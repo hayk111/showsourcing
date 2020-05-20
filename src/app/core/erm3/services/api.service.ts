@@ -278,11 +278,14 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
-		if (typename !== 'Company' && typename !== 'Team') {
+		if (typename !== 'Company') {
 			entity._version = this._getCachedVersion(typename, entity.id);
 			entity.lastUpdatedAt = new Date().toISOString();
 			// entity.lastUpdatedByUserId = this._userId;
-			entity.teamId = this._teamId;
+
+			if (typename !== 'Team') {
+				entity.teamId = this._teamId;
+			}
 		}
 		options.variables = { ...options.variables, input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
