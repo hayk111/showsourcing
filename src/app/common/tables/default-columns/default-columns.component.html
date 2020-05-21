@@ -2,14 +2,14 @@
 
 	<!-- logo -->
 	<ng-container *ngSwitchCase="'logo'">
-		<!-- <logo-app
+		<logo-app
 			class="pointer"
 			size="s"
 			[logo]="row.images && row.images[0]"
 			[color]="logoColor"
 			[typename]="typename"
 			(click)="onLogoClick(row)">
-		</logo-app> -->
+		</logo-app>
 	</ng-container>
 
 	<!-- name -->
@@ -175,7 +175,7 @@
 	<ng-container *ngSwitchCase="'dueDate'">
 		<editable-container-app #edt
 			class="full-width"
-			(closed)="updateDueDate(row.id, inp.value)">
+			(closed)="onUpdateDueDate(row, inp.value)">
 			<editable-value-app class="ellipsis">
 				{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : '-' }}
 			</editable-value-app>

@@ -2,12 +2,15 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'getstream';
 import { TaskService } from '~core/erm';
-import { Task } from '~core/erm';
+import { Task, TaskStatus, WorkflowStatus } from '~core/erm3';
 import { Color } from '~utils/colors.enum';
 import { ID } from '~utils/id.utils';
 import { defaultConfig } from '../default-columns/default-config';
 import { EntityTableComponent } from '../entity-table.component';
-
+import { ListFuseHelperService } from '~core/list-page2';
+import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
+import _ from 'lodash';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'task-table-app',
@@ -36,43 +39,72 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
 
+	@Input() statuses: WorkflowStatus[];
 
 	constructor(
 		public translate: TranslateService,
-		public taskSrv: TaskService
+		public listHelper: ListFuseHelperService,
+		private statusSrv: StatusSelectorService
 	) { super(); }
 
 	getColor(task: Task) {
-		if (task.done)
-			return Color.SUCCESS;
-		else if (this.isOverdue(task))
-			return Color.WARN;
-		else
-			return Color.SECONDARY;
-	}
+		if (task.status) {
+			switch (task.status.name) {
+				case TaskStatus.DONE:
+					return Color.SUCCESS;
+				case TaskStatus.OVERDUE:
+					return Color.WARN;
+			}
+		}
 
-	isOverdue(task: Task) {
-		return task && task.dueDate && (new Date().getTime() >= Date.parse(task.dueDate.toString()));
+		return Color.SECONDARY;
 	}
 
 	iconClass(task: Task) {
 		let iconClass = 'color-txt-third';
-		if (task && task.done)
+		if (task && task.status === TaskStatus.DONE) {
 			iconClass = 'task-done';
-		else if (this.isOverdue(task))
+		} else if (this.isOverdue(task)) {
 			iconClass = 'color-warn';
+		}
 		return iconClass;
 	}
 
 	iconName(task: Task) {
-		return (task && task.done) || this.isOverdue(task) ? 'check-circle' : 'check-circle-light';
+		return (task && task.status === TaskStatus.DONE) || this.isOverdue(task) ? 'check-circle' : 'check-circle-light';
 	}
 
-	toggleStatus(task: Task) {
-		this.taskSrv.updateTask({ id: task.id, done: !task.done });
+	updateDueDateStatus({ entity, dueDate }) {
+		const { id, status } = entity;
+		let updateStatus = null;
+
+		if (this.isOverdue(dueDate)) {
+			updateStatus = this.getStatus(TaskStatus.OVERDUE);
+		} else {
+			updateStatus = status && status.name === TaskStatus.OVERDUE ? this.getStatus(TaskStatus.PENDING) : this.getStatus(TaskStatus.DONE);
+		}
+
+		this.statusSrv.updateStatus(updateStatus, { id }).pipe(first()).subscribe();
+
+		this.listHelper.update({
+			id,
+			dueDate
+		});
 	}
 
 	changeAssignee(task: Task, assignee: User) {
-		this.taskSrv.update({ id: task.id, assignee }).subscribe();
+		// this.taskSrv.update({ id: task.id, assignee }).subscribe();
+	}
+
+	private getStatus(taskStatus) {
+		return _.find(this.statuses, (status: any)  => status.name === taskStatus);
+	}
+
+	private isOverdue(value: Task | string) {
+		if (typeof value === 'object') {
+			return value && value.dueDate && (new Date().getTime() >= Date.parse(value.dueDate.toString()));
+		} else {
+			return new Date().getTime() >= Date.parse(value);
+		}
 	}
 }

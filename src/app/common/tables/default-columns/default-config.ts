@@ -20,5 +20,6 @@ export const defaultConfig: TableConfig = {
 	supplier: { name: 'supplier', translationKey: 'supplier', width: 210, sortProperty: 'supplier.id' },
 	product: { name: 'product', translationKey: 'product', width: 210, sortProperty: 'product.id' },
 	dueDate: { name: 'dueDate', translationKey: 'due-date', width: 110, sortProperty: 'dueDate' },
+	done: { name: 'done', translationKey: 'done', width: 110, sortProperty: 'done' },
 };
 
