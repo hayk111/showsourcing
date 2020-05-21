@@ -4,7 +4,7 @@ import { ColumnConfig } from '../entity-table.component';
 import { Color } from '~utils/colors.enum';
 import { Router } from '@angular/router';
 import { Typename } from '~core/erm3/typename.type';
-import { Product } from '~core/erm3';
+import { Product, WorkflowStatus } from '~core/erm3';
 
 export interface EditableEntity {
 	id: string;
@@ -29,6 +29,7 @@ export class DefaultColumnsComponent {
 	@Input() logoColor: Color;
 	@Input() redirectOnNameClick = true;
 	@Output() update = new EventEmitter<EditableEntity>();
+	@Output() updateDueDate = new EventEmitter<any>();
 	@Output() previewClick = new EventEmitter<any>();
 	@Output() logoClick = new EventEmitter<any>();
 	@Output() nameClick = new EventEmitter<any>();
@@ -61,8 +62,8 @@ export class DefaultColumnsComponent {
 		this.nameClick.emit(row);
 	}
 
-	updateDueDate(entityId: string, dueDate: Date) {
-		this.update.emit({ id: entityId, dueDate: new Date(dueDate).toISOString() } as EditableEntity);
+	onUpdateDueDate(entity: any, dueDate: Date) {
+		this.updateDueDate.emit({ entity, dueDate: new Date(dueDate).toISOString() });
 	}
 
 	// updateProduct(entityId: string, productId: string) {

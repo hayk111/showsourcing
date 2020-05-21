@@ -2,7 +2,7 @@
 	class="pointer uppercase bold-s"
 	[size]="size"
 	[type]="getType()"
-	(click)="update.emit({task: task, done: done})">
+	(click)="toggleTaskStatus()">
 		<div>
 			{{ '_user-defined.statusTask.' + getTaskStatus() | translate }}
 		</div>

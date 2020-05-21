@@ -15,6 +15,7 @@ import { DialogService } from '~shared/dialog';
 import { FilterService, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListFuseHelperService, ListPageViewService } from '~core/list-page2';
+import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -51,6 +52,7 @@ export class TasksPageComponent implements OnInit {
 		public filterSrv: FilterService,
 		public selectionSrv: SelectionService,
 		public listHelper: ListFuseHelperService,
+		public statusSrv: StatusSelectorService,
 		public viewSrv: ListPageViewService<any>
 	) {
 	}

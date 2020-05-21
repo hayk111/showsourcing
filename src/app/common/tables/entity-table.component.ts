@@ -78,7 +78,6 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 			throw Error('Please define a tableConfiguration for columnConfig');
 		}
 
-		console.log('EntityTableComponent<T> -> ngOnInit -> this.columns', this.columns);
 		this.columns.forEach(name => {
 			const config = this.tableConfig[name];
 			if (config) {

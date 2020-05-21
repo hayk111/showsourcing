@@ -62,8 +62,9 @@
 	<task-status-badge-app
 		*ngIf="typename === 'Task'"
 		[task]="entity"
+		[statuses]="statusSrv.listStatus$ | async"
 		[size]="selectSize"
-		(update)="updateTask($event)">
+		(update)="updateStatus($event, entity)">
 	</task-status-badge-app>
 </ng-template>
 

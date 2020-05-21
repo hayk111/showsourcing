@@ -24,7 +24,6 @@ export class SeederService {
 
 		// await this.statusSeeder.deleteAllStatuses(); // not working backend side
 		await this.statusSeeder.createAllStatus();
-
 		localStorage.setItem(keyStorage, 'WorkFlowStatus');
 	}
 }

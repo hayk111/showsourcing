@@ -3,6 +3,7 @@ import { Typename } from '~core/erm3/typename.type';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
+import { Task } from '~core/erm3';
 
 @Component({
 	selector: 'status-selector-app',
@@ -62,11 +63,6 @@ export class StatusSelectorComponent extends AutoUnsub {
 		}
 		const lastStep = statuses[statuses.length - 1].step;
 		return this.entity.status.step < lastStep ? false : true;
-	}
-
-	// this is only done for tasks since we don't have it on the DB
-	updateTask(done: boolean) {
-		this.statusUpdated.emit(done);
 	}
 
 	getNextStatus() {

@@ -39,6 +39,7 @@
 				[logoColor]="getColor(row)"
 				[redirectOnNameClick]="false"
 				(update)="update.emit($event)"
+				(updateDueDate)="updateDueDateStatus($event)"
 				(nameClick)="previewClick.emit($event)"
 				(previewClick)="previewClick.emit($event)"
 				(logoClick)="previewClick.emit($event)">
@@ -49,9 +50,8 @@
 					class="flex"
 					[entity]="row"
 					typename="Task"
-					selectSize="m"
-					(statusUpdated)="toggleStatus($event)"
-				></status-selector-app>
+					selectSize="m">
+				</status-selector-app>
 			</ng-container>
 
 			<!-- TODO remove the bottom columns or not depending on what we are going to receive in the upcoming designs -->
@@ -98,8 +98,7 @@
 						class="pointer mg-right-ms"
 						[ngClass]="iconClass(row)"
 						[name]="iconName(row)"
-						[size]="16"
-						(click)="toggleStatus(row)">
+						[size]="16">
 					</icon-app>
 					<span class="ellipsis pointer task-name txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 				</div>
