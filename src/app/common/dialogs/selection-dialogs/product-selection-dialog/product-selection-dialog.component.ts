@@ -5,6 +5,11 @@ import { FilterService, FilterType } from '~core/filters';
 import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { tap, first, switchMap} from 'rxjs/operators';
+import { ApiService } from '~core/erm3';
+import { TeamService } from '~core/auth';
+import { ProjectProductService } from '~features/projects/services/project-product.service';
 
 @Component({
 	selector: 'product-select-dlg',
@@ -21,6 +26,7 @@ import { AutoUnsub } from '~utils';
 })
 export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit {
 	@Input() ignoredIds: string[] = [];
+	@Input() projectId: string;
 
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
@@ -43,7 +49,9 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		public listHelper: ListFuseHelperService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Product>,
-		private excludedSrv: ExcludedService
+		private apiSrv: ApiService,
+		private excludedSrv: ExcludedService,
+		private projectProductSrv: ProjectProductService
 	) {
 		super();
 	}
@@ -52,6 +60,23 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Product');
 		this.excludedSrv.excludedIds = this.ignoredIds;
+	}
+
+	createProduct() {
+		this.dlgSrv.close({ component: DefaultCreationDialogComponent, type: 'Product'  })
+			.data$
+			.pipe(
+				switchMap(product => this.apiSrv.create('Product', product)),
+				switchMap((product: Product)  => {
+					return this.apiSrv.create('ProjectProduct', {
+						teamId: TeamService.teamSelected.id,
+						productId: product.id,
+						projectId: this.projectId
+					});
+				}),
+				tap(_ => this.projectProductSrv.refetch()),
+				first()
+			).subscribe();
 	}
 
 	// submit() {

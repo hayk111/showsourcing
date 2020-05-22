@@ -17,6 +17,10 @@ import { StatusSelectorService } from '~shared/status-selector/service/status-se
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductSelectionBarComponent extends TrackingComponent {
+	@Input() projectProductSelection = false;
+
+	@Output() removeProjectProducts = new EventEmitter<Product[]>();
+
 	massUpdateToast: Toast = {
 		title: translate('multiple-edition'),
 		message: translate('your-items-updated'),
@@ -43,6 +47,10 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 		this.dlgCommonSrv.openSelectionDlg('Project').data$.subscribe(projects => {
 			// Add projects
 		});
+	}
+
+	removeFromProject() {
+		this.removeProjectProducts.emit(this.selectionSrv.getSelectedValues());
 	}
 
 	exportProducts() {

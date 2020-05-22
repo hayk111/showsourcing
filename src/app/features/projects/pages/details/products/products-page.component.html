@@ -51,10 +51,12 @@
 		(selectOne)="selectionSrv.selectOne($event, true)"
 		(unselectOne)="selectionSrv.unselectOne($event, true)"
 		(preview) = "viewSrv.openPreview($event)">
-	</products-board-app>
+	</products-board-app> -->
 
-	<product-selection-bar-app
-	</product-selection-bar-app> -->
+	<product-selection-bar-app 
+		[projectProductSelection]="true"
+		(removeProjectProducts)="deassociateSelectedProducts($event)">
+	</product-selection-bar-app>
 
 	<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 		<filters-app

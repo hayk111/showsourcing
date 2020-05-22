@@ -28,5 +28,14 @@ export const customQueries = {
 				}
 			}
 		}
-	}`)
+	}`),
+	deleteProjectProduct: gql(`
+		mutation DeleteProjectProduct($input: DeleteProjectProductInput!, $condition: ModelProjectProductConditionInput!) {
+			deleteProjectProduct(input: $input, condition: $condition) {
+				id
+				projectId
+				productId
+				__typename
+			}
+		}`)
 };

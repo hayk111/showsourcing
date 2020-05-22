@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, first } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
@@ -29,6 +29,7 @@ import _ from 'lodash';
 import { TeamService } from '~core/auth';
 import { ApiService } from '~core/erm3/services/api.service';
 import { customQueries } from '~core/erm3/queries/custom-queries';
+import { ProjectProductService } from '../../../services/project-product.service';
 
 @Component({
 	selector: 'products-page-app',
@@ -85,6 +86,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		private filterSrv: FilterService,
 		private apiSrv: ApiService,
 		private cdr: ChangeDetectorRef,
+		private projectProductSrv: ProjectProductService
 	) {
 		super();
 	}
@@ -93,6 +95,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.projectId =  this.route.parent.snapshot.params.id;
 		this.paginationSrv.setLimit(10000);
 
+		this.fetchProjectProducts();
+		this.projectProductSrv.productsListRefetch$.subscribe(() => this.fetchProjectProducts());
+	}
+
+	fetchProjectProducts() {
 		this.apiSrv.query<any>({
 			query: customQueries.getProjectProducts,
 			variables: { id: this.projectId },
@@ -108,7 +115,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 					this.projectProducts = products;
 					this.pending = false;
 					this.cdr.markForCheck();
-				})
+				}),
+				first()
 			).subscribe();
 	}
 
@@ -128,17 +136,21 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	/**
 	 * Deassociate the selected products from the current project
 	 */
-	deassociateSelectedProducts() {
-		// const unselectedProducts = this.selectionSrv
-		// 	.getSelectedIds()
-		// 	.map(id => ({ id }));
-		// this.featureSrv
-		// 	.manageProjectsToProductsAssociations([this.project], {
-		// 		unselectedProducts
-		// 	})
-		// 	.pipe(switchMap(_ => this.listSrv.refetch()))
-		// 	.subscribe();
-		// this.selectionSrv.unselectAll();
+	deassociateSelectedProducts(prodcutsSelected: Product[]) {
+		const options: any = {};
+		options.mutation = customQueries.deleteProjectProduct;
+		options.variables = {
+			input: {},
+			condition: {
+				teamId: { eq: TeamService.teamSelected.id },
+				projectId: { eq: this.projectId }
+			}
+		};
+
+		prodcutsSelected.forEach((product: Product) => {
+			options.variables.condition.productId =  { eq: product.id };
+			this.apiSrv.mutate(options).subscribe();
+		});
 	}
 
 	/** Open the find products dialog and passing selected products to it */
@@ -158,7 +170,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	addProducts() {
-		this.dialogCommonSrv.openSelectionDlg('Product', this.excludedSrv.excludedIds).data$
+		this.dialogCommonSrv.openSelectionDlg('Product', {
+			ignoredIds: this.excludedSrv.excludedIds,
+			projectId: this.projectId
+		}).data$
 			.pipe(
 				tap(products => this.projectProducts.push(...products)),
 				map(products => products.map(p => p.id)),

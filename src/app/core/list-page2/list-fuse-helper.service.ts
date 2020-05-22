@@ -13,6 +13,7 @@ import { PaginationService } from '~shared/pagination/services/pagination.servic
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { ExcludedService } from './excluded.service';
 
 /** this service is about managing the tables of non searchable entities like category, tag, ...
  * It must be setup before use (see setup method)
@@ -48,6 +49,7 @@ export class ListFuseHelperService<G = any> {
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
+		private excludedSrv: ExcludedService,
 		private sortSrv: SortService
 	) {
 		// When the total change, we setup pagination
@@ -74,6 +76,7 @@ export class ListFuseHelperService<G = any> {
 		this.fuseOptions = fuseOptions;
 		console.log('ListFuseHelperService<G -> this.fuseOptions', this.fuseOptions);
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
+		queryOptions.variables = { filter: this.filterSrv.queryArg };
 		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
 		// when we update the query, datas it will reasign fuse
@@ -86,7 +89,8 @@ export class ListFuseHelperService<G = any> {
 	/** items searched, without sort and without pagination */
 	private _fusedItems$: Observable<G[]> = combineLatest(
 		this._fuse$,
-		this.filterSrv.valueChanges$
+		this.filterSrv.valueChanges$,
+		this.excludedSrv.valueChanges$
 	).pipe(
 		debounce(() => timer(400)),
 		switchMap(([fuse, filters]: any) => {
@@ -94,6 +98,9 @@ export class ListFuseHelperService<G = any> {
 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
 			if (searchValue) return of(fuse.search(searchValue.value).map((data) => data.item));
 			else return this.queryRef.data$;
+		}),
+		map(items => {
+			return items.filter(item => !this.excludedSrv.excludedIds.includes((item as any).id));
 		}),
 		tap((searchedDatas) => {
 			this._total$.next(searchedDatas.length);
