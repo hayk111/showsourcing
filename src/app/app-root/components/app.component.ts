@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 		private seederSrv: SeederService
 	) {}
 
-	ngOnInit(): void {
+	async ngOnInit() {
 		this.userSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
 		this.translate.use('en-US');
 
 
-		// this.seederSrv.seed();
+		await this.seederSrv.seed();
 	}
 
 }
