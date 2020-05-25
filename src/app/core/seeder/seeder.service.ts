@@ -20,7 +20,7 @@ export class SeederService {
 		if (!this.teamId) return;
 		const keyStorage = 'data_seeded:' + this.teamId;
 		const isSeeded = localStorage.getItem(keyStorage);
-		if (isSeeded) return;
+		// if (isSeeded) return;
 
 		// await this.statusSeeder.deleteAllStatuses(); // not working backend side
 		await this.statusSeeder.createAllStatus();
