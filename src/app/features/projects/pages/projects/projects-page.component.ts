@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ERM, Project } from '~core/erm';
+import { Project } from '~core/erm3/models';
 import { AutoUnsub } from '~utils';
-import { ListHelperService, ListPageViewService, SelectionService, ListFuseHelperService } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ListFuseHelperService } from '~core/list-page2';
 import { UserService } from '~core/auth/services';
 import { FilterService, FilterType } from '~core/filters';
 
