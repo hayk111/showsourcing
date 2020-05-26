@@ -74,9 +74,11 @@ export class ListFuseHelperService<G = any> {
 		byId = byId || TeamService.teamSelected.id;
 		this.typename = typename;
 		this.fuseOptions = fuseOptions;
-		console.log('ListFuseHelperService<G -> this.fuseOptions', this.fuseOptions);
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
-		queryOptions.variables = { filter: this.filterSrv.queryArg };
+		queryOptions.variables = {
+			filter: this.filterSrv.queryArg,
+			...(queryOptions.variables && queryOptions.variables)
+		};
 		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
 		// when we update the query, datas it will reasign fuse
