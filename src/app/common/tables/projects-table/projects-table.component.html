@@ -56,6 +56,10 @@
 				(logoClick)="open.emit($event)">
 			</default-columns-app>
 
+			<ng-container *ngSwitchCase="'status'">
+				<span>-</span>
+			</ng-container>
+
 			<!-- remove this switch case when property is added (its already on default columns) -->
 			<ng-container *ngSwitchCase="'reference'">
 				<div> {{ row?.reference }} </div>
