@@ -12,9 +12,9 @@
 				#edt
 				(closed)="update(inpName.value, 'name')"
 				(opened)="inpName.select()">
-				<editable-display-app class="ellipsis bg-dark">
+				<editable-value-app class="ellipsis bg-dark">
 					{{ project?.name || '-' }}
-				</editable-display-app>
+				</editable-value-app>
 				<input
 					inputApp
 					#inpName
@@ -33,8 +33,8 @@
 			<h3 class="ms right-item title">About this project</h3>
 
 			<div class="about-project">
-				<div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}</div>
-				<div>Last Updated by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.lastUpdatedDate | date: 'd MMMM y':'':translate.currentLang }}</div>
+				<div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.createdAt | date: 'd MMMM y':'':translate.currentLang }}</div>
+				<div>Last Updated by {{ project?.lastUpdatedBy?.firstName }} {{ project?.lastUpdatedBy?.lastName }} on {{ project?.lastUpdatedAt | date: 'd MMMM y':'':translate.currentLang }}</div>
 			</div>
 		</div>
 	</div>
