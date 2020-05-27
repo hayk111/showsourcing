@@ -50,6 +50,7 @@
 				logoColor="primary"
 				typename="Project"
 				(update)="update.emit($event)"
+				(updateDueDate)="update.emit({ id: $event?.entity?.id, dueDate: $event?.dueDate })"
 				(previewClick)="previewClick.emit($event)"
 				(nameClick)="open.emit($event)"
 				(previewClick)="previewClick.emit($event)"
