@@ -1,8 +1,6 @@
 import gql from 'graphql-tag';
 
-const AUDIT = `
-_version
-`;
+const AUDIT = ``;
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
  * it will create queries given fields.

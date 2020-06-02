@@ -279,7 +279,6 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
 		if (typename !== 'Company') {
-			entity._version = this._getCachedVersion(typename, entity.id);
 			entity.lastUpdatedAt = new Date().toISOString();
 			// entity.lastUpdatedByUserId = this._userId;
 
@@ -309,7 +308,6 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		entities.forEach((entity) => {
 			entity.__typename = typename;
-			entity._version = this._getCachedVersion(typename, entity.id);
 			if (typename !== 'Company' && typename !== 'Team') {
 				entity.lastUpdatedAt = new Date().toISOString();
 				entity.teamId = this._teamId;
@@ -344,7 +342,6 @@ export class ApiService {
 			input: { id: entity.id },
 		};
 		if (typename !== 'Company' && typename !== 'Team' && typename !== 'ProjectProduct') {
-			options.variables.input._version = this._getCachedVersion(typename, entity.id);
 			if ( typename !== 'PropertyOption' && typename !== 'Invitation' && typename !== 'PropertyDefinition') {
 				// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
 				// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
@@ -369,8 +366,8 @@ export class ApiService {
 		options.variables = {};
 		entities.forEach((entity, i) => {
 			// we add specific variables to match to gql aliases generated in queryBuilder
-			options.variables['input' + i] = { id: entity.id, _version: entity._version };
-			if (typename !== 'Company' && typename !== 'Team') {
+			options.variables['input' + i] = { id: entity.id };
+			if (typename !== 'Company' && typename !== 'Team' && typename !== 'WorkflowStatus') {
 				options.variables['input' + i].teamId = this._teamId;
 			}
 		});
@@ -430,27 +427,6 @@ export class ApiService {
 			__typename: 'Mutation',
 			...predicateResp,
 		};
-	}
-
-	/** get the _version of an entity from the cache */
-	private _getCachedVersion(typename: Typename, id: string): number {
-		let cachedItem: Entity;
-		const fragmentOptions = {
-			id: `${typename}:${id}`, // the id format registered in the apollo cache
-			fragment: gql`
-				fragment test on ${typename} {
-					id
-					_version
-				}
-			`,
-		};
-		try {
-			cachedItem = client.readFragment(fragmentOptions);
-		} catch (err) {
-			throw Error('The _version field must exist in the cache (_version have to be fetched)');
-		}
-		if (!cachedItem) throw Error(`this item (${typename}:${id}) doesn't exist in the cache.`);
-		return cachedItem._version;
 	}
 
 	/** check if a graphql call has given any error */

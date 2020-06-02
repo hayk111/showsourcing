@@ -5,7 +5,6 @@ export class ProjectQueries extends BaseQueries {
 	static defaultFields = `
 		id
 		name
-		_version
 		dueDate
 		assignee { firstName lastName }
 		createdBy { firstName lastName }

@@ -11,7 +11,6 @@ export class StatusQueries extends BaseQueries {
 		final
 		type
 		category
-		_version
 	`;
 
 	// the updateStatus is used with these Typenames. We use this to generate queries;
