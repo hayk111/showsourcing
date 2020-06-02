@@ -54,7 +54,6 @@ export class DescriptorSeederService {
 							type
 						}
 						hint
-						_version
 						deleted
 					}
 				}
