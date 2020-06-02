@@ -175,7 +175,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			projectId: this.projectId
 		}).data$
 			.pipe(
-				tap(products => this.projectProducts.push(...products)),
+				tap(products => this.projectProducts = [...this.projectProducts, ...products]),
 				map(products => products.map(p => p.id)),
 				tap(productIds => {
 					this.excludedSrv.excludedIds = this.excludedSrv.excludedIds.concat(productIds);
@@ -190,6 +190,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 							projectId: this.projectId
 						}).subscribe();
 					});
+					this.cdr.detectChanges();
 				}
 			});
 	}
