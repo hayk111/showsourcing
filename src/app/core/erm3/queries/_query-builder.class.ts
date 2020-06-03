@@ -4,7 +4,6 @@ import { QueryType } from './query-type.enum';
 
 /** Audit found on every entity */
 const AUDIT = ``;
-
 // _lastChangedAt
 // _deleted
 
