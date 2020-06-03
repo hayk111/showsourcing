@@ -26,9 +26,6 @@ import { RatingService } from '~shared/rating/services/rating.service';
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	private _product: any;
-	teamVotes$: Observable<Vote[]>;
-	userVote$: Observable<Vote>;
-
 	@Input()
 	set product(value: any) {
 		this._product = value;
@@ -59,6 +56,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false })
 	ratingDashboard: ElementRef;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
+
+	teamVotes$: Observable<Vote[]>;
+	userVote$: Observable<Vote>;
 	descriptor = descriptorMock;
 	private _pendingImages: PendingImage[] = [];
 
@@ -81,8 +81,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.teamVotes$ = this.ratingSrv.getTeamVotes('product:' + this._product.id);
 	}
 
-	updateVote(vote: Observable<Vote>) {
-		this.userVote$ = vote;
+	updateVote(vote$: Observable<Vote>) {
+		this.userVote$ = vote$;
 	}
 
 	// UPDATE FUNCTIONS
