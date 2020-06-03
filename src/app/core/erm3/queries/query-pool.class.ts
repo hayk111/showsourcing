@@ -36,7 +36,7 @@ export class QueryPool {
 		Task: new BaseQueries('Task', `${TaskQueries.defaultFields}`),
 		Tag: new BaseQueries('Tag'),
 		Team: new BaseQueries('Team', 'id name'),
-		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
+		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { id firstName lastName email } role'),
 		User: new BaseQueries('User', `id firstName lastName`),
 		Venue: new BaseQueries('Venue'),
 		Vote: new BaseQueries('Vote', 'id message rating nodeId  createdBy { id }'),

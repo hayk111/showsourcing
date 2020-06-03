@@ -118,11 +118,11 @@
 			<editable-value-app>
 				<selector-app
 					#sel
-					typename="User"
+					typename="TeamUser"
 					[width]="320"
 					[offsetX]="4"
 					(menuClosed)="eca.close()"
-					(update)="update.emit({ id: row?.id, assigneeId: $event?.userId })">
+					(update)="update.emit({ id: row?.id, assigneeId: $event?.teamuserId })">
 					<div class="flex pointer">
 						<user-picture-app
 							*ngIf="row?.assignee"

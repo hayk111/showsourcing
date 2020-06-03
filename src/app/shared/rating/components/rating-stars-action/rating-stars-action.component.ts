@@ -22,9 +22,9 @@ import { Vote } from '~core/erm3/models';
 })
 export class RatingStarsActionComponent implements AfterViewInit {
 
-	private _vote: Vote;
-	@Input() set vote(vote: Vote) {
-		this._vote = vote;
+	private _userVote: Vote;
+	@Input() set userVote(vote: Vote) {
+		this._userVote = vote;
 
 		if (vote) {
 			this.sliceIndexStar = this.stars.filter(starValue => starValue <= vote.rating).length;
@@ -33,8 +33,8 @@ export class RatingStarsActionComponent implements AfterViewInit {
 			this.changeStarsColor(0);
 		}
 	}
-	get votes() {
-		return this._vote;
+	get userVote() {
+		return this._userVote;
 	}
 
 	@Output() valueVoted = new EventEmitter<number>();
@@ -43,7 +43,7 @@ export class RatingStarsActionComponent implements AfterViewInit {
 
 	myVote: Vote;
 	// array containing each value of a star
-	stars = Array.from({ length: 5 }, (x, i) => ((i + 1) * 20));
+	stars = Array.from({ length: 5 }, (x, i) => (i + 1));
 	// NOTE: this is not a normal index, is an slice index, Array.slice
 	/** indicates where we have to slice the array to fill with color the stars */
 	sliceIndexStar = 0;
@@ -77,10 +77,12 @@ export class RatingStarsActionComponent implements AfterViewInit {
 	}
 
 	onValueVoted(value) {
-		const vote = Object.assign({}, this._vote);
-		// set rating to "no stars" when the value is equal to the previous
-		vote.rating = value === vote.rating ? 0 : vote.rating;
-		this.vote = vote;
+		if (this._userVote && value === this._userVote.rating) {
+			return;
+		}
+		const vote = Object.assign({}, this._userVote);
+		vote.rating = value;
+		this.userVote = vote;
 		this.valueVoted.emit(value);
 	}
 
