@@ -6,6 +6,7 @@ import { ProjectService } from '~core/erm';
 import { ERM, Project } from '~core/erm';
 import { ProjectFeatureService } from '~features/projects/services';
 import { AutoUnsub } from '~utils';
+import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
 
 @Component({
@@ -17,13 +18,13 @@ import { ListHelperService } from '~core/list-page2';
 export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	project$: Observable<Project>;
-	project: Project;
 	id: string;
 	erm = ERM;
 
 	constructor(
 		private route: ActivatedRoute,
 		public router: Router,
+		private apiSrv: ApiService,
 		private featureSrv: ProjectFeatureService,
 		private listHelper: ListHelperService,
 	) {
@@ -34,9 +35,7 @@ export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.setup('Project');
 
 		const id = this.route.snapshot.params.id;
-		this.project$ = this.featureSrv.queryOne(id);
-
-		this.project$.subscribe(proj => this.project = proj);
+		this.project$ = this.apiSrv.get('Project', id).data$;
 	}
 
 	isTabUrl(tab: string): boolean {

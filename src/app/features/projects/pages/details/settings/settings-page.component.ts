@@ -4,15 +4,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { ProjectService } from '~core/erm';
-import { ERM, Project } from '~core/erm';
+import { ERM } from '~core/erm';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
+import { ApiService } from '~core/erm3/services/api.service';
+import { Project } from '~core/erm3/models';
+import { ListFuseHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'settings-page-app',
 	templateUrl: './settings-page.component.html',
 	styleUrls: ['./settings-page.component.scss'],
+	providers: [ListFuseHelperService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent extends AutoUnsub implements OnInit {
@@ -31,7 +35,9 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		private projectSrv: ProjectService,
 		private fb: FormBuilder,
 		private uploader: UploaderService,
-		public translate: TranslateService
+		public translate: TranslateService,
+		private apiSrv: ApiService,
+		private listHelper: ListFuseHelperService,
 	) {
 		super();
 	}
@@ -46,29 +52,32 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		this.project$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			tap(id => this.id = id),
-			switchMap(id => this.projectSrv.selectOne(id)),
+			switchMap(id => this.apiSrv.get('Project', id).data$),
 		);
 
-		this.project$.pipe(
-			take(1),
-			tap(proj => this.form.patchValue(proj)),
-			switchMap(_ => this.form.valueChanges.pipe(takeUntil(this._destroy$))),
-			takeUntil(this._destroy$)
-		).subscribe(proj => this.updateProject(proj));
+		// this.project$.pipe(
+		// 	take(1),
+		// 	tap(proj => this.form.patchValue(proj)),
+		// 	switchMap(_ => this.form.valueChanges.pipe(takeUntil(this._destroy$))),
+		// 	takeUntil(this._destroy$)
+		// ).subscribe(proj => this.updateProject(proj));
 
 	}
 
 	onNewFiles(files: File[]) {
 		this.uploader.uploadImages(files)
-			.subscribe(imgs => this.updateProject({ logoImage: imgs[0] }));
+			.subscribe(imgs => this.updateProject({ logoImage: imgs[0] } as any));
 	}
 
 	updateProject(proj: Project) {
-		this.projectSrv.update({ id: this.id, ...proj }).subscribe();
+		// this.projectSrv.update({ id: this.id, ...proj }).subscribe();
 	}
 
 	update(value: any, prop: string) {
-		this.projectSrv.update({ id: this.id, [prop]: value }).subscribe();
+		this.listHelper.update({
+			id: this.id,
+			[prop]: value
+		}, {}, 'Project');
 	}
 
 }

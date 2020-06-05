@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import * as DetailsPage from './pages/project-details';
+import * as DetailsPage from './pages/details';
 import * as TablePage from './pages/projects';
 
 

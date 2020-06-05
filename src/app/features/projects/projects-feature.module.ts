@@ -10,7 +10,7 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/projects/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import * as DetailsPage from './pages/project-details';
+import * as DetailsPage from './pages/details';
 import * as TablePage from './pages/projects';
 
 @NgModule({

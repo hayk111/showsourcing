@@ -6,7 +6,6 @@ export class Entity<G = any> {
 
 	_deleted?: boolean = null;
 	_lastChangedAt?: string = '' + new Date();
-	_version ?= 0;
 	__typename?: string;
 
 	constructor(config?: G) {

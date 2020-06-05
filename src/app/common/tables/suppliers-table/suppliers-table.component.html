@@ -129,8 +129,7 @@
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
-		(click)="archive.emit(row)"
-		translate="button.archive">
+		(click)="archive.emit(row)">
 		<div class="icon-box square flexCenter mg-right-s">
 			<icon-app name="archive" size="s"></icon-app>
 		</div>
