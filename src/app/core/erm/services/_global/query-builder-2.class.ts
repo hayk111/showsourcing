@@ -34,7 +34,6 @@ export class QueryBuilder {
 		archived
 		_lastChangedAt
 		_deleted
-		_version
 	`;
 
 	constructor(public entityName: string, customQueries: CustomQueries =  {}) {

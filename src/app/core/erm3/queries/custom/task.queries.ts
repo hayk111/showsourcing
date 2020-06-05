@@ -5,7 +5,6 @@ export class TaskQueries extends BaseQueries {
 	static defaultFields = `
 		id
 		name
-		_version
 		dueDate
 		product { name }
 		supplier { name }

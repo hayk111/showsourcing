@@ -5,7 +5,6 @@ export class SupplierQueries extends BaseQueries {
 	static defaultFields = `
 		id
 		name
-		_version
 		favorite
 		status {
 			${StatusQueries.defaultFields}
@@ -14,7 +13,6 @@ export class SupplierQueries extends BaseQueries {
 		assignee { firstName lastName }
 		createdBy { firstName lastName }
 		createdAt
-		_version
 	`;
 
 	constructor() {

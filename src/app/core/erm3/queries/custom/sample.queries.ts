@@ -5,7 +5,6 @@ export class SampleQueries extends BaseQueries {
 	static defaultFields = `
 		id
 		name
-		_version
 		status {
 			${StatusQueries.defaultFields}
 		}

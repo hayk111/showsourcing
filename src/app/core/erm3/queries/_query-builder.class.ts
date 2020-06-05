@@ -3,9 +3,7 @@ import { Typename } from '../typename.type';
 import { QueryType } from './query-type.enum';
 
 /** Audit found on every entity */
-// _version must be written in cache for update and delete of any entity.
 const AUDIT = ``;
-// _version
 // _lastChangedAt
 // _deleted
 
@@ -23,7 +21,7 @@ const AUDIT = ``;
  */
 
 function withById(typename: Typename): boolean {
-	return typename !== 'Category' && typename !== 'Vote' && typename !== 'User';
+	return typename !== 'Category' && typename !== 'Vote' && typename !== 'User' && typename !== 'Project';
 }
 
 export class QueryBuilder {

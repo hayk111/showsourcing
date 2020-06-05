@@ -12,7 +12,6 @@ export class ProductQueries extends BaseQueries {
 	static defaultFields = `
 		id
 		name
-		_version
 		favorite
 		status {
 			${StatusQueries.defaultFields}
