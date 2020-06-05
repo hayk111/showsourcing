@@ -15,8 +15,6 @@ export class Entity<G = any> {
 	lastUpdatedBy?: User;
 	lastUpdatedAt?: string;
 	deleted?: boolean;
-
-	_version?: number;
 	_deleted?: boolean;
 	_lastChangedAt?: number;
 

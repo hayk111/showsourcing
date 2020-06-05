@@ -9,7 +9,6 @@ export class User {
 	preferredLanguage?: 'EN' | 'FR' | 'CN';
 	avatar?: string | null;
 	createdAt?: number | null;
-	_version?: number;
 	_deleted?: boolean | null;
 	_lastChangedAt?: number;
 }
