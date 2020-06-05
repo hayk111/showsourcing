@@ -6,8 +6,12 @@ import { Task } from '~core/erm';
 import { Color } from '~utils/colors.enum';
 import { ID } from '~utils/id.utils';
 import { defaultConfig } from '../default-columns/default-config';
-import { EntityTableComponent } from '../entity-table.component';
+import { EntityTableComponent, TableConfig } from '../entity-table.component';
 
+const tableConfig: TableConfig = {
+	...defaultConfig,
+	dueDate: { name: 'dueDate', translationKey: 'due-date', width: 200, sortProperty: 'dueDate' },
+};
 
 @Component({
 	selector: 'task-table-app',
@@ -30,7 +34,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 		'createdBy',
 		'creationDate'
 	];
-	static DEFAULT_TABLE_CONFIG = defaultConfig;
+	static DEFAULT_TABLE_CONFIG = tableConfig;
 	@Input() columns = TasksTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = TasksTableComponent.DEFAULT_TABLE_CONFIG;
 	@Output() openProduct = new EventEmitter<ID>();
