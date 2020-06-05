@@ -19,22 +19,22 @@ export class DialogPageComponent {
 		private apiSrv: ApiService
 	) {}
 
-	selectedProducts: Product[] = [];
+	excludedIds: Product[] = [];
 	selectedProjects: Project[] = [];
 
 	/*--- Selection Dialogs ---*/
 
 	selectProducts() {
-		this.dlgCommonSrv
-			.openSelectionDlg('Product', this.selectedProducts)
-			.data$.pipe(tap(data => console.log(data)))
-			.subscribe(data => (this.selectedProducts = data || []));
+		// this.dlgCommonSrv
+		// 	.openSelectionDlg('Product', this.selectedProducts)
+		// 	.data$.pipe(tap(data => console.log(data)))
+		// 	.subscribe(data => (this.selectedProducts = data || []));
 	}
 
 	selectProjects() {
-		this.dlgCommonSrv.openSelectionDlg('Project', this.selectedProjects).data$
-			.pipe(tap(data => console.log(data)))
-			.subscribe(data => (this.selectedProjects = data || []));
+		// this.dlgCommonSrv.openSelectionDlg('Project', this.selectedProjects).data$
+		// 	.pipe(tap(data => console.log(data)))
+		// 	.subscribe(data => (this.selectedProjects = data || []));
 	}
 
 	/*--- Creation Dialogs ---*/

@@ -50,11 +50,16 @@
 				logoColor="primary"
 				typename="Project"
 				(update)="update.emit($event)"
+				(updateDueDate)="update.emit({ id: $event?.entity?.id, dueDate: $event?.dueDate })"
 				(previewClick)="previewClick.emit($event)"
 				(nameClick)="open.emit($event)"
 				(previewClick)="previewClick.emit($event)"
 				(logoClick)="open.emit($event)">
 			</default-columns-app>
+
+			<ng-container *ngSwitchCase="'status'">
+				<span>-</span>
+			</ng-container>
 
 			<!-- remove this switch case when property is added (its already on default columns) -->
 			<ng-container *ngSwitchCase="'reference'">

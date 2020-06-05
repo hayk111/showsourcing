@@ -247,7 +247,10 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			if (typename !== 'Invitation') { // temporary solution for invitations only id and createdAt are not needed
 				entity.id = uuid();
-				entity.createdAt = new Date().toISOString();
+
+				if (typename !== 'ProjectProduct') {
+					entity.createdAt = new Date().toISOString();
+				}
 			}
 
 			// entity.createdByUserId = this._userId;
@@ -337,7 +340,7 @@ export class ApiService {
 			...options.variables,
 			input: { id: entity.id },
 		};
-		if (typename !== 'Company' && typename !== 'Team') {
+		if (typename !== 'Company' && typename !== 'Team' && typename !== 'ProjectProduct') {
 			options.variables.input._version = this._getCachedVersion(typename, entity.id);
 			if ( typename !== 'PropertyOption' && typename !== 'Invitation' && typename !== 'PropertyDefinition') {
 				// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)

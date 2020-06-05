@@ -10,7 +10,7 @@ export class DialogService {
 	private _open$ = new Subject<{ component: any, props: any, closeOnOutsideClick: boolean }>();
 	open$ = this._open$.asObservable();
 
-	private _close$ = new Subject<void>();
+	private _close$ = new Subject<any>();
 	close$ = this._close$.asObservable();
 
 	private _data$ = new Subject<any>();
@@ -28,8 +28,13 @@ export class DialogService {
 	}
 
 	/** Close the dialog. */
-	close() {
-		this._close$.next();
+	close(reOpenDlg?: { component: new (...args: any[]) => any, type: string }) { // component to reopen
+		this._close$.next(reOpenDlg);
+
+		return {
+			reOpenDlg,
+			data$: this._data$.asObservable().pipe(takeUntil(this._close$)),
+		};
 	}
 	/** Send data from the dialog to the observable returned by the opening dialog */
 	data(data: any) {

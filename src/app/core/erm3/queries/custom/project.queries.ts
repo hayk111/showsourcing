@@ -7,9 +7,11 @@ export class ProjectQueries extends BaseQueries {
 		name
 		_version
 		dueDate
-		createdBy { firstName lastName }
 		assignee { firstName lastName }
+		createdBy { firstName lastName }
 		createdAt
+		lastUpdatedBy { firstName lastName }
+    lastUpdatedAt
 	`;
 
 	constructor() {

@@ -66,7 +66,7 @@ export class DialogCommonService {
 	 * @param initialSelecteds: the initial entities selecteds in the table
 	 * @returns DialogRef: an object of observables who stream $close, $data, $cancel.
 	 */
-	openSelectionDlg<T extends Entity>(typename: Typename, initialSelecteds?: T[]) {
+	openSelectionDlg(typename: Typename, additionalFields?: any) {
 		// dialogs disponibles from imports
 		const selectionDialogs: Partial<Record<Typename, any>> = {
 			Product: ProductSelectionDialogComponent,
@@ -75,7 +75,7 @@ export class DialogCommonService {
 
 		const dlgComponent = selectionDialogs[typename];
 		if (!dlgComponent) throw error(`There is no Selection Dialog for the typename: ${typename}`);
-		return this.dlgSrv.open(dlgComponent, { initialSelecteds });
+		return this.dlgSrv.open(dlgComponent, { ...additionalFields });
 	}
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/

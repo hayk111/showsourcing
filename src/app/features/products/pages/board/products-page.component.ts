@@ -4,7 +4,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { ERM, Product, SelectParamsConfig } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelperService, ListPageViewService, SelectionService, ListFuseHelperService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
@@ -52,7 +52,7 @@ export class ProductsPageComponent extends AutoUnsub
 	requestCount$: Observable<number>;
 
 	constructor(
-		public listHelper: ListHelperService<Product>,
+		public listHelper: ListFuseHelperService<Product>,
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
@@ -64,9 +64,9 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'board' });
-		this.items$ = this.listHelper.filteredItems$ as Observable<any[]>;
 	}
 
 	// toggleMyProducts(show: boolean) {

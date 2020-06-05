@@ -26,6 +26,7 @@ export class QueryPool {
 		Product: new BaseQueries('Product', `${ProductQueries.defaultFields}`),
 		// tslint:disable-next-line:max-line-length
 		Project: new BaseQueries('Project', `${ProjectQueries.defaultFields}`),
+		ProjectProduct: new BaseQueries('ProjectProduct', 'id projectId productId'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
 		// tslint:disable-next-line:max-line-length
 		Supplier: new BaseQueries('Supplier', `${SupplierQueries.defaultFields}`),
