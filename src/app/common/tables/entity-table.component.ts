@@ -20,6 +20,12 @@ export interface TableConfig {
 	[key: string]: ColumnConfig;
 }
 
+interface PropertyUpdate {
+	entityId: string;
+	entityType: string;
+	value: any;
+}
+
 export type TableConfigType = 'small' | 'medium' | 'big' | 'medium-small';
 
 @Directive()
@@ -59,6 +65,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() unselectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() update = new EventEmitter<T>();
+	@Output() propertyUpdated = new EventEmitter<PropertyUpdate>();
 	@Output() bottomReached = new EventEmitter<string>();
 	/** emits when a click has been performed on the placeholder */
 	@Output() createClick = new EventEmitter<null>();
