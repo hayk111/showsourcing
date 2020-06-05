@@ -24,7 +24,8 @@
 	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="addProducts()"
-	(update)="listHelper.update($event)"
+	(update)="updateProduct($event)"
+	(propertyUpdated)="updateProductProperty($event)"
 	(delete)="deassociateProductById(($event)?.id)">
 </products-table-app>
 
