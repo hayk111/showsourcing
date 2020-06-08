@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
 		this.translate.use('en-US');
 
 
-		this.seederSrv.seed();
+		// this.seederSrv.seed();
 	}
 
 }

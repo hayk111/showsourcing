@@ -25,6 +25,7 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	protected viewContainerRef;
 	/** whether clicking */
 	closeOnOutsideClick = true;
+	hasReOpenComponent = false;
 	isOpen = false;
 
 	constructor(
@@ -42,7 +43,7 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 			.subscribe(({ component, props, closeOnOutsideClick }) => {
 				this.open(component, props, closeOnOutsideClick);
 			});
-		this.srv.close$.pipe(takeUntil(this._destroy$)).subscribe(_ => this.clear());
+		this.srv.close$.pipe(takeUntil(this._destroy$)).subscribe(component => this.clear(component));
 	}
 
 	/** will put a component in the host container */
@@ -72,16 +73,23 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	}
 
 	/** removes component from host */
-	clear() {
+	clear(reOpenComponent: any) {
 		if (this.isOpen) {
 			this.viewContainerRef.clear();
 			this.isOpen = false;
 			this.cdRef.markForCheck();
 		}
+
+		if (reOpenComponent) {
+			this.hasReOpenComponent = true;
+			this.srv.open(reOpenComponent.component, {typename: reOpenComponent.type}).data$.subscribe();
+		} else {
+			this.hasReOpenComponent = false;
+		}
 	}
 
 	closeIfNeeded() {
-		if (this.closeOnOutsideClick) {
+		if (this.closeOnOutsideClick && !this.hasReOpenComponent) {
 			this.close();
 		}
 	}

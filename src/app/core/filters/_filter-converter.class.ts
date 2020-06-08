@@ -79,10 +79,15 @@ export class FilterConverter {
 		switch (type) {
 			case FilterType.ARCHIVED:
 			case FilterType.FAVORITE:
-			case FilterType.DELETED:
 				return {
 					property: type,
 					isTrue: value
+				};
+			case FilterType.DELETED:
+				return {
+					deleted: {
+						eq: value
+					}
 				};
 			case FilterType.SEARCH:
 				return this.getSearchArg(value);

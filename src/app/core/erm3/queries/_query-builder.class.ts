@@ -21,7 +21,7 @@ const AUDIT = ``;
  */
 
 function withById(typename: Typename): boolean {
-	return typename !== 'Category' && typename !== 'Vote' && typename !== 'User';
+	return typename !== 'Category' && typename !== 'Vote' && typename !== 'User' && typename !== 'Project';
 }
 
 export class QueryBuilder {

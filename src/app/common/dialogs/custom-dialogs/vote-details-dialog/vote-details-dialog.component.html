@@ -4,10 +4,10 @@
 	<ng-container *ngFor="let vote of votes; last as last; trackBy: trackByFn">
 		<div class="user-info-container flexBetween" [ngClass]="{ 'row': !last }">
 			<div class="flex user-info">
-				<user-picture-app [user]="vote.user" [image]="vote?.user?.avatar" [size]="24" [border]="true"></user-picture-app>
-				<span class="name flexCenter">{{ vote?.user?.firstName || '' }} {{ vote?.user?.lastName || '' }}</span>
+				<user-picture-app [user]="vote.createdBy" [image]="vote?.createdBy?.avatar" [size]="24" [border]="true"></user-picture-app>
+				<span class="name flexCenter">{{ vote?.createdBy?.firstName || '' }} {{ vote?.createdBy?.lastName || '' }}</span>
 			</div>
-			<rating-badge-app [votes]="[vote]"></rating-badge-app>
+			<rating-badge-app [score]="[vote.rating]"></rating-badge-app>
 		</div>
 	</ng-container>
 

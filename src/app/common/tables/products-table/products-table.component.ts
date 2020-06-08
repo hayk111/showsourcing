@@ -41,4 +41,20 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
+	updatePrice(productId: string, inputValue: any, additionalFields: any) {
+		let currency;
+
+		if (inputValue.value && inputValue.value.value) {
+			currency = inputValue.value.currency || 'USD';
+		} else {
+			currency = inputValue.value ? inputValue.value.currency : null;
+		}
+
+		this.listHelper.updateProperties(productId, 'price', {
+			value: inputValue.value ? inputValue.value.value : null,
+			currency,
+			additionalFields
+		});
+	}
+
 }

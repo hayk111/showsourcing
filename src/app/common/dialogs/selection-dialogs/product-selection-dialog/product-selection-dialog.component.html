@@ -16,11 +16,12 @@
 
 	<div class="flex table-ctnr">
 		<products-table-app
-			[rows]="listHelper.filteredItems$ | async"
+			[rows]="listHelper.paginedItems$ | async"
 			[hasMenu]="false"
 			[hasPagination]="false"
 			[pending]="listHelper.pending$ | async"
 			[selection]="selectionSrv.selection$ | async"
+			(createClick)="createProduct()"
 			(delete)="listHelper.delete($event)"
 			(update)="listHelper.update($event)"
 			(select)="selectionSrv.selectOne($event)"

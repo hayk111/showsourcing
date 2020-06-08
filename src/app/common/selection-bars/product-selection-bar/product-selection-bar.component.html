@@ -13,11 +13,21 @@
 		<span translate="button.edit"></span>
 	</button>
 
-	<!-- Project -->
-	<button class="icon-with-text light mg-right-ms" (click)="addProductsToProjects()">
-		<icon-app name="project"></icon-app>
-		<span translate="button.project"></span>
-	</button>
+	<ng-container *ngIf="!projectProductSelection; else projectProduct">
+		<!-- Project -->
+		<button class="icon-with-text light mg-right-ms" (click)="addProductsToProjects()">
+			<icon-app name="project"></icon-app>
+			<span translate="button.project"></span>
+		</button>
+	</ng-container>
+
+	<ng-template #projectProduct>
+		<!-- Remove from project -->
+		<button class="icon-with-text light mg-right-ms" (click)="removeFromProject()">
+			<icon-app name="close-square"></icon-app>
+			<span>Remove from project</span>
+		</button>
+	</ng-template>
 
 	<!-- Compare products -->
 	<button class="icon-with-text light mg-right-ms" (click)="compareProducts()">

@@ -24,7 +24,7 @@
 <!-- <ng-container *ngIf="listSrv.isListening"> -->
 	<products-table-app
 		*ngIf="viewSrv.view === 'table'"
-		[rows]="items$ | async"
+		[rows]="listHelper.paginedItems$ | async"
 		[pending]="listHelper.pending$ | async"
 		[selection]="selectionSrv.selection$ | async"
 		(open)="viewSrv.goToDetails($event)"

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ERM, Project } from '~core/erm';
-import { FilterType } from '~shared/filters';
+import { Project } from '~core/erm3/models';
 import { AutoUnsub } from '~utils';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ListFuseHelperService } from '~core/list-page2';
 import { UserService } from '~core/auth/services';
+import { FilterService, FilterType } from '~core/filters';
 
 // Doctor: You're obese.
 // -
@@ -18,7 +18,8 @@ import { UserService } from '~core/auth/services';
 	templateUrl: './projects-page.component.html',
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
-		ListHelperService,
+		ListFuseHelperService,
+		FilterService,
 		ListPageViewService,
 		SelectionService,
 	],
@@ -27,12 +28,13 @@ import { UserService } from '~core/auth/services';
 	}
 })
 export class ProjectsPageComponent extends AutoUnsub implements OnInit {
-	items$: Observable<any[]>;
+	items$: Observable<Project[]>;
 
 	filterTypes = [FilterType.CREATED_BY];
 
 	constructor(
-		public listHelper: ListHelperService,
+		public filterSrv: FilterService,
+		public listHelper: ListFuseHelperService,
 		public viewSrv: ListPageViewService<any>,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
@@ -42,6 +44,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Project');
 	}
 
