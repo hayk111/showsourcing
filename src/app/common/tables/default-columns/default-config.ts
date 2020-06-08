@@ -19,6 +19,6 @@ export const defaultConfig: TableConfig = {
 	sampleCount: { name: 'sampleCount', translationKey: 'samples', width: 72, sortable: false },
 	supplier: { name: 'supplier', translationKey: 'supplier', width: 210, sortProperty: 'supplier.id' },
 	product: { name: 'product', translationKey: 'product', width: 210, sortProperty: 'product.id' },
-	dueDate: { name: 'dueDate', translationKey: 'due-date', width: 110, sortProperty: 'dueDate' },
+	dueDate: { name: 'dueDate', translationKey: 'due-date', width: 120, sortProperty: 'dueDate' },
 };
 

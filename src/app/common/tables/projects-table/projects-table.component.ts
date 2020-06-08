@@ -6,7 +6,7 @@ import { defaultConfig } from '../default-columns/default-config';
 
 const tableConfig: TableConfig = {
 	...defaultConfig,
-	assignee: { name: 'assignee', translationKey: 'project-lead', width: 152, sortProperty: 'assignee.firstName' },
+	dueDate: { name: 'dueDate', translationKey: 'due-date', width: 200, sortProperty: 'dueDate' },
 };
 
 @Component({
