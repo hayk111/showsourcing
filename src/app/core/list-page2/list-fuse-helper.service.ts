@@ -37,7 +37,7 @@ export class ListFuseHelperService<G = any> {
 		keys: [],
 		shouldSort: true,
 		includeScore: true,
-		threshold: 0.5, // 0 = full match
+		threshold: 0, // 0 = full match
 		location: 0,
 		distance: 100,
 		minMatchCharLength: 1,
@@ -68,13 +68,10 @@ export class ListFuseHelperService<G = any> {
 		typename: Typename,
 		byProperty: string = 'Team',
 		byId: string = TeamService.teamSelected.teamId,
-		queryOptions: ApiQueryOption = {},
-		fuseOptions: any = this.fuseOptions
+		queryOptions: ApiQueryOption = {}
 	) {
 		byId = byId || TeamService.teamSelected.id;
 		this.typename = typename;
-		this.fuseOptions = fuseOptions;
-		console.log('ListFuseHelperService<G -> this.fuseOptions', this.fuseOptions);
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
 		queryOptions.variables = { filter: this.filterSrv.queryArg };
 		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
