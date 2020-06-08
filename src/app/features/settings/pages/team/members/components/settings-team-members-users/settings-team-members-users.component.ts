@@ -33,15 +33,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	user: User;
 	hasSelected = false;
 
-	fuseOptions = {
-		shouldSort: true,
-		includeScore: true,
-		threshold: 0, // for full match
-		location: 0,
-		distance: 100,
-		minMatchCharLength: 1,
-	};
-
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private featureSrv: SettingsMembersService,
@@ -58,8 +49,8 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
-		this.filterSrv.setup([], ['user.firstName', 'user.lastName', 'user.email']);
-		this.listHelper.setup('TeamUser', 'Team', TeamService.teamSelected.teamId, {}, this.fuseOptions);
+		this.filterSrv.setup([], ['user.firstName', 'user.lastName']);
+		this.listHelper.setup('TeamUser', 'Team', TeamService.teamSelected.teamId, {});
 
 		this.rows$ = this.listHelper.searchedItems$
 			.pipe(
