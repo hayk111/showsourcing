@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		console.log('deploy test log');
 		this.userSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
