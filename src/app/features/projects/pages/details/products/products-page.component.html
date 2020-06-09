@@ -68,9 +68,9 @@
 		</filters-app>
 	</side-panel-app>
 
-	<!-- <product-preview-app
+	<product-preview-app
 		*ngIf="viewSrv.previewOpen"
 		[product]="viewSrv.previewed"
-		[isPreview]="false"
+		(updated)="projectProductSrv.refetch();"
 		(close)="viewSrv.closePreview()">
-	</product-preview-app> -->
+	</product-preview-app>
