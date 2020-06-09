@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Company } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
 
@@ -22,7 +22,7 @@ export class CompanyService {
 	constructor(
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
-		protected apiSrv: ApiService
+		protected apiLibSrv: ApiLibService
 	) {}
 
 	init() {
@@ -30,7 +30,8 @@ export class CompanyService {
 		this.authSrv.signIn$
 			.pipe(
 				tap(id => {
-					this.queryAll = this.apiSrv.listBy('Company', 'Owner', id);
+					// this.queryAll = this.apiSrv.listBy('Company', 'Owner', id);
+					this.queryAll = this.apiLibSrv.db.find('Company');
 				}),
 				switchMap(_ => this.queryAll.data$),
 				map(all => all[0])
@@ -42,7 +43,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return this.apiSrv.create('Company', company).pipe(
+		return this.apiLibSrv.db.create('Company', [ company as any ]).pipe(
 			tap(_ => this._company$.next(company)),
 			switchMap(_ => this.queryAll.refetch())
 		);

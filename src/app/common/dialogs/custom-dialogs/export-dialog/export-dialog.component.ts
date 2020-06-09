@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { switchMap, take, first } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog/services';
 import { Typename } from '~core/erm3/typename.type';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { Request, Export, Product, Supplier, Sample, Task } from '~core/erm3/models';
 
 export enum ExportFormat {
@@ -53,7 +53,7 @@ export class ExportDialogComponent implements OnInit {
 		public dlgSrv: DialogService,
 		private router: Router,
 		private cdr: ChangeDetectorRef,
-		private apiSrv: ApiService
+		private apiLibSrv: ApiLibService
 	) {}
 
 	ngOnInit() {
@@ -67,7 +67,7 @@ export class ExportDialogComponent implements OnInit {
 	/** create an export and check when it's ready on the backend. */
 	export() {
 		// const query = this.query ? this.query : (this.targets as ExportEntity[]).map(target => `id == '${target.id}'`).join(' or ');
-		const query = 'what exactly should be the query ? apollo query option ? If not, how to pass params ?'; //TODO adapt the query
+		const query = 'what exactly should be the query ? apollo query option ? If not, how to pass params ?'; // TODO adapt the query
 		const request = {
 			target: ExportTarget[this.typename.toUpperCase()],
 			format: this.selectedFormat,
@@ -75,14 +75,14 @@ export class ExportDialogComponent implements OnInit {
 		};
 		this.requestCreated = true;
 		this.cdr.detectChanges();
-		this.apiSrv
-			.create<Request>('Export', request)
+		this.apiLibSrv.db
+			.create('Export', [request])
 			.pipe
 			// switchMap(exp => this.exportSrv.isExportReady(exp)) // TODO implement isExportReady
 			()
 			.subscribe(
 				(exp) => {
-					this.exportReq = exp;
+					this.exportReq = exp[0];
 					this.fileReady = true;
 					this.cdr.detectChanges();
 				},
@@ -113,7 +113,7 @@ export class ExportDialogComponent implements OnInit {
 			this.canExportImages = true;
 		}
 		// TODO add filters
-		const selectCount$ = this.apiSrv.searchBy(this.typename).total$.pipe(first());
+		const selectCount$ = this.apiLibSrv.db.find$(this.typename, null, null).count$;
 		this.query
 			? selectCount$.subscribe((len) => this.count$.next(len))
 			: this.count$.next(this.targets.length);

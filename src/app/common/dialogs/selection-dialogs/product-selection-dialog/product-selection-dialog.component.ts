@@ -7,7 +7,7 @@ import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { tap, first, switchMap} from 'rxjs/operators';
-import { ApiService } from '~core/erm3';
+import { ApiLibService } from '~core/api-lib';
 import { TeamService } from '~core/auth';
 import { ProjectProductService } from '~features/projects/services/project-product.service';
 
@@ -49,7 +49,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		public listHelper: ListFuseHelperService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Product>,
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private excludedSrv: ExcludedService,
 		private projectProductSrv: ProjectProductService
 	) {
@@ -66,13 +66,14 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.dlgSrv.close({ component: DefaultCreationDialogComponent, type: 'Product'  })
 			.data$
 			.pipe(
-				switchMap(product => this.apiSrv.create('Product', product)),
-				switchMap((product: Product)  => {
-					return this.apiSrv.create('ProjectProduct', {
+				switchMap(product => this.apiLibSrv.db.create('Product', product)),
+				switchMap((createdProducts: any[])  => {
+					const product = createdProducts[0];
+					return this.apiLibSrv.db.create('ProjectProduct', [{
 						teamId: TeamService.teamSelected.id,
 						productId: product.id,
 						projectId: this.projectId
-					});
+					}]);
 				}),
 				tap(_ => this.projectProductSrv.refetch()),
 				first()

@@ -3,7 +3,7 @@
   "version": "4.0.0-2",
   "license": "MIT",
   "scripts": {
-    "configure-lib": "cd node_modules && git clone https://gitlab.com/cedric8/showsourcing-frontend-api.git && cd showsourcing-frontend-api && git checkout dev && npm i && tsc",
+    "configure-lib": "cd node_modules && git clone https://gitlab.com/cedric8/showsourcing-frontend-api.git && cd showsourcing-frontend-api && git checkout setup && npm i && tsc",
     "ng": "ng",
     "start": "sh ./scripts/start.sh",
     "serve": "ng serve",

@@ -3,7 +3,7 @@ import { Subject, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm/models';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { AuthenticationService } from './authentication.service';
 
 
@@ -21,7 +21,7 @@ export class UserService {
 	static userId: string;
 
 	constructor(
-		protected apiSrv: ApiService,
+		protected apiLibSrv: ApiLibService,
 		protected authSrv: AuthenticationService,
 		protected analyticsSrv: AnalyticsService
 	) {
@@ -31,7 +31,7 @@ export class UserService {
 		this.authSrv.signIn$.pipe(
 			// preemptively putting the "user" so we don't need to wait to make calls with user id
 			tap(id => this.setupUser({ id } as User)),
-			switchMap(id => this.apiSrv.get('User', id).data$),
+			switchMap(id => this.apiLibSrv.db.get('User', id)),
 			distinctUntilChanged(),
 		).subscribe(user => {
 			this.setupUser(user);

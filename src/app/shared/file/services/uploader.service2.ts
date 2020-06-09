@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
 import { switchMap, startWith, tap } from 'rxjs/operators';
-import { ApiService, Attachment, Image } from '~core/erm3';
+import { Attachment, Image } from '~core/erm3';
+import { ApiLibService } from '~core/api-lib';
 import { ToastService, ToastType } from '~shared/toast';
 import { AuthenticationService } from '~core/auth';
 import { environment } from 'environments/environment';
@@ -11,7 +12,7 @@ import { environment } from 'environments/environment';
 export class UploaderService2 {
 
 	constructor(
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private amplifySrv: AmplifyService,
 		private authSrv: AuthenticationService,
 		private toastSrv: ToastService
@@ -22,10 +23,10 @@ export class UploaderService2 {
 			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
 		];
 		const obs = files.map(file => this.s3upload(file).pipe(
-			switchMap(_ => this.apiSrv.create<Attachment>('Attachment', {
+			switchMap(_ => this.apiLibSrv.db.create('Attachment', [{
 				fileName: `${cognitoId}/${file.name}`,
 				nodeId
-			})),
+			}])),
 		));
 		return forkJoin(obs).pipe(
 			tap(_ => this.showToast(`Uploaded ${files.length} file(s)`)),
@@ -43,10 +44,10 @@ export class UploaderService2 {
 		];
 		const obs = files.map(file => this.s3upload(file).pipe(
 			tap(_ => this.showToast(`Uploaded ${files.length} images(s)`)),
-			switchMap(_ => this.apiSrv.create<Image>('Image', {
+			switchMap(_ => this.apiLibSrv.db.create('Image', [{
 				fileName: `${cognitoId}/${file.name}`,
 				nodeId
-			})),
+			}])),
 		));
 		return forkJoin(obs).pipe(
 			// we start with a local version for immediate display

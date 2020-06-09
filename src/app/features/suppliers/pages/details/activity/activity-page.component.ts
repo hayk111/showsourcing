@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ApiService, Comment, Contact, ObservableQuery, Product, Sample, Supplier, Task } from '~core/erm3';
+import { Comment, Contact, Product, Sample, Supplier, Task } from '~core/erm3';
 import { AutoUnsub } from '~utils';
+import { ApiLibService } from '~core/api-lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 
 @Component({
@@ -21,8 +22,8 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 	descriptor = descriptorMock;
-	comments$: Observable<Comment[]>;
-	commentListRef: ObservableQuery;
+	comments$: Observable<any>;
+	commentListRef: any;
 	// sample & task used for the preview
 	previewOpened = false;
 
@@ -30,7 +31,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		public dlgCommonSrv: DialogCommonService,
-		private apiSrv: ApiService
+		private apiLibSrv: ApiLibService
 	) {
 		super();
 	}
@@ -46,19 +47,19 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 		this.comments$ = id$.pipe(
 			map(id => this.nodeId = `Supplier:${id}`),
-			map(nodeId => this.apiSrv.query<Comment[]>({
-				query: customQueries.comments,
-				variables: { nodeId }
-			})),
+			// map(nodeId => this.apiLibSrv.query<Comment[]>({
+			// 	query: customQueries.comments,
+			// 	variables: { nodeId }
+			// })),
 			tap(query => this.commentListRef = query),
-			switchMap(query => query.data$)
+			switchMap(query => query)
 		);
 
 	}
 
 	/** updates supplier */
 	update(supplier: Supplier) {
-		this.apiSrv.update('Supplier', { id: this.supplierId, ...supplier })
+		this.apiLibSrv.db.update('Supplier', [{ id: this.supplierId, ...supplier }])
 			.subscribe();
 	}
 
@@ -67,12 +68,12 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		this.apiSrv.create('Comment', comment)
+		this.apiLibSrv.db.create('Comment', [comment])
 		.subscribe(_ => this.commentListRef.refetch());
 	}
 
 	onCommentDeleted(comment: Comment) {
-		this.apiSrv.deleteManyFromList(this.commentListRef, [comment.id]);
+		this.apiLibSrv.db.delete(this.commentListRef, [comment.id]);
 	}
 
 	goToSamples() {

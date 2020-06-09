@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject, Subject } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { WorkflowStatus } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { Typename } from '~core/erm3/typename.type';
 import { ListFuseHelperService } from '~core/list-page2';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
@@ -21,7 +21,7 @@ export class StatusSelectorService {
 
 	typename: Typename;
 
-	constructor(private fuseHelper: ListFuseHelperService, private apiSrv: ApiService) {
+	constructor(private fuseHelper: ListFuseHelperService, private apiLibSrv: ApiLibService) {
 		this.listStatus$.subscribe(statuses => {
 			this.listStatus = statuses;
 		});
@@ -33,9 +33,10 @@ export class StatusSelectorService {
 			statusId: status.id,
 		};
 		const mutation = QueryPool.map.WorkflowStatus.getUpdateStatusQuery(this.typename);
-		this.apiSrv.mutate({ mutation, variables }).subscribe(updatedEntity => {
-			this._entityUpdate$.next(updatedEntity);
-		});
+		// TODO: implement mutate
+		// this.apiSrv.mutate({ mutation, variables }).subscribe(updatedEntity => {
+		// 	this._entityUpdate$.next(updatedEntity);
+		// });
 		return this.entityUpdate$.pipe(first());
 	}
 

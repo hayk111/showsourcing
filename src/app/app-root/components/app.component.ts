@@ -1,4 +1,4 @@
-import { flatMap, tap } from 'rxjs/operators';
+import { flatMap, tap, switchMap, switchMapTo } from 'rxjs/operators';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
@@ -40,6 +40,19 @@ export class AppComponent implements OnInit {
 		registerLocaleData(localeZh, 'zh-CH');
 		this.translate.setDefaultLang('en-US');
 		this.translate.use('en-US');
+
+		// this.apiLibSrv.ready$
+		// 	.pipe(
+		// 		switchMap(() => this.apiLibSrv.apiClient.synchronizer.fetchDelta('Product').toPromise()),
+		// 		tap(delta => {
+		// 			console.log('AppComponent -> ngOnInit -> data', delta);
+		// 		}),
+		// 		switchMap(() => this.apiLibSrv.apiClient.synchronizer.sync()),
+		// 		tap(data => {
+		// 			console.log('AppComponent -> ngOnInit -> data', data);
+		// 		})
+		// 	)
+		// 	.subscribe();
 
 
 		// this.seederSrv.seed();
