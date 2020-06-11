@@ -1,12 +1,11 @@
 <editable-container-app
 	[hasAction]="false"
-	[openOnClick]="false"
-	(click)="selector?.openMenu()">
+	(click)="selector?.openMenu($event)">
 	<editable-value-app>
 		<ng-container [ngSwitch]="badge">
 
 			<!-- Product -->
-			<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Product"
@@ -33,7 +32,7 @@
 			</div>
 
 			<!-- Supplier -->
-			<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Supplier"
@@ -60,7 +59,7 @@
 			</div>
 
 			<!-- Supplier Type -->
-			<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="SupplierType"
@@ -80,7 +79,7 @@
 			</div>
 
 			<!-- Location -->
-			<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Country"
@@ -99,7 +98,7 @@
 			</div>
 
 			<!-- Category -->
-			<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Category"
@@ -130,7 +129,7 @@
 			</div>
 
 			<!-- Event -->
-			<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Event"

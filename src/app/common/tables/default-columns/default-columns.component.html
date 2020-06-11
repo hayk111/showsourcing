@@ -55,14 +55,13 @@
 		<div class="flex action-hover-container-0">
 			<editable-container-app
 				#eca
-				class="edit-with-icon"
+				class="edit-with-icon full-width"
 				[hasAction]="false"
-				(click)="sel.openMenu()">
-				<editable-value-app class="full-width">
+				(click)="sel.openMenu($event)">
+				<editable-value-app>
 					<selector-app
 						#sel
 						typename="Supplier"
-						class="full-width"
 						[width]="350"
 						[offsetX]="4"
 						(menuClosed)="eca.close()"
@@ -95,7 +94,7 @@
 			class="full-width"
 			[hasAction]="false"
 			[openOnClick]="false"
-			(click)="sel.openMenu()">
+			(click)="sel.openMenu($event)">
 			<editable-value-app>
 				<status-selector-app
 					#sel
@@ -114,7 +113,7 @@
 			#eca
 			class="full-width"
 			[hasAction]="false"
-			(click)="sel.openMenu()">
+			(click)="sel.openMenu($event)">
 			<editable-value-app>
 				<selector-app
 					#sel
@@ -145,7 +144,7 @@
 			#eca
 			class="full-width"
 			[hasAction]="false"
-			(click)="sel.openMenu()">
+			(click)="sel.openMenu($event)">
 			<editable-value-app>
 				<selector-app
 					#sel
