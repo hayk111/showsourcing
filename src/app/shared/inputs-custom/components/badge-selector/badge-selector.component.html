@@ -1,17 +1,13 @@
 <editable-container-app
-	[hasAction]="false"
-	[openOnClick]="false"
-	(click)="selector?.openMenu()">
+	[hasAction]="false">
 	<editable-value-app>
 		<ng-container [ngSwitch]="badge">
 
 			<!-- Product -->
-			<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Product"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
@@ -33,12 +29,10 @@
 			</div>
 
 			<!-- Supplier -->
-			<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Supplier"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
@@ -60,12 +54,10 @@
 			</div>
 
 			<!-- Supplier Type -->
-			<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="SupplierType"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
@@ -80,12 +72,10 @@
 			</div>
 
 			<!-- Location -->
-			<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Country"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flexVAlign">
@@ -99,15 +89,13 @@
 			</div>
 
 			<!-- Category -->
-			<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Category"
 					[value]="value"
 					[canCreate]="true"
 					[multiple]="multiple"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flexVAlign">
@@ -130,14 +118,11 @@
 			</div>
 
 			<!-- Event -->
-			<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container" (click)="selector?.openMenu()">
+			<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container" (click)="selector?.openMenu($event)">
 				<selector-app
 					#selector
 					typename="Event"
 					[value]="value"
-					[canCreate]="true"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">

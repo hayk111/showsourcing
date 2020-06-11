@@ -57,7 +57,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@ContentChild(TabFocusActionDirective, { static: true }) tab: TabFocusActionDirective;
 
 	menuOpen = false;
-
+	menuPosition: { posX: string, posY: string } = { posX: '0px', posY: '0px' };
 
 	// we need this in order to calculate dynamically the offsetX on preview badges
 	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
@@ -70,7 +70,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 				tap(key => word += key),
 				debounceTime(300),
 			).subscribe(_ => {
-				this.openMenu(word);
+				this.openMenu(null, word);
 				word = '';
 			});
 
@@ -84,14 +84,22 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	}
 
 	/** Opens the menu. */
-	openMenu(searchTxt?: string): void {
+	openMenu(event: any = null, searchTxt?: string): void {
 		if (!this.disabled && !this.readonly) {
-			if (searchTxt)
+			if (searchTxt) {
 				this.searchTxt = searchTxt;
+			}
 			this.menuOpen = true;
+
+			if (event) {
+				const targetPositions = event.target.getBoundingClientRect();
+				this.offsetX = targetPositions.x;
+				this.offsetY = targetPositions.y + 25;
+			}
+
 			this.cdr.markForCheck();
+			this.menuOpened.emit();
 		}
-		this.menuOpened.emit();
 	}
 
 	/** Closes the menu. */
