@@ -1,6 +1,5 @@
 <editable-container-app
-	[hasAction]="false"
-	(click)="selector?.openMenu($event)">
+	[hasAction]="false">
 	<editable-value-app>
 		<ng-container [ngSwitch]="badge">
 
@@ -9,8 +8,6 @@
 				<selector-app
 					#selector
 					typename="Product"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
@@ -36,8 +33,6 @@
 				<selector-app
 					#selector
 					typename="Supplier"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
@@ -63,8 +58,6 @@
 				<selector-app
 					#selector
 					typename="SupplierType"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
@@ -83,8 +76,6 @@
 				<selector-app
 					#selector
 					typename="Country"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flexVAlign">
@@ -105,8 +96,6 @@
 					[value]="value"
 					[canCreate]="true"
 					[multiple]="multiple"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flexVAlign">
@@ -134,9 +123,6 @@
 					#selector
 					typename="Event"
 					[value]="value"
-					[canCreate]="true"
-					[offsetY]="offsetY"
-					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">

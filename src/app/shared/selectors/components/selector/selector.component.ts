@@ -91,16 +91,15 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			}
 			this.menuOpen = true;
 
-			console.log('SelectorComponent -> openMenu -> event', event);
 			if (event) {
 				const targetPositions = event.target.getBoundingClientRect();
-				this.menuPosition.posX = targetPositions.x + 'px';
-				this.menuPosition.posY = (targetPositions.y + 25) + 'px';
+				this.offsetX = targetPositions.x;
+				this.offsetY = targetPositions.y + 25;
 			}
 
 			this.cdr.markForCheck();
+			this.menuOpened.emit();
 		}
-		this.menuOpened.emit();
 	}
 
 	/** Closes the menu. */

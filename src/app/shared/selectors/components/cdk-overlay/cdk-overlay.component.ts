@@ -32,21 +32,15 @@ export class CdkOverlayComponent implements OnInit {
 		// i.e. originX: 'start' originY: 'end' would mean left-bottom of the item
 		// overlayX/Y -> position where the overlay will be attached.
 		// i.e. overlayX: 'start', overlayY: 'bottom' is attaching the left bottom part to the origin
-		// this.scrollStrat = this.closeOnScroll ? this.sso.close() : this.sso.reposition();
-		// const positions: ConnectedPosition[] = [
-		// 	{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' },
-		// 	{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'bottom' },
-		// 	{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'bottom' },
-		// 	{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
-		// ];
-		// this.cdkConnectedOverlay.positions = this.leftSideOrientation ? positions.reverse() : positions;
-
-		this.cdkConnectedOverlay.positionChange.pipe(first()).subscribe(posChange => {
-			const elem = (document.getElementsByClassName('cdk-overlay-pane')[0] as any);
-			elem.style.removeProperty('top');
-			elem.style.removeProperty('left');
-			elem.style.removeProperty('right');
-			elem.style.removeProperty('bottom');
-		});
+		this.scrollStrat = this.closeOnScroll ? this.sso.close() : this.sso.reposition();
+		const positions: ConnectedPosition[] = [
+			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' },
+			{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'bottom' },
+			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'bottom' },
+			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
+		];
+		this.cdkConnectedOverlay.positions = this.leftSideOrientation ? positions.reverse() : positions;
 	}
+
+
 }

@@ -12,12 +12,13 @@
 	[trigger]="trigger"
 	[isOpen]="menuOpen"
 	[offsetX]="offsetX"
+	[offsetY]="offsetY"
 	[leftSideOrientation]="leftSideOrientation"
 	[closeOnScroll]="true"
 	(clickOutside)="closeMenu(true)">
 	<selector-picker-app
 		class="z-2"
-		[ngStyle]="{ width: width + 'px', position: 'absolute', top: menuPosition.posY, left: menuPosition.posX }"
+		[ngStyle]="{ width: width + 'px' }"
 		[searchTxt]="searchTxt"
 		[value]="value"
 		[typename]="typename"
