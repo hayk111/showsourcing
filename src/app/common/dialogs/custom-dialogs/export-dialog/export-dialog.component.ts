@@ -113,7 +113,7 @@ export class ExportDialogComponent implements OnInit {
 			this.canExportImages = true;
 		}
 		// TODO add filters
-		const selectCount$ = this.apiLibSrv.db.find$(this.typename, null, null).count$;
+		const selectCount$ = this.apiLibSrv.db.find(this.typename, null, null).count$;
 		this.query
 			? selectCount$.subscribe((len) => this.count$.next(len))
 			: this.count$.next(this.targets.length);

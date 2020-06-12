@@ -41,20 +41,6 @@ export class AppComponent implements OnInit {
 		this.translate.setDefaultLang('en-US');
 		this.translate.use('en-US');
 
-		// this.apiLibSrv.ready$
-		// 	.pipe(
-		// 		switchMap(() => this.apiLibSrv.apiClient.synchronizer.fetchDelta('Product').toPromise()),
-		// 		tap(delta => {
-		// 			console.log('AppComponent -> ngOnInit -> data', delta);
-		// 		}),
-		// 		switchMap(() => this.apiLibSrv.apiClient.synchronizer.sync()),
-		// 		tap(data => {
-		// 			console.log('AppComponent -> ngOnInit -> data', data);
-		// 		})
-		// 	)
-		// 	.subscribe();
-
-
 		// this.seederSrv.seed();
 	}
 
