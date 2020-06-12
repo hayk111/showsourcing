@@ -244,17 +244,19 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
-		if (typename !== 'Company' && typename !== 'Team') {
+		if (typename !== 'Team') {
 			if (typename !== 'Invitation') { // temporary solution for invitations only id and createdAt are not needed
 				entity.id = uuid();
 
-				if (typename !== 'ProjectProduct') {
+				if (typename !== 'ProjectProduct' && typename !== 'Company') {
 					entity.createdAt = new Date().toISOString();
 				}
 			}
 
 			// entity.createdByUserId = this._userId;
-			entity.teamId = this._teamId;
+			if (typename !== 'Company') {
+				entity.teamId = this._teamId;
+			}
 		}
 
 		entity.__typename = typename;
