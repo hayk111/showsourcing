@@ -74,6 +74,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public listHelper: ListFuseHelperService,
 		public viewSrv: ListPageViewService<any>,
 		private excludedSrv: ExcludedService,
+		public projectProductSrv: ProjectProductService,
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		public dialogCommonSrv: DialogCommonService,
@@ -82,7 +83,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		private filterSrv: FilterService,
 		private apiSrv: ApiService,
 		private cdr: ChangeDetectorRef,
-		private projectProductSrv: ProjectProductService
 	) {
 		super();
 	}
