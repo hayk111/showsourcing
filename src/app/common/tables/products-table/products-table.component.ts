@@ -50,11 +50,14 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 			currency = inputValue.value ? inputValue.value.currency : null;
 		}
 
-		this.listHelper.updateProperties(productId, 'price', {
-			value: inputValue.value ? inputValue.value.value : null,
-			currency,
-			additionalFields
+		this.propertyUpdated.emit({
+			entityId: productId,
+			entityType: 'price',
+			value: {
+				...additionalFields,
+				value: inputValue.value ? inputValue.value.value : null,
+				currency,
+			}
 		});
 	}
-
 }
