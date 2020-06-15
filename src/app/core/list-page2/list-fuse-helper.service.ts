@@ -37,7 +37,7 @@ export class ListFuseHelperService<G = any> {
 		keys: [],
 		shouldSort: true,
 		includeScore: true,
-		threshold: 0.5, // 0 = full match
+		threshold: 0, // 0 = full match
 		location: 0,
 		distance: 100,
 		minMatchCharLength: 1,

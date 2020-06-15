@@ -1,6 +1,5 @@
 <team-card-app
 	class="card-style"
-	[team]="team"
-	[teamOwner]="teamOwner"
+	[team]="team$ | async"
 	(valueChange)="updateTeamName($event)">
 </team-card-app>

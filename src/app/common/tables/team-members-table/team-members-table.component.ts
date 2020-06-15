@@ -36,4 +36,19 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> {
 		return true;
 		// return (this.user && this.teamOwner$ && user.user.id !== this.user.id);
 	}
+
+	getStatus(status: string) {
+		switch (status) {
+			case 'CREATED':
+				return 'Invitation Sent';
+			case 'TEAMOWNER':
+				return 'Team Owner';
+			case 'TEAMMEMBER':
+				return 'Team Member';
+			case 'TEAMVIEWER':
+				return 'Team Viewer';
+			default:
+				return status;
+		}
+	}
 }

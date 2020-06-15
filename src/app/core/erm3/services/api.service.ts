@@ -281,7 +281,10 @@ export class ApiService {
 		if (typename !== 'Company') {
 			entity.lastUpdatedAt = new Date().toISOString();
 			// entity.lastUpdatedByUserId = this._userId;
-			entity.teamId = this._teamId;
+
+			if (typename !== 'Team') {
+				entity.teamId = this._teamId;
+			}
 		}
 		options.variables = { ...options.variables, input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);

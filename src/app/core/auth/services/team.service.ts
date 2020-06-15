@@ -7,6 +7,7 @@ import { LocalStorageService } from '~core/local-storage';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
 import { UserService } from './user.service';
+import { customQueries } from '~core/erm3/queries/custom-queries';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -75,7 +76,7 @@ export class TeamService {
 	}
 
 	update(team: Team) {
-		return this.apiSrv.update('Team', { companyId: this.companySrv.companySync.id, ...team });
+		return this.apiSrv.update('Team', team);
 	}
 
 	/** picks a team, puts the selection in local storage */
@@ -86,6 +87,14 @@ export class TeamService {
 			filter(x => !!x),
 			first()
 		);
+	}
+
+	getTeamById(id: string) {
+		return this.apiSrv.query<Team>({
+			query: customQueries.getTeam,
+			variables: { id },
+			fetchPolicy: 'network-only'
+		}, false).data$;
 	}
 
 	restoreSelectedTeam() {
