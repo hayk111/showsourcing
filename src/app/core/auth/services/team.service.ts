@@ -91,12 +91,13 @@ export class TeamService {
 		);
 	}
 
-	getTeamById(id: string) {
-		return this.apiSrv.query<Team>({
-			query: customQueries.getTeam,
-			variables: { id },
-			fetchPolicy: 'network-only'
-		}, false).data$;
+	getTeamById(id: string): Observable<any> {
+		return of(null);
+		// return this.apiSrv.query<Team>({
+		// 	query: customQueries.getTeam,
+		// 	variables: { id },
+		// 	fetchPolicy: 'network-only'
+		// }, false).data$;
 	}
 
 	restoreSelectedTeam() {

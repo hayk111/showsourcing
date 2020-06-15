@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { TeamService, UserService } from '~core/auth';
@@ -46,12 +46,15 @@ export class ApiLibService {
 	init() {
 		this._apiClient = new ApiClient({
 			awsExport: environment.awsConfig,
+			isOnline$: new BehaviorSubject(true),
 			mutationMap: {
 				Product: { update: gql(updateProduct), create: gql(createProduct) }
 			},
 			syncMap: {
 				Product: {
+					syncable: true,
 					base: {
+						limitPaginate: 10,
 						query: gql(syncProducts),
 						__typename: 'ModelProductConnection',
 						variables: { teamId: TeamService.teamSelected.id },

@@ -6,7 +6,10 @@
     "module": "es2015",
     "types": [],
     "downlevelIteration": true
-  },
+	},
+	"angularCompilerOptions": {
+		"enableIvy": false
+	},
   "exclude": [
     "test.ts",
     "**/*.spec.ts"

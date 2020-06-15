@@ -73,7 +73,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onCommentDeleted(comment: Comment) {
-		this.apiLibSrv.db.delete(this.commentListRef, [comment.id]);
+		this.apiLibSrv.db.delete(this.commentListRef, [comment]);
 	}
 
 	goToSamples() {

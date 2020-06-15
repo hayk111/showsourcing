@@ -76,7 +76,7 @@ export class ExportDialogComponent implements OnInit {
 		this.requestCreated = true;
 		this.cdr.detectChanges();
 		this.apiLibSrv.db
-			.create('Export', [request])
+			.create('Export', [request as any])
 			.pipe
 			// switchMap(exp => this.exportSrv.isExportReady(exp)) // TODO implement isExportReady
 			()
