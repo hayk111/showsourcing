@@ -50,40 +50,31 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
-		this.filterSrv.setup([], ['user.firstName']);
-		this.listHelper.setup('TeamUser', 'Team'); // search initialized in controller-table
+		this.filterSrv.setup([], ['user.firstName', 'user.lastName']);
+		this.listHelper.setup('TeamUser', 'Team', TeamService.teamSelected.teamId, {});
 
-		this.rows$ = combineLatest(
-			this.listHelper.searchedItems$,
-			this.filterSrv.valueChanges$
-		).pipe(
-			debounce(() => timer(400)),
-			switchMap(([members, filters]: any) => {
-				const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-				this.teamMembers = members;
+		this.rows$ = this.listHelper.searchedItems$
+			.pipe(
+				switchMap((members: any[]) => {
+					const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
+					this.teamMembers = members;
 
-				const options: any = {};
-				const invitationFilters: any = {
-					deleted: { eq: false },
-					// teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
-				};
-
-				if (searchValue && searchValue.value !== '') {
-					invitationFilters.email = {
-						contains: searchValue.value
+					const options: any = {};
+					const invitationFilters: any = {
+						deleted: { eq: false },
+						// teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
 					};
-				}
 
-				options.variables = {
-					byId: TeamService.teamSelected.id,
-					limit: 10000,
-					filter: invitationFilters
-				};
-				options.fetchPolicy = 'network-only';
-				options.query = QueryPool.getQuery('Invitation', QueryType.LIST_BY)('Team');
-				// TODO: implement return
-				// return this.apiSrv.query<Invitation[]>(options).data$;
-				return of([]);
+					options.variables = {
+						byId: TeamService.teamSelected.id,
+						limit: 10000,
+						filter: invitationFilters
+					};
+					options.fetchPolicy = 'network-only';
+					options.query = QueryPool.getQuery('Invitation', QueryType.LIST_BY)('Team');
+					// TODO: implement return
+					// return this.apiSrv.query<Invitation[]>(options).data$;
+					return of([]);
 			}),
 			map((invitations: Invitation[]) => [...this.teamMembers, ...invitations])
 		);
@@ -143,5 +134,9 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		return !this.teamOwner
 			? this.translate.instant('message.only-team-owners-can-invite')
 			: null;
+	}
+
+	deleteItem(item: TeamUser | Invitation) {
+		// this.apiSrv.delete(item.__typename, item).pipe(first()).subscribe();
 	}
 }

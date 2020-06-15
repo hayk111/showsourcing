@@ -7,6 +7,7 @@ import { ApiLibService } from '~core/api-lib';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
 import { UserService } from './user.service';
+import { customQueries } from '~core/erm3/queries/custom-queries';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -88,6 +89,14 @@ export class TeamService {
 			filter(x => !!x),
 			first()
 		);
+	}
+
+	getTeamById(id: string) {
+		return this.apiSrv.query<Team>({
+			query: customQueries.getTeam,
+			variables: { id },
+			fetchPolicy: 'network-only'
+		}, false).data$;
 	}
 
 	restoreSelectedTeam() {

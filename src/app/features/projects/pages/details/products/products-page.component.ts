@@ -14,11 +14,9 @@ import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/s
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import {
-	ERM,
 	Product,
-	Project,
-	SelectParamsConfig
-} from '~core/erm';
+	Project
+} from '~core/erm3';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
@@ -68,9 +66,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	pending = true;
 	project$: Observable<Project>;
 	filterTypeEnum = FilterType;
-	erm = ERM;
 
-	selectItemsConfig: SelectParamsConfig;
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
@@ -78,6 +74,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public listHelper: ListFuseHelperService,
 		public viewSrv: ListPageViewService<any>,
 		private excludedSrv: ExcludedService,
+		public projectProductSrv: ProjectProductService,
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		public dialogCommonSrv: DialogCommonService,
@@ -86,12 +83,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		private filterSrv: FilterService,
 		private apiLibSrv: ApiLibService,
 		private cdr: ChangeDetectorRef,
-		private projectProductSrv: ProjectProductService
 	) {
 		super();
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
+		this.listHelper.setup('Product');
 		this.projectId =  this.route.parent.snapshot.params.id;
 		this.paginationSrv.setLimit(10000);
 
@@ -119,6 +117,16 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		// 		}),
 		// 		first()
 		// 	).subscribe();
+	}
+
+	updateProduct(product: Product) {
+		this.listHelper.update(product);
+		this.projectProductSrv.refetch();
+	}
+
+	updateProductProperty(ev: any) {
+		this.listHelper.updateProperties(ev.entityId, ev.entityType, ev.value);
+		this.projectProductSrv.refetch();
 	}
 
 	/**

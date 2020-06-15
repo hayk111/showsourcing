@@ -62,7 +62,7 @@
 							[canCreate]="true"
 							[width]="370"
 							(menuClosed)="eca.close()"
-							(update)="this.listHelper.updateProperties(row?.id, 'category', $event.value)">
+							(update)="propertyUpdated.emit({ entityId: row?.id, entityType: 'category', value: $event.value })">
 							<div class="pointer" >
 								{{ (row | property: 'category') || '-' }}
 							</div>
@@ -97,7 +97,11 @@
 					class="full-width"
           [hasAction]="false"
           (opened)="inp.focus()"
-          (closed)="listHelper.updateProperties(row?.id, 'price', { minimumOrderQuantity: inp.value, additionalFields: listHelper.getProperty('price', row?.properties)})">
+          (closed)="propertyUpdated.emit({
+						entityId: row?.id,
+						entityType: 'price',
+						value: { minimumOrderQuantity: inp.value, additionalFields: listHelper.getProperty('price', row?.properties)} 
+					})">
           <editable-value-app>
             <moq-app
 							*ngIf="row | property:'price':'minimumOrderQuantity'"
