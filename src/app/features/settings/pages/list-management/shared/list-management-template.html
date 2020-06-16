@@ -60,9 +60,7 @@
 
 <selection-bar-app
 	*ngIf="(selectionSrv.selection$ | async) as selection"
-	[entityMetadata]="typename"
-	[isShown]="selection.size > 0"
-	[selection]="selection"
+	[typename]="typename"
 	(close)="selectionSrv.unselectAll()"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselectAll)="selectionSrv.unselectAll()"

@@ -23,7 +23,6 @@
 				<selector-placeholder-app
 					trigger
 					autoFocus
-					[name]="(propertySelected$ | async)?.label"
 					[placeholder]="'placeholder.select-property' | translate"
 				></selector-placeholder-app>
 			</selector-default-app>
@@ -52,7 +51,7 @@
 
 			<!-- edit of rating -->
 			<ng-container *ngSwitchCase="'rating'">
-				<rating-stars-action-app (valueVoted)="setRating($event)" [votes]="fakeVotes">
+				<rating-stars-action-app (valueVoted)="setRating($event)" [userVote]="userVote">
 				</rating-stars-action-app>
 			</ng-container>
 
