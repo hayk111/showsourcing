@@ -171,12 +171,14 @@ export class ListFuseHelperService<G = any> {
 			propertiesToUpdate = properties;
 		}
 
-		this.apiLibSrv.db.update(this.typename, [{ id: entityId,
-			properties: [{
-				name: propertyName,
-				value: JSON.stringify(propertiesToUpdate)
-			}]
-		} as any]).subscribe();
+		this.apiLibSrv.db.update(this.typename, [
+			{
+				id: entityId,
+				propertiesMap: [{
+					[propertyName]: JSON.stringify(propertiesToUpdate)
+				}]
+			} as any
+		]).subscribe();
 	}
 
 	getProperty(propertyName, properties) {
