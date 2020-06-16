@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WatchQueryOptions } from 'apollo-client';
-import { BehaviorSubject, combineLatest, forkJoin, of, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, combineLatest, forkJoin, of, Observable } from 'rxjs';
 import { map, shareReplay, switchMap, tap, mergeMap, concatMap } from 'rxjs/operators';
 import { ApiLibService } from '~core/api-lib';
 import { Typename } from '~core/erm3/typename.type';
@@ -41,7 +41,31 @@ export class ListHelperService<G = any> {
 		this.sortSrv.sort$,
 		this.excludedSrv.valueChanges$
 	).pipe(
-		tap(() => { throw new Error('ListHelperService is deprecated.'); }),
+		// gets the query
+		// map(([{ queryArg }, page, limit, sort]) => {
+		// 	return this.apiLibSrv.db.find$(
+		// 		this.typename,
+		// 		{
+		// 			filter: queryArg,
+		// 			take: limit,
+		// 			skip: page * limit,
+		// 			sort,
+		// 		},
+		// 		{}
+		// 	);
+		// }),
+		// // save it
+		// tap(query => (this.queryRef = query)),
+		// mergeMap(query => query.total$),
+		// tap(total => this._total$.next(total)),
+		// // add total to the paginationSrv
+		// tap(total => this.paginationSrv.setupTotal(total)),
+		// switchMap(_ => this.queryRef.data$),
+		// // setting pending to false because we received data
+		// tap(_ => this._pending$.next(false)),
+		// map(items => items.filter(item => !this.excludedSrv.excludedIds.includes((item as any).id))),
+		// map(items => this.ratingSrv.applyRatings(items, this.ratingSrv.ratings)),
+		shareReplay(1)
 	);
 
 	constructor(
@@ -99,11 +123,11 @@ export class ListHelperService<G = any> {
 		const keys = Object.keys(properties);
 		// keys.forEach(key => properties[key] = JSON.stringify(properties[key]));
 
-		this.apiLibSrv.db.update(this.typename, [{ id: entityId,
-			properties: [{
-				name: propertyName,
-				value: JSON.stringify(properties)
-			}]
+		this.apiLibSrv.db.update(this.typename, [{
+			id: entityId,
+			propertiesMap: { // should be checked with BE api
+				[propertyName]: JSON.stringify(properties)
+			}
 		} as any]).subscribe();
 	}
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
@@ -47,10 +47,10 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 		this.comments$ = id$.pipe(
 			map(id => this.nodeId = `Supplier:${id}`),
-			// map(nodeId => this.apiLibSrv.query<Comment[]>({
-			// 	query: customQueries.comments,
-			// 	variables: { nodeId }
-			// })),
+			map(nodeId => this.apiLibSrv.db.find('Comment', null, {
+				property: 'nodeId',
+				contains: nodeId
+			}).data$),
 			tap(query => this.commentListRef = query),
 			switchMap(query => query)
 		);

@@ -174,9 +174,9 @@ export class ListFuseHelperService<G = any> {
 		this.apiLibSrv.db.update(this.typename, [
 			{
 				id: entityId,
-				propertiesMap: [{
+				propertiesMap: { // should be checked with BE api
 					[propertyName]: JSON.stringify(propertiesToUpdate)
-				}]
+				}
 			} as any
 		]).subscribe();
 	}
