@@ -3,7 +3,7 @@ import { tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Product, Project } from '~core/erm3/models';
 import { DialogService } from '~shared/dialog';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { Typename } from '~core/erm3/typename.type';
 
 @Component({
@@ -16,7 +16,7 @@ export class DialogPageComponent {
 	constructor(
 		public dlgSrv: DialogService,
 		private dlgCommonSrv: DialogCommonService,
-		private apiSrv: ApiService
+		private apiLibSrv: ApiLibService
 	) {}
 
 	excludedIds: Product[] = [];
@@ -58,6 +58,6 @@ export class DialogPageComponent {
 	private _creationHelper(typename: Typename) {
 		this.dlgCommonSrv
 			.openCreationDlg(typename)
-			.data$.subscribe((entity) => this.apiSrv.create(typename, entity).subscribe());
+			.data$.subscribe((entity) => this.apiLibSrv.db.create(typename, [entity]).subscribe());
 	}
 }

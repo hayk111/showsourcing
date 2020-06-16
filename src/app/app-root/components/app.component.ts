@@ -1,3 +1,4 @@
+import { flatMap, tap, switchMap, switchMapTo } from 'rxjs/operators';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
+import { ApiLibService } from '~core/api-lib';
 import { SeederService } from '~core/seeder/seeder.service';
 
 @Component({
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userSrv: UserService,
 		private translate: TranslateService,
+		private apiLibSrv: ApiLibService,
 		private seederSrv: SeederService
 	) {}
 
@@ -29,6 +32,7 @@ export class AppComponent implements OnInit {
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
+		this.apiLibSrv.init();
 
 		registerLocaleData(localeEn, 'en-EN');
 		registerLocaleData(localeFr, 'fr-FR');
@@ -36,7 +40,6 @@ export class AppComponent implements OnInit {
 		registerLocaleData(localeZh, 'zh-CH');
 		this.translate.setDefaultLang('en-US');
 		this.translate.use('en-US');
-
 
 		// this.seederSrv.seed();
 	}

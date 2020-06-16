@@ -4,7 +4,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectionService, ListHelperService } from '~core/list-page2';
 import { RatingService } from '~shared/rating/services/rating.service';
-import { Product, ApiService } from '~core/erm3';
+import { Product } from '~core/erm3';
+import { ApiLibService } from '~core/api-lib';
 import { forkJoin } from 'rxjs';
 import { ToastService, Toast, ToastType } from '~shared/toast';
 import { translate } from '~utils';
@@ -32,7 +33,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 		private selectionSrv: SelectionService,
 		private listHelper: ListHelperService,
 		private ratingSrv: RatingService,
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private notificationSrv: ToastService,
 		private statusSrv: StatusSelectorService
 	) {

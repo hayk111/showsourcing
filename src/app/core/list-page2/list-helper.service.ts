@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { WatchQueryOptions } from 'apollo-client';
 import { BehaviorSubject, combineLatest, forkJoin, of, Observable } from 'rxjs';
 import { map, shareReplay, switchMap, tap, mergeMap, concatMap } from 'rxjs/operators';
-import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { SortService } from '~shared/table/services/sort.service';
@@ -19,10 +19,13 @@ import { QueryType } from '~core/erm3/queries/query-type.enum';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { ExcludedService } from './excluded.service';
 
+/**
+ * @deprecated
+ */
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
 	/** saving the queryRef for future referencing (refetch, add to cache) */
-	private queryRef: ObservableQuery<G[]>;
+	private queryRef: any;
 	private typename: Typename;
 	private _pending$ = new BehaviorSubject<boolean>(true);
 	pending$ = this._pending$.asObservable();
@@ -39,28 +42,28 @@ export class ListHelperService<G = any> {
 		this.excludedSrv.valueChanges$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, page, limit, sort]) => {
-			return this.apiSrv.searchBy<G>(
-				this.typename,
-				{
-					filter: queryArg,
-					take: limit,
-					skip: page * limit,
-					sort,
-				},
-				{}
-			);
-		}),
-		// save it
-		tap(query => (this.queryRef = query)),
-		mergeMap(query => query.total$),
-		tap(total => this._total$.next(total)),
-		// add total to the paginationSrv
-		tap(total => this.paginationSrv.setupTotal(total)),
-		switchMap(_ => this.queryRef.data$),
-		// setting pending to false because we received data
-		tap(_ => this._pending$.next(false)),
-		map(items => items.filter(item => !this.excludedSrv.excludedIds.includes((item as any).id))),
+		// map(([{ queryArg }, page, limit, sort]) => {
+		// 	return this.apiLibSrv.db.find$(
+		// 		this.typename,
+		// 		{
+		// 			filter: queryArg,
+		// 			take: limit,
+		// 			skip: page * limit,
+		// 			sort,
+		// 		},
+		// 		{}
+		// 	);
+		// }),
+		// // save it
+		// tap(query => (this.queryRef = query)),
+		// mergeMap(query => query.total$),
+		// tap(total => this._total$.next(total)),
+		// // add total to the paginationSrv
+		// tap(total => this.paginationSrv.setupTotal(total)),
+		// switchMap(_ => this.queryRef.data$),
+		// // setting pending to false because we received data
+		// tap(_ => this._pending$.next(false)),
+		// map(items => items.filter(item => !this.excludedSrv.excludedIds.includes((item as any).id))),
 		// map(items => this.ratingSrv.applyRatings(items, this.ratingSrv.ratings)),
 		shareReplay(1)
 	);
@@ -71,7 +74,7 @@ export class ListHelperService<G = any> {
 		private paginationSrv: PaginationService,
 		private excludedSrv: ExcludedService,
 		private ratingSrv: RatingService,
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private filterSrv: FilterService,
 		// private dlgCommonSrv: DialogCommonService, // ! Circular dependency
 		private dlgSrv: DialogService
@@ -97,17 +100,17 @@ export class ListHelperService<G = any> {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, linkedEntities)
 			.data$ // this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
-			.pipe(switchMap(entity => this.apiSrv.create(this.typename, entity)))
-			.subscribe(created => this.apiSrv.addToList(this.queryRef, created));
+			.pipe(switchMap(entity => this.apiLibSrv.db.create(this.typename, [entity])))
+			.subscribe(/* created => this.apiSrv.addToList(this.queryRef, created) */);
 	}
 
 	update(entity: any, options?: any, typename?: Typename) {
-		this.apiSrv.update(typename || this.typename, entity, options).subscribe();
+		this.apiLibSrv.db.update(typename || this.typename, entity).subscribe();
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		const deleteMany$ = this.apiSrv.updateMany(
+		const deleteMany$ = this.apiLibSrv.db.update(
 			this.typename,
 			selected.map(ent => ({ id: ent.id, ...entity }))
 		);
@@ -120,16 +123,17 @@ export class ListHelperService<G = any> {
 		const keys = Object.keys(properties);
 		// keys.forEach(key => properties[key] = JSON.stringify(properties[key]));
 
-		this.apiSrv.update(this.typename, { id: entityId,
-			properties: [{
-				name: propertyName,
-				value: JSON.stringify(properties)
-			}]
-		}).subscribe();
+		this.apiLibSrv.db.update(this.typename, [{
+			id: entityId,
+			propertiesMap: { // should be checked with BE api
+				[propertyName]: JSON.stringify(properties)
+			}
+		} as any]).subscribe();
 	}
 
 	delete(entity: any) {
-		this.apiSrv
+		this.apiLibSrv
+			.db
 			.delete(this.typename, entity)
 			.pipe(switchMap(_ => this.refetch()))
 			.subscribe();
@@ -139,12 +143,12 @@ export class ListHelperService<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap(_ => this.apiSrv.deleteMany(this.typename, selecteds)))
+			.data$.pipe(switchMap(_ => this.apiLibSrv.db.delete(this.typename, selecteds)))
 			.subscribe(_ => {
-				this.apiSrv.deleteManyFromList(
-					this.queryRef,
-					selecteds.map(el => el.id)
-				);
+				// this.apiSrv.deleteManyFromList(
+				// 	this.queryRef,
+				// 	selecteds.map(el => el.id)
+				// );
 				this.selectionSrv.unselectAll();
 			});
 	}
@@ -152,19 +156,4 @@ export class ListHelperService<G = any> {
 	loadMore() {
 		throw Error('not implemented yet');
 	}
-
-	private parseProperty(propertyName, propertyVal) {
-		if (propertyName === 'price') { // temporary solution for the price, as the price should be passed as a string
-			return JSON.stringify(propertyVal);
-		}
-
-		if (propertyVal.toString().match(/^[0-9]+$/)) { // if the property value contains only digits - return it
-			return propertyVal;
-		} else if (propertyVal) {
-			return JSON.stringify(propertyVal);
-		}
-
-		return null;
-	}
-
 }

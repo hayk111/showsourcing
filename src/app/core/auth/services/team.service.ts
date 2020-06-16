@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, of } from 'rxjs';
 import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
-import { ApiService } from '~core/erm3/services/api.service';
 import { LocalStorageService } from '~core/local-storage';
+import { ApiLibService } from '~core/api-lib';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
 import { UserService } from './user.service';
@@ -19,13 +19,15 @@ const SELECTED_TEAM = 'selected-team';
 @Injectable({ providedIn: 'root' })
 export class TeamService {
 
+	// TODO: implement list by team users
 	// we query all teamByUser to extract the team
-	private queryAllTeamUsers = this.apiSrv.listBy<TeamUser>(
-		'TeamUser',
-		'User',
-		UserService.userId,
-		{ fetchPolicy: 'cache-and-network' }
-	);
+	// private queryAllTeamUsers = this.apiSrv.listBy<TeamUser>(
+	// 	'TeamUser',
+	// 	'User',
+	// 	UserService.userId,
+	// 	{ fetchPolicy: 'cache-and-network' }
+	// );
+	private queryAllTeamUsers = {data$: of(null)};
 	teamsOfUser$: Observable<Team[]> = this.queryAllTeamUsers.data$.pipe(
 		map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.team))
 	);
@@ -50,7 +52,7 @@ export class TeamService {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
-		protected apiSrv: ApiService,
+		protected apiLibSrv: ApiLibService,
 	) {	}
 
 	init() {
@@ -58,8 +60,8 @@ export class TeamService {
 		this._teamSelected$
 			.subscribe(team => {
 				TeamService.teamSelected = team;
-				if (team)
-					this.apiSrv.setTeamId(team.id);
+				// if (team)
+				// 	this.apiSrv.setTeamId(team.id);
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
@@ -69,14 +71,14 @@ export class TeamService {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.apiSrv.create('Team', { companyId: this.companySrv.companySync.id, ...team })
+		return this.apiLibSrv.db.create('Team', [{ companyId: this.companySrv.companySync.id, ...team }])
 			.pipe(
 				// switchMap(_ => this.queryAllTeamUsers.refetch())
 			);
 	}
 
 	update(team: Team) {
-		return this.apiSrv.update('Team', team);
+		return this.apiLibSrv.db.update('Team', [{ companyId: this.companySrv.companySync.id, ...team } as any]);
 	}
 
 	/** picks a team, puts the selection in local storage */
@@ -89,12 +91,13 @@ export class TeamService {
 		);
 	}
 
-	getTeamById(id: string) {
-		return this.apiSrv.query<Team>({
-			query: customQueries.getTeam,
-			variables: { id },
-			fetchPolicy: 'network-only'
-		}, false).data$;
+	getTeamById(id: string): Observable<any> {
+		return of(null);
+		// return this.apiSrv.query<Team>({
+		// 	query: customQueries.getTeam,
+		// 	variables: { id },
+		// 	fetchPolicy: 'network-only'
+		// }, false).data$;
 	}
 
 	restoreSelectedTeam() {

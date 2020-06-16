@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { Entity } from '~core/erm3/models/_entity.model';
 import {
 	MutationOptions,
@@ -9,19 +9,19 @@ import { Typename } from '~core/erm3/typename.type';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
 import { QueryType } from '~core/erm3/queries/query-type.enum';
 import { TeamService, UserService } from '~core/auth';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class PropertyOptionsService {
 	constructor(
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private teamSrv: TeamService,
 	) {}
 
 	listPropertyOptions (
 		type: string,
 		teamId: string = TeamService.teamSelected.id,
-		apiOptions: ApiQueryOption = {}
+		apiOptions = {}
 	): Observable<any[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = { byId: teamId, limit: 10000, type: {
@@ -31,21 +31,23 @@ export class PropertyOptionsService {
 		const queryBuilder = QueryPool.getQuery('PropertyOption', QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryBuilder('Team');
 
-		return this.apiSrv.query<any[]>(options).data$;
+		return of(null);
+		// TODO: implement return
+		// return this.apiSrv.query<any[]>(options).data$;
 	}
 
 	createPropertyOption(
 		entity: { type: String, value: String } & Entity,
-		apiOptions: ApiQueryOption = {}
+		apiOptions = {}
 	): Observable<any> {
-		const options = apiOptions as MutationOptions;
-		return this.apiSrv.create('PropertyOption', entity, options);
+		// const options = apiOptions as MutationOptions;
+		return this.apiLibSrv.db.create('PropertyOption', [entity]);
 	}
 
 	deletePropertyOption(
 		entity: { type: String, value: String } & Entity,
-		apiOptions: ApiQueryOption = {}) {
+		apiOptions = {}) {
 		const options = apiOptions as MutationOptions;
-		return this.apiSrv.delete('PropertyOption', entity, options);
+		return this.apiLibSrv.db.delete('PropertyOption', [entity]);
 	}
 }

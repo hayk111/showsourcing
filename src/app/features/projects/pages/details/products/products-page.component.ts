@@ -25,7 +25,7 @@ import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperS
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import _ from 'lodash';
 import { TeamService } from '~core/auth';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { ProjectProductService } from '../../../services/project-product.service';
 
@@ -81,7 +81,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public selectionSrv: SelectionService,
 		private paginationSrv: PaginationService,
 		private filterSrv: FilterService,
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private cdr: ChangeDetectorRef,
 	) {
 		super();
@@ -98,24 +98,25 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	fetchProjectProducts() {
-		this.apiSrv.query<any>({
-			query: customQueries.getProjectProducts,
-			variables: { id: this.projectId },
-			fetchPolicy: 'network-only'
-		}, false)
-		.data$
-			.pipe(
-				map(project => {
-					return project.products.items.map(item => item.product);
-				}),
-				tap(products => {
-					this.excludedSrv.excludedIds = products.map(product => product.id);
-					this.projectProducts = products;
-					this.pending = false;
-					this.cdr.markForCheck();
-				}),
-				first()
-			).subscribe();
+		// TODO: implement project products find
+		// this.apiSrv.query<any>({
+		// 	query: customQueries.getProjectProducts,
+		// 	variables: { id: this.projectId },
+		// 	fetchPolicy: 'network-only'
+		// }, false)
+		// .data$
+		// 	.pipe(
+		// 		map(project => {
+		// 			return project.products.items.map(item => item.product);
+		// 		}),
+		// 		tap(products => {
+		// 			this.excludedSrv.excludedIds = products.map(product => product.id );
+		// 			this.projectProducts = products;
+		// 			this.pending = false;
+		// 			this.cdr.markForCheck();
+		// 		}),
+		// 		first()
+		// 	).subscribe();
 	}
 
 	updateProduct(product: Product) {
@@ -157,7 +158,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 		prodcutsSelected.forEach((product: Product) => {
 			options.variables.condition.productId =  { eq: product.id };
-			this.apiSrv.mutate(options).subscribe();
+			// this.apiSrv.mutate(options).subscribe();
 		});
 	}
 
@@ -192,11 +193,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			.subscribe((productIds: string[]) => {
 				if (productIds.length) {
 					productIds.forEach(productId => {
-						this.apiSrv.create('ProjectProduct', {
+						this.apiLibSrv.db.create('ProjectProduct', [{
 							teamId: TeamService.teamSelected.id,
 							productId,
 							projectId: this.projectId
-						}).subscribe();
+						}]).subscribe();
 					});
 					this.cdr.detectChanges();
 				}
