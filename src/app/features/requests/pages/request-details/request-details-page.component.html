@@ -46,8 +46,6 @@
 </div>
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
 	(close)="selectionSrv.unselectAll()">
 	<button class="warn" (click)="cancelReplies()" translate="button.cancel-items"></button>
 </selection-bar-app>

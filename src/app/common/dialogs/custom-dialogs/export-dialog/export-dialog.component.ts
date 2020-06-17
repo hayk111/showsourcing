@@ -11,7 +11,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { switchMap, take, first } from 'rxjs/operators';
 import { DialogService } from '~shared/dialog/services';
 import { Typename } from '~core/erm3/typename.type';
-import { ApiLibService } from '~core/api-lib';
+import { ApiLibService } from '~core/api-lib/lib.service';
 import { Request, Export, Product, Supplier, Sample, Task } from '~core/erm3/models';
 
 export enum ExportFormat {

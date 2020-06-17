@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Company } from '~core/erm3/models';
-import { ApiLibService } from '~core/api-lib';
+import { ApiLibService } from '~core/api-lib/lib.service';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
 
@@ -29,6 +29,7 @@ export class CompanyService {
 		// when signing in we want to load the current company of the user
 		this.authSrv.signIn$
 			.pipe(
+				switchMap(_ => this.apiLibSrv.ready$.toPromise()),
 				tap(id => {
 					// this.queryAll = this.apiSrv.listBy('Company', 'Owner', id);
 					this.queryAll = this.apiLibSrv.db.find('Company');

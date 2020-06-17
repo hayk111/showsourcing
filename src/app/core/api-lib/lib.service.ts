@@ -1,7 +1,6 @@
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { TeamService, UserService } from '~core/auth';
 import { ApiClient } from 'showsourcing-frontend-api';
 import { updateProduct, createProduct } from '../../../graphql/mutations';
 import gql from 'graphql-tag';
@@ -43,7 +42,7 @@ export class ApiLibService {
 	private _apiClient: ApiClient;
 	private _ready = false;
 
-	init() {
+	init(teamId: string) {
 		this._apiClient = new ApiClient({
 			awsExport: environment.awsConfig,
 			isOnline$: new BehaviorSubject(true),
@@ -57,7 +56,7 @@ export class ApiLibService {
 						limitPaginate: 10,
 						query: gql(syncProducts),
 						__typename: 'ModelProductConnection',
-						variables: { teamId: TeamService.teamSelected.id },
+						variables: { teamId },
 					}
 				}
 			}

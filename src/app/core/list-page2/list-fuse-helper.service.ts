@@ -5,7 +5,7 @@ import { debounce, filter, map, switchMap, tap } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
-import { ApiLibService } from '~core/api-lib';
+import { ApiLibService } from '~core/api-lib/lib.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -74,13 +74,21 @@ export class ListFuseHelperService<G = any> {
 		this.typename = typename;
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
 		queryOptions.variables = { filter: this.filterSrv.queryArg };
-		// this.queryRef = this.apiLibSrv.db.find(typename, byProperty, byId, queryOptions); // TODO: setup query ref
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		// when we update the query, datas it will reasign fuse
-		this.queryRef.data$.subscribe((datas) => {
-			this._fuse$.next(new Fuse(datas, this.fuseOptions));
-			this._pending$.next(false);
-		});
+
+
+		this.apiLibSrv.ready$.pipe(
+			tap(ready => {
+				if (ready) {
+					this.queryRef = this.apiLibSrv.db.find(typename);
+					this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
+					// when we update the query, datas it will reasign fuse
+					this.queryRef.data$.subscribe((datas) => {
+						this._fuse$.next(new Fuse(datas, this.fuseOptions));
+						this._pending$.next(false);
+					});
+				}
+			})).subscribe();
 	}
 
 	/** items searched, without sort and without pagination */
