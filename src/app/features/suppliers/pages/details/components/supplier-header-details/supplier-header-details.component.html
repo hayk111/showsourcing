@@ -12,8 +12,8 @@
 
 	<header-details-info-app>
 		<div class="flex dot-separator">
-			<rating-badge-app [votes]="supplier?.votes" activeColor="primary"></rating-badge-app>
-			<status-badge-app class="flexVAlign" [status]="supplier?.status" size="s" [typeEntity]="'SUPPLIER' | erm"></status-badge-app>
+			<rating-badge-app [score]="supplier?.score" activeColor="primary"></rating-badge-app>
+			<status-badge-app class="flexVAlign" [status]="supplier?.status" size="s" [typename]="'SUPPLIER' | erm"></status-badge-app>
 			<div *ngIf="supplier?.country">{{ supplier?.country | const: 'country' }}</div>
 		</div>
 	</header-details-info-app>

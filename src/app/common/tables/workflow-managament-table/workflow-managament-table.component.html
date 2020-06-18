@@ -31,7 +31,6 @@
 				<editable-container-app
 					class="pointer"
 					#editable
-					[openOnClick]="status?.step !== 0"
 					(opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
 					<editable-value-app [ngClass]="{ 'no-hover': status.step == 0 }">
 						{{ 'text.' + status.name | translate }}
