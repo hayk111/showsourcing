@@ -28,11 +28,11 @@
             </div>
             <price-app [price]="price" class="flexVAlign" size="l"></price-app>
             <span *ngIf="category" class="flexVAlign">{{category}}</span>
-            <rating-badge-app [votes]="votes.length && votes.flat()"></rating-badge-app>
+            <rating-badge-app [score]="votes.length"></rating-badge-app>
           </ng-container>
 
           <ng-container *ngIf="type === 'supplier'">
-            <rating-badge-app [votes]="votes.length && votes.flat()" activeColor="primary"></rating-badge-app>
+            <rating-badge-app [score]="votes.length" activeColor="primary"></rating-badge-app>
             <status-badge-app *ngIf="status" class="flexVAlign" [status]="status"></status-badge-app>
             <span *ngIf="category" class="flexVAlign">{{category}}</span>
           </ng-container>

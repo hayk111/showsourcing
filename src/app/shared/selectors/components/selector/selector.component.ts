@@ -70,7 +70,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 				tap(key => word += key),
 				debounceTime(300),
 			).subscribe(_ => {
-				this.openMenu(null, word);
+				this.openMenu(null, true, word);
 				word = '';
 			});
 
@@ -84,14 +84,14 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	}
 
 	/** Opens the menu. */
-	openMenu(event: any = null, searchTxt?: string): void {
+	openMenu(event: any = null, calculateOffset = true, searchTxt?: string): void {
 		if (!this.disabled && !this.readonly) {
 			if (searchTxt) {
 				this.searchTxt = searchTxt;
 			}
 			this.menuOpen = true;
 
-			if (event) {
+			if (event && calculateOffset) {
 				const targetPositions = event.target.getBoundingClientRect();
 				this.offsetX = targetPositions.x;
 				this.offsetY = targetPositions.y + 25;
