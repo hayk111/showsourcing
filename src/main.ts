@@ -13,8 +13,8 @@ log.info(`%c 🐱‍🚀 App init. Time: ${performance.now()}`, LogColor.METADAT
 console.log(`%c 🎱 App version: ${environment.version}, code salomon`, 'color: salmon');
 
 /** AWS CONFIGURATION START */
-import Amplify from 'aws-amplify';
-Amplify.configure(environment.awsConfig);
+// import Amplify from 'aws-amplify';
+// Amplify.configure(environment.awsConfig);
 /** END */
 
 if (environment.production) {

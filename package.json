@@ -64,6 +64,7 @@
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
     "hubspot": "^2.1.1",
+    "localforage": "^1.7.4",
     "lodash": "^4.17.15",
     "ng2-charts": "^2.3.0",
     "npm": "^6.4.1",

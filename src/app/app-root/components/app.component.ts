@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
 import { ApiLibService } from '~core/api-lib/lib.service';
-import { SeederService } from '~core/seeder/seeder.service';
 
 @Component({
 	selector: 'app-root',
@@ -24,15 +23,15 @@ export class AppComponent implements OnInit {
 		private userSrv: UserService,
 		private translate: TranslateService,
 		private apiLibSrv: ApiLibService,
-		private seederSrv: SeederService
+		// private seederSrv: SeederService
 	) {}
 
 	ngOnInit(): void {
 		this.userSrv.init();
+		this.apiLibSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
-		this.apiLibSrv.init(TeamService.teamSelected.id);
 
 		registerLocaleData(localeEn, 'en-EN');
 		registerLocaleData(localeFr, 'fr-FR');

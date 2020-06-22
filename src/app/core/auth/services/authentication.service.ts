@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AmplifyService } from 'aws-amplify-angular';
+// import { AmplifyService } from 'aws-amplify-angular';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
-import { Observable } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, map, mapTo, shareReplay, tap } from 'rxjs/operators';
 import { showsourcing } from '~utils/debug-object.utils';
 import { AuthStatus } from './auth-state.interface';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
-
-
+import { ApiLibService } from '~core/api-lib';
 
 /**
  * Authentication service responsible for authentication.
@@ -39,30 +38,29 @@ import { Credentials, RegistrationCredentials } from './credentials.interface';
 export class AuthenticationService {
 
 	/** Amplify Auth for easy access */
-	private awsAuth = this.amplifySrv.auth();
+	private awsAuth: any = {};
 	/** State returned by amplifyAuth */
 	authState: AuthState;
-	authState$: Observable<AuthState> = this.amplifySrv.authStateChange$.pipe(
-		tap(state => this.authState = state),
-		tap(state => showsourcing.auth.state = state),
-		shareReplay(1)
-	);
+	authState$ = new BehaviorSubject<AuthState>({
+		user: null,
+		state: AuthStatus.NOT_AUTHENTICATED
+	});
+	// this.amplifySrv.authStateChange$.pipe(
+	// 	tap(state => this.authState = state),
+	// 	tap(state => showsourcing.auth.state = state),
+	// 	shareReplay(1)
+	// );
 	// !
 	/** to rename  */
-	authStatus$: Observable<AuthStatus> = this.authState$.pipe(
-		map(authState => authState.state),
-		distinctUntilChanged(),
-		map(state => state === 'signedIn' ? AuthStatus.AUTHENTICATED : AuthStatus.NOT_AUTHENTICATED)
-	);
 	/** event that fires when we sign in */
-	signIn$ = this.authStatus$.pipe(
-		filter(status => status === AuthStatus.AUTHENTICATED),
+	signIn$ = this.authState$.pipe(
+		filter(authState => authState.state === AuthStatus.AUTHENTICATED),
 		// map to the id, yes username is the id here
 		map(_ => this.authState.user.username)
 	);
 	/** event that fires when we sign out */
-	signOut$ = this.authStatus$.pipe(
-		filter(status => status === AuthStatus.NOT_AUTHENTICATED),
+	signOut$ = this.authState$.pipe(
+		filter(authState => authState.state === AuthStatus.NOT_AUTHENTICATED),
 		mapTo(null)
 	);
 	// we have to keep the state for the password
@@ -71,7 +69,7 @@ export class AuthenticationService {
 	private signUpPassword: string;
 
 	constructor(
-		private amplifySrv: AmplifyService,
+		private apiLibSrv: ApiLibService,
 		private router: Router
 	) {
 		// for debugging purpose
@@ -79,28 +77,37 @@ export class AuthenticationService {
 	}
 
 	// SIGN IN FLOWS
-	signIn(credentials: Credentials) {
+	signIn(credentials: Credentials): Promise<any> {
 		const { username, password } = credentials;
-		return this.awsAuth.signIn(username, password)
-		.then(user => {
-			// when user was created via the incognito console
-			if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-				// go to new password
-			} else {
-				this.router.navigate([ '/' ]);
-			}
-			return user;
-		})
-		.catch(err => {
-			if (err.code === 'UserNotConfirmedException') {
-				this.goToConfirmSignUp(username);
-			} else if (err.code === 'PasswordResetRequiredException') {
-				this.goToForgotPassword(username);
-			} else {
-				// rethrowing for catch in view
-				throw err;
-			}
-		});
+
+		// authenticated$ = client.srv.authStatus.user$.pipe(map(user => !!user));\
+		return this.apiLibSrv.apiClient.srv.authStatus.Auth.signIn(username, password)
+			.then(user => {
+				console.log('AuthenticationService -> user', user);
+				// when user was created via the incognito console
+				if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+					// go to new password
+				} else {
+					this.authState = {
+						state: AuthStatus.AUTHENTICATED,
+						user
+					};
+					this.authState$.next(this.authState);
+					console.log('here4444');
+					this.router.navigate([ '/' ]);
+				}
+				return user;
+			})
+			.catch(err => {
+				if (err.code === 'UserNotConfirmedException') {
+					this.goToConfirmSignUp(username);
+				} else if (err.code === 'PasswordResetRequiredException') {
+					this.goToForgotPassword(username);
+				} else {
+					// rethrowing for catch in view
+					throw err;
+				}
+			});
 	}
 
 	forgotPassword(username: string) {
@@ -124,7 +131,7 @@ export class AuthenticationService {
 	// SIGN OUT FLOWS
 
 	signOut() {
-		this.awsAuth.signOut().then(_ => this.goToSignIn());
+		this.apiLibSrv.apiClient.srv.authStatus.Auth.signOut().then(_ => this.router.navigate(['login']));
 	}
 
 	// SIGN UP FLOWS

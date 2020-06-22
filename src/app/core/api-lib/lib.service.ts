@@ -1,7 +1,9 @@
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, concat } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { tap, first, take } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { ApiClient } from 'showsourcing-frontend-api';
+import * as localforage from 'localforage';
 import { updateProduct, createProduct } from '../../../graphql/mutations';
 import gql from 'graphql-tag';
 
@@ -39,52 +41,61 @@ const syncProducts =  `
 
 @Injectable({providedIn: 'root'})
 export class ApiLibService {
-	private _apiClient: ApiClient;
+	private _apiClient: any;
 	private _ready = false;
 
-	init(teamId: string) {
-		this._apiClient = new ApiClient({
-			awsExport: environment.awsConfig,
-			isOnline$: new BehaviorSubject(true),
-			mutationMap: {
-				Product: { update: gql(updateProduct), create: gql(createProduct) }
-			},
-			syncMap: {
-				Product: {
-					syncable: true,
-					base: {
-						limitPaginate: 10,
-						query: gql(syncProducts),
-						__typename: 'ModelProductConnection',
-						variables: { teamId },
-					}
-				}
-			}
+	init() {
+		const isOnline$ = new BehaviorSubject(navigator.onLine);
+		window.addEventListener('online', () => isOnline$.next(true));
+		window.addEventListener('offline', () => isOnline$.next(false));
+
+		localforage.config({
+			driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+			name: 'apiLib',
+			version: 1.0,
+			// size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
+			storeName: 'appsync', // Should be alphanumeric, with underscores.
+			description:
+				'entities stored locally with apollo appsync for the showsourcing app',
 		});
 
-		this._apiClient.ready$.subscribe(ready => this._ready = ready);
+		this._apiClient = new ApiClient({
+			offlineConfig: {storage: localforage},
+			isOnline$,
+			shouldSync: true,
+		});
+		console.log('ApiLibService -> init -> this._apiClient', this._apiClient);
+		this._apiClient._ready$.subscribe(ready => {
+			console.log('ApiLibService -> init -> this._ready', this._ready);
+			this._ready = ready;
+		});
+
+		// .subscribe(ready => this._ready = ready);
+		// this._apiClient.ready$
+		// 	.subscribe(async ready => {
+		// 		try {
+		// 			await this._apiClient.sync();
+		// 		} catch (e) {
+		// 			console.log('ApiLibService -> init -> err', e);
+		// 		}
+		// 		this._ready = ready;
+		// 	});
 	}
 
 	/**
 	 * Fetches all the entities
 	 * @returns Promise
 	 */
-	async sync(): Promise<any> {
+	async sync(teamId: string): Promise<any> {
 		// if (!UserService.userId) {
 		// 	throw Error(`Only authorized users can sync`);
 		// }
 
-		if (!this._ready) {
-			throw Error(`The client isn't ready, wait for it to be ready with ready$`);
-		}
-		return this._apiClient.synchronizer.sync();
+		return this._apiClient.srv.synchronizer.sync(teamId);
 	}
 
 	get db() {
-		if (!this._ready) {
-			throw Error(`The client isn't ready, wait for it to be ready with ready$`);
-		}
-		return this._apiClient.db;
+		return this._apiClient.srv.db;
 	}
 
 	get apiClient() {
@@ -92,6 +103,6 @@ export class ApiLibService {
 	}
 
 	get ready$(): Observable<boolean> {
-		return this._apiClient.ready$;
+		return this._apiClient.state.ready$;
 	}
 }

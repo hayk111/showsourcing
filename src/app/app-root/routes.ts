@@ -33,11 +33,7 @@ export const routes: Array<Route> = [
 	{
 		path: '',
 		component: TemplateComponent,
-		canActivateChild: [
-			AuthenticatedGuard,
-			HasTeamSelectedGuard,
-			HasUserGuard
-		],
+		canActivateChild: [],
 		children: [
 			{ path: '', redirectTo: 'samples', pathMatch: 'full' },
 	// 		{
