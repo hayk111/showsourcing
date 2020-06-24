@@ -79,7 +79,7 @@ export class TeamService {
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
-		this.apiLibSrv.apiClient.state.sync$.subscribe(ready => {
+		this.apiLibSrv.ready$.subscribe(ready => {
 			this.teamsOfUser$ = of([userTeam]);
 			this.hasTeam$ = this.teamsOfUser$.pipe(
 				map(teams => teams.length > 0)

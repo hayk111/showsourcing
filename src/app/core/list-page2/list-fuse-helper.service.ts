@@ -77,9 +77,9 @@ export class ListFuseHelperService<G = any> {
 		queryOptions.variables = { filter: this.filterSrv.queryArg };
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
 		this.apiLibSrv.ready
-			.pipe(filter((ready) => ready === 'synced'))
+			.pipe(filter((ready) => ready === 'SYNCED'))
 			.subscribe((ready) => {
-				this.queryRef = this.apiLibSrv.db.find(typename);
+				this.queryRef = this.typename === 'Product' ? this.apiLibSrv.api.product.find() : { data$: of([]) };
 				this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
 				// when we update the query, datas it will reasign fuse
 				this.queryData$ = this.queryRef.data$.pipe(shareReplay());

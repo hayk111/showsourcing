@@ -81,7 +81,7 @@ export class AuthenticationService {
 		const { username, password } = credentials;
 
 		// authenticated$ = client.srv.authStatus.user$.pipe(map(user => !!user));\
-		return this.apiLibSrv.apiClient.srv.authStatus.Auth.signIn(username, password)
+		return this.apiLibSrv.lib.authStatus.signIn(username, password)
 			.then(user => {
 				console.log('AuthenticationService -> user', user);
 				// when user was created via the incognito console
@@ -130,7 +130,7 @@ export class AuthenticationService {
 	// SIGN OUT FLOWS
 
 	signOut() {
-		this.apiLibSrv.apiClient.srv.authStatus.Auth.signOut().then(_ => this.router.navigate(['login']));
+		this.apiLibSrv.lib.authStatus.signOut().then(_ => this.router.navigate(['login']));
 	}
 
 	// SIGN UP FLOWS

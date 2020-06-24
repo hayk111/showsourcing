@@ -2,7 +2,7 @@ import { Observable, of, BehaviorSubject, concat } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { tap, first, take } from 'rxjs/operators';
 import { environment } from 'environments/environment';
-import { ApiClient } from 'showsourcing-frontend-api';
+import * as lib from 'showsourcing-frontend-api';
 import * as localforage from 'localforage';
 
 // client.sync();
@@ -13,14 +13,15 @@ import * as localforage from 'localforage';
 //   client.synchronizer.sync();
 // });
 
-type ApiLibState = 'not-sync' | 'syncing' | 'synced';
+type ApiLibState = 'NOT_SYNC' | 'SYNCING' | 'SYNCED';
 const teamId = '14fd7963-0437-4821-80fc-01f74bb78a95'; // hardcoded team id - to be removed
 
 @Injectable({providedIn: 'root'})
 export class ApiLibService {
-	private _apiClient: ApiClient;
+	private _lib = lib;
+	private _apiClient = lib.client;
 	private _ready: ApiLibState;
-	ready = new BehaviorSubject<ApiLibState>('not-sync');
+	ready = new BehaviorSubject<ApiLibState>('NOT_SYNC');
 
 	init() {
 		localforage.config({
@@ -33,13 +34,14 @@ export class ApiLibService {
 				'entities stored locally with apollo appsync for the showsourcing app',
 		});
 
-		this._apiClient = new ApiClient({
+		this._apiClient.init({
 			offlineConfig: {storage: localforage},
 			shouldSync: true,
 		});
 
 		this._apiClient.sync(teamId);
-		this._apiClient.state.sync$.subscribe(ready => {
+
+		this._lib.state.sync$.subscribe(ready => {
 			console.log('ApiLibService -> init -> ready', ready);
 			this._ready = ready;
 			this.ready.next(ready);
@@ -58,15 +60,27 @@ export class ApiLibService {
 		return this._apiClient.sync(teamId);
 	}
 
+	get api() {
+		return this.lib.api;
+	}
+
 	get db() {
-		return this._apiClient.srv.db;
+		return this._lib.db;
+	}
+
+	get lib() {
+		return this._lib;
 	}
 
 	get apiClient() {
 		return this._apiClient;
 	}
 
+	get libState() {
+		return this._ready;
+	}
+
 	get ready$(): Observable<ApiLibState> {
-		return this._apiClient.state.sync$;
+		return this._lib.state.sync$;
 	}
 }
