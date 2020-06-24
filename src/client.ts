@@ -17,7 +17,4 @@ client.init({
 	shouldSync: true,
 });
 
-// TODO add this when picking company
-
-client.sync('ADD TEAM ID HERE');
 

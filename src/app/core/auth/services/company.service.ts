@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Company } from '~core/erm3/models';
-import { ApiLibService } from '~core/api-lib/lib.service';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
 
@@ -22,18 +21,16 @@ export class CompanyService {
 	constructor(
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
-		protected apiLibSrv: ApiLibService
 	) {}
 
 	init() {
 		// when signing in we want to load the current company of the user
 		this.authSrv.signIn$
 			.pipe(
-				switchMap(_ => this.apiLibSrv.ready$.toPromise()),
-				tap(id => {
-					// this.queryAll = this.apiSrv.listBy('Company', 'Owner', id);
-					this.queryAll = this.apiLibSrv.db.find('Company');
-				}),
+				// tap(id => {
+				// 	// this.queryAll = this.apiSrv.listBy('Company', 'Owner', id);
+				// 	this.queryAll = this.apiLibSrv.db.find('Company');
+				// }),
 				switchMap(_ => this.queryAll.data$),
 				map(all => all[0])
 			)

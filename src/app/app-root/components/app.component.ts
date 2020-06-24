@@ -1,4 +1,3 @@
-import { flatMap, tap, switchMap, switchMapTo } from 'rxjs/operators';
 import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
@@ -8,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
-import { ApiLibService } from '~core/api-lib/lib.service';
 
 @Component({
 	selector: 'app-root',
@@ -22,13 +20,10 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userSrv: UserService,
 		private translate: TranslateService,
-		private apiLibSrv: ApiLibService,
-		// private seederSrv: SeederService
 	) {}
 
 	ngOnInit(): void {
 		this.userSrv.init();
-		this.apiLibSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
