@@ -12,7 +12,7 @@ import { customQueries } from '~core/erm3/queries/custom-queries';
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
 
-const userTeam = {
+const userTeam = { // hardcoded team - to be removed
 	'_deleted': false,
 	'_lastChangedAt': 1591799714769,
 	'_version': 1,
@@ -79,11 +79,7 @@ export class TeamService {
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
-		console.log('here we go!!!');
-
-		this.apiLibSrv.ready$.subscribe((ready) => {
-			this.apiLibSrv.sync(userTeam.id);
-			console.log('TeamService -> init -> ready', ready);
+		this.apiLibSrv.apiClient.state.sync$.subscribe(ready => {
 			this.teamsOfUser$ = of([userTeam]);
 			this.hasTeam$ = this.teamsOfUser$.pipe(
 				map(teams => teams.length > 0)

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Fuse from 'fuse.js/dist/fuse.esm.js';
 import { BehaviorSubject, combineLatest, Observable, of, Subject, timer } from 'rxjs';
-import { debounce, filter, map, switchMap, tap } from 'rxjs/operators';
+import { debounce, filter, map, switchMap, tap, shareReplay } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
@@ -24,6 +24,7 @@ import { ExcludedService } from './excluded.service';
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
 	private queryRef: any;
+	private queryData$: Observable<any[]>;
 	private typename: Typename;
 	private _fuse$ = new Subject();
 	private _pending$ = new BehaviorSubject(true);
@@ -75,20 +76,18 @@ export class ListFuseHelperService<G = any> {
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
 		queryOptions.variables = { filter: this.filterSrv.queryArg };
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-
-
-		this.apiLibSrv.ready$.pipe(
-			tap(ready => {
-				if (ready) {
-					this.queryRef = this.apiLibSrv.db.find(typename);
-					this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-					// when we update the query, datas it will reasign fuse
-					this.queryRef.data$.subscribe((datas) => {
-						this._fuse$.next(new Fuse(datas, this.fuseOptions));
-						this._pending$.next(false);
-					});
-				}
-			})).subscribe();
+		this.apiLibSrv.ready
+			.pipe(filter((ready) => ready === 'synced'))
+			.subscribe((ready) => {
+				this.queryRef = this.apiLibSrv.db.find(typename);
+				this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
+				// when we update the query, datas it will reasign fuse
+				this.queryData$ = this.queryRef.data$.pipe(shareReplay());
+				this.queryData$.subscribe((datas) => {
+					this._fuse$.next(new Fuse(datas, this.fuseOptions));
+					this._pending$.next(false);
+				});
+		});
 	}
 
 	/** items searched, without sort and without pagination */
@@ -101,8 +100,11 @@ export class ListFuseHelperService<G = any> {
 		switchMap(([fuse, filters]: any) => {
 			// the value changed should concern the FilterType search
 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-			if (searchValue) return of(fuse.search(searchValue.value).map((data) => data.item));
-			else return this.queryRef.data$;
+			if (searchValue) {
+				return of(fuse.search(searchValue.value).map((data) => data.item));
+			} else {
+				return this.queryData$;
+			}
 		}),
 		map((items: any) => {
 			return items.filter(item => !this.excludedSrv.excludedIds.includes((item as any).id));
@@ -149,14 +151,16 @@ export class ListFuseHelperService<G = any> {
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => this.apiLibSrv.db.create(this.typename, [entity])),
+				switchMap((entity) => {
+					return this.apiLibSrv.db.create(this.typename, [entity]);
+				}),
 				// tap((entity) => this.apiSrv.addToList(this.queryRef, entity))
 			)
 			.subscribe();
 	}
 
 	update(entity: any, typename?: Typename) {
-		this.apiLibSrv.db.update(typename || this.typename, entity).subscribe();
+		this.apiLibSrv.db.update(typename || this.typename, [entity]).subscribe();
 	}
 
 	updateProperties(entityId: string, propertyName: string, properties: any | string) {
@@ -199,17 +203,18 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		this.apiLibSrv.db.delete(this.typename, entity).subscribe((_) => {
+		const { id, teamId } = entity;
+		this.apiLibSrv.db.delete(this.typename, [{id, teamId }]).subscribe((data) => {
 			// this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
 		});
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		this.apiLibSrv.db.update(this.typename, selected.map(ent => ({ id: ent.id, ...entity})))
-			.pipe(
-				switchMap(_ => this.refetch())
-			).subscribe();
+		return this.apiLibSrv.db.update(
+			this.typename,
+			selected.map(ent => ({ id: ent.id, ...entity}))
+		);
 	}
 
 	deleteSelected() {

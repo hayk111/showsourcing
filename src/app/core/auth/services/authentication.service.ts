@@ -93,7 +93,6 @@ export class AuthenticationService {
 						user
 					};
 					this.authState$.next(this.authState);
-					console.log('here4444');
 					this.router.navigate([ '/' ]);
 				}
 				return user;

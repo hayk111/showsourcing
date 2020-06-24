@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 
 import { TrackingComponent } from '~utils/tracking-component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectionService, ListHelperService } from '~core/list-page2';
+import { SelectionService, ListHelperService, ListFuseHelperService } from '~core/list-page2';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { Product } from '~core/erm3';
 import { ApiLibService } from '~core/api-lib';
@@ -31,7 +31,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private selectionSrv: SelectionService,
-		private listHelper: ListHelperService,
+		private listHelper: ListFuseHelperService,
 		private ratingSrv: RatingService,
 		private apiLibSrv: ApiLibService,
 		private notificationSrv: ToastService,

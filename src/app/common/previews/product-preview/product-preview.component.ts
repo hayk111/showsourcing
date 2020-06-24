@@ -10,7 +10,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
 import { Product, Vote } from '~core/erm3/models';
 import { ApiLibService } from '~core/api-lib';
-import { ListHelperService } from '~core/list-page2';
+import { ListHelperService, ListFuseHelperService } from '~core/list-page2';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
@@ -63,7 +63,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
-		private listHelper: ListHelperService,
+		private listHelper: ListFuseHelperService,
 		public dlgCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
@@ -88,7 +88,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
 		const product = { ...productConfig, id: this._product.id };
-		this.listHelper.update(product, {}, 'Product');
+		this.listHelper.update(product, 'Product');
 		this._product = product;
 		this.updated.emit(product);
 	}

@@ -19,6 +19,9 @@ export class NotAuthenticatedGuard implements CanActivate, CanActivateChild {
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
 		return this.authSrv.authState$.pipe(
+			tap(authState => {
+				console.log('not authenticated guard!!:', authState.state);
+			}),
 			tap(authState => log.debug('%c unauth guard status :', LogColor.GUARD, authState.state)),
 			filter(authState => authState.state !== AuthStatus.PENDING),
 			tap(authState => this.redirectOnAuthenticated(authState)),
@@ -28,7 +31,6 @@ export class NotAuthenticatedGuard implements CanActivate, CanActivateChild {
 
 	redirectOnAuthenticated(authState: AuthState) {
 		if (authState.state === AuthStatus.AUTHENTICATED) {
-			console.log('heeeeeeeeeeere');
 			this.router.navigate(['']);
 		}
 	}

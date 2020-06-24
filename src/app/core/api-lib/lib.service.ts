@@ -4,8 +4,6 @@ import { tap, first, take } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { ApiClient } from 'showsourcing-frontend-api';
 import * as localforage from 'localforage';
-import { updateProduct, createProduct } from '../../../graphql/mutations';
-import gql from 'graphql-tag';
 
 // client.sync();
 // export const db = client.db;
@@ -15,40 +13,16 @@ import gql from 'graphql-tag';
 //   client.synchronizer.sync();
 // });
 
-const syncProducts =  `
-	query SyncProducts(
-		$teamId: ID
-		$limit: Int
-		$nextToken: String
-		$lastSync: AWSTimestamp
-	) {
-		syncProducts(
-			teamId: $teamId
-			limit: $limit
-			nextToken: $nextToken
-			lastSync: $lastSync
-		) {
-			items {
-				id
-				name
-				properties { name value }
-				teamId
-			}
-			startedAt
-		}
-	}
-`;
+type ApiLibState = 'not-sync' | 'syncing' | 'synced';
+const teamId = '14fd7963-0437-4821-80fc-01f74bb78a95'; // hardcoded team id - to be removed
 
 @Injectable({providedIn: 'root'})
 export class ApiLibService {
-	private _apiClient: any;
-	private _ready = false;
+	private _apiClient: ApiClient;
+	private _ready: ApiLibState;
+	ready = new BehaviorSubject<ApiLibState>('not-sync');
 
 	init() {
-		const isOnline$ = new BehaviorSubject(navigator.onLine);
-		window.addEventListener('online', () => isOnline$.next(true));
-		window.addEventListener('offline', () => isOnline$.next(false));
-
 		localforage.config({
 			driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
 			name: 'apiLib',
@@ -61,25 +35,15 @@ export class ApiLibService {
 
 		this._apiClient = new ApiClient({
 			offlineConfig: {storage: localforage},
-			isOnline$,
 			shouldSync: true,
 		});
-		console.log('ApiLibService -> init -> this._apiClient', this._apiClient);
-		this._apiClient._ready$.subscribe(ready => {
-			console.log('ApiLibService -> init -> this._ready', this._ready);
-			this._ready = ready;
-		});
 
-		// .subscribe(ready => this._ready = ready);
-		// this._apiClient.ready$
-		// 	.subscribe(async ready => {
-		// 		try {
-		// 			await this._apiClient.sync();
-		// 		} catch (e) {
-		// 			console.log('ApiLibService -> init -> err', e);
-		// 		}
-		// 		this._ready = ready;
-		// 	});
+		this._apiClient.sync(teamId);
+		this._apiClient.state.sync$.subscribe(ready => {
+			console.log('ApiLibService -> init -> ready', ready);
+			this._ready = ready;
+			this.ready.next(ready);
+		});
 	}
 
 	/**
@@ -91,7 +55,7 @@ export class ApiLibService {
 		// 	throw Error(`Only authorized users can sync`);
 		// }
 
-		return this._apiClient.srv.synchronizer.sync(teamId);
+		return this._apiClient.sync(teamId);
 	}
 
 	get db() {
@@ -102,7 +66,7 @@ export class ApiLibService {
 		return this._apiClient;
 	}
 
-	get ready$(): Observable<boolean> {
-		return this._apiClient.state.ready$;
+	get ready$(): Observable<ApiLibState> {
+		return this._apiClient.state.sync$;
 	}
 }
