@@ -20,6 +20,9 @@
       "esnext.asynciterable"
     ],
     "paths": {
+			"lib": [
+				"../node_modules/@cedric_showsourcing/showsourcing-frontend-api"
+			],
       "~app-root/*": [
         "app/app-root/*"
       ],

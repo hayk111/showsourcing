@@ -5,6 +5,7 @@ import { log, LogColor } from '~utils';
 import { hmrBootstrap } from './hmr';
 
 import { AppRootModule } from './app/app-root/app-root.module';
+import './client';
 
 
 log.info(`%c 🐱‍🚀 App init. Time: ${performance.now()}`, LogColor.METADATA);
@@ -12,10 +13,6 @@ log.info(`%c 🐱‍🚀 App init. Time: ${performance.now()}`, LogColor.METADAT
 // using console log so it's not removed in production..
 console.log(`%c 🎱 App version: ${environment.version}, code salomon`, 'color: salmon');
 
-/** AWS CONFIGURATION START */
-// import Amplify from 'aws-amplify';
-// Amplify.configure(environment.awsConfig);
-/** END */
 
 if (environment.production) {
 	enableProdMode();

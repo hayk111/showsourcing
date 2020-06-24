@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import Fuse from 'fuse.js/dist/fuse.esm.js';
 import { BehaviorSubject, combineLatest, Observable, of, Subject, timer } from 'rxjs';
-import { debounce, filter, map, switchMap, tap, shareReplay } from 'rxjs/operators';
-import * as uuid from 'uuid';
+import { debounce, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
-import { ApiLibService } from '~core/api-lib/lib.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
-import { SelectionService } from './selection.service';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { ExcludedService } from './excluded.service';
+import { SelectionService } from './selection.service';
+import { api } from 'lib';
 
 /** this service is about managing the tables of non searchable entities like category, tag, ...
  * It must be setup before use (see setup method)
@@ -46,7 +45,6 @@ export class ListFuseHelperService<G = any> {
 
 	constructor(
 		private selectionSrv: SelectionService,
-		private apiLibSrv: ApiLibService,
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
@@ -76,17 +74,13 @@ export class ListFuseHelperService<G = any> {
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
 		queryOptions.variables = { filter: this.filterSrv.queryArg };
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		this.apiLibSrv.ready
-			.pipe(filter((ready) => ready === 'SYNCED'))
-			.subscribe((ready) => {
-				this.queryRef = this.typename === 'Product' ? this.apiLibSrv.api.product.find() : { data$: of([]) };
-				this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-				// when we update the query, datas it will reasign fuse
-				this.queryData$ = this.queryRef.data$.pipe(shareReplay());
-				this.queryData$.subscribe((datas) => {
-					this._fuse$.next(new Fuse(datas, this.fuseOptions));
-					this._pending$.next(false);
-				});
+		this.queryRef = this.typename === 'Product' ? api.product.find() : { data$: of([]) };
+		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
+		// when we update the query, datas it will reasign fuse
+		this.queryData$ = this.queryRef.data$.pipe(shareReplay());
+		this.queryData$.subscribe((datas) => {
+			this._fuse$.next(new Fuse(datas, this.fuseOptions));
+			this._pending$.next(false);
 		});
 	}
 
