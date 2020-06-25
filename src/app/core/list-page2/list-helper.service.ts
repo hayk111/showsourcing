@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
 import { WatchQueryOptions } from 'apollo-client';
-import { BehaviorSubject, combineLatest, forkJoin, of, Observable } from 'rxjs';
-import { map, shareReplay, switchMap, tap, mergeMap, concatMap } from 'rxjs/operators';
 import { api } from 'lib';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { shareReplay, switchMap } from 'rxjs/operators';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { Entity } from '~core/erm3/models/_entity.model';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
-import { SortService } from '~shared/table/services/sort.service';
-import { SelectionService } from './selection.service';
-import { TeamService } from '~core/auth';
-import { PaginationService } from '~shared/pagination/services/pagination.service';
-import { Entity } from '~core/erm3/models/_entity.model';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { QueryPool } from '~core/erm3/queries/query-pool.class';
-import { QueryType } from '~core/erm3/queries/query-type.enum';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { RatingService } from '~shared/rating/services/rating.service';
+import { SortService } from '~shared/table/services/sort.service';
 import { ExcludedService } from './excluded.service';
+import { SelectionService } from './selection.service';
 
 /**
  * @deprecated

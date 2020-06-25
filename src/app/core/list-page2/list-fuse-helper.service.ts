@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import Fuse from 'fuse.js/dist/fuse.esm.js';
-import { BehaviorSubject, combineLatest, Observable, of, Subject, timer } from 'rxjs';
-import { debounce, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { api, Collection } from 'lib';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
-import { TeamService } from '~core/auth';
-import { Typename } from '~core/erm3/typename.type';
-import { FilterService, FilterType } from '~core/filters';
+import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
-import { ExcludedService } from './excluded.service';
 import { SelectionService } from './selection.service';
-import { api } from 'lib';
 
 /** this service is about managing the tables of non searchable entities like category, tag, ...
  * It must be setup before use (see setup method)
@@ -22,10 +18,8 @@ import { api } from 'lib';
  */
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
-	private queryRef: any;
-	private queryData$: Observable<any[]>;
-	private typename: Typename;
-	private _fuse$ = new Subject();
+	data$: Observable<any[]>;
+	private collection: Collection;
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
@@ -33,22 +27,11 @@ export class ListFuseHelperService<G = any> {
 	private _total: number;
 	total$ = this._total$.asObservable();
 
-	fuseOptions = {
-		keys: [],
-		shouldSort: true,
-		includeScore: true,
-		threshold: 0, // 0 = full match
-		location: 0,
-		distance: 100,
-		minMatchCharLength: 1,
-	};
-
 	constructor(
 		private selectionSrv: SelectionService,
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
-		private excludedSrv: ExcludedService,
 		private sortSrv: SortService
 	) {
 		// When the total change, we setup pagination
@@ -58,155 +41,54 @@ export class ListFuseHelperService<G = any> {
 		});
 	}
 
-	/** the filterSrv should be setup before the listFuseHelper to specify searchable columns.
-	 * example of use:
-	 * this.filterSrv.setup([], ['name']); => fuse will be searchable on name and not on createdBy, ...
-	 * this.listHelper.setup('Category');
-	 */
 	setup(
-		typename: Typename,
-		byProperty: string = 'Team',
-		byId: string = TeamService.teamSelected.teamId,
-		queryOptions: any = {}
+		collection: Collection,
 	) {
-		byId = byId || TeamService.teamSelected.id;
-		this.typename = typename;
-		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
-		queryOptions.variables = { filter: this.filterSrv.queryArg };
-		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		this.queryRef = api[this.typename] && api[this.typename].find();
-		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		if (this.queryRef) {
-			this.queryData$ = this.queryRef.data$.pipe(shareReplay());
-			this.queryData$.subscribe((datas) => {
-				this._fuse$.next(new Fuse(datas, this.fuseOptions));
-				this._pending$.next(false);
-			});
-		}
-	}
-
-	/** items searched, without sort and without pagination */
-	private _fusedItems$: Observable<G[]> = combineLatest(
-		this._fuse$,
-		this.filterSrv.valueChanges$,
-		this.excludedSrv.valueChanges$
-	).pipe(
-		debounce(() => timer(400)),
-		switchMap(([fuse, filters]: any) => {
-			// the value changed should concern the FilterType search
-			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-			if (searchValue) {
-				return of(fuse.search(searchValue.value).map((data) => data.item));
-			} else {
-				return this.queryData$;
-			}
-		}),
-		map((items: any) => {
-			return items.filter(item => !this.excludedSrv.excludedIds.includes((item as any).id));
-		}),
-		tap((searchedDatas) => {
-			this._total$.next(searchedDatas.length);
-		})
-	);
-
-	/** items sorted, without pagination */
-	searchedItems$ = combineLatest(this._fusedItems$, this.sortSrv.sort$).pipe(
-		map(([searchedItems, sort]) => {
-			if (!sort) return searchedItems;
-			return searchedItems.sort((item1, item2) => {
-				const direction = sort.direction === 'ASC' ? 1 : -1;
-				return item1[sort.property] > item2[sort.property] ? direction : direction * -1;
-			});
-		})
-	);
-
-	paginedItems$: Observable<G[]> = combineLatest(
-		this.paginationSrv.page$,
-		this.paginationSrv.limit$,
-		this.searchedItems$
-	).pipe(
-		map(([page, limit, sortedItems]) => {
-			const indexStart = page * limit;
-			return sortedItems.slice(indexStart, indexStart + limit);
-		}),
-		filter((paginedItems) => this._total === 0 || paginedItems.length > 0)
-	);
-
-	refetch() {
-		this._pending$.next(true);
-		return this.queryRef
-			.refetch({ fetchPolicy: 'cache-first' })
-			.then((_) => this._pending$.next(false));
+		this.collection = collection;
+		const service = api.col(this.collection);
+		this.data$ = combineLatest(
+			this.filterSrv.valueChanges$,
+			this.paginationSrv.page$,
+			this.paginationSrv.limit$,
+			this.sortSrv.sort$
+		).pipe(
+			switchMap(([filter, page, limit, sort]) => service.find(filter, sort, { page, limit }).data$)
+		);
 	}
 
 	create(addedProperties: any = {}) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
-				typename: this.typename,
+				typename: this.collection,
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => {
-					return api[this.typename].create([entity]);
-				}),
-				// tap((entity) => this.apiSrv.addToList(this.queryRef, entity))
+				switchMap((entity) => api.col(this.collection).create([entity])),
 			)
 			.subscribe();
 	}
 
-	update(entity: any, typename?: Typename) {
-		api[typename || this.typename].update([entity]).subscribe();
+	update(entity: any, collection?: Collection) {
+		api.col(collection || this.collection).update([entity]).subscribe();
 	}
 
 	updateProperties(entityId: string, propertyName: string, properties: any | string) {
-		let propertiesToUpdate;
-
-		if (typeof properties === 'object') {
-			propertiesToUpdate = {
-				...properties
-			};
-
-			if ('additionalFields' in properties) {
-				propertiesToUpdate = {
-					...properties.additionalFields,
-					...properties,
-				};
-
-				delete propertiesToUpdate.additionalFields;
-			}
-		} else {
-			propertiesToUpdate = properties;
-		}
-
-		api[this.typename].update([
-			{
-				id: entityId,
-				propertiesMap: { // should be checked with BE api
-					[propertyName]: JSON.stringify(propertiesToUpdate)
-				}
-			} as any
-		]).subscribe();
+		throw Error('deprecated');
 	}
 
 	getProperty(propertyName, properties) {
-		const index = properties.findIndex(property => property.name === propertyName);
-
-		if (index !== -1) {
-			const property = JSON.parse(properties[index].value);
-			return property || null;
-		}
+		throw Error('deprecated');
 	}
 
-	delete(entity: any) {
+	delete(entity: any, collection?: Collection) {
 		const { id, teamId } = entity;
-		api[this.typename].delete([{id, teamId }]).subscribe((data) => {
-			// this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
-		});
+		api.col(collection || this.collection).delete([{ id }])
+			.subscribe();
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		return api[this.typename].update(
+		return api.col(this.collection).update(
 			selected.map(ent => ({ id: ent.id, ...entity}))
 		);
 	}
@@ -215,12 +97,8 @@ export class ListFuseHelperService<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => api[this.typename].delete(selecteds)))
+			.data$.pipe(switchMap((_) => api.col(this.collection).delete(selecteds as any)))
 			.subscribe((_) => {
-				// this.apiSrv.deleteManyFromList(
-				// 	this.queryRef,
-				// 	selecteds.map((el) => el.id)
-				// );
 				this.selectionSrv.unselectAll();
 			});
 	}
