@@ -32,7 +32,6 @@ import { client, authStatus, state } from 'lib';
  *
  */
 
-const teamId = '14fd7963-0437-4821-80fc-01f74bb78a95'; // hardcoded team id - to be removed
 
 @Injectable({
 	providedIn: 'root'
@@ -89,7 +88,6 @@ export class AuthenticationService {
 				if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
 					// go to new password
 				} else {
-					client.sync(teamId);
 					this.authState = {
 						state: AuthStatus.AUTHENTICATED,
 						user

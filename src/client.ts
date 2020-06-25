@@ -1,5 +1,6 @@
-import { client } from 'lib';
+import { client, state } from 'lib';
 import * as localforage from 'localforage';
+import { filter } from 'rxjs/operators';
 
 localforage.config({
 	driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
@@ -15,3 +16,8 @@ client.init({
 	offlineConfig: {storage: localforage},
 	shouldSync: true,
 });
+
+
+state.auth$.pipe(
+	filter(state => state === 'AUTHENTICATED')
+).subscribe(_ => client.sync('14fd7963-0437-4821-80fc-01f74bb78a95'));

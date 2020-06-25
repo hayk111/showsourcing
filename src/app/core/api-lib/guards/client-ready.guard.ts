@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, CanActivateChild } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { state } from 'lib';
-import { tap, last, skip, shareReplay } from 'rxjs/operators';
+import { tap, last, skip, shareReplay, filter } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,19 +15,9 @@ export class ClientReadyGuard implements CanActivate {
 		routerState: RouterStateSnapshot
 	): Observable<boolean> {
 		return state.isUsable$.pipe(
-			skip(1),
-			tap(isUsable => {
-				if (!isUsable) {
-					this.redirectToLogin(route, routerState);
-				}
-			}),
+			filter(isUsable => !!isUsable),
 			shareReplay()
 		) as Observable<boolean>;
 	}
 
-	redirectToLogin(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
-		const queryParams = { returnUrl };
-		this.router.navigate(['auth', 'sign-in'], { queryParams });
-	}
 }

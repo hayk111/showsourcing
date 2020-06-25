@@ -35,9 +35,9 @@ export const routes: Array<Route> = [
 		path: '',
 		component: TemplateComponent,
 		canActivateChild: [
-			AuthenticatedGuard,
+			// AuthenticatedGuard,
 			// HasTeamSelectedGuard, TODO: implement team select functionality and guard
-			HasUserGuard,
+			// HasUserGuard,
 		],
 		children: [
 			{ path: '', redirectTo: 'products', pathMatch: 'full', canActivate: [ClientReadyGuard] },
