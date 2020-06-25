@@ -6,7 +6,7 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Supplier } from '~core/erm3/models/supplier.model';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
@@ -29,7 +29,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private apiLibSrv: ApiLibService,
 		private toastSrv: ToastService,
 		public dlgCommonSrv: DialogCommonService,
 		private translate: TranslateService,
@@ -45,8 +44,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplier$ = id$.pipe(
-			switchMap(id => this.apiLibSrv.db.get('Supplier', id)),
-		);
+			switchMap(id => api.Supplier.get(id)),
+		) as any;
 
 		this.supplier$.subscribe(
 			supplier => this.onSupplier(supplier),
@@ -56,7 +55,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	update(supplier: Supplier) {
-		this.apiLibSrv.db.update('Supplier', [supplier as any]).subscribe();
+		api.Supplier.update([supplier as any]).subscribe();
 	}
 
 	delete(supplier: Supplier) {
@@ -64,7 +63,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			text: this.translate.instant('message.confirm-delete-supplier')
 		}).data$
 		.pipe(
-			switchMap(_ => this.apiLibSrv.db.delete('Supplier', [{ id: supplier.id }]))
+			switchMap(_ => api.Supplier.delete([{ id: supplier.id }]))
 		).subscribe(_ => this.router.navigate(['suppliers']));
 	}
 
@@ -80,7 +79,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	onArchive(supplier: Supplier | Supplier[]) {
 		if (Array.isArray(supplier)) {
 			const updated = supplier.map((s: Supplier) => ({ id: s.id, archived: true }));
-			this.apiLibSrv.db.update('Supplier', [updated as any])
+			api.Supplier.update([updated as any])
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
@@ -90,7 +89,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				});
 		} else {
 			const { id } = supplier;
-			this.apiLibSrv.db.update('Supplier', [{ id, archived: true } as any])
+			api.Supplier.update([{ id, archived: true }])
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,

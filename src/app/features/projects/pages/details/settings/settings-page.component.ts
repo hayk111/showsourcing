@@ -8,7 +8,7 @@ import { ERM } from '~core/erm';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { Project } from '~core/erm3/models';
 import { ListFuseHelperService } from '~core/list-page2';
 
@@ -36,7 +36,6 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		private fb: FormBuilder,
 		private uploader: UploaderService,
 		public translate: TranslateService,
-		private apiLibSrv: ApiLibService,
 		private listHelper: ListFuseHelperService,
 	) {
 		super();
@@ -52,8 +51,8 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		this.project$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			tap(id => this.id = id),
-			switchMap(id => this.apiLibSrv.db.get('Project', id)),
-		);
+			switchMap(id => api.Project.get(id)),
+		) as any;
 
 		// this.project$.pipe(
 		// 	take(1),

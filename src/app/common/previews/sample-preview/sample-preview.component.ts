@@ -5,7 +5,7 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Comment, CommentService, ERM, Product, UserService } from '~core/erm';
 import { Sample } from '~core/erm3/models';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { ListHelperService } from '~core/list-page2';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
@@ -41,7 +41,6 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		private previewSrv: PreviewService,
 		private dlgCommonSrv: DialogCommonService,
-		private apiLibSrv: ApiLibService
 	) {
 		super();
 	}
@@ -56,7 +55,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		this.updateSample({ [prop]: value });
 	}
 
-	updateSample(sample: Sample) {
+	updateSample(sample: Partial<Sample>) {
 		const newSample = { ...sample, id: this.sample.id };
 		this.listHelper.update(newSample);
 		this._sample = newSample;
@@ -77,7 +76,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this sample ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(switchMap((_) => this.apiLibSrv.db.delete('Sample', [sample])))
+			.data$.pipe(switchMap((_) => api.Sample.delete([sample as any])))
 			.subscribe((_) => this.close.emit());
 	}
 

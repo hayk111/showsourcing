@@ -11,7 +11,7 @@ import { MembersInvitationService } from '../../services/members-invitation.serv
 import { Invitation, TeamUser, User } from '~core/erm3';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
 import { QueryType } from '~core/erm3/queries/query-type.enum';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { TeamService } from '~core/auth';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
@@ -44,7 +44,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		private translate: TranslateService,
 		public selectionSrv: SelectionService,
 		public membersInvitationSrv: MembersInvitationService,
-		private apiLibSrv: ApiLibService
 	) {
 		super();
 	}
@@ -99,7 +98,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		this.dlgCommonSrv.openInvitationDialog().data$
 			.pipe(
 				switchMap((entity) => {
-					return this.apiLibSrv.db.create('Invitation', [{
+					return api['Invitation'].create([{
 						...entity,
 						teamRole: 'TEAMMEMBER'
 					}]);

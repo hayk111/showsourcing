@@ -11,7 +11,6 @@ import { DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils';
 import { ListFuseHelperService, SelectionService, ListHelperService } from '~core/list-page2';
-import { ApiLibService } from '~core/api-lib';
 
 @Component({
 	selector: 'files-page-app',
@@ -40,7 +39,6 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		private uploadFeedback: UploaderFeedbackService,
 		public dialogCommonSrv: DialogCommonService,
 		public listHelper: ListFuseHelperService,
-		public apiLibSrv: ApiLibService,
 		public selectionSrv: SelectionService,
 		public translate: TranslateService
 	) {

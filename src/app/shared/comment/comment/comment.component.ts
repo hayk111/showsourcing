@@ -3,7 +3,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UserService } from '~core/auth';
 import { Comment } from '~core/erm3';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 
 @Component({
 	selector: 'comment-app',
@@ -21,7 +21,6 @@ export class CommentComponent implements OnInit {
 	isEditing = false;
 
 	constructor(
-		private apiLibSrv: ApiLibService,
 		private dlgCommonSrv: DialogCommonService,
 		private userSrv: UserService,
 	) { }
@@ -47,7 +46,7 @@ export class CommentComponent implements OnInit {
 
 	onSave(message: string) {
 		if (message) {
-			this.apiLibSrv.db.update('Comment', [{ id: this.comment.id, message } as any]).subscribe();
+			api['Comment'].update([{ id: this.comment.id, message } as any]).subscribe();
 		}
 		this.isEditing = false;
 	}
@@ -57,7 +56,7 @@ export class CommentComponent implements OnInit {
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
 				tap(_ => this.deleted.emit(this.comment)),
-				switchMap(_ => this.apiLibSrv.db.delete('Comment', [{ id: this.comment.id }]))
+				switchMap(_ => api['Comment'].delete([{ id: this.comment.id }]))
 			).subscribe();
 	}
 

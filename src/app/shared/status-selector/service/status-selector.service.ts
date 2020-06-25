@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject, Subject } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { WorkflowStatus } from '~core/erm3/models';
-import { ApiLibService } from '~core/api-lib';
 import { Typename } from '~core/erm3/typename.type';
 import { ListFuseHelperService } from '~core/list-page2';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
@@ -21,7 +20,7 @@ export class StatusSelectorService {
 
 	typename: Typename;
 
-	constructor(private fuseHelper: ListFuseHelperService, private apiLibSrv: ApiLibService) {
+	constructor(private fuseHelper: ListFuseHelperService) {
 		this.listStatus$.subscribe(statuses => {
 			this.listStatus = statuses;
 		});

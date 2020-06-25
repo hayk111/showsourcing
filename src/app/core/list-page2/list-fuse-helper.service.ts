@@ -74,14 +74,15 @@ export class ListFuseHelperService<G = any> {
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
 		queryOptions.variables = { filter: this.filterSrv.queryArg };
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		this.queryRef = this.typename === 'Product' ? api.product.find() : { data$: of([]) };
+		this.queryRef = api[this.typename] && api[this.typename].find();
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		// when we update the query, datas it will reasign fuse
-		this.queryData$ = this.queryRef.data$.pipe(shareReplay());
-		this.queryData$.subscribe((datas) => {
-			this._fuse$.next(new Fuse(datas, this.fuseOptions));
-			this._pending$.next(false);
-		});
+		if (this.queryRef) {
+			this.queryData$ = this.queryRef.data$.pipe(shareReplay());
+			this.queryData$.subscribe((datas) => {
+				this._fuse$.next(new Fuse(datas, this.fuseOptions));
+				this._pending$.next(false);
+			});
+		}
 	}
 
 	/** items searched, without sort and without pagination */
@@ -146,7 +147,7 @@ export class ListFuseHelperService<G = any> {
 			})
 			.data$.pipe(
 				switchMap((entity) => {
-					return this.apiLibSrv.db.create(this.typename, [entity]);
+					return api[this.typename].create([entity]);
 				}),
 				// tap((entity) => this.apiSrv.addToList(this.queryRef, entity))
 			)
@@ -154,7 +155,7 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	update(entity: any, typename?: Typename) {
-		this.apiLibSrv.db.update(typename || this.typename, [entity]).subscribe();
+		api[typename || this.typename].update([entity]).subscribe();
 	}
 
 	updateProperties(entityId: string, propertyName: string, properties: any | string) {
@@ -177,7 +178,7 @@ export class ListFuseHelperService<G = any> {
 			propertiesToUpdate = properties;
 		}
 
-		this.apiLibSrv.db.update(this.typename, [
+		api[this.typename].update([
 			{
 				id: entityId,
 				propertiesMap: { // should be checked with BE api
@@ -198,15 +199,14 @@ export class ListFuseHelperService<G = any> {
 
 	delete(entity: any) {
 		const { id, teamId } = entity;
-		this.apiLibSrv.db.delete(this.typename, [{id, teamId }]).subscribe((data) => {
+		api[this.typename].delete([{id, teamId }]).subscribe((data) => {
 			// this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
 		});
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		return this.apiLibSrv.db.update(
-			this.typename,
+		return api[this.typename].update(
 			selected.map(ent => ({ id: ent.id, ...entity}))
 		);
 	}
@@ -215,7 +215,7 @@ export class ListFuseHelperService<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => this.apiLibSrv.db.delete(this.typename, selecteds)))
+			.data$.pipe(switchMap((_) => api[this.typename].delete(selecteds)))
 			.subscribe((_) => {
 				// this.apiSrv.deleteManyFromList(
 				// 	this.queryRef,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { Entity } from '~core/erm3/models/_entity.model';
 import {
 	MutationOptions,
@@ -14,7 +14,6 @@ import { Observable, of } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class PropertyOptionsService {
 	constructor(
-		private apiLibSrv: ApiLibService,
 		private teamSrv: TeamService,
 	) {}
 
@@ -41,13 +40,13 @@ export class PropertyOptionsService {
 		apiOptions = {}
 	): Observable<any> {
 		// const options = apiOptions as MutationOptions;
-		return this.apiLibSrv.db.create('PropertyOption', [entity]);
+		return api['PropertyOption'].create([entity]);
 	}
 
 	deletePropertyOption(
 		entity: { type: String, value: String } & Entity,
 		apiOptions = {}) {
 		const options = apiOptions as MutationOptions;
-		return this.apiLibSrv.db.delete('PropertyOption', [entity]);
+		return api['PropertyOption'].delete([entity]);
 	}
 }

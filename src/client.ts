@@ -1,7 +1,6 @@
 import { client } from 'lib';
 import * as localforage from 'localforage';
 
-
 localforage.config({
 	driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
 	name: 'apiLib',
@@ -16,5 +15,3 @@ client.init({
 	offlineConfig: {storage: localforage},
 	shouldSync: true,
 });
-
-

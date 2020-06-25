@@ -25,7 +25,7 @@ import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperS
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import _ from 'lodash';
 import { TeamService } from '~core/auth';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { ProjectProductService } from '../../../services/project-product.service';
 
@@ -81,7 +81,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public selectionSrv: SelectionService,
 		private paginationSrv: PaginationService,
 		private filterSrv: FilterService,
-		private apiLibSrv: ApiLibService,
 		private cdr: ChangeDetectorRef,
 	) {
 		super();
@@ -193,7 +192,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			.subscribe((productIds: string[]) => {
 				if (productIds.length) {
 					productIds.forEach(productId => {
-						this.apiLibSrv.db.create('ProjectProduct', [{
+						api['ProjectProduct'].create([{
 							teamId: TeamService.teamSelected.id,
 							productId,
 							projectId: this.projectId

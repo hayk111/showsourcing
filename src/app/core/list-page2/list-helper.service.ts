@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { WatchQueryOptions } from 'apollo-client';
 import { BehaviorSubject, combineLatest, forkJoin, of, Observable } from 'rxjs';
 import { map, shareReplay, switchMap, tap, mergeMap, concatMap } from 'rxjs/operators';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { SortService } from '~shared/table/services/sort.service';
@@ -74,7 +74,6 @@ export class ListHelperService<G = any> {
 		private paginationSrv: PaginationService,
 		private excludedSrv: ExcludedService,
 		private ratingSrv: RatingService,
-		private apiLibSrv: ApiLibService,
 		private filterSrv: FilterService,
 		// private dlgCommonSrv: DialogCommonService, // ! Circular dependency
 		private dlgSrv: DialogService
@@ -100,18 +99,17 @@ export class ListHelperService<G = any> {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, linkedEntities)
 			.data$ // this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
-			.pipe(switchMap(entity => this.apiLibSrv.db.create(this.typename, [entity])))
+			.pipe(switchMap(entity => api[this.typename].create([entity])))
 			.subscribe(/* created => this.apiSrv.addToList(this.queryRef, created) */);
 	}
 
 	update(entity: any, options?: any, typename?: Typename) {
-		this.apiLibSrv.db.update(typename || this.typename, entity).subscribe();
+	 	api[typename].update([entity]).subscribe();
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		const deleteMany$ = this.apiLibSrv.db.update(
-			this.typename,
+		const deleteMany$ = api[this.typename].update(
 			selected.map(ent => ({ id: ent.id, ...entity }))
 		);
 		// .pipe(switchMap(_ => this.refetch()))
@@ -123,7 +121,7 @@ export class ListHelperService<G = any> {
 		const keys = Object.keys(properties);
 		// keys.forEach(key => properties[key] = JSON.stringify(properties[key]));
 
-		this.apiLibSrv.db.update(this.typename, [{
+		api[this.typename].update([{
 			id: entityId,
 			propertiesMap: { // should be checked with BE api
 				[propertyName]: JSON.stringify(properties)
@@ -132,8 +130,7 @@ export class ListHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		this.apiLibSrv
-			.db
+		api[this.typename]
 			.delete(this.typename, entity)
 			.pipe(switchMap(_ => this.refetch()))
 			.subscribe();
@@ -143,7 +140,7 @@ export class ListHelperService<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap(_ => this.apiLibSrv.db.delete(this.typename, selecteds)))
+			.data$.pipe(switchMap(_ => api[this.typename].delete(this.typename, selecteds)))
 			.subscribe(_ => {
 				// this.apiSrv.deleteManyFromList(
 				// 	this.queryRef,

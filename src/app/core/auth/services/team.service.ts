@@ -3,7 +3,7 @@ import { Observable, ReplaySubject, of } from 'rxjs';
 import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
 import { LocalStorageService } from '~core/local-storage';
-import { ApiLibService } from '~core/api-lib';
+import { api, state } from 'lib';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
 import { UserService } from './user.service';
@@ -66,7 +66,6 @@ export class TeamService {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
-		protected apiLibSrv: ApiLibService,
 	) {	}
 
 	init() {
@@ -79,7 +78,7 @@ export class TeamService {
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
-		this.apiLibSrv.ready$.subscribe(ready => {
+		state.sync$.subscribe(() => {
 			this.teamsOfUser$ = of([userTeam]);
 			this.hasTeam$ = this.teamsOfUser$.pipe(
 				map(teams => teams.length > 0)
@@ -92,14 +91,14 @@ export class TeamService {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.apiLibSrv.db.create('Team', [{ companyId: this.companySrv.companySync.id, ...team }])
+		return api['Team'].create([{ companyId: this.companySrv.companySync.id, ...team }])
 			.pipe(
 				// switchMap(_ => this.queryAllTeamUsers.refetch())
 			);
 	}
 
 	update(team: Team) {
-		return this.apiLibSrv.db.update('Team', [{ companyId: this.companySrv.companySync.id, ...team } as any]);
+		return api['Team'].update([{ companyId: this.companySrv.companySync.id, ...team } as any]);
 	}
 
 	/** picks a team, puts the selection in local storage */
