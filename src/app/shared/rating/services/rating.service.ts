@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from '~core/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Vote, Product, Supplier } from '~core/erm3/models';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { Entity } from '~core/erm3/models/_entity.model';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { filter, map, tap } from 'rxjs/operators';
@@ -18,7 +18,6 @@ export class RatingService {
 
 	constructor(
 		private userSrv: UserService,
-		private apiLibSrv: ApiLibService,
 	) {}
 
 	setup(ratings) {
@@ -204,7 +203,7 @@ export class RatingService {
 			rating: value,
 		};
 
- 		return this.apiLibSrv.db.update('Vote', [{
+ 		return api['Vote'].update([{
 			...ratingInfo
 		} as any]);
 	}
@@ -216,7 +215,7 @@ export class RatingService {
 			voteCreatedById: this.userSrv.userId
 		};
 
-		return this.apiLibSrv.db.create('Vote', [{
+		return api['Vote'].create([{
 			...voteInfo
 		} as any]);
 	}

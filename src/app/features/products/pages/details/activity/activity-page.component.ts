@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Comment } from '~core/erm3';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { AutoUnsub, uuid } from '~utils';
 
 
@@ -21,7 +21,6 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private apiLibSrv: ApiLibService
 	) {
 		super();
 	}
@@ -42,12 +41,11 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		this.apiLibSrv.db.create('Comment', [comment])
-			.subscribe(_ => this.listRef.refetch());
+		api['Comment'].create([comment]).subscribe(_ => this.listRef.refetch());
 	}
 
 	onCommentDeleted(comment: Comment) {
-		this.apiLibSrv.db.delete(this.listRef, [comment]);
+		api[this.listRef].delete([comment]);
 	}
 
 

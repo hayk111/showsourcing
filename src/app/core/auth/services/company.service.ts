@@ -4,6 +4,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { Company } from '~core/erm3/models';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
+import { api } from 'lib';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,7 +32,7 @@ export class CompanyService {
 				// 	// this.queryAll = this.apiSrv.listBy('Company', 'Owner', id);
 				// 	this.queryAll = this.apiLibSrv.db.find('Company');
 				// }),
-				switchMap(_ => this.queryAll.data$),
+				// switchMap(_ => this.queryAll.data$),
 				map(all => all[0])
 			)
 			.subscribe(company => {
@@ -41,7 +42,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return this.apiLibSrv.db.create('Company', [ company as any ]).pipe(
+		return api['Company'].create([ company as any ]).pipe(
 			tap(_ => this._company$.next(company)),
 			switchMap(_ => this.queryAll.refetch())
 		);

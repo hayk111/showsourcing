@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Entity } from '~core/erm3/models/_entity.model';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { of } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { uuid } from '../../utils';
@@ -28,7 +28,7 @@ export class DescriptorSeederService {
 
 	private _allSelectorTypes = ['SUPPLIER', 'PRODUCT', 'USER', 'SAMPLE', 'TASK', 'CUSTOM'];
 
-	constructor(private apiLibSrv: ApiLibService) {}
+	constructor() {}
 
 	async createAllTypesDefinitions() {
 		console.log('CREATE ALL CALLED');
@@ -97,7 +97,7 @@ export class DescriptorSeederService {
 		// .subscribe((definitions: any) => {
 		// const definitions = resp.data.listPropertyDefinitions.items;
 		definitions.map(item =>
-			this.apiLibSrv.db.delete('PropertyDefinition', [{ id: item.id }]).pipe(first()).toPromise()
+			api['PropertyDefinition'].delete([{ id: item.id }]).pipe(first()).toPromise()
 		);
 		return await Promise.all(definitions);
 		// });
@@ -140,15 +140,14 @@ export class DescriptorSeederService {
 			selectorSettings,
 			hint,
 		};
-		return this.apiLibSrv
-			.db
-			.create('PropertyDefinition', [propertyDefinition])
+		return api['PropertyDefinition']
+			.create([propertyDefinition])
 			.pipe(first())
 			.toPromise();
 	}
 
 	private _createDescriptor(sections: any[], type, name): Promise<any> {
 		const productDescriptor = { sections, type, name };
-		return this.apiLibSrv.db.create('Descriptor', [productDescriptor]).pipe(first()).toPromise();
+		return api['Descriptor'].create([productDescriptor]).pipe(first()).toPromise();
 	}
 }

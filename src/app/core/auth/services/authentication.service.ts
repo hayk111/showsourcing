@@ -7,7 +7,7 @@ import { distinctUntilChanged, filter, map, mapTo, shareReplay, tap } from 'rxjs
 import { showsourcing } from '~utils/debug-object.utils';
 import { AuthStatus } from './auth-state.interface';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
-import { ApiLibService } from '~core/api-lib';
+import { client, authStatus, state } from 'lib';
 
 /**
  * Authentication service responsible for authentication.
@@ -31,6 +31,8 @@ import { ApiLibService } from '~core/api-lib';
  * wants that to be the case the password will be saved on the service here
  *
  */
+
+const teamId = '14fd7963-0437-4821-80fc-01f74bb78a95'; // hardcoded team id - to be removed
 
 @Injectable({
 	providedIn: 'root'
@@ -69,7 +71,6 @@ export class AuthenticationService {
 	private signUpPassword: string;
 
 	constructor(
-		private apiLibSrv: ApiLibService,
 		private router: Router
 	) {
 		// for debugging purpose
@@ -81,13 +82,14 @@ export class AuthenticationService {
 		const { username, password } = credentials;
 
 		// authenticated$ = client.srv.authStatus.user$.pipe(map(user => !!user));\
-		return this.apiLibSrv.lib.authStatus.signIn(username, password)
+		return authStatus.signIn(username, password)
 			.then(user => {
 				console.log('AuthenticationService -> user', user);
 				// when user was created via the incognito console
 				if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
 					// go to new password
 				} else {
+					client.sync(teamId);
 					this.authState = {
 						state: AuthStatus.AUTHENTICATED,
 						user
@@ -130,7 +132,7 @@ export class AuthenticationService {
 	// SIGN OUT FLOWS
 
 	signOut() {
-		this.apiLibSrv.lib.authStatus.signOut().then(_ => this.router.navigate(['login']));
+		authStatus.signOut().then(_ => this.router.navigate(['login']));
 	}
 
 	// SIGN UP FLOWS

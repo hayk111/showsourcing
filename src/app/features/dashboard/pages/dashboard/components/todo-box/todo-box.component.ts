@@ -4,7 +4,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { ListPageService } from '~core/list-page';
 import { DashboardService, TodoCounts, TodoEntities } from '~features/dashboard/services/dashboard.service';
 import { Typename } from '~core/erm3/typename.type';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 
 @Component({
 	selector: 'todo-box-app',
@@ -24,7 +24,6 @@ export class TodoBoxComponent implements OnInit {
 	constructor(
 		public dlgCommonSrv: DialogCommonService,
 		public dashboardSrv: DashboardService,
-		private apiLibSrv: ApiLibService
 	) { }
 
 	ngOnInit() {
@@ -42,8 +41,9 @@ export class TodoBoxComponent implements OnInit {
 
 	createEntity() {
 		const typename = this.selectedTabToTypename(this.selectedTab);
-		this.dlgCommonSrv.openCreationDlg(typename).data$
-		.subscribe(entity => this.apiLibSrv.db.create(typename, [entity]));
+		this.dlgCommonSrv.openCreationDlg(typename)
+			.data$
+			.subscribe(entity => api[typename].create([entity]));
 	}
 
 	/** transform 'product' | 'task' | 'sample' | 'supplier' to 'Product' | 'Task' | 'Sample' | 'Supplier */

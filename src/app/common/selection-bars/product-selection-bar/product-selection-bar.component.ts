@@ -5,7 +5,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { SelectionService, ListHelperService, ListFuseHelperService } from '~core/list-page2';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { Product } from '~core/erm3';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { forkJoin } from 'rxjs';
 import { ToastService, Toast, ToastType } from '~shared/toast';
 import { translate } from '~utils';
@@ -33,7 +33,6 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 		private selectionSrv: SelectionService,
 		private listHelper: ListFuseHelperService,
 		private ratingSrv: RatingService,
-		private apiLibSrv: ApiLibService,
 		private notificationSrv: ToastService,
 		private statusSrv: StatusSelectorService
 	) {
@@ -51,7 +50,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	}
 
 	removeFromProject() {
-		this.removeProjectProducts.emit(this.selectionSrv.getSelectedValues());
+		this.removeProjectProducts.emit(this.selectionSrv.getSelectedValues() as any);
 	}
 
 	exportProducts() {
@@ -102,7 +101,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	}
 
 	ratingUpdate({ value }) {
-		const products: Product[] = this.selectionSrv.getSelectedValues();
+		const products: Product[] = this.selectionSrv.getSelectedValues() as any;
 		// TODO starVote should return an observable to do action after BE response
 		const updates = products.map(product => {
 			// return this.ratingSrv.starVote(product.votes, value.rating, 'Product:' + product.id, false);

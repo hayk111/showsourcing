@@ -9,7 +9,7 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
 import { Product, Vote } from '~core/erm3/models';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { ListHelperService, ListFuseHelperService } from '~core/list-page2';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
@@ -67,7 +67,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		public dlgCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
-		private apiLibSrv: ApiLibService,
 		private router: Router,
 		private commentSrv: CommentService,
 		private previewSrv: PreviewService,
@@ -149,7 +148,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(tap((_) => this.apiLibSrv.db.delete('Product', [product])))
+			.data$.pipe(tap((_) => api.Product.delete([product as any])))
 			.subscribe((prod) => {
 				this.close.emit();
 			});
