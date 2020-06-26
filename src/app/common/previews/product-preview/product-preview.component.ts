@@ -10,7 +10,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
 import { Product, Vote } from '~core/erm3/models';
 import { api } from 'lib';
-import { ListHelperService, ListFuseHelperService } from '~core/list-page2';
+import { ListHelperService, ListHelper2Service } from '~core/list-page2';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
@@ -63,7 +63,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
-		private listHelper: ListFuseHelperService,
+		private listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
@@ -148,7 +148,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(tap((_) => api.Product.delete([product as any])))
+			.data$.pipe(tap((_) => api.col('Product').delete([product as any])))
 			.subscribe((prod) => {
 				this.close.emit();
 			});

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Supplier } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService, ListFuseHelperService } from '~core/list-page2';
+import { ListHelperService, ListPageViewService, SelectionService, ListHelper2Service } from '~core/list-page2';
 
 @Component({
 	selector: 'samples-page-app',
@@ -14,7 +14,7 @@ import { ListHelperService, ListPageViewService, SelectionService, ListFuseHelpe
 		SelectionService,
 		FilterService,
 		ListPageViewService,
-		ListFuseHelperService
+		ListHelper2Service
 	],
 	host: { class: 'table-page' }
 })
@@ -24,7 +24,7 @@ export class SamplesPageComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,

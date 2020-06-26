@@ -5,7 +5,7 @@ import { switchMap, map, debounce, tap } from 'rxjs/operators';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { FilterService, FilterType } from '~core/filters';
 import { MembersInvitationService } from '../../services/members-invitation.service';
 import { Invitation, TeamUser, User } from '~core/erm3';
@@ -21,7 +21,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
 		ListPageViewService,
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService,
 	],
 	host: { class: 'table-page' }
@@ -37,7 +37,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private featureSrv: SettingsMembersService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public filterSrv: FilterService,
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<TeamUser>,

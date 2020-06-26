@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { Product } from '~core/erm3/models';
 import { FilterService, FilterType } from '~core/filters';
-import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperService } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ExcludedService, ListHelper2Service } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
@@ -19,7 +19,7 @@ import { ProjectProductService } from '~features/projects/services/project-produ
 	providers: [
 		ListPageViewService,
 		FilterService,
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService
 	],
 	host: { class: 'table-dialog' }
@@ -46,7 +46,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 	constructor(
 		public filterSrv: FilterService,
 		private dlgSrv: DialogService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Product>,
 		private excludedSrv: ExcludedService,
@@ -65,7 +65,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.dlgSrv.close({ component: DefaultCreationDialogComponent, type: 'Product'  })
 			.data$
 			.pipe(
-				switchMap(product => api.Product.create([product])),
+				switchMap(product => api.col('Product').create([product])),
 				switchMap((createdProducts: any[])  => {
 					const product = createdProducts[0];
 					return api['ProjectProduct'].create([{

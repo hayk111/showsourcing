@@ -10,7 +10,7 @@ import { ERM } from '~core/erm';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters';
 import { isLocalList } from '~core/list-page2/is-local-list.function';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { ListHelperService } from '~core/list-page2/list-helper.service';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, InputDirective } from '~shared/inputs';
@@ -26,7 +26,7 @@ import { ID } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListHelperService,
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectorsService,
 		FilterService
 	]
@@ -95,8 +95,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	constructor(
 		public selectorSrv: SelectorsService,
-		private fuseHelperSrv: ListFuseHelperService,
-		private listHelperSrv: ListHelperService,
+		private listHelper: ListHelper2Service,
 		private propertyOptionSrv: PropertyOptionsService,
 		private filterSrv: FilterService,
 		protected cd: ChangeDetectorRef,
@@ -109,15 +108,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		});
 
 		this.filterSrv.setup([], ['name']);
+		// TODO setup
 
-		if (this.typename === 'PropertyOption') {
-			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
-			this.cd.markForCheck();
-		} else {
-			this.fuseHelperSrv.setup(this.typename);
-			this.choices$ = this.fuseHelperSrv.paginedItems$;
-			this.cd.markForCheck();
-		}
 
 		if (this.canCreate) {
 			this.nameExists$ = this.searched$.pipe(

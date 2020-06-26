@@ -63,7 +63,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.product$ = id$.pipe(
-			switchMap(id => api.Product.get(id)),
+			switchMap(id => api.col('Product').get(id)),
 			takeUntil(this._destroy$)
 		) as any;
 
@@ -127,21 +127,21 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		api.Product
+		api.col('Product')
 			.update([{ id: this.product.id, status: { id: statusId } } as any])
 			.subscribe();
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		api.Product
+		api.col('Product')
 			.update([{ id: this.product.id, favorite: true } as any])
 			.subscribe();
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		api.Product
+		api.col('Product')
 			.update([{ id: this.product.id, favorite: false } as any])
 			.subscribe();
 	}
@@ -158,7 +158,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(product: Product) {
-		api.Product
+		api.col('Product')
 			.update([{ id: this.product.id, ...product } as any])
 			.subscribe();
 	}

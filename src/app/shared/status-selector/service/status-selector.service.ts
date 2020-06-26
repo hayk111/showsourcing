@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Subject } from 'rxjs';
-import { map, first } from 'rxjs/operators';
+import { api } from 'lib';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { WorkflowStatus } from '~core/erm3/models';
-import { Typename } from '~core/erm3/typename.type';
-import { ListFuseHelperService } from '~core/list-page2';
-import { QueryPool } from '~core/erm3/queries/query-pool.class';
+import { ListHelper2Service } from '~core/list-page2';
+
+export type StatusCol = 'Product' | 'Supplier' | 'Task' | 'Sample';
 
 @Injectable({
 	providedIn: 'root',
@@ -17,56 +18,21 @@ export class StatusSelectorService {
 	private _listStatus$ = new ReplaySubject<WorkflowStatus[]>();
 	listStatus$ = this._listStatus$.asObservable();
 	listStatus: WorkflowStatus[];
+	private collection: StatusCol;
 
-	typename: Typename;
-
-	constructor(private fuseHelper: ListFuseHelperService) {
+	constructor(private listHelper: ListHelper2Service) {
 		this.listStatus$.subscribe(statuses => {
 			this.listStatus = statuses;
 		});
 	}
 
-	updateStatus(status: WorkflowStatus, entity?: any) {
-		const variables = {
-			entityId: entity.id,
-			statusId: status.id,
-		};
-		const mutation = QueryPool.map.WorkflowStatus.getUpdateStatusQuery(this.typename);
-		// TODO: implement mutate
-		// this.apiSrv.mutate({ mutation, variables }).subscribe(updatedEntity => {
-		// 	this._entityUpdate$.next(updatedEntity);
-		// });
-		return this.entityUpdate$.pipe(first());
+	setupStatuses(collection: StatusCol) {
+		this.collection = collection;
+		api.col('Product').statuses();
 	}
 
-	updateTask(entity) {
-		// this.taskSrv.update(entity).subscribe();
+	updateStatus(status: WorkflowStatus, entity?: any): Observable<any> {
+		throw Error('not implemented yet');
 	}
 
-	updateProject(entity) {
-		// this.projectSrv.update(entity).subscribe();
-	}
-
-	setupStatuses(typename) {
-		if (typename === this.typename) return;
-		this.typename = typename;
-		const statusType = typename.toUpperCase(); // PRODUCT | TASK | ...
-		const statusQueryOptions = {
-			variables: {
-				filter: { type: { eq: statusType } },
-			},
-		};
-		// this must be updated with the futur query lists
-		this.fuseHelper.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
-		this.fuseHelper.paginedItems$
-			.pipe(
-				first(),
-				// we sort the status by step and remove spaces
-				map(statuses => {
-					statuses.sort((firstStatus, secondStatus) => firstStatus.step - secondStatus.step);
-					return statuses;
-				})
-			)
-			.subscribe(statuses => this._listStatus$.next(statuses));
-	}
 }

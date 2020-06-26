@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Project } from '~core/erm3/models';
 import { AutoUnsub } from '~utils';
-import { ListPageViewService, SelectionService, ListFuseHelperService } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ListHelper2Service } from '~core/list-page2';
 import { UserService } from '~core/auth/services';
 import { FilterService, FilterType } from '~core/filters';
 
@@ -18,7 +18,7 @@ import { FilterService, FilterType } from '~core/filters';
 	templateUrl: './projects-page.component.html',
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		FilterService,
 		ListPageViewService,
 		SelectionService,
@@ -34,7 +34,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		public filterSrv: FilterService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,

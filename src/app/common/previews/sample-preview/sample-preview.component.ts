@@ -76,7 +76,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this sample ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(switchMap((_) => api.Sample.delete([sample as any])))
+			.data$.pipe(switchMap((_) => api.col('Sample').delete([sample as any])))
 			.subscribe((_) => this.close.emit());
 	}
 

@@ -5,7 +5,7 @@ import { Typename } from '~core/erm3/typename.type';
 import { Filter, FilterService, FilterType } from '~core/filters';
 import { ListHelperService } from '~core/list-page2';
 import { isLocalList } from '~core/list-page2/is-local-list.function';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { AutoUnsub } from '~utils';
 
 
@@ -58,7 +58,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	constructor(
 		public filterSrv: FilterService, /** this is the filter service just for this panel search */
 		private listHelper: ListHelperService,
-		private fuseHelper: ListFuseHelperService
+		private fuseHelper: ListHelper2Service
 	) {
 		super();
 	}

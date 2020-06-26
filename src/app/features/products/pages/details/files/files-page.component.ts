@@ -10,7 +10,7 @@ import { Attachment, ERM } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils';
-import { ListFuseHelperService, SelectionService, ListHelperService } from '~core/list-page2';
+import { ListHelper2Service, SelectionService, ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'files-page-app',
@@ -18,7 +18,7 @@ import { ListFuseHelperService, SelectionService, ListHelperService } from '~cor
 	styleUrls: ['./files-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService,
 		UploaderFeedbackService
 	]
@@ -38,7 +38,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		protected dlgSrv: DialogService,
 		private uploadFeedback: UploaderFeedbackService,
 		public dialogCommonSrv: DialogCommonService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public selectionSrv: SelectionService,
 		public translate: TranslateService
 	) {

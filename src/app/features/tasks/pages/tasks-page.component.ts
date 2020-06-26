@@ -14,14 +14,14 @@ import { ListPageService } from '~core/list-page';
 import { DialogService } from '~shared/dialog';
 import { FilterService, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
-import { SelectionService, ListFuseHelperService, ListPageViewService } from '~core/list-page2';
+import { SelectionService, ListHelper2Service, ListPageViewService } from '~core/list-page2';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService,
 		FilterService,
 		ListPageViewService
@@ -50,7 +50,7 @@ export class TasksPageComponent implements OnInit {
 	constructor(
 		public filterSrv: FilterService,
 		public selectionSrv: SelectionService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>
 	) {
 	}

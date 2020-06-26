@@ -7,7 +7,7 @@ import { SelectParamsConfig } from '~core/erm';
 import { ERM, Supplier } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { FilterService } from '~core/filters';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -24,7 +24,7 @@ import { CloseEventType } from '~shared/dialog';
 	templateUrl: './table-page.component.html',
 	styleUrls: ['./table-page.component.scss'],
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		ListPageViewService,
 		FilterService,
 		SelectionService
@@ -49,7 +49,7 @@ export class TablePageComponent implements OnInit {
 
 	constructor(
 		public filterSrv: FilterService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<any>,
 		public selectionSrv: SelectionService

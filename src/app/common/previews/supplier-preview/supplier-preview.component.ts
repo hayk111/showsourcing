@@ -100,7 +100,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this supplier ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(switchMap((_) => api.Supplier.delete([supplier as any])))
+			.data$.pipe(switchMap((_) => api.col('Supplier').delete([supplier as any])))
 			.subscribe((_) => this.close.emit());
 	}
 

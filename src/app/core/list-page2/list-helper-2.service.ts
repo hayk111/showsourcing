@@ -17,7 +17,7 @@ import { SelectionService } from './selection.service';
  * and manage them as an array (search with fuse, sorting, paginating, ...)
  */
 @Injectable({ providedIn: 'root' })
-export class ListFuseHelperService<G = any> {
+export class ListHelper2Service<G = any> {
 	data$: Observable<any[]>;
 	private collection: Collection;
 	private _pending$ = new BehaviorSubject(true);

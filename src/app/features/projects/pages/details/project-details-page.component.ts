@@ -34,7 +34,7 @@ export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.setup('Project');
 
 		const id = this.route.snapshot.params.id;
-		this.project$ = api.Project.get(id) as any;
+		this.project$ = api.col('Project').get(id) as any;
 	}
 
 	isTabUrl(tab: string): boolean {
