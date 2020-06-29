@@ -19,7 +19,7 @@ import { SelectionService } from './selection.service';
 @Injectable({ providedIn: 'root' })
 export class ListHelper2Service<G = any> {
 	data$: Observable<any[]>;
-	private collection: Collection;
+	private collection: 'Product' | 'Sample' | 'Task' | 'Supplier' | 'Project';
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
@@ -42,7 +42,7 @@ export class ListHelper2Service<G = any> {
 	}
 
 	setup(
-		collection: Collection,
+		collection: 'Product' | 'Sample' | 'Task' | 'Supplier' | 'Project',
 	) {
 		this.collection = collection;
 		const service = api.col(collection as any);
@@ -63,32 +63,23 @@ export class ListHelper2Service<G = any> {
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => api.col(this.collection).create([entity])),
-			)
-			.subscribe();
+				switchMap((entity) => api[this.collection].create([entity])),
+			).subscribe();
 	}
 
 	update(entity: any, collection?: Collection) {
-		api.col(collection || this.collection).update([entity]).subscribe();
-	}
-
-	updateProperties(entityId: string, propertyName: string, properties: any | string) {
-		throw Error('deprecated');
-	}
-
-	getProperty(propertyName, properties) {
-		throw Error('deprecated');
+		api.col(collection || this.collection as any).update([entity]).subscribe();
 	}
 
 	delete(entity: any, collection?: Collection) {
 		const { id, teamId } = entity;
-		api.col(collection || this.collection).delete([{ id }])
+		api.col(collection || this.collection as any).delete([{ id }])
 			.subscribe();
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		return api.col(this.collection).update(
+		return api[this.collection].update(
 			selected.map(ent => ({ id: ent.id, ...entity}))
 		);
 	}
@@ -97,7 +88,7 @@ export class ListHelper2Service<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => api.col(this.collection).delete(selecteds as any)))
+			.data$.pipe(switchMap((_) => api[this.collection].delete(selecteds as any)))
 			.subscribe((_) => {
 				this.selectionSrv.unselectAll();
 			});

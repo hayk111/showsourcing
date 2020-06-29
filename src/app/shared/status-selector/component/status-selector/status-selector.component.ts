@@ -1,7 +1,6 @@
 import { Component, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { Typename } from '~core/erm3/typename.type';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { StatusSelectorService, StatusCol } from '~shared/status-selector/service/status-selector.service';
+import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
 
 @Component({
