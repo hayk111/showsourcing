@@ -42,16 +42,4 @@ export class DescriptorService {
 		return obj;
 	}
 
-	propertiesToObject(properties: Property[] = []): {} {
-		const obj = {};
-		properties.forEach(prop => {
-			obj[prop.name] = JSON.parse(prop.value);
-		});
-		return obj;
-	}
-
-	objectToProperties(obj: {}): Property[] {
-		return Object.entries(obj)
-		.map(([name, value]) => ({ name,  value: JSON.stringify(value) }));
-	}
 }

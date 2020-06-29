@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { AppImage, Attachment } from '~core/erm';
-import { Product } from '~core/erm3/models';
+import { models } from 'lib';
 import { Descriptor } from '~core/erm3/models';
 import { DialogService } from '~shared/dialog';
 import { descriptorMock } from './_temporary-descriptor-product.mock';
@@ -22,15 +22,16 @@ export class ProductCreationDialogComponent {
 	columnAmount = 1;
 	updateOn = 'change';
 	descriptorProperties = [];
-	product: Product = {};
+	product: Partial<models.Product> = {};
 
 	constructor(private dlgSrv: DialogService) {}
+
 	toggleCheckbox() {
 		this.createAnother = !this.createAnother;
 	}
 
 	updateProduct(customProperties: any) {
-		this.product.properties = customProperties;
+		this.product.propertiesMap = customProperties;
 	}
 
 	imagesCreated(createdImages: AppImage[]) {
