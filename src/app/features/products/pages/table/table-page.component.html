@@ -21,7 +21,7 @@
 </controller-table-app>
 
 <products-table-app
-	[rows]="listHelper.paginedItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"

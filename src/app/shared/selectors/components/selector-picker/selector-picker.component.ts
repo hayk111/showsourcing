@@ -6,6 +6,7 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, E
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import Collection from '../../../../../../dist/showsourcing/vendor-es2018';
 import { ERM } from '~core/erm';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters';
@@ -32,7 +33,7 @@ import { ID } from '~utils';
 	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
-	@Input() typename: Typename;
+	@Input() typename: Collection;
 	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
@@ -110,6 +111,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.filterSrv.setup([], ['name']);
 		// TODO setup
 
+		if (this.typename === 'PropertyOption') {
+			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			this.cd.markForCheck();
+		} else {
+			this.listHelper.setup(this.typename);
+			this.choices$ = this.listHelper.data$;
+			this.cd.markForCheck();
+		}
 
 		if (this.canCreate) {
 			this.nameExists$ = this.searched$.pipe(

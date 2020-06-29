@@ -36,6 +36,6 @@ export class SamplesPageComponent extends TrackingComponent implements OnInit {
 	ngOnInit() {
 		this.productId = this.route.parent.snapshot.params.id;
 		this.product = { id: this.productId };
-		this.listHelper.setup('Sample', 'Product', this.productId);
+		this.listHelper.setup('Sample');
 	}
 }

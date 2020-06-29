@@ -31,7 +31,7 @@ export class FilesPageComponent implements OnInit {
 
 	ngOnInit() {
 		const supplierId = this.route.parent.snapshot.params.id;
-		this.listHelper.setup('Attachment', 'Supplier', supplierId);
+		// this.listHelper.setup('Attachment', 'Supplier', supplierId);
 	}
 
 	addToProject(event) {

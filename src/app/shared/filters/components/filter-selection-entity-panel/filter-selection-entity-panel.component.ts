@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import Collection from '../../../../../../dist/showsourcing/vendor-es2018';
 import { ListQuery } from '~core/erm';
 import { Typename } from '~core/erm3/typename.type';
 import { Filter, FilterService, FilterType } from '~core/filters';
@@ -51,7 +52,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	listResult: ListQuery<any>;
 	/** Different choices that are displayed in the view */
 	choices$: Observable<any[]>;
-	private typename: Typename;
+	private typename: Collection;
 	private isLocalList: boolean;
 
 
@@ -69,7 +70,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		this.isLocalList = isLocalList(this.typename);
 		if (isLocalList) {
 			this.fuseHelper.setup(this.typename);
-			this.choices$ = this.fuseHelper.searchedItems$;
+			this.choices$ = this.fuseHelper.data$;
 		} else {
 			this.listHelper.setup(this.typename);
 			this.choices$ = this.listHelper.filteredItems$ as Observable<any[]>;

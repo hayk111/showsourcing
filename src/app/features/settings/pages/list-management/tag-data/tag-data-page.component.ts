@@ -50,7 +50,7 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		});
 		// set searchable columns for list-fuse-helper
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Tag');
+		// this.listHelper.setup('Tag');
 	}
 
 	mergeSelected() {
