@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { AppImage, Attachment } from '~core/erm';
-import { models } from 'lib';
+import { Product } from 'lib';
 import { Descriptor } from '~core/erm3/models';
 import { DialogService } from '~shared/dialog';
 import { descriptorMock } from './_temporary-descriptor-product.mock';
@@ -22,7 +22,7 @@ export class ProductCreationDialogComponent {
 	columnAmount = 1;
 	updateOn = 'change';
 	descriptorProperties = [];
-	product: Partial<models.Product> = {};
+	product: Product = {};
 
 	constructor(private dlgSrv: DialogService) {}
 
@@ -55,7 +55,7 @@ export class ProductCreationDialogComponent {
 	}
 
 	save() {
-		if (!this.product.properties || !this.product.name) return;
+		if (!this.product.name) return;
 		this.dlgSrv.data({...this.product});
 
 		this.createAnother ? this.form.reset() : this.dlgSrv.close();
