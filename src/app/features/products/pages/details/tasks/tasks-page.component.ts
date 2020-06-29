@@ -37,6 +37,6 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 			map(params => params.id),
 			tap(id => this.product = { id }),
 			takeUntil(this._destroy$)
-		).subscribe(id => this.listHelper.setup('Task', 'Supplier', id ));
+		).subscribe(id => this.listHelper.setup('Task'));
 	}
 }

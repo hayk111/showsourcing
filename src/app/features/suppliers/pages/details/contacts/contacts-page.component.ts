@@ -33,7 +33,7 @@ export class ContactsPageComponent implements OnInit {
 
 	ngOnInit() {
 		const supplierId = this.route.parent.snapshot.params.id;
-		this.listHelper.setup('Contact', 'Supplier', supplierId);
+		// this.listHelper.setup('Contact', 'Supplier', supplierId);
 	}
 
 	openNewContactDlg(supplier: Supplier) {

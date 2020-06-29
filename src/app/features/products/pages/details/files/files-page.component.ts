@@ -47,7 +47,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const productId = this.route.parent.snapshot.params.id;
-		this.listHelper.setup('Attachment', 'Product', productId);
+		// this.listHelper.setup('Attachment', 'Product', productId);
 	}
 
 	addFile(files: Array<File>) {

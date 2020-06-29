@@ -57,16 +57,16 @@ export class StatusSelectorService {
 			},
 		};
 		// this must be updated with the futur query lists
-		this.fuseHelper.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
-		this.fuseHelper.paginedItems$
-			.pipe(
-				first(),
-				// we sort the status by step and remove spaces
-				map(statuses => {
-					statuses.sort((firstStatus, secondStatus) => firstStatus.step - secondStatus.step);
-					return statuses;
-				})
-			)
-			.subscribe(statuses => this._listStatus$.next(statuses));
+		// this.fuseHelper.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
+		// this.fuseHelper.paginedItems$
+		// 	.pipe(
+		// 		first(),
+		// 		// we sort the status by step and remove spaces
+		// 		map(statuses => {
+		// 			statuses.sort((firstStatus, secondStatus) => firstStatus.step - secondStatus.step);
+		// 			return statuses;
+		// 		})
+		// 	)
+		// 	.subscribe(statuses => this._listStatus$.next(statuses));
 	}
 }

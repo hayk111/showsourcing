@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { api, Collection } from 'lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -52,7 +52,8 @@ export class ListFuseHelperService<G = any> {
 			this.paginationSrv.limit$,
 			this.sortSrv.sort$
 		).pipe(
-			switchMap(([filter, page, limit, sort]) => service.find(filter, sort, { page, limit }).data$)
+			switchMap(([filter, page, limit, sort]) => service.find({}, sort, { page, limit }).data$), // TODO: implement filters passing
+			tap(() => this._pending$.next(false)),
 		);
 	}
 

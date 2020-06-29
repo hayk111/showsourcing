@@ -52,7 +52,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		});
 		// set searchable columns for list-fuse-helper
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Category');
+		// this.listHelper.setup('Category');
 	}
 
 	mergeSelected() {
