@@ -44,13 +44,13 @@ export class ExportsPageComponent extends AutoUnsub
 			'createdBy.lastName'
 		]);
 
-		this.listHelper.setup('Export');
+		// this.listHelper.setup('Export');
 	}
 
 	ngAfterViewInit() {
 		// we need this refetch on after view init, otherwise if we come from the redirection of the
 		// export-dlg.component we won't see the new request created
-		this.listHelper.refetch();
+		// this.listHelper.refetch();
 	}
 
 	downloadOne(exportReq: Export) {
