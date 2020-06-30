@@ -62,7 +62,7 @@
 							[canCreate]="true"
 							[width]="370"
 							(menuClosed)="eca.close()"
-							(update)="propertyUpdated.emit({ entityId: row?.id, entityType: 'category', value: $event.value })">
+							(update)="propertyUpdated.emit({ entity: row, propertyType: 'category', value: $event.value })">
 							<div class="pointer" >
 								{{ (row | property: 'category') || '-' }}
 							</div>
@@ -78,7 +78,7 @@
 					class="full-width"
 					[hasAction]="false"
 					(opened)="inp.focus()"
-					(closed)="updatePrice(row?.id, inp?.value)">
+					(closed)="updatePrice(row, inp?.value)">
 					<editable-value-app #price>
 						<price-app [price]="row | property:'price'"></price-app>
 					</editable-value-app>

@@ -42,7 +42,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return api['Company'].create([ company as any ]).pipe(
+		return api.Company.create().pipe(
 			tap(_ => this._company$.next(company)),
 			switchMap(_ => this.queryAll.refetch())
 		);

@@ -52,9 +52,15 @@ export class ListFuseHelperService<G = any> {
 			this.paginationSrv.limit$,
 			this.sortSrv.sort$
 		).pipe(
-			switchMap(([filter, page, limit, sort]) => service.find(filter, sort, { page, limit }).data$),
+			switchMap(([filter, page, limit, sort]) => {
+				console.log('ListFuseHelperService<G -> sort', sort);
+				return service.find(filter, sort, { page, limit }).data$;
+			}),
+			tap(data => {
+				console.log('ListFuseHelperService<G -> data-----', data);
+			}),
 			tap(() => this._pending$.next(false)),
-		);
+		) as Observable<any[]>;
 	}
 
 	create(addedProperties: any = {}) {
@@ -70,11 +76,20 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	update(entity: any, collection?: Collection) {
-		api.col(collection || this.collection).update([entity]).subscribe();
+		api[collection || this.collection].update([entity]).subscribe();
 	}
 
-	updateProperties(entityId: string, propertyName: string, properties: any | string) {
-		throw Error('deprecated');
+	updateProperties(entity: any, propertyName: string, properties: any | string) {
+		console.log(entity, propertyName, properties);
+		// const products$: Observable<any>[] = products.map(product => of(lib.cache.get('Product', product.id)));
+		// forkJoin(products$).pipe(
+		// 	map(productsCache => productsCache.map((product) => {
+		// 		const propertiesMap = product.propertiesMap;
+		// 		propertiesMap.price = (propertiesMap.price || 0) + 10;
+		// 		return { id: product.id, teamId: product.teamId, propertiesMap };
+		// 	})),
+		// 	switchMap(productsUpdated => lib.api.product.update(productsUpdated))
+		// ).subscribe();
 	}
 
 	getProperty(propertyName, properties) {

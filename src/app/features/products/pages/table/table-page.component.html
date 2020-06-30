@@ -28,7 +28,7 @@
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="listHelper.create()"
 	(update)="listHelper.update($event, {}, 'Product')"
-	(propertyUpdated)="listHelper.updateProperties($event?.entityId, $event?.entityType, $event?.value)"
+	(propertyUpdated)="listHelper.updateProperties($event, $event?.propertyName, $event?.value)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"

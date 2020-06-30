@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~core/erm';
+import { api } from 'lib';
 import { ListFuseHelperService } from '~core/list-page2';
 import { config } from './config';
+import { TeamService } from '../../../core/auth/services/team.service';
 
 @Component({
 	selector: 'products-table-app',
@@ -41,7 +43,8 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
-	updatePrice(productId: string, inputValue: any) {
+	updatePrice(product: Product, inputValue: any) {
+		console.log('ProductsTableComponent -> updatePrice -> product667', product, inputValue);
 		let currency;
 
 		if (inputValue.value && inputValue.value.value) {
@@ -50,13 +53,22 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 			currency = inputValue.value ? inputValue.value.currency : null;
 		}
 
-		this.propertyUpdated.emit({
-			entityId: productId,
-			entityType: 'price',
-			value: {
-				value: inputValue.value ? inputValue.value.value : null,
-				currency,
+		api.Product.update([{
+			id: product.id,
+			propertiesMap: {
+				doctor: 'Dre'
 			}
+		}]).subscribe(updated => {
+			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
 		});
+
+		// this.propertyUpdated.emit({
+		// 	entity: product,
+		// 	propertyName,
+		// 	value: {
+		// 		value: inputValue.value ? inputValue.value.value : null,
+		// 		currency,
+		// 	}
+		// });
 	}
 }

@@ -53,6 +53,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		console.log('MassEditDialogComponent -> ngOnInit -> this.typename', this.typename, this.items);
 		this.propertySelected$.subscribe(selected => (this.propertySelected = selected));
 	}
 
