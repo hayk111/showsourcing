@@ -41,7 +41,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
-	updatePrice(productId: string, inputValue: any, additionalFields: any) {
+	updatePrice(productId: string, inputValue: any) {
 		let currency;
 
 		if (inputValue.value && inputValue.value.value) {
@@ -54,7 +54,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 			entityId: productId,
 			entityType: 'price',
 			value: {
-				...additionalFields,
 				value: inputValue.value ? inputValue.value.value : null,
 				currency,
 			}

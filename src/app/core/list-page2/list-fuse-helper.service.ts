@@ -52,7 +52,7 @@ export class ListFuseHelperService<G = any> {
 			this.paginationSrv.limit$,
 			this.sortSrv.sort$
 		).pipe(
-			switchMap(([filter, page, limit, sort]) => service.find({}, sort, { page, limit }).data$), // TODO: implement filters passing
+			switchMap(([filter, page, limit, sort]) => service.find(filter, sort, { page, limit }).data$),
 			tap(() => this._pending$.next(false)),
 		);
 	}
