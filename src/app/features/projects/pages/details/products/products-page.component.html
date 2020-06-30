@@ -15,6 +15,7 @@
 	[rows]="projectProducts"
 	[columns]="columns"
 	[pending]="pending"
+	[hasMenu]="false"
 	[selection]="selectionSrv.selection$ | async"
 	createEntityBtnName="Add Product"
 	(previewClick)="viewSrv.openPreview($event)"
@@ -24,7 +25,8 @@
 	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="addProducts()"
-	(update)="listHelper.update($event)"
+	(update)="updateProduct($event)"
+	(propertyUpdated)="updateProductProperty($event)"
 	(delete)="deassociateProductById(($event)?.id)">
 </products-table-app>
 
@@ -66,9 +68,9 @@
 		</filters-app>
 	</side-panel-app>
 
-	<!-- <product-preview-app
+	<product-preview-app
 		*ngIf="viewSrv.previewOpen"
 		[product]="viewSrv.previewed"
-		[isPreview]="false"
+		(updated)="projectProductSrv.refetch();"
 		(close)="viewSrv.closePreview()">
-	</product-preview-app> -->
+	</product-preview-app>

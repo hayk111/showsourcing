@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from '~core/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Vote, Product, Supplier } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { Entity } from '~core/erm3/models/_entity.model';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { filter, map, tap } from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class RatingService {
 
 	constructor(
 		private userSrv: UserService,
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 	) {}
 
 	setup(ratings) {
@@ -170,29 +170,33 @@ export class RatingService {
 	}
 
 	getUserVote(nodeId: string): Observable<Vote | null> {
-		return this.apiSrv.query<Vote[]>({
-			query: customQueries.votes,
-			variables: { nodeId, filter: { deleted: { eq: false } } },
-			fetchPolicy: 'network-only'
-		})
-		.data$.pipe(
-			map((votes: Vote[]) => {
-				const index = votes.findIndex(vote => vote.createdBy.id === this.userSrv.userId);
-				return votes[index] ? votes[index] : null;
-			}),
-		);
+		return of(null);
+		// TODO: implement get user vote
+		// return this.apiSrv.query<Vote[]>({
+		// 	query: customQueries.votes,
+		// 	variables: { nodeId, filter: { deleted: { eq: false } } },
+		// 	fetchPolicy: 'network-only'
+		// })
+		// .data$.pipe(
+		// 	map((votes: Vote[]) => {
+		// 		const index = votes.findIndex(vote => vote.createdBy.id === this.userSrv.userId);
+		// 		return votes[index] ? votes[index] : null;
+		// 	}),
+		// );
 	}
 
 	getTeamVotes(nodeId: string): Observable<Vote[] | null> {
-		return this.apiSrv.query<Vote[]>({
-			query: customQueries.votes,
-			variables: { nodeId, filter: { deleted: { eq: false } } },
-			fetchPolicy: 'network-only'
-		}).data$;
+		return of(null);
+		// TODO: implement get team votes
+		// return this.apiSrv.query<Vote[]>({
+		// 	query: customQueries.votes,
+		// 	variables: { nodeId, filter: { deleted: { eq: false } } },
+		// 	fetchPolicy: 'network-only'
+		// }).data$;
 	}
 
 	// Component functions
-	private updateVote(vote: Vote, value: number): Observable<Vote> {
+	private updateVote(vote: Vote, value: number): Observable<any> {
 		const { id } = vote;
 
 		const ratingInfo = {
@@ -200,21 +204,21 @@ export class RatingService {
 			rating: value,
 		};
 
- 		return this.apiSrv.update('Vote', {
+ 		return this.apiLibSrv.db.update('Vote', [{
 			...ratingInfo
-		} as Vote);
+		} as any]);
 	}
 
-	private createVote(nodeId: string, rating: number): Observable<Vote> {
+	private createVote(nodeId: string, rating: number): Observable<any> {
 		const voteInfo = {
 			rating,
 			nodeId,
 			voteCreatedById: this.userSrv.userId
 		};
 
-		return this.apiSrv.create('Vote', {
+		return this.apiLibSrv.db.create('Vote', [{
 			...voteInfo
-		} as Vote);
+		} as any]);
 	}
 
 	applyRatings(items: any[], ratings: Vote[]) {

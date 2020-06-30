@@ -5,7 +5,6 @@ import { SampleCreationDialogComponent } from '~common/dialogs/creation-dialogs'
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UserService } from '~core/auth';
 import { Product, Supplier } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
 import { Filter, FilterService, FilterType } from '~core/filters';
 import { ListHelperService } from '~core/list-page2';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
@@ -21,7 +20,6 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 		protected router: Router,
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
-		protected apiSrv: ApiService,
 		protected dlgSrv: DialogService,
 		public listHelper: ListHelperService,
 		public dlgCommonSrv: DialogCommonService,
@@ -56,7 +54,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 
 	openCreationSampleDlg(product?: Product, supplier?: Supplier) {
 		return this.dlgSrv
-			.open(SampleCreationDialogComponent, { product, supplier })
+			.open(SampleCreationDialogComponent, { product, supplier });
 			// don't implement creation Sample => deprecated component
 			// .pipe(
 			// 	filter((event: CloseEvent) => event.type === CloseEventType.OK),

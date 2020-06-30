@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '~core/erm3';
 import { Entity } from '~core/erm3/models/_entity.model';
-import gql from 'graphql-tag';
+import { ApiLibService } from '~core/api-lib';
+import { of } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { uuid } from '../../utils';
 
@@ -28,7 +28,7 @@ export class DescriptorSeederService {
 
 	private _allSelectorTypes = ['SUPPLIER', 'PRODUCT', 'USER', 'SAMPLE', 'TASK', 'CUSTOM'];
 
-	constructor(private apiSrv: ApiService) {}
+	constructor(private apiLibSrv: ApiLibService) {}
 
 	async createAllTypesDefinitions() {
 		console.log('CREATE ALL CALLED');
@@ -38,29 +38,31 @@ export class DescriptorSeederService {
 		return await Promise.all(propertyDefinitions);
 	}
 
-	listAllDefinitions$ = this.apiSrv.query({
-		query: gql`
-			query MyQuery($limit: Int, $filter: ModelPropertyDefinitionFilterInput) {
-				listPropertyDefinitions(limit: $limit, filter: $filter) {
-					items {
-						id
-						label
-						name
-						type
-						selectorSettings {
-							canCreate
-							multiple
-							propertyOptionType
-							type
-						}
-						hint
-						deleted
-					}
-				}
-			}
-		`,
-		variables: { limit: 1000, filter: { deleted: { ne: true } }, fetchPolicy: 'network-only' },
-	}).data$;
+	listAllDefinitions$ = of([]);
+
+	// this.apiSrv.query({
+	// 	query: gql`
+	// 		query MyQuery($limit: Int, $filter: ModelPropertyDefinitionFilterInput) {
+	// 			listPropertyDefinitions(limit: $limit, filter: $filter) {
+	// 				items {
+	// 					id
+	// 					label
+	// 					name
+	// 					type
+	// 					selectorSettings {
+	// 						canCreate
+	// 						multiple
+	// 						propertyOptionType
+	// 						type
+	// 					}
+	// 					hint
+	// 					deleted
+	// 				}
+	// 			}
+	// 		}
+	// 	`,
+	// 	variables: { limit: 1000, filter: { deleted: { ne: true } }, fetchPolicy: 'network-only' },
+	// }).data$;
 
 // 	listDescriptors$ = this.apiSrv.query({
 // 		query: gql`
@@ -95,7 +97,7 @@ export class DescriptorSeederService {
 		// .subscribe((definitions: any) => {
 		// const definitions = resp.data.listPropertyDefinitions.items;
 		definitions.map(item =>
-			this.apiSrv.delete('PropertyDefinition', { id: item.id }).pipe(first()).toPromise()
+			this.apiLibSrv.db.delete('PropertyDefinition', [{ id: item.id }]).pipe(first()).toPromise()
 		);
 		return await Promise.all(definitions);
 		// });
@@ -138,14 +140,15 @@ export class DescriptorSeederService {
 			selectorSettings,
 			hint,
 		};
-		return this.apiSrv
-			.create<Entity>('PropertyDefinition', propertyDefinition as Entity)
+		return this.apiLibSrv
+			.db
+			.create('PropertyDefinition', [propertyDefinition])
 			.pipe(first())
 			.toPromise();
 	}
 
 	private _createDescriptor(sections: any[], type, name): Promise<any> {
 		const productDescriptor = { sections, type, name };
-		return this.apiSrv.create('Descriptor', productDescriptor as Entity).pipe(first()).toPromise();
+		return this.apiLibSrv.db.create('Descriptor', [productDescriptor]).pipe(first()).toPromise();
 	}
 }

@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
 import { ProductService } from '~core/erm';
 import { TeamService } from '~core/erm';
-import { ApiService } from '~core/erm3/services/api.service';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 import { Typename } from '~core/erm3/typename.type';
 import { SelectorComponent } from '~shared/selectors';
@@ -26,7 +25,8 @@ export class SelectorPageComponent implements OnInit {
 	entitySelected: any;
 	triggerType: 'badge' | 'button' = 'badge';
 
-	constructor(private propertyOptionSrv: PropertyOptionsService, private apiSrv: ApiService) { }
+
+	constructor(private propertyOptionSrv: PropertyOptionsService) { }
 
 	ngOnInit() {
 		// this.propertyOptionSrv.listPropertyOptions('Color').subscribe(data => {

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RatingService } from '~shared/rating/services/rating.service';
@@ -47,7 +47,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
 		private ratingSrv: RatingService,
@@ -64,7 +64,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.product$ = id$.pipe(
-			switchMap(id => this.apiSrv.get('Product', id).data$),
+			switchMap(id => this.apiLibSrv.db.get('Product', id)),
 			takeUntil(this._destroy$)
 		);
 
@@ -128,22 +128,25 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		this.apiSrv
-			.update('Product', { id: this.product.id, status: { id: statusId } })
+		this.apiLibSrv
+			.db
+			.update('Product', [{ id: this.product.id, status: { id: statusId } } as any])
 			.subscribe();
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		this.apiSrv
-			.update('Product', { id: this.product.id, favorite: true })
+		this.apiLibSrv
+			.db
+			.update('Product', [{ id: this.product.id, favorite: true } as any])
 			.subscribe();
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		this.apiSrv
-			.update('Product', { id: this.product.id, favorite: false })
+		this.apiLibSrv
+			.db
+			.update('Product', [{ id: this.product.id, favorite: false } as any])
 			.subscribe();
 	}
 
@@ -159,8 +162,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(product: Product) {
-		this.apiSrv
-			.update('Product', { id: this.product.id, ...product })
+		this.apiLibSrv
+			.db
+			.update('Product', [{ id: this.product.id, ...product } as any])
 			.subscribe();
 	}
 

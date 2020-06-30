@@ -5,7 +5,7 @@ import { debounce, filter, map, switchMap, tap } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
-import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
+import { ApiLibService } from '~core/api-lib';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -23,7 +23,7 @@ import { ExcludedService } from './excluded.service';
  */
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
-	private queryRef: ObservableQuery<G[]>;
+	private queryRef: any;
 	private typename: Typename;
 	private _fuse$ = new Subject();
 	private _pending$ = new BehaviorSubject(true);
@@ -37,7 +37,7 @@ export class ListFuseHelperService<G = any> {
 		keys: [],
 		shouldSort: true,
 		includeScore: true,
-		threshold: 0.5, // 0 = full match
+		threshold: 0, // 0 = full match
 		location: 0,
 		distance: 100,
 		minMatchCharLength: 1,
@@ -45,7 +45,7 @@ export class ListFuseHelperService<G = any> {
 
 	constructor(
 		private selectionSrv: SelectionService,
-		private apiSrv: ApiService,
+		private apiLibSrv: ApiLibService,
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
@@ -68,13 +68,13 @@ export class ListFuseHelperService<G = any> {
 		typename: Typename,
 		byProperty: string = 'Team',
 		byId: string = TeamService.teamSelected.teamId,
-		queryOptions: ApiQueryOption = {}
+		queryOptions: any = {}
 	) {
 		byId = byId || TeamService.teamSelected.id;
 		this.typename = typename;
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
 		queryOptions.variables = { filter: this.filterSrv.queryArg };
-		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
+		// this.queryRef = this.apiLibSrv.db.find(typename, byProperty, byId, queryOptions); // TODO: setup query ref
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
 		// when we update the query, datas it will reasign fuse
 		this.queryRef.data$.subscribe((datas) => {
@@ -96,7 +96,7 @@ export class ListFuseHelperService<G = any> {
 			if (searchValue) return of(fuse.search(searchValue.value).map((data) => data.item));
 			else return this.queryRef.data$;
 		}),
-		map(items => {
+		map((items: any) => {
 			return items.filter(item => !this.excludedSrv.excludedIds.includes((item as any).id));
 		}),
 		tap((searchedDatas) => {
@@ -141,14 +141,14 @@ export class ListFuseHelperService<G = any> {
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => this.apiSrv.create(this.typename, entity)),
-				tap((entity) => this.apiSrv.addToList(this.queryRef, entity))
+				switchMap((entity) => this.apiLibSrv.db.create(this.typename, [entity])),
+				// tap((entity) => this.apiSrv.addToList(this.queryRef, entity))
 			)
 			.subscribe();
 	}
 
-	update(entity: any, options?: any, typename?: Typename) {
-		this.apiSrv.update(typename || this.typename, entity, options).subscribe();
+	update(entity: any, typename?: Typename) {
+		this.apiLibSrv.db.update(typename || this.typename, entity).subscribe();
 	}
 
 	updateProperties(entityId: string, propertyName: string, properties: any | string) {
@@ -171,12 +171,14 @@ export class ListFuseHelperService<G = any> {
 			propertiesToUpdate = properties;
 		}
 
-		this.apiSrv.update(this.typename, { id: entityId,
-			properties: [{
-				name: propertyName,
-				value: JSON.stringify(propertiesToUpdate)
-			}]
-		}).subscribe();
+		this.apiLibSrv.db.update(this.typename, [
+			{
+				id: entityId,
+				propertiesMap: { // should be checked with BE api
+					[propertyName]: JSON.stringify(propertiesToUpdate)
+				}
+			} as any
+		]).subscribe();
 	}
 
 	getProperty(propertyName, properties) {
@@ -189,14 +191,14 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		this.apiSrv.delete(this.typename, entity).subscribe((_) => {
-			this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
+		this.apiLibSrv.db.delete(this.typename, entity).subscribe((_) => {
+			// this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
 		});
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		this.apiSrv.updateMany(this.typename, selected.map(ent => ({ id: ent.id, ...entity})))
+		this.apiLibSrv.db.update(this.typename, selected.map(ent => ({ id: ent.id, ...entity})))
 			.pipe(
 				switchMap(_ => this.refetch())
 			).subscribe();
@@ -206,12 +208,12 @@ export class ListFuseHelperService<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => this.apiSrv.deleteMany(this.typename, selecteds)))
+			.data$.pipe(switchMap((_) => this.apiLibSrv.db.delete(this.typename, selecteds)))
 			.subscribe((_) => {
-				this.apiSrv.deleteManyFromList(
-					this.queryRef,
-					selecteds.map((el) => el.id)
-				);
+				// this.apiSrv.deleteManyFromList(
+				// 	this.queryRef,
+				// 	selecteds.map((el) => el.id)
+				// );
 				this.selectionSrv.unselectAll();
 			});
 	}
