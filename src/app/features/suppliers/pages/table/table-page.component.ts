@@ -42,7 +42,6 @@ export class TablePageComponent implements OnInit {
 	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
-		public paginationSrv: PaginationService,
 		public sortSrv: SortService,
 		public filterSrv: FilterService,
 		public listHelper: ListHelper2Service,

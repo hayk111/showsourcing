@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~core/erm';
 import { ListHelper2Service } from '~core/list-page2';

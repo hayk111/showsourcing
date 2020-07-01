@@ -5,6 +5,7 @@ import { Product } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?

@@ -23,7 +23,7 @@
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
+	(showItemsPerPage)="paginationSrv.setLimit($event)">
 </products-table-app>
 
 <product-selection-bar-app>
