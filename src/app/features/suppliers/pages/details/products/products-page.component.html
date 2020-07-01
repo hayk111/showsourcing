@@ -17,7 +17,7 @@
 	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	(createClick)="listHelper.create({ supplier: supplier })"
+	(createClick)="listHelper.openCreationDialog({ supplier: supplier })"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"

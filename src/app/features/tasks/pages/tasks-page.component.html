@@ -6,7 +6,7 @@
 	info="Task management"
 	[title]="'title.my-tasks' | translate"
 	[buttonName]="'button.create-task' | translate"
-	(buttonClick)="listHelper.create()">
+	(buttonClick)="listHelper.openCreationDialog()">
 </header-list-app>
 
 <controller-table-app [total]="listHelper.total$ | async">
@@ -31,7 +31,7 @@
 	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listHelper.delete($event)"
-	(createClick)="listHelper.create()">
+	(createClick)="listHelper.openCreationDialog()">
 </task-table-app>
 
 <task-selection-bar-app
