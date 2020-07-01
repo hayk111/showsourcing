@@ -123,11 +123,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.projectProductSrv.refetch();
 	}
 
-	updateProductProperty(ev: any) {
-		this.listHelper.updateProperties(ev.entityId, ev.entityType, ev.value);
-		this.projectProductSrv.refetch();
-	}
-
 	/**
 	 * Deassociate the product from the current project
 	 */

@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import { ERM, Product, SelectParamsConfig } from '~core/erm';
+import { Product } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService, ListHelper2Service } from '~core/list-page2';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
-import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
-import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -55,8 +52,8 @@ export class TablePageComponent implements OnInit {
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
+		this.listHelper.setup('Product');
 	}
 
 	addProject() {

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { api } from 'lib';
-import { Entity } from '~core/erm3/models/_entity.model';
 import {
 	MutationOptions,
-	WatchQueryOptions,
+	WatchQueryOptions
 } from 'apollo-client';
-import { Typename } from '~core/erm3/typename.type';
+import { api } from 'lib';
+import { Observable, of } from 'rxjs';
+import { TeamService } from '~core/auth';
+import { Entity } from '~core/erm3/models/_entity.model';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
 import { QueryType } from '~core/erm3/queries/query-type.enum';
-import { TeamService, UserService } from '~core/auth';
-import { Observable, of } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class PropertyOptionsService {
@@ -36,17 +35,17 @@ export class PropertyOptionsService {
 	}
 
 	createPropertyOption(
-		entity: { type: String, value: String } & Entity,
+		entity: any,
 		apiOptions = {}
 	): Observable<any> {
 		// const options = apiOptions as MutationOptions;
-		return api['PropertyOption'].create([entity]);
+		return api.PropertyOption.create([entity]);
 	}
 
 	deletePropertyOption(
-		entity: { type: String, value: String } & Entity,
+		entity: any,
 		apiOptions = {}) {
 		const options = apiOptions as MutationOptions;
-		return api['PropertyOption'].delete([entity]);
+		return api.PropertyOption.delete([entity]);
 	}
 }

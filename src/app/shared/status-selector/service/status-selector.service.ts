@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { api } from 'lib';
+import { api, Typename } from 'lib';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WorkflowStatus } from '~core/erm3/models';
 import { ListHelper2Service } from '~core/list-page2';
 
-export type StatusCol = 'Product' | 'Supplier' | 'Task' | 'Sample';
 
 @Injectable({
 	providedIn: 'root',
@@ -18,7 +17,7 @@ export class StatusSelectorService {
 	private _listStatus$ = new ReplaySubject<WorkflowStatus[]>();
 	listStatus$ = this._listStatus$.asObservable();
 	listStatus: WorkflowStatus[];
-	private collection: StatusCol;
+	private typename: Typename;
 
 	constructor(private listHelper: ListHelper2Service) {
 		this.listStatus$.subscribe(statuses => {
@@ -26,8 +25,8 @@ export class StatusSelectorService {
 		});
 	}
 
-	setupStatuses(collection: StatusCol) {
-		this.collection = collection;
+	setupStatuses(typename: Typename) {
+		this.typename = typename;
 		api.col('Product').statuses();
 	}
 

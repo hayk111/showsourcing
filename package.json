@@ -50,7 +50,6 @@
     "@angular/router": "^9.1.0",
     "@angular/service-worker": "9.1.0",
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
-    "@cedric_showsourcing/showsourcing-frontend-api": "0.0.35",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "angulartics2": "^7.5.2",
@@ -72,6 +71,7 @@
     "npm": "^6.4.1",
     "realm-graphql-client": "^1.4.0",
     "rxjs": "^6.4.0",
+    "showsourcing-api-lib": "0.0.41",
     "subscriptions-transport-ws": "^0.9.14",
     "uuid": "^3.2.1",
     "zone.js": "^0.10.3"

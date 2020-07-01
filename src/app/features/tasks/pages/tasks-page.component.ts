@@ -1,20 +1,12 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { TasksTableComponent } from '~common/tables/tasks-table/tasks-table.component';
 import {
 	ERM,
-	SelectParamsConfig,
-	Task,
-	TaskService,
-	UserService
+	SelectParamsConfig
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { DialogService } from '~shared/dialog';
 import { FilterService, FilterType } from '~core/filters';
-import { AutoUnsub } from '~utils';
-import { SelectionService, ListHelper2Service, ListPageViewService } from '~core/list-page2';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'tasks-page-app',

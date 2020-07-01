@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { api, Collection } from 'lib';
+import { Injectable, NgZone } from '@angular/core';
+import { api, ISearchOptions, Typename, IApiResponse } from 'lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, share } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -18,13 +18,15 @@ import { SelectionService } from './selection.service';
  */
 @Injectable({ providedIn: 'root' })
 export class ListHelper2Service<G = any> {
-	data$: Observable<any[]>;
-	private collection: Collection;
+	private _data$ = new BehaviorSubject([]);
+	data$ = this._data$.asObservable();
+
+	private typename: Typename;
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
-	private _total$ = new Subject<number>();
-	private _total: number;
+	private _total$ = new BehaviorSubject<number>(0);
+	total: number;
 	total$ = this._total$.asObservable();
 
 	constructor(
@@ -32,63 +34,77 @@ export class ListHelper2Service<G = any> {
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
-		private sortSrv: SortService
+		private sortSrv: SortService,
+		private zone: NgZone
 	) {
 		// When the total change, we setup pagination
 		this.total$.pipe().subscribe((total) => {
-			this._total = total;
+			this.total = total;
 			this.paginationSrv.setupTotal(total);
 		});
 	}
 
+	/**
+	 * @param typename the collection used for update and mutations
+	 * @param componentDestroy$ tells the service to stop listening when the component is destroyed
+	 * if it's a global list you don't have to specify it
+	 */
 	setup(
-		collection: Collection,
+		typename: Typename,
+		componentDestroy$?: Observable<any>,
+		findFn?: (options: ISearchOptions) => IApiResponse,
 	) {
-		this.collection = collection;
-		const service = api.col(collection as any);
-		this.data$ = combineLatest(
+		componentDestroy$ = componentDestroy$ || new Subject();
+		findFn = findFn || ((options: ISearchOptions) => api[typename].find(options));
+		this.typename = typename;
+		const reactiveFind = combineLatest(
 			this.filterSrv.valueChanges$,
-			this.paginationSrv.page$,
-			this.paginationSrv.limit$,
+			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			switchMap(([filter, page, limit, sort]) => service.find(filter, sort, { page, limit }).data$)
+			map(([filter, pagination, sort]) => findFn({ filter: filter.queryArgs, sort, pagination })),
 		);
+		// data
+		reactiveFind.pipe(
+			switchMap(result => result.data$),
+			tap(_ => this._pending$.next(false)),
+			takeUntil(componentDestroy$),
+		).subscribe(data => this._data$.next(data));
+		// total
+		reactiveFind.pipe(
+			switchMap(result => result.count$),
+			takeUntil(componentDestroy$),
+		).subscribe(count => this._total$.next(count));
 	}
 
-	create(addedProperties: any = {}) {
+	openCreationDialog(addedProperties: any = {}) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
-				typename: this.collection,
+				typename: this.typename,
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => api.col(this.collection).create([entity])),
-			)
-			.subscribe();
+				switchMap((entity) => api[this.typename].create([entity])),
+			).subscribe();
 	}
 
-	update(entity: any, collection?: Collection) {
-		api.col(collection || this.collection).update([entity]).subscribe();
+	update(entity: any, typename?: Typename) {
+		api[typename || this.typename].update([entity]).subscribe();
 	}
 
-	updateProperties(entityId: string, propertyName: string, properties: any | string) {
-		throw Error('deprecated');
+	updateProperties(...args: any) {
+		throw Error(`This is still here because I don't want to fix all compilation error, but it needs to be fixed where used.`);
 	}
 
-	getProperty(propertyName, properties) {
-		throw Error('deprecated');
-	}
-
-	delete(entity: any, collection?: Collection) {
+	delete(entity: any, typename?: Typename) {
 		const { id, teamId } = entity;
-		api.col(collection || this.collection).delete([{ id }])
+		api[typename || this.typename].delete([{ id }])
 			.subscribe();
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		return api.col(this.collection).update(
+		return api[this.typename].update(
 			selected.map(ent => ({ id: ent.id, ...entity}))
 		);
 	}
@@ -97,7 +113,7 @@ export class ListHelper2Service<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => api.col(this.collection).delete(selecteds as any)))
+			.data$.pipe(switchMap((_) => api[this.typename].delete(selecteds as any)))
 			.subscribe((_) => {
 				this.selectionSrv.unselectAll();
 			});

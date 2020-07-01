@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Company } from '~core/erm3/models';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
-import { api } from 'lib';
+import { api, Company } from 'lib';
 
 @Injectable({
 	providedIn: 'root'
@@ -42,7 +41,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return api['Company'].create([ company as any ]).pipe(
+		return api.Company.create(company).pipe(
 			tap(_ => this._company$.next(company)),
 			switchMap(_ => this.queryAll.refetch())
 		);

@@ -2,18 +2,10 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
-	OnInit,
 	Output
 } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import {
-	first,
-	map,
-	mergeMap,
-	startWith,
-	takeUntil,
-	tap
-} from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import {
 	ERM,
@@ -23,15 +15,15 @@ import {
 	SampleStatusService,
 	UserService
 } from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
 import { DialogService } from '~shared/dialog';
-import { FilterList, FilterType } from '~shared/filters';
+import { FilterList } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { StatusUtils } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'samples-board-app',
@@ -39,7 +31,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	styleUrls: ['./samples-board.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SamplesBoardComponent extends AutoUnsub implements OnInit {
+export class SamplesBoardComponent extends AutoUnsub {
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Sample>();
 	@Output() unselectOne = new EventEmitter<Sample>();
@@ -52,7 +44,6 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
-		private listSrv: ListPageService<Sample, SampleService>,
 		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public kanbanSelectionSrv: KanbanSelectionService,
@@ -62,9 +53,6 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 		private selectionSrv: SelectionService
 	) {
 		super();
-	}
-
-	ngOnInit() {
 	}
 
 	loadMore(col: KanbanColumn) {

@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-	EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+	EventEmitter, Input, OnInit, Output, ViewChild
+} from '@angular/core';
 import { Router } from '@angular/router';
-import {Observable} from 'rxjs';
+import { api } from 'lib';
+import { Observable } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
@@ -9,13 +12,12 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
 import { Product, Vote } from '~core/erm3/models';
-import { api } from 'lib';
-import { ListHelperService, ListHelper2Service } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
-import { AutoUnsub, PendingImage } from '~utils';
 import { RatingService } from '~shared/rating/services/rating.service';
+import { AutoUnsub, PendingImage } from '~utils';
 
 @Component({
 	selector: 'product-preview-app',

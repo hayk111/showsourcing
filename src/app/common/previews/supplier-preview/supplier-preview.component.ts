@@ -10,7 +10,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { AppImage, Comment, CommentService, ERM } from '~core/erm';
 import { Supplier, Vote } from '~core/erm3/models';
 import { api } from 'lib';
-import { ListHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
@@ -54,7 +54,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
 
 	constructor(
-		private listHelper: ListHelperService,
+		private listHelper: ListHelper2Service,
 		private commentSrv: CommentService,
 		private previewSrv: PreviewService,
 		private router: Router,
@@ -76,7 +76,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	// UPDATE FUNCTIONS
 	updateSupplier(supplierConfig: Supplier) {
 		const supplier = { ...supplierConfig, id: this.supplier.id };
-		this.listHelper.update(supplier);
+		api.Supplier.update(supplier as any);
 		this._supplier = supplier;
 	}
 

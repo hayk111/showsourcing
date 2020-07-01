@@ -49,8 +49,8 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	create() {
-		this.listHelper.create();
-		// this.listHelper.create({
+		this.listHelper.openCreationDialog();
+		// this.listHelper.openCreationDialog({
 		// 	assigneeId: this.userSrv.userId
 		// });
 	}

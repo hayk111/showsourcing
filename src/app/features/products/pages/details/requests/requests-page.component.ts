@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ListPageService } from '~core/list-page';
+import { ListHelper2Service } from '~core/list-page2';
 import { ProductService, SupplierRequestService } from '~core/erm';
 import { ERM, Product, SupplierRequest } from '~core/erm';
 import { AutoUnsub } from '~utils';
@@ -14,7 +14,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./requests-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListHelper2Service
 	]
 })
 export class RequestsPageComponent extends AutoUnsub implements OnInit {
@@ -28,7 +28,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		protected requestSrv: SupplierRequestService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
+		public listSrv: ListHelper2Service,
 		private productSrv: ProductService
 	) {
 		super();
@@ -40,13 +40,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		id$.subscribe(id => {
-			this.listSrv.setup({
-				entitySrv: this.requestSrv,
-				selectParams: { sortBy: 'title', query: `requestElements.targetedEntityType == "Product" && requestElements.targetId == "${id}"` },
-				entityMetadata: ERM.SUPPLIER_REQUEST,
-				searchedFields: ['title'],
-				originComponentDestroy$: this._destroy$
-			});
+			// this.listSrv.setup('Quote');
 		});
 
 		id$.pipe(
