@@ -7,7 +7,7 @@ import { ListHelper2Service, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils';
-import { api } from '@cedric_showsourcing/showsourcing-frontend-api';
+import { api } from 'lib';
 
 @Component({
 	selector: 'files-page-app',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { api, Collection, SearchOptions } from 'lib';
+import { api, ISearchOptions, Typename } from 'lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
@@ -19,7 +19,7 @@ import { SelectionService } from './selection.service';
 @Injectable({ providedIn: 'root' })
 export class ListHelper2Service<G = any> {
 	data$: Observable<any[]>;
-	private collection: Collection;
+	private typename: Typename;
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
@@ -42,17 +42,17 @@ export class ListHelper2Service<G = any> {
 	}
 
 	/**
-	 * @param collection the collection used for update and mutations
+	 * @param typename the collection used for update and mutations
 	 * @param componentDestroy$ tells the service to stop listening when the component is destroyed
 	 * if it's a global list you don't have to specify it
 	 */
 	setup(
-		collection: Collection,
+		typename: Typename,
 		componentDestroy$?: Observable<any>,
-		findFn?: (options: SearchOptions) => { data$: Observable<any[]> },
+		findFn?: (options: ISearchOptions) => { data$: Observable<any[]> },
 	) {
-		findFn = findFn || api[collection].find;
-		this.collection = collection;
+		findFn = findFn || api[typename].find;
+		this.typename = typename;
 		this.data$ = combineLatest(
 			this.filterSrv.valueChanges$,
 			this.paginationSrv.pagination$,
@@ -66,31 +66,31 @@ export class ListHelper2Service<G = any> {
 	openCreationDialog(addedProperties: any = {}) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
-				typename: this.collection,
+				typename: this.typename,
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => api[this.collection].create([entity])),
+				switchMap((entity) => api[this.typename].create([entity])),
 			).subscribe();
 	}
 
-	update(entity: any, collection?: Collection) {
-		api[collection || this.collection].update([entity]).subscribe();
+	update(entity: any, typename?: Typename) {
+		api[typename || this.typename].update([entity]).subscribe();
 	}
 
 	updateProperties(...args: any) {
 		throw Error(`This is still here because I don't want to fix all compilation error, but it needs to be fixed where used.`);
 	}
 
-	delete(entity: any, collection?: Collection) {
+	delete(entity: any, typename?: Typename) {
 		const { id, teamId } = entity;
-		api[collection || this.collection].delete([{ id }])
+		api[typename || this.typename].delete([{ id }])
 			.subscribe();
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		return api[this.collection].update(
+		return api[this.typename].update(
 			selected.map(ent => ({ id: ent.id, ...entity}))
 		);
 	}
@@ -99,7 +99,7 @@ export class ListHelper2Service<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => api[this.collection].delete(selecteds as any)))
+			.data$.pipe(switchMap((_) => api[this.typename].delete(selecteds as any)))
 			.subscribe((_) => {
 				this.selectionSrv.unselectAll();
 			});

@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Collection } from 'lib';
 import { ListQuery } from '~core/erm';
-import { Typename } from '~core/erm3/typename.type';
 import { Filter, FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { AutoUnsub } from '~utils';
-import { api } from 'lib';
+import { Typename } from 'lib';
 
 
 export function filterTypeToTypename(type: FilterType): Typename {
@@ -51,7 +49,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	listResult: ListQuery<any>;
 	/** Different choices that are displayed in the view */
 	choices$: Observable<any[]>;
-	private typename: Collection;
+	private typename: Typename;
 	private isLocalList: boolean;
 
 

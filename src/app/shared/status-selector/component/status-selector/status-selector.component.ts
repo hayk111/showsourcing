@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } 
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
-import { Collection } from 'lib';
+import { Typename } from 'lib';
 
 @Component({
 	selector: 'status-selector-app',
@@ -14,14 +14,14 @@ import { Collection } from 'lib';
 })
 export class StatusSelectorComponent extends AutoUnsub {
 	/** Its always going to be a Product | Sample | Supplier | Task */
-	private _collection: Collection;
+	private _typename: Typename;
 	@Input()
-	public set collection(collection: Collection) {
-		this.statusSrv.setupStatuses(collection);
-		this._collection = collection;
+	public set typename(typename: Typename) {
+		this.statusSrv.setupStatuses(typename);
+		this._typename = typename;
 	}
-	public get collection(): Collection {
-		return this._collection;
+	public get typename(): Typename {
+		return this._typename;
 	}
 
 	@Input() entity: any = {}; // the entity can be optional => for the mass update

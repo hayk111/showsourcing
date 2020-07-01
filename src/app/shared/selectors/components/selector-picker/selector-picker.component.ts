@@ -17,7 +17,7 @@ import { PropertyOptionsService } from '~shared/selectors/services/property-opti
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ID } from '~utils';
-import { Collection } from 'lib';
+import { Typename } from 'lib';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -31,7 +31,7 @@ import { Collection } from 'lib';
 	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
-	@Input() typename: Collection;
+	@Input() typename: Typename;
 	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
