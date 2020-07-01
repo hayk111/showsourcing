@@ -64,11 +64,11 @@ export const routes: Array<Route> = [
 			// 	loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule',
 			// 	canActivate: [ClientReadyGuard]
 			// },
-			// {
-			// 	path: 'suppliers',
-			// 	loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule',
-			// 	canActivate: [ClientReadyGuard]
-			// },
+			{
+				path: 'suppliers',
+				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule',
+				canActivate: [ClientReadyGuard]
+			},
 			// {
 			// 	path: 'settings',
 			// 	loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule',

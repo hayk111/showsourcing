@@ -4,6 +4,8 @@ import { SuppliersTableComponent } from '~common/tables/suppliers-table/supplier
 import { FilterService } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { FilterType } from '~shared/filters';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { SortService } from '~shared/table/services/sort.service';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -40,6 +42,8 @@ export class TablePageComponent implements OnInit {
 	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
+		public paginationSrv: PaginationService,
+		public sortSrv: SortService,
 		public filterSrv: FilterService,
 		public listHelper: ListHelper2Service,
 		public dialogCommonSrv: DialogCommonService,

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { api, ISearchOptions, Typename } from 'lib';
+import { Injectable, NgZone } from '@angular/core';
+import { api, ISearchOptions, Typename, IApiResponse } from 'lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, share } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -18,12 +18,14 @@ import { SelectionService } from './selection.service';
  */
 @Injectable({ providedIn: 'root' })
 export class ListHelper2Service<G = any> {
-	data$: Observable<any[]>;
+	private _data$ = new BehaviorSubject([]);
+	data$ = this._data$.asObservable();
+
 	private typename: Typename;
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
-	private _total$ = new Subject<number>();
+	private _total$ = new BehaviorSubject<number>(0);
 	total: number;
 	total$ = this._total$.asObservable();
 
@@ -32,7 +34,8 @@ export class ListHelper2Service<G = any> {
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
-		private sortSrv: SortService
+		private sortSrv: SortService,
+		private zone: NgZone
 	) {
 		// When the total change, we setup pagination
 		this.total$.pipe().subscribe((total) => {
@@ -49,19 +52,29 @@ export class ListHelper2Service<G = any> {
 	setup(
 		typename: Typename,
 		componentDestroy$?: Observable<any>,
-		findFn?: (options: ISearchOptions) => { data$: Observable<any[]> },
+		findFn?: (options: ISearchOptions) => IApiResponse,
 	) {
 		componentDestroy$ = componentDestroy$ || new Subject();
-		findFn = findFn || api[typename].find;
+		findFn = findFn || ((options: ISearchOptions) => api[typename].find(options));
 		this.typename = typename;
-		this.data$ = combineLatest(
+		const reactiveFind = combineLatest(
 			this.filterSrv.valueChanges$,
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			switchMap(([filter, pagination, sort]) => findFn({ filter, sort, pagination }).data$),
-			takeUntil(componentDestroy$)
+			map(([filter, pagination, sort]) => findFn({ filter: filter.queryArgs, sort, pagination })),
 		);
+		// data
+		reactiveFind.pipe(
+			switchMap(result => result.data$),
+			tap(_ => this._pending$.next(false)),
+			takeUntil(componentDestroy$),
+		).subscribe(data => this._data$.next(data));
+		// total
+		reactiveFind.pipe(
+			switchMap(result => result.count$),
+			takeUntil(componentDestroy$),
+		).subscribe(count => this._total$.next(count));
 	}
 
 	openCreationDialog(addedProperties: any = {}) {

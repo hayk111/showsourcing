@@ -32,7 +32,7 @@
 	</header-nav-app>
 </header-details-app>
 
-<controller-table-app [total]="listHelper.total$ | async" class="spacing-ms" [hasFilters]="false">
+<controller-table-app class="spacing-ms" [hasFilters]="false">
 	<controller-table-content-app>
 		<button class="capitalize" (click)="listHelper.openCreationDialog()">
 			{{ 'button.create-' + typename.toLowerCase() | translate }}

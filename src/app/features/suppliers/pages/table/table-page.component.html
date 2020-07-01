@@ -16,7 +16,7 @@
 </controller-table-app>
 
 <suppliers-table-app
-	[rows]="listHelper.paginedItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	(open)="viewSrv.goToDetails($event)"

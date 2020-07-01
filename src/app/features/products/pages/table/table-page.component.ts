@@ -51,8 +51,8 @@ export class TablePageComponent implements OnInit {
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
+		this.listHelper.setup('Product');
 	}
 
 	addProject() {
