@@ -25,7 +25,7 @@
 			</editable-container-app>
 			<!-- info title -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
-				<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="ratingClicked.emit()"></rating-badge-app>
+				<rating-badge-app class="pointer"	[score]="product?.score" [hasNumber]="true" (click)="ratingClicked.emit()"></rating-badge-app>
 				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ ((product?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
 				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ ((product?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
 				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ ((product?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
@@ -67,7 +67,7 @@
 									<div class="flex dot-separator">
 										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
 										<div *ngIf="supplier?.country">{{ supplier?.country | const: 'country' }}</div>
-										<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+										<rating-badge-app	[score]="supplier?.score" [activeColor]="'primary'"></rating-badge-app>
 									</div>
 								</div>
 								<button class="eye-icon icon light action-hover-item-0">

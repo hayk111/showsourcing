@@ -5,8 +5,8 @@ import { WorkflowStatus } from './workflow-status.model';
 
 export class Supplier extends Entity<Supplier> {
 	__typename?: Typename = 'Supplier';
-	favorite? = false;
-	archived? = false;
+	favorite ? = false;
+	archived ? = false;
 
 	id?: string;
 	teamId?: string;
@@ -28,6 +28,7 @@ export class Supplier extends Entity<Supplier> {
 	generalLeadTime?: number | null;
 	globalDatabaseId?: string | null;
 	reference?: string | null;
+	score?: number | null;
 	referenceKey?: number | null;
 	images?: any;
 	comments?: any;

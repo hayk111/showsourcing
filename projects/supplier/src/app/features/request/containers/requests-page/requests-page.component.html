@@ -13,11 +13,6 @@
 
 <request-table-sup
 	class="no-padding"
-	[rows]="listSrv.items$ | async"
-	[pending]="listSrv.pending"
-	[selection]="selectionSrv.selection$ | async"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
@@ -27,7 +22,5 @@
 </request-table-sup>
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
 	(close)="selectionSrv.unselectAll()">
 </selection-bar-app>

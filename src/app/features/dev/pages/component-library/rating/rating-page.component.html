@@ -3,15 +3,13 @@
 	<p class="endline">
 		You have to give an array of votes in the [votes] input
 	</p>
-	<rating-stars-score-view-app
-		[votes]="mockProd?.votes">
+	<rating-stars-score-view-app [userVote]="userVote">
 	</rating-stars-score-view-app>
 </card-app>
 
 <card-app>
 	<h3 class="l">Rating Star Action </h3>
-	<rating-stars-action-app
-		[votes]="mockProd?.votes">
+	<rating-stars-action-app [userVote]="userVote">
 	</rating-stars-action-app>
 </card-app>
 

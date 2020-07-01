@@ -52,13 +52,14 @@
 					#eca
 					class="full-width"
 					[hasAction]="false"
-					(click)="sel.openMenu()">
+					(click)="sel.openMenu($event)">
 					<editable-value-app>
 						<selector-app
 							#sel
 							typename="PropertyOption"
 							customType="category"
 							[hasPicker]="canUpdate"
+							[leftSideOrientation]="true"
 							[canCreate]="true"
 							[width]="370"
 							(menuClosed)="eca.close()"

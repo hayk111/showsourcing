@@ -40,13 +40,7 @@ export class CdkOverlayComponent implements OnInit {
 			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
 		];
 		this.cdkConnectedOverlay.positions = this.leftSideOrientation ? positions.reverse() : positions;
-		this.cdkConnectedOverlay.positionChange.pipe(first()).subscribe(posChange => {
-			// when its upside down we eliminate the offsets
-			if (posChange.connectionPair.overlayY === 'bottom') {
-				this.cdkConnectedOverlay.offsetY = 0;
-				this.cdkConnectedOverlay.offsetX = 0;
-			}
-			this.cdkConnectedOverlay.overlayRef.updatePosition();
-		});
 	}
+
+
 }
