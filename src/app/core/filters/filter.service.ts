@@ -29,7 +29,7 @@ export class FilterService {
 	private _valueChanges$ = new BehaviorSubject<any>(this);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** default state */
-	startFilters: any = [{ property: FilterType.DELETED, isTrue: false }];
+	startFilters: any = [{ type: FilterType.DELETED, isTrue: false }];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */
@@ -57,6 +57,7 @@ export class FilterService {
 		this.valuesByType = this.converter.valuesByType(this.filters);
 		this.filtersByType = this.converter.filtersByType(this.filters);
 		this.queryArg = this.converter.filtersToQueryArg(this.filters);
+		console.log('FilterService -> setFilters -> this.queryArg', this.queryArg);
 		this._valueChanges$.next(this.queryArg);
 	}
 

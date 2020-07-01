@@ -56,7 +56,7 @@ export class FilterConverter {
 		filters.forEach(filter => {
 			const secondKey = Object.keys(filter)[1];
 			and.push({
-				property: (filter as any).property,
+				property: (filter as any).property || (filter as any).type,
 				[secondKey]: filter[secondKey]
 			});
 		});

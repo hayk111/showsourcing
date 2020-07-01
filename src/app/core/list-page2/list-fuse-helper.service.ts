@@ -45,7 +45,7 @@ export class ListFuseHelperService<G = any> {
 		collection: Collection,
 	) {
 		this.collection = collection;
-		const service = api.col(this.collection);
+		const service = api[this.collection];
 		this.data$ = combineLatest(
 			this.filterSrv.valueChanges$,
 			this.paginationSrv.page$,
@@ -53,7 +53,6 @@ export class ListFuseHelperService<G = any> {
 			this.sortSrv.sort$
 		).pipe(
 			switchMap(([filter, page, limit, sort]) => {
-				console.log('ListFuseHelperService<G -> sort', sort);
 				return service.find(filter, sort, { page, limit }).data$;
 			}),
 			tap(data => {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { UserService } from '~core/auth';
@@ -15,6 +15,8 @@ import { AutoUnsub } from '~utils';
 export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	@Input() typename: Typename;
 	@Input() items: any[];
+
+	choiceSelected: string;
 
 	// object to specify which field must be updated with which value.
 	toUpdate: { callback: string; property: string; value: any };
@@ -46,10 +48,11 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	propertySelected$ = new Subject<any>();
 	propertySelected: any;
 	constructor(
-		private dlgSrv: DialogService,
-		private userSrv: UserService
+		public dlgSrv: DialogService,
+		private userSrv: UserService,
+		protected cdRef: ChangeDetectorRef
 	) {
-		super();
+		super(); ///
 	}
 
 	ngOnInit() {
@@ -59,6 +62,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 
 	/** Select a property to update */
 	setPropertySelected(itemSelected) {
+		this.choiceSelected = itemSelected.label;
 		this.propertySelected$.next(itemSelected);
 	}
 
