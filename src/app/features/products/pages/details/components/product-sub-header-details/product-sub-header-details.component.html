@@ -12,7 +12,7 @@
 				#edt
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
-				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxl" [primary]="true">
 					{{ product?.name || '-' }}
 				</editable-value-app>
 				<input
@@ -25,10 +25,15 @@
 			</editable-container-app>
 			<!-- info title -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
-				<rating-badge-app class="pointer"	[score]="product?.score" [hasNumber]="true" (click)="ratingClicked.emit()"></rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ ((product?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ ((product?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ ((product?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
+				<rating-badge-app 
+					class="pointer"	
+					[score]="product?.score" 
+					[hasNumber]="true" 
+					(click)="ratingClicked.emit()">
+				</rating-badge-app>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ (((samplesCount$ | async) || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ (((tasksCount$ | async) || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ (((commentsCount$ | async) || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
 			</div>
 		</div>
 
@@ -46,13 +51,14 @@
 			<editable-container-app
 				class="action-hover-container-0"
 				[hasAction]="false"
-				(click)="supplierSelector?.openMenu()">
+				(click)="supplierSelector?.openMenu($event, true)">
 				<editable-value-app>
 					<!-- Put this inside a component has a unique style tho -->
 					<selector-app
 						#supplierSelector
 						typename="Supplier"
 						[canCreate]="true"
+						[leftSideOrientation]="true"
 						[width]="370"
 						(update)="update($event, 'supplier')">
 						<editable-value-app>
@@ -91,6 +97,7 @@
 			<badge-selector-app
 				[badge]="'CATEGORY' | erm"
 				[value]="product?.category"
+				[leftSideOrientation]="true"
 				(update)="update($event, 'category')">
 			</badge-selector-app>
 		</section>

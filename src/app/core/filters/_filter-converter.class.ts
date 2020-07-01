@@ -56,7 +56,7 @@ export class FilterConverter {
 		filters.forEach(filter => {
 			const secondKey = Object.keys(filter)[1];
 			and.push({
-				property: (filter as any).property || (filter as any).type,
+				type: (filter as any).property || (filter as any).type,
 				[secondKey]: filter[secondKey]
 			});
 		});
@@ -68,13 +68,13 @@ export class FilterConverter {
 		const searchArg = { or: [] };
 		if (this.searchedFields.length === 1) {
 			return {
-				property: this.searchedFields[0],
+				type: this.searchedFields[0],
 				contains:  value.toLowerCase()
 			};
 		}
 		this.searchedFields.forEach(searchedField => {
 			searchArg.or.push({
-				property: searchedField,
+				type: searchedField,
 				contains:  value.toLowerCase()
 			});
 		});

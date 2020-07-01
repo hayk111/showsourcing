@@ -44,7 +44,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	}
 
 	updatePrice(product: Product, inputValue: any) {
-		console.log('ProductsTableComponent -> updatePrice -> product667', product, inputValue);
+		console.log('ProductsTableComponent -> updatePrice -> product88888', product, inputValue);
 		let currency;
 
 		if (inputValue.value && inputValue.value.value) {
@@ -56,7 +56,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		api.Product.update([{
 			id: product.id,
 			propertiesMap: {
-				doctor: 'Dre'
+				price: '3000'
 			}
 		}]).subscribe(updated => {
 			console.log('ProductsTableComponent -> updatePrice -> updated', updated);

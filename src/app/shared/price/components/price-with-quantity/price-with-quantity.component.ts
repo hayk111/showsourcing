@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Price, Product } from '~core/erm';
+import { Price, Product } from '~core/erm3';
 import { TrackingComponent } from '~utils/tracking-component';
 import {
 	RestrictInputDirective

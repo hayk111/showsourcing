@@ -11,7 +11,7 @@
 				<div class="capitalize pd-top-s pd-bottom-s">set price</div>
 			</ng-template>
 	</editable-value-app>
-	<input-price-app #inpPrice [value]="product?.price" (keyup.enter)="editablePrice.close()"></input-price-app>
+	<input-price-app #inpPrice [value]="product.propertiesMap.price" (keyup.enter)="editablePrice.close()"></input-price-app>
 </editable-container-app>
 
 <editable-container-app
@@ -22,9 +22,9 @@
 	(opened)="inputMOQ.select()"
 	(saved)="updateProductField(false, inputMOQ.value, 'minimumOrderQuantity')">
 	<editable-value-app>
-		<div *ngIf="product?.price?.value || product?.minimumOrderQuantity; else moqHolder" class="moq flexCenter">
-			{{ 'OBJ.min-pcs' | translate: { count : (product?.minimumOrderQuantity || 0)} }}
-			{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}}
+		<div *ngIf="product?.price?.value || product?.propertiesMap.minimumOrderQuantity; else moqHolder" class="moq flexCenter">
+			{{ 'OBJ.min-pcs' | translate: { count : (product?.propertiesMap.minimumOrderQuantity || 0)} }}
+			{{ product?.propertiesMap.moqDescription ? ' ' + product?.propertiesMap.moqDescription : ''}}
 		</div>
 		<ng-template #moqHolder>
 			<div class="capitalize pd-top-s pd-bottom-s">set MOQ</div>
@@ -33,7 +33,7 @@
 	<input inputApp
 		#inputMOQ
 		restrictInput="decimal"
-		[value]="product?.minimumOrderQuantity"
+		[value]="product?.propertiesMap.moqDescription"
 		type="number"
 		(keyup.enter)="editableMOQ.close();"/>
 </editable-container-app>

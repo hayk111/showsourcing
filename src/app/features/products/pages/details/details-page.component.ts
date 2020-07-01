@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { tap, map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { api } from 'lib';
@@ -64,6 +64,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 		this.product$ = id$.pipe(
 			switchMap(id => api.Product.get(id)),
+			tap(product => {
+				console.log('DetailsPageComponent -> ngOnInit -> product', product);
+			}),
 			takeUntil(this._destroy$)
 		) as any;
 

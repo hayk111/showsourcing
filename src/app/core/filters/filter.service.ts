@@ -67,12 +67,12 @@ export class FilterService {
 			return this.removeFilterType(by as FilterType);
 		}
 
-		const index = _.findIndex(this.filters, { property: 'name'} );
+		const index = _.findIndex(this.filters, { type: 'name'} );
 
 		if (index === -1) {
-			this.addFilter({ property: by, contains: value });
+			this.addFilter({ type: by, contains: value });
 		} else {
-			this.filters[index] = { property: by, contains: value } as any;
+			this.filters[index] = { type: by, contains: value } as any;
 			this.setFilters(this.filters);
 		}
 	}

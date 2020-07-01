@@ -69,7 +69,7 @@ export class ListFuseHelperService<G = any> {
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => api.col(this.collection).create([entity])),
+				switchMap((entity) => api[this.collection].create([entity])),
 			)
 			.subscribe();
 	}
@@ -97,13 +97,13 @@ export class ListFuseHelperService<G = any> {
 
 	delete(entity: any, collection?: Collection) {
 		const { id, teamId } = entity;
-		api.col(collection || this.collection).delete([{ id }])
+		api[collection || this.collection].delete([{ id }])
 			.subscribe();
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		return api.col(this.collection).update(
+		return api.col[this.collection].update(
 			selected.map(ent => ({ id: ent.id, ...entity}))
 		);
 	}
@@ -112,7 +112,7 @@ export class ListFuseHelperService<G = any> {
 		const selecteds = this.selectionSrv.getSelectedValues();
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => api.col(this.collection).delete(selecteds as any)))
+			.data$.pipe(switchMap((_) => api.col[this.collection].delete(selecteds as any)))
 			.subscribe((_) => {
 				this.selectionSrv.unselectAll();
 			});
