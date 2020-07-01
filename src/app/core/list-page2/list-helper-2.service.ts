@@ -51,6 +51,7 @@ export class ListHelper2Service<G = any> {
 		componentDestroy$?: Observable<any>,
 		findFn?: (options: ISearchOptions) => { data$: Observable<any[]> },
 	) {
+		componentDestroy$ = componentDestroy$ || new Subject();
 		findFn = findFn || api[typename].find;
 		this.typename = typename;
 		this.data$ = combineLatest(
