@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
 import { Product, Project } from '~core/erm3/models';
 import { FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 
@@ -11,7 +11,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './project-selection-dialog.component.html',
 	styleUrls: ['./project-selection-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [SelectionService, ListHelperService],
+	providers: [SelectionService, ListHelper2Service],
 	host: { class: 'table-dialog' }
 })
 export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit {
@@ -24,7 +24,7 @@ export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit
 
 	constructor(
 		private dlgSrv: DialogService,
-		public listHelper: ListHelperService,
+		public listHelper: ListHelper2Service,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Product>
 	) {

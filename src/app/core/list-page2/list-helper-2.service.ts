@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { api, Collection } from 'lib';
+import { api, Collection, SearchOptions } from 'lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -19,12 +19,12 @@ import { SelectionService } from './selection.service';
 @Injectable({ providedIn: 'root' })
 export class ListHelper2Service<G = any> {
 	data$: Observable<any[]>;
-	private collection: 'Product' | 'Sample' | 'Task' | 'Supplier' | 'Project';
+	private collection: Collection;
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
 	private _total$ = new Subject<number>();
-	private _total: number;
+	total: number;
 	total$ = this._total$.asObservable();
 
 	constructor(
@@ -36,27 +36,34 @@ export class ListHelper2Service<G = any> {
 	) {
 		// When the total change, we setup pagination
 		this.total$.pipe().subscribe((total) => {
-			this._total = total;
+			this.total = total;
 			this.paginationSrv.setupTotal(total);
 		});
 	}
 
+	/**
+	 * @param collection the collection used for update and mutations
+	 * @param componentDestroy$ tells the service to stop listening when the component is destroyed
+	 * if it's a global list you don't have to specify it
+	 */
 	setup(
-		collection: 'Product' | 'Sample' | 'Task' | 'Supplier' | 'Project',
+		collection: Collection,
+		componentDestroy$?: Observable<any>,
+		findFn?: (options: SearchOptions) => { data$: Observable<any[]> },
 	) {
+		findFn = findFn || api[collection].find;
 		this.collection = collection;
-		const service = api.col(collection as any);
 		this.data$ = combineLatest(
 			this.filterSrv.valueChanges$,
-			this.paginationSrv.page$,
-			this.paginationSrv.limit$,
+			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			switchMap(([filter, page, limit, sort]) => service.find(filter, sort, { page, limit }).data$)
+			switchMap(([filter, pagination, sort]) => findFn({ filter, sort, pagination }).data$),
+			takeUntil(componentDestroy$)
 		);
 	}
 
-	create(addedProperties: any = {}) {
+	openCreationDialog(addedProperties: any = {}) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
 				typename: this.collection,
@@ -68,12 +75,16 @@ export class ListHelper2Service<G = any> {
 	}
 
 	update(entity: any, collection?: Collection) {
-		api.col(collection || this.collection as any).update([entity]).subscribe();
+		api[collection || this.collection].update([entity]).subscribe();
+	}
+
+	updateProperties(...args: any) {
+		throw Error(`This is still here because I don't want to fix all compilation error, but it needs to be fixed where used.`);
 	}
 
 	delete(entity: any, collection?: Collection) {
 		const { id, teamId } = entity;
-		api.col(collection || this.collection as any).delete([{ id }])
+		api[collection || this.collection].delete([{ id }])
 			.subscribe();
 	}
 

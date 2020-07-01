@@ -94,7 +94,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	create() {
-		this.listHelper.create();
+		this.listHelper.openCreationDialog();
 	}
 
 }

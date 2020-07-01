@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } 
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
+import { Collection } from 'lib';
 
 @Component({
 	selector: 'status-selector-app',
@@ -13,13 +14,13 @@ import { AutoUnsub, StatusUtils } from '~utils';
 })
 export class StatusSelectorComponent extends AutoUnsub {
 	/** Its always going to be a Product | Sample | Supplier | Task */
-	private _collection: StatusCol;
+	private _collection: Collection;
 	@Input()
-	public set collection(collection: StatusCol) {
+	public set collection(collection: Collection) {
 		this.statusSrv.setupStatuses(collection);
 		this._collection = collection;
 	}
-	public get collection(): StatusCol {
+	public get collection(): Collection {
 		return this._collection;
 	}
 

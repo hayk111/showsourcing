@@ -1,15 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { TrackingComponent } from '~utils/tracking-component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectionService, ListHelperService, ListHelper2Service } from '~core/list-page2';
-import { RatingService } from '~shared/rating/services/rating.service';
 import { Product } from '~core/erm3';
-import { api } from 'lib';
-import { forkJoin } from 'rxjs';
-import { ToastService, Toast, ToastType } from '~shared/toast';
-import { translate } from '~utils';
+import { ListHelper2Service, SelectionService } from '~core/list-page2';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
+import { Toast, ToastService, ToastType } from '~shared/toast';
+import { translate } from '~utils';
+import { TrackingComponent } from '~utils/tracking-component';
+
 
 @Component({
 	selector: 'product-selection-bar-app',

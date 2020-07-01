@@ -3,15 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Supplier } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
-import { SelectionService } from '~core/list-page';
-import { ListHelperService, ListPageViewService } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ListHelper2Service } from '~core/list-page2';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
-		ListHelperService,
+		ListHelper2Service,
 		SelectionService,
 		FilterService,
 		ListPageViewService
@@ -24,7 +23,7 @@ export class TasksPageComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		public listHelper: ListHelperService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>,
 		public dialogCommonSrv: DialogCommonService,
 		public filterSrv: FilterService,

@@ -4,7 +4,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { ERM, Product, SelectParamsConfig } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService, ListHelper2Service } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ListHelper2Service } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
@@ -19,7 +19,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		ListHelperService,
+		ListHelper2Service,
 		ListPageViewService,
 		FilterService,
 		KanbanSelectionService

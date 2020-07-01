@@ -14,7 +14,7 @@
 </controller-table-app>
 
 <products-table-app
-	[rows]="listHelper.filteredItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	(createClick)="listHelper.create({ supplier: supplier })"

@@ -6,7 +6,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { UserService } from '~core/auth';
 import { Product, Supplier } from '~core/erm3/models';
 import { Filter, FilterService, FilterType } from '~core/filters';
-import { ListHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
@@ -21,7 +21,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected dlgSrv: DialogService,
-		public listHelper: ListHelperService,
+		public listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
 		protected filterSrv: FilterService
 	) {

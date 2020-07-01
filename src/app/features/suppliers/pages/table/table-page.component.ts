@@ -1,17 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
-import { SupplierService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { SelectParamsConfig } from '~core/erm';
-import { ERM, Supplier } from '~core/erm';
-import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
-import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { FilterService } from '~core/filters';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { CloseEventType } from '~shared/dialog';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
+import { FilterType } from '~shared/filters';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -

@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Product, Supplier } from '~core/erm';
-import { FilterService } from '~core/filters';
-import { SelectionService } from '~core/list-page';
-import { ListHelperService, ListPageViewService } from '~core/list-page2';
-import { FilterType } from '~core/filters';
+import { FilterService, FilterType } from '~core/filters';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { api } from 'lib';
 
 @Component({
 	selector: 'products-page-app',
@@ -15,7 +14,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 	styleUrls: ['./products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'table-page' },
-	providers: [ListHelperService, SelectionService, FilterService]
+	providers: [ListHelper2Service, SelectionService, FilterService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	supplierId: ID;
@@ -34,7 +33,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		public listHelper: ListHelperService,
+		public listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public filterSrv: FilterService,
@@ -46,8 +45,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.supplierId = this.route.parent.snapshot.params.id;
 		this.supplier = { id: this.supplierId };
-		this.listHelper.setup('Product');
-		this.filterSrv.setup([{ type: FilterType.SUPPLIER, value: this.supplierId }]);
+		this.listHelper.setup('Product', this._destroy$, (opts) => api.Supplier.products(this.supplierId, opts));
 	}
 
 	/** instead of deleting the product, we deassociate the supplier from it */
