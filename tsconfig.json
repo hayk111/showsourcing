@@ -21,7 +21,7 @@
     ],
     "paths": {
 			"lib": [
-				"../node_modules/@cedric_showsourcing/showsourcing-frontend-api"
+				"../node_modules/showsourcing-api-lib"
 			],
       "~app-root/*": [
         "app/app-root/*"

@@ -6,10 +6,10 @@
 	info="Task management"
 	[title]="'title.my-tasks' | translate"
 	[buttonName]="'button.create-task' | translate"
-	(buttonClick)="listHelper.create()">
+	(buttonClick)="listHelper.openCreationDialog()">
 </header-list-app>
 
-<controller-table-app [total]="listHelper.total$ | async">
+<controller-table-app>
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app
 		typename="Task"
@@ -19,7 +19,7 @@
 </controller-table-app>
 
 <task-table-app
-	[rows]="listHelper.paginedItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="false"
 	(update)="listHelper.update($event)"
@@ -31,7 +31,7 @@
 	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listHelper.delete($event)"
-	(createClick)="listHelper.create()">
+	(createClick)="listHelper.openCreationDialog()">
 </task-table-app>
 
 <task-selection-bar-app

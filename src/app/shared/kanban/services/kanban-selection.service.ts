@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { KanbanColumn } from '../interfaces';
-import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
-import { SelectionMap } from '~core/list-page';
-import { KanbanService } from './kanban.service';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Entity } from '~core/erm';
-import { map, tap } from 'rxjs/operators';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
+import { KanbanColumn } from '../interfaces';
+import { KanbanService } from './kanban.service';
+import { SelectionMap } from '~core/list-page2/selection.service';
 
 
 export interface SelectedColumn {
@@ -86,7 +86,7 @@ export class KanbanSelectionService {
 		const column = columns.find(col => col.id === selectedColId);
 
 		// in case of a delete we remove the keys from selection
-		Array.from(this.selection.keys()).forEach(id => {
+		Array.from(this.selection.keys()).forEach((id: string) => {
 			if (!column.dataMap.has(id)) {
 				this.selection.delete(id);
 			}

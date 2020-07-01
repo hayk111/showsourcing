@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ListPageService } from '~core/list-page';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { ListHelper2Service } from '~core/list-page2';
 
 @Component({
 	selector: 'kanban-page-app',
@@ -9,7 +9,7 @@ import { KanbanService } from '~shared/kanban/services/kanban.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		KanbanService,
-		ListPageService
+		ListHelper2Service
 	]
 })
 export class KanbanPageComponent {

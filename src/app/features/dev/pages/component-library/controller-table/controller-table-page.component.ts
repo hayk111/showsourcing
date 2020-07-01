@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ListPageService } from '~core/list-page';
+import { ListPageViewService } from '~core/list-page2';
 
 @Component({
 	selector: 'controller-table-page-app',
@@ -7,7 +7,7 @@ import { ListPageService } from '~core/list-page';
 	styleUrls: ['./controller-table-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageViewService
 	]
 })
 export class ControllerTablePageComponent  {
