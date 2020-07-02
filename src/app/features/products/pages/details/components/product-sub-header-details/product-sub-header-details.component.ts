@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product, Supplier, Sample } from '~core/erm3';
 import { api } from 'lib';
+import { Price } from '../../../../../../core/erm/models/price.model';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -32,6 +33,28 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		console.log('ProductSubHeaderDetailsComponent -> update -> value', value);
 		console.log('ProductSubHeaderDetailsComponent -> update -> prop----------', prop);
 		this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+	}
+
+	updatePriceMOQ(value: Partial<Price>, field: string) {
+		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value', value);
+		const val = value.value;
+		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
+		const currency = value.currency || 'USD';
+		const price =  {
+			...(val && field !== 'minimumOrderQuantity' && { value: val }),
+			...(field !== 'minimumOrderQuantity' && { currency }),
+			...(field === 'minimumOrderQuantity' && { minimumOrderQuantity: value }),
+		};
+		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> price', price);
+
+		api.Product.update([{
+			id: this.product.id,
+			propertiesMap: {
+				price
+			}
+		}]).subscribe(updated => {
+			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
+		});
 	}
 
 	onOpenSupplier(supplier: Supplier, event: MouseEvent) {

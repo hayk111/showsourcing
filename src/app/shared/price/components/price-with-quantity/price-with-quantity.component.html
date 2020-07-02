@@ -2,9 +2,9 @@
 	#editablePrice
 	class="price"
 	[hasAction]="false"
-	(closed)="updateProductField($event, inpPrice?.price, 'price')"
+	(closed)="updateProductField($event, inpPrice?.value, 'price')"
 	(opened)="inpPrice?.select()"
-	(saved)="updateProductField(false, inpPrice?.price, 'price')">
+	(saved)="updateProductField(false, inpPrice?.value, 'price')">
 	<editable-value-app>
 		<price-app *ngIf="product.price && product.price.value !== null; else priceHolder" [price]="product?.price"></price-app>
 			<ng-template #priceHolder>

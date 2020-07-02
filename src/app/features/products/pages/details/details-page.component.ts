@@ -64,9 +64,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 		this.product$ = id$.pipe(
 			switchMap(id => api.Product.get(id)),
-			tap(product => {
-				console.log('DetailsPageComponent -> ngOnInit -> product', product);
-			}),
 			takeUntil(this._destroy$)
 		) as any;
 

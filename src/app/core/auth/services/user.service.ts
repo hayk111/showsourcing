@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
+import { authStatus } from 'lib';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm/models';
@@ -26,6 +27,10 @@ export class UserService {
 	}
 
 	init() {
+		authStatus.signIn('augustin@showsourcing.com', 'Test1234').then((user) => {
+			console.log('signed in...', user);
+		});
+
 		this.authSrv.signIn$.pipe(
 			// preemptively putting the "user" so we don't need to wait to make calls with user id
 			tap(id => this.setupUser({ id } as User)),

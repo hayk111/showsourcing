@@ -27,10 +27,12 @@ export class PriceWithQuantityComponent extends TrackingComponent {
 	}
 
 	updateProductField(isCancel: boolean, newValue: any, field: string) {
+		console.log('PriceWithQuantityComponent -> updateProductField -> field', field);
+		console.log('PriceWithQuantityComponent -> updateProductField -> newValue', newValue);
 		if (!isCancel && this.updateField) {
 			this.updateField.emit({
-				field: field,
-				newValue: newValue
+				field,
+				newValue
 			});
 		}
 	}

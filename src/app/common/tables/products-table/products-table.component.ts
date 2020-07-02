@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
+import { api } from 'lib';
 import { Product } from '~core/erm';
 import { ListHelper2Service } from '~core/list-page2';
 import { config } from './config';
@@ -41,24 +42,23 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
-	updatePrice(product: Product, inputValue: any) {
-		console.log('ProductsTableComponent -> updatePrice -> product88888', product, inputValue);
-		let currency;
-
-		if (inputValue.value && inputValue.value.value) {
-			currency = inputValue.value.currency || 'USD';
-		} else {
-			currency = inputValue.value ? inputValue.value.currency : null;
-		}
+	updatePriceMOQ(product: Product, { value, currency, moq }) {
+		currency = currency || 'USD';
+		const price =  {
+			...(value && { value }),
+			...(!moq && { currency }),
+			...(moq && { minimumOrderQuantity: moq }),
+		};
 
 		api.Product.update([{
 			id: product.id,
 			propertiesMap: {
-				price: '3000'
+				price
 			}
 		}]).subscribe(updated => {
 			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
 		});
+	}
 
 		// this.propertyUpdated.emit({
 		// 	entity: product,
@@ -68,5 +68,4 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		// 		currency,
 		// 	}
 		// });
-	}
 }

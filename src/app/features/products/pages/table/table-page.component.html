@@ -27,7 +27,7 @@
 	[hasMenu]="true"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="listHelper.openCreationDialog()"
-	(update)="listHelper.update($event, {}, 'Product')"
+	(update)="listHelper.update($event, 'Product')"
 	(propertyUpdated)="listHelper.updateProperties($event, $event?.propertyName, $event?.value)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"

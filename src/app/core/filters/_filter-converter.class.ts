@@ -50,17 +50,37 @@ export class FilterConverter {
 			return {};
 		}
 		if (filters.length === 1) {
-			return filters[0];
+			return this.getFieldCondition((filters[0] as any).property || (filters[0] as any).type, filters[0]);
 		}
 		const and = [];
 		filters.forEach(filter => {
-			const secondKey = Object.keys(filter)[1];
-			and.push({
-				type: (filter as any).property || (filter as any).type,
-				[secondKey]: filter[secondKey]
-			});
+			and.push(this.getFieldCondition((filter as any).property || (filter as any).type, filter));
 		});
 		return and.length > 1 ? { and } : and[0];
+	}
+
+	/** the way a Filter is translated into graphql changes with
+	 * its type. This method return the translated predicate
+	 */
+	private getFieldCondition(type: FilterType, { value, equality }: Partial<Filter>) {
+		const eq = equality || 'contains';
+		switch (type) {
+			case FilterType.DELETED:
+				return {
+					property: type,
+					isTrue: value
+				};
+			case FilterType.SEARCH:
+				return {
+					property: this.searchedFields[0], // TODO: implement multiple filters pass
+					contains: value
+				};
+			default:
+				return {
+					property: type,
+					[eq]: value
+				};
+		}
 	}
 
 	/** add the search string to the filter predicate to get the complete search query params */

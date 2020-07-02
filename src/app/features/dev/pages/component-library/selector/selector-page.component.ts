@@ -15,7 +15,7 @@ import { SelectorComponent } from '~shared/selectors';
 })
 export class SelectorPageComponent implements OnInit {
 
-	entityNames = ['Product', 'Project', 'PropertyOption', 'Category', 'Currency', 'Supplier', 'User', 'Country'];
+	entityNames = ['Product', 'Project', 'PropertyOption', 'Currency', 'Supplier', 'User', 'Country'];
 
 	product$: Observable<Product>;
 

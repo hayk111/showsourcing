@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { api, Collection } from 'lib';
+import { api } from 'lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
@@ -19,7 +19,7 @@ import { SelectionService } from './selection.service';
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
 	data$: Observable<any[]>;
-	private collection: Collection;
+	private collection: any;
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
@@ -42,7 +42,7 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	setup(
-		collection: Collection,
+		collection: any,
 	) {
 		this.collection = collection;
 		const service = api[this.collection];
@@ -74,7 +74,7 @@ export class ListFuseHelperService<G = any> {
 			.subscribe();
 	}
 
-	update(entity: any, collection?: Collection) {
+	update(entity: any, collection?: any) {
 		api[collection || this.collection].update([entity]).subscribe();
 	}
 
@@ -95,7 +95,7 @@ export class ListFuseHelperService<G = any> {
 		throw Error('deprecated');
 	}
 
-	delete(entity: any, collection?: Collection) {
+	delete(entity: any, collection?: any) {
 		const { id, teamId } = entity;
 		api[collection || this.collection].delete([{ id }])
 			.subscribe();

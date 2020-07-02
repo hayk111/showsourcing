@@ -5,7 +5,6 @@ import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
 import { FilterConverter } from './_filter-converter.class';
 import { ValuesByType, FiltersByType } from './filter-by.type';
-import _ from 'lodash';
 
 /**
  * This class basically contains a Array<Filter> and then the same array of filters under different data structure.
@@ -29,7 +28,7 @@ export class FilterService {
 	private _valueChanges$ = new BehaviorSubject<any>(this);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** default state */
-	startFilters: any = [{ type: FilterType.DELETED, isTrue: false }];
+	startFilters: Filter[] = [{ type: FilterType.DELETED, value: false }];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */
@@ -62,23 +61,22 @@ export class FilterService {
 	}
 
 	/** adds a search to the predicate and restart setFilters */
-	search(value: string, by = 'name') {
+	search(value: string) {
 		if (!value) {
-			return this.removeFilterType(by as FilterType);
+			return this.removeFilterType(FilterType.SEARCH);
 		}
+		const lastFilter = this.getFiltersForType(FilterType.SEARCH)[0];
 
-		const index = _.findIndex(this.filters, { type: 'name'} );
-
-		if (index === -1) {
-			this.addFilter({ type: by, contains: value });
+		if (!lastFilter) {
+			this.addFilter({ type: FilterType.SEARCH, value });
 		} else {
-			this.filters[index] = { type: by, contains: value } as any;
+			lastFilter.value = value;
 			this.setFilters(this.filters);
 		}
 	}
 
 	/** adds one filter */
-	addFilter(added: any) {
+	addFilter(added: Filter) {
 		this.setFilters([...this.filters, added]);
 	}
 
@@ -96,7 +94,7 @@ export class FilterService {
 
 	/** remove all filters of a given type */
 	removeFilterType(type: FilterType) {
-		this.setFilters(this.filters.filter(f => (f as any).property !== type));
+		this.setFilters(this.filters.filter(f => f.type !== type));
 	}
 
 	/** check if we have any filter for a given FilterType */
