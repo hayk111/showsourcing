@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2Module } from 'angulartics2';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { AmplifyAngularModule } from 'aws-amplify-angular';
 import { CustomDialogsCommonModule } from '~common/dialogs/custom-dialogs/custom-dialogs-common.module';
 import * as i18n from '~core/i18n/i18n.service';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
@@ -46,7 +46,6 @@ import { routes } from './routes';
 		})
 	],
 	providers: [
-		AmplifyService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ApiInterceptor,

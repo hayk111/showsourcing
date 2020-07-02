@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Product } from '~core/erm3/models';
 import { FilterService, FilterType } from '~core/filters';
-import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { RatingService } from '~shared/rating/services/rating.service';
 
 
@@ -12,7 +12,7 @@ import { RatingService } from '~shared/rating/services/rating.service';
 	templateUrl: './card-page.component.html',
 	styleUrls: ['./card-page.component.scss'],
 	providers: [
-		ListHelperService,
+		ListHelper2Service,
 		FilterService,
 		SelectionService,
 	],
@@ -36,7 +36,7 @@ export class CardPageComponent implements OnInit {
 	];
 
 	constructor(
-		public listHelper: ListHelperService<Product>,
+		public listHelper: ListHelper2Service<Product>,
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
 		public dlgCommonSrv: DialogCommonService,

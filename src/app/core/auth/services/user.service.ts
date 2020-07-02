@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
+import { authStatus } from 'lib';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm/models';
-import { ApiLibService } from '~core/api-lib';
 import { AuthenticationService } from './authentication.service';
 
 
@@ -21,7 +21,6 @@ export class UserService {
 	static userId: string;
 
 	constructor(
-		protected apiLibSrv: ApiLibService,
 		protected authSrv: AuthenticationService,
 		protected analyticsSrv: AnalyticsService
 	) {
@@ -31,7 +30,12 @@ export class UserService {
 		this.authSrv.signIn$.pipe(
 			// preemptively putting the "user" so we don't need to wait to make calls with user id
 			tap(id => this.setupUser({ id } as User)),
-			switchMap(id => this.apiLibSrv.db.get('User', id)),
+			// switchMap(_ => this.apiLibSrv.ready$.toPromise()),
+			// switchMap(ready => {
+			// 	// if (ready) {
+			// 	// 	return this.apiLibSrv.db.get('User', this.userId);
+			// 	// }
+			// }),
 			distinctUntilChanged(),
 		).subscribe(user => {
 			this.setupUser(user);

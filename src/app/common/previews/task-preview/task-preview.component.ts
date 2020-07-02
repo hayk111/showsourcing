@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Comment, CommentService, ERM, Task } from '~core/erm';
-import { ListFuseHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, StatusUtils } from '~utils';
 
@@ -36,7 +36,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 
 
 	constructor(
-		private listHelper: ListFuseHelperService,
+		private listHelper: ListHelper2Service,
 		private commentSrv: CommentService,
 		private router: Router,
 		private dlgCommonSrv: DialogCommonService,

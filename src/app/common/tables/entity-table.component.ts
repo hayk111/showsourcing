@@ -21,8 +21,8 @@ export interface TableConfig {
 }
 
 interface PropertyUpdate {
-	entityId: string;
-	entityType: string;
+	entity: any;
+	propertyName: string;
 	value: any;
 }
 

@@ -45,6 +45,7 @@ export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'query'>>;
 export type ApiMutationOption = Partial<Omit<MutationOptions, 'mutation'>>;
 
 /**
+ * @deprecated
  * service to do crud operations on entities
  */
 @Injectable({ providedIn: 'root' })

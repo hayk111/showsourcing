@@ -6,7 +6,7 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Comment, Contact, Product, Sample, Supplier, Task } from '~core/erm3';
 import { AutoUnsub } from '~utils';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 
 @Component({
@@ -31,7 +31,6 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		public dlgCommonSrv: DialogCommonService,
-		private apiLibSrv: ApiLibService
 	) {
 		super();
 	}
@@ -47,7 +46,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 		this.comments$ = id$.pipe(
 			map(id => this.nodeId = `Supplier:${id}`),
-			map(nodeId => this.apiLibSrv.db.find('Comment', null, {
+			map(nodeId => api['Comment'].find(null, {
 				property: 'nodeId',
 				contains: nodeId
 			}).data$),
@@ -59,7 +58,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	update(supplier: Supplier) {
-		this.apiLibSrv.db.update('Supplier', [{ id: this.supplierId, ...supplier }])
+		api.col('Supplier').update([{ id: this.supplierId, ...supplier } as any])
 			.subscribe();
 	}
 
@@ -68,12 +67,12 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		this.apiLibSrv.db.create('Comment', [comment])
+		api['Comment'].create([comment])
 		.subscribe(_ => this.commentListRef.refetch());
 	}
 
 	onCommentDeleted(comment: Comment) {
-		this.apiLibSrv.db.delete('Comment', [comment]);
+		api['Comment'].delete('Comment', [comment]);
 	}
 
 	goToSamples() {

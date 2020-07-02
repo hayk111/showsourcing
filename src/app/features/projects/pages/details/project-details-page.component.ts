@@ -1,13 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { api } from 'lib';
 import { Observable } from 'rxjs';
-import { ProjectService } from '~core/erm';
 import { ERM, Project } from '~core/erm';
-import { ProjectFeatureService } from '~features/projects/services';
+import { ListHelper2Service } from '~core/list-page2';
 import { AutoUnsub } from '~utils';
-import { ApiLibService } from '~core/api-lib';
-import { ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'project-details-page-app',
@@ -24,9 +21,7 @@ export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		public router: Router,
-		private apiLibSrv: ApiLibService,
-		private featureSrv: ProjectFeatureService,
-		private listHelper: ListHelperService,
+		private listHelper: ListHelper2Service,
 	) {
 		super();
 	}
@@ -35,7 +30,7 @@ export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.setup('Project');
 
 		const id = this.route.snapshot.params.id;
-		this.project$ = this.apiLibSrv.db.get('Project', id);
+		this.project$ = api.col('Project').get(id) as any;
 	}
 
 	isTabUrl(tab: string): boolean {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from '~shared/dialog';
-import { Task, Product, Supplier, Descriptor } from '~core/erm3';
+import { Task, Product, Supplier, Descriptor } from 'lib';
 import { DynamicFormComponent } from '~shared/descriptor/components/dynamic-form/dynamic-form.component';
 import { descriptorMock } from '../product-creation-dialog/_temporary-descriptor-product.mock';
 
@@ -40,11 +40,11 @@ export class TaskCreationDialogComponent implements OnInit {
 	}
 
 	updateTask(customProperties: Task) {
-		this.task.properties = customProperties;
+		this.task.propertiesMap = customProperties;
 	}
 
 	save() {
-		if (!this.task.properties || !this.task.name) return;
+		if (!this.task.name) return;
 		this.dlgSrv.data({ ...this.product });
 		this.createAnother ?	this.form.reset() : this.dlgSrv.close();
 	}

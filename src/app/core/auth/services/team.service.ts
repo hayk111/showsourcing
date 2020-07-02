@@ -3,7 +3,7 @@ import { Observable, ReplaySubject, of } from 'rxjs';
 import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
 import { LocalStorageService } from '~core/local-storage';
-import { ApiLibService } from '~core/api-lib';
+import { api, state } from 'lib';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
 import { UserService } from './user.service';
@@ -11,6 +11,22 @@ import { customQueries } from '~core/erm3/queries/custom-queries';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
+
+const userTeam = { // hardcoded team - to be removed
+	'_deleted': false,
+	'_lastChangedAt': 1591799714769,
+	'_version': 1,
+	'companyId': '35f34fc4-cef5-47c7-a482-14a07ee3a28c',
+	'createdAt': '2020-06-10T14:35:14.769Z',
+	'createdByUserId': '39d5c33d-d100-4791-aadc-8d6fa0cb9c0f',
+	'deleted': false,
+	'id': '042b65db-3cf2-4944-adf3-d86ec2ef3c5a',
+	'lastUpdatedAt': '2020-06-10T14:35:14.769Z',
+	'lastUpdatedByUserId': '39d5c33d-d100-4791-aadc-8d6fa0cb9c0f',
+	'name': 'Louis group',
+	'ownerUserId': '39d5c33d-d100-4791-aadc-8d6fa0cb9c0f',
+	'type': 'BUYER'
+};
 
 /**
  * Team service. At the start of the application it deals with
@@ -27,10 +43,8 @@ export class TeamService {
 	// 	UserService.userId,
 	// 	{ fetchPolicy: 'cache-and-network' }
 	// );
-	private queryAllTeamUsers = {data$: of(null)};
-	teamsOfUser$: Observable<Team[]> = this.queryAllTeamUsers.data$.pipe(
-		map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.team))
-	);
+	private queryAllTeamUsers = { data$: of(null) };
+	teamsOfUser$: Observable<Team[]> = new Observable();
 	hasTeam$ = this.teamsOfUser$.pipe(
 		map(teams => teams.length > 0)
 	);
@@ -52,33 +66,39 @@ export class TeamService {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
-		protected apiLibSrv: ApiLibService,
 	) {	}
 
 	init() {
 		// putting a sync version of team
 		this._teamSelected$
 			.subscribe(team => {
-				TeamService.teamSelected = team;
+				TeamService.teamSelected = userTeam;
 				// if (team)
 				// 	this.apiSrv.setTeamId(team.id);
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
+		state.sync$.subscribe(() => {
+			this.teamsOfUser$ = of([userTeam]);
+			this.hasTeam$ = this.teamsOfUser$.pipe(
+				map(teams => teams.length > 0)
+			);
+		});
+
 		// when logging out let's clear the current selected team
 		this.authSrv.signOut$.subscribe(_ => this.resetSelectedTeam());
 	}
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.apiLibSrv.db.create('Team', [{ companyId: this.companySrv.companySync.id, ...team }])
+		return api['Team'].create([{ companyId: this.companySrv.companySync.id, ...team }])
 			.pipe(
 				// switchMap(_ => this.queryAllTeamUsers.refetch())
 			);
 	}
 
 	update(team: Team) {
-		return this.apiLibSrv.db.update('Team', [{ companyId: this.companySrv.companySync.id, ...team } as any]);
+		return api['Team'].update([{ companyId: this.companySrv.companySync.id, ...team } as any]);
 	}
 
 	/** picks a team, puts the selection in local storage */

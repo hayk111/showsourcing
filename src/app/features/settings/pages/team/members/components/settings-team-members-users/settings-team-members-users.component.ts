@@ -5,13 +5,13 @@ import { switchMap, map, debounce, tap } from 'rxjs/operators';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { FilterService, FilterType } from '~core/filters';
 import { MembersInvitationService } from '../../services/members-invitation.service';
 import { Invitation, TeamUser, User } from '~core/erm3';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
 import { QueryType } from '~core/erm3/queries/query-type.enum';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { TeamService } from '~core/auth';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
@@ -21,7 +21,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
 		ListPageViewService,
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService,
 	],
 	host: { class: 'table-page' }
@@ -37,47 +37,46 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private featureSrv: SettingsMembersService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public filterSrv: FilterService,
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<TeamUser>,
 		private translate: TranslateService,
 		public selectionSrv: SelectionService,
 		public membersInvitationSrv: MembersInvitationService,
-		private apiLibSrv: ApiLibService
 	) {
 		super();
 	}
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['user.firstName', 'user.lastName']);
-		this.listHelper.setup('TeamUser', 'Team', TeamService.teamSelected.teamId, {});
+		// this.listHelper.setup('TeamUser', 'Team', TeamService.teamSelected.teamId, {});
 
-		this.rows$ = this.listHelper.searchedItems$
-			.pipe(
-				switchMap((members: any[]) => {
-					const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-					this.teamMembers = members;
+		// this.rows$ = this.listHelper.searchedItems$
+		// 	.pipe(
+		// 		switchMap((members: any[]) => {
+		// 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
+		// 			this.teamMembers = members;
 
-					const options: any = {};
-					const invitationFilters: any = {
-						deleted: { eq: false },
-						// teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
-					};
+		// 			const options: any = {};
+		// 			const invitationFilters: any = {
+		// 				deleted: { eq: false },
+		// 				// teamId: { eq: TeamService.teamSelected.id } // teamId is being set in filters because the default query by id doesn't work
+		// 			};
 
-					options.variables = {
-						byId: TeamService.teamSelected.id,
-						limit: 10000,
-						filter: invitationFilters
-					};
-					options.fetchPolicy = 'network-only';
-					options.query = QueryPool.getQuery('Invitation', QueryType.LIST_BY)('Team');
-					// TODO: implement return
-					// return this.apiSrv.query<Invitation[]>(options).data$;
-					return of([]);
-			}),
-			map((invitations: Invitation[]) => [...this.teamMembers, ...invitations])
-		);
+		// 			options.variables = {
+		// 				byId: TeamService.teamSelected.id,
+		// 				limit: 10000,
+		// 				filter: invitationFilters
+		// 			};
+		// 			options.fetchPolicy = 'network-only';
+		// 			options.query = QueryPool.getQuery('Invitation', QueryType.LIST_BY)('Team');
+		// 			// TODO: implement return
+		// 			// return this.apiSrv.query<Invitation[]>(options).data$;
+		// 			return of([]);
+		// 	}),
+		// 	map((invitations: Invitation[]) => [...this.teamMembers, ...invitations])
+		// );
 
 		this.viewSrv.setup({
 			typename: 'TeamUser',
@@ -99,12 +98,11 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		this.dlgCommonSrv.openInvitationDialog().data$
 			.pipe(
 				switchMap((entity) => {
-					return this.apiLibSrv.db.create('Invitation', [{
+					return api['Invitation'].create([{
 						...entity,
 						teamRole: 'TEAMMEMBER'
 					}]);
 				}),
-				tap(_ => this.listHelper.refetch())
 		)
 		.subscribe();
 	}
@@ -118,7 +116,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	}) {
 		this.featureSrv
 			.updateAccessType(accessType, userId)
-			.pipe(switchMap(_ => this.listHelper.refetch()))
 			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 

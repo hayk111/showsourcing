@@ -34,12 +34,6 @@ import * as Pages from './pages/dashboard/dashboard-page.component';
 		Components.ProductListComponent,
 		Components.LineChartComponent,
 		Components.LatestProductsComponent,
-		Components.TodoBoxComponent,
-		Components.TodoNavComponent,
-		Components.TodoBoxTaskPreviewComponent,
-		Components.TodoBoxProductsPreviewComponent,
-		Components.TodoBoxSamplePreviewComponent,
-		Components.TodoBoxSupplierPreviewComponent,
 		Components.TeamPerformanceComponent,
 	],
 	providers: [

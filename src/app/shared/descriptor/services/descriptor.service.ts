@@ -1,8 +1,7 @@
-import { FormGroup, FormBuilder, Validators, AbstractControlOptions } from '@angular/forms';
 import { Injectable } from '@angular/core';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PropertyDescriptor } from '~core/erm3';
 import { Descriptor } from '~core/erm3/models/descriptor.model';
-import { Property } from '../components/dynamic-form/dynamic-form.component';
-import { PropertyDescriptor, PropertyType } from '~core/erm3';
 
 @Injectable({ providedIn: 'root' })
 export class DescriptorService {
@@ -42,16 +41,4 @@ export class DescriptorService {
 		return obj;
 	}
 
-	propertiesToObject(properties: Property[] = []): {} {
-		const obj = {};
-		properties.forEach(prop => {
-			obj[prop.name] = JSON.parse(prop.value);
-		});
-		return obj;
-	}
-
-	objectToProperties(obj: {}): Property[] {
-		return Object.entries(obj)
-		.map(([name, value]) => ({ name,  value: JSON.stringify(value) }));
-	}
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from '~shared/dialog';
-import { Product, Supplier, Sample } from '~core/erm3/models';
+import { Product, Supplier, Sample } from 'lib';
 import { Descriptor } from '~core/erm3';
 import { descriptorMock } from '../product-creation-dialog/_temporary-descriptor-product.mock';
 import { DynamicFormComponent } from '~shared/descriptor/components/dynamic-form/dynamic-form.component';
@@ -37,11 +37,11 @@ export class SampleCreationDialogComponent implements OnInit {
 	}
 
 	updateSample(customProperties: any) {
-		this.sample.properties = customProperties;
+		this.sample.propertiesMap = customProperties;
 	}
 
 	save() {
-		if (!this.sample.properties || !this.sample.name) return;
+		if (!this.sample.name) return;
 		this.dlgSrv.data({ ...this.product });
 		this.createAnother ?	this.form.reset() : this.dlgSrv.close();
 	}

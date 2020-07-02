@@ -2,6 +2,10 @@ header-details-actions-app > *:not(:last-child) {
 	margin-right: var(--spacing-ms);
 }
 
+editable-container-app {
+	height: 21px;
+}
+
 .info-container {
 	font-size: var(--font-size-m);
 	margin-left: var(--spacing-xs);

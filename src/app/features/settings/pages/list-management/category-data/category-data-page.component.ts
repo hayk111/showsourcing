@@ -3,7 +3,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { CompanyService, TeamService } from '~core/auth/services';
 import { Category } from '~core/erm3/models';
 import { FilterService } from '~core/filters/filter.service';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
 import { Typename } from '~core/erm3/typename.type';
@@ -18,7 +18,7 @@ import { SortService } from '~shared/table/services/sort.service';
 	providers: [
 		ListPageViewService,
 		SelectionService,
-		ListFuseHelperService,
+		ListHelper2Service,
 		FilterService,
 		PaginationService,
 		SortService,
@@ -37,7 +37,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Category>,
 		public filterSrv: FilterService,
-		public listHelper: ListFuseHelperService
+		public listHelper: ListHelper2Service
 	) {
 		super();
 	}
@@ -52,7 +52,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		});
 		// set searchable columns for list-fuse-helper
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Category');
+		// this.listHelper.setup('Category');
 	}
 
 	mergeSelected() {

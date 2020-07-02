@@ -21,11 +21,11 @@ import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { FilterService } from '~core/filters';
-import { ListPageViewService, SelectionService, ExcludedService, ListFuseHelperService } from '~core/list-page2';
+import { ListPageViewService, SelectionService, ExcludedService, ListHelper2Service } from '~core/list-page2';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import _ from 'lodash';
 import { TeamService } from '~core/auth';
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { ProjectProductService } from '../../../services/project-product.service';
 
@@ -35,7 +35,7 @@ import { ProjectProductService } from '../../../services/project-product.service
 	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		ListPageViewService,
 		FilterService,
 		SelectionService
@@ -71,7 +71,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>,
 		private excludedSrv: ExcludedService,
 		public projectProductSrv: ProjectProductService,
@@ -81,7 +81,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public selectionSrv: SelectionService,
 		private paginationSrv: PaginationService,
 		private filterSrv: FilterService,
-		private apiLibSrv: ApiLibService,
 		private cdr: ChangeDetectorRef,
 	) {
 		super();
@@ -121,11 +120,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	updateProduct(product: Product) {
 		this.listHelper.update(product);
-		this.projectProductSrv.refetch();
-	}
-
-	updateProductProperty(ev: any) {
-		this.listHelper.updateProperties(ev.entityId, ev.entityType, ev.value);
 		this.projectProductSrv.refetch();
 	}
 
@@ -193,7 +187,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			.subscribe((productIds: string[]) => {
 				if (productIds.length) {
 					productIds.forEach(productId => {
-						this.apiLibSrv.db.create('ProjectProduct', [{
+						api['ProjectProduct'].create([{
 							teamId: TeamService.teamSelected.id,
 							productId,
 							projectId: this.projectId

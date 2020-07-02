@@ -14,16 +14,16 @@
 </controller-table-app>
 
 <products-table-app
-	[rows]="listHelper.filteredItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	(createClick)="listHelper.create({ supplier: supplier })"
+	(createClick)="listHelper.openCreationDialog({ supplier: supplier })"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
+	(showItemsPerPage)="paginationSrv.setLimit($event)">
 </products-table-app>
 
 <product-selection-bar-app>

@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
+import { api } from 'lib';
 import { Product } from '~core/erm';
-import { ListFuseHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { config } from './config';
+import { TeamService } from '../../../core/auth/services/team.service';
 
 @Component({
 	selector: 'products-table-app',
@@ -37,27 +38,34 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
 	@Output() openAddSampleDialog = new EventEmitter<Product>();
 
-	constructor(public listHelper: ListFuseHelperService) {
+	constructor(public listHelper: ListHelper2Service) {
 		super();
 	}
 
-	updatePrice(productId: string, inputValue: any, additionalFields: any) {
-		let currency;
+	updatePriceMOQ(product: Product, { value, currency, moq }) {
+		currency = currency || 'USD';
+		const price =  {
+			...(value && { value }),
+			...(!moq && { currency }),
+			...(moq && { minimumOrderQuantity: moq }),
+		};
 
-		if (inputValue.value && inputValue.value.value) {
-			currency = inputValue.value.currency || 'USD';
-		} else {
-			currency = inputValue.value ? inputValue.value.currency : null;
-		}
-
-		this.propertyUpdated.emit({
-			entityId: productId,
-			entityType: 'price',
-			value: {
-				...additionalFields,
-				value: inputValue.value ? inputValue.value.value : null,
-				currency,
+		api.Product.update([{
+			id: product.id,
+			propertiesMap: {
+				price
 			}
+		}]).subscribe(updated => {
+			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
 		});
 	}
+
+		// this.propertyUpdated.emit({
+		// 	entity: product,
+		// 	propertyName,
+		// 	value: {
+		// 		value: inputValue.value ? inputValue.value.value : null,
+		// 		currency,
+		// 	}
+		// });
 }

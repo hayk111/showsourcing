@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ApiLibService } from '~core/api-lib';
+import { api } from 'lib';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { Typename } from '~core/erm3/typename.type';
 
@@ -13,9 +13,7 @@ export class SelectorsService {
 
 	currentSearchQuery = '';
 
-	constructor (
-		private apiLibSrv: ApiLibService,
-	) { }
+	constructor () { }
 
 	loadMore() {
 		// return this.queryListRef.fetchMore().subscribe();
@@ -23,11 +21,11 @@ export class SelectorsService {
 
 	getChoices(entityType: Typename, listBy: 'Team' | 'Owner' = 'Team', sortBy = 'name'): Observable<any[]> { // sortBy shall be added to query
 		// this.queryListRef = this.apiSrv.listBy(entityType, listBy);
-		this.queryListRef = this.apiLibSrv.db.find(entityType);
+		this.queryListRef = api[entityType].find();
 		return this.queryListRef.data$;
 	}
 
 	create(entityType: Typename, entity: any) {
-		return this.apiLibSrv.db.create(entityType, [entity]);
+		return api[entityType].create([entity]);
 	}
 }

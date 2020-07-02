@@ -3,16 +3,14 @@ import {
 	ChangeDetectorRef,
 	Component,
 	Input,
-	OnInit,
+	OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { saveAs } from 'file-saver';
-import { BehaviorSubject, of } from 'rxjs';
-import { switchMap, take, first } from 'rxjs/operators';
-import { DialogService } from '~shared/dialog/services';
+import { BehaviorSubject } from 'rxjs';
+import { Export, Product, Sample, Supplier, Task } from '~core/erm3/models';
 import { Typename } from '~core/erm3/typename.type';
-import { ApiLibService } from '~core/api-lib';
-import { Request, Export, Product, Supplier, Sample, Task } from '~core/erm3/models';
+import { DialogService } from '~shared/dialog/services';
+import { api } from 'lib';
 
 export enum ExportFormat {
 	PDF = 'PDF',
@@ -53,7 +51,6 @@ export class ExportDialogComponent implements OnInit {
 		public dlgSrv: DialogService,
 		private router: Router,
 		private cdr: ChangeDetectorRef,
-		private apiLibSrv: ApiLibService
 	) {}
 
 	ngOnInit() {
@@ -75,19 +72,19 @@ export class ExportDialogComponent implements OnInit {
 		};
 		this.requestCreated = true;
 		this.cdr.detectChanges();
-		this.apiLibSrv.db
-			.create('Export', [request as any])
-			.pipe
-			// switchMap(exp => this.exportSrv.isExportReady(exp)) // TODO implement isExportReady
-			()
-			.subscribe(
-				(exp) => {
-					this.exportReq = exp[0];
-					this.fileReady = true;
-					this.cdr.detectChanges();
-				},
-				(err) => this.dlgSrv.cancel()
-			);
+		// api.export
+		// 	.create('Export', [request as any])
+		// 	.pipe
+		// 	// switchMap(exp => this.exportSrv.isExportReady(exp)) // TODO implement isExportReady
+		// 	()
+		// 	.subscribe(
+		// 		(exp) => {
+		// 			this.exportReq = exp[0];
+		// 			this.fileReady = true;
+		// 			this.cdr.detectChanges();
+		// 		},
+		// 		(err) => this.dlgSrv.cancel()
+		// 	);
 	}
 
 	/** download the file if it's ready */
@@ -107,15 +104,15 @@ export class ExportDialogComponent implements OnInit {
 
 	/** get number of entities to export and specify pdf/images exports if products */
 	private setExportData() {
-		// Only Product can export pdf and images
-		if (this.typename === 'Product') {
-			this.canExportPdf = true;
-			this.canExportImages = true;
-		}
-		// TODO add filters
-		const selectCount$ = this.apiLibSrv.db.find(this.typename, null, null).count$;
-		this.query
-			? selectCount$.subscribe((len) => this.count$.next(len))
-			: this.count$.next(this.targets.length);
+		// // Only Product can export pdf and images
+		// if (this.typename === 'Product') {
+		// 	this.canExportPdf = true;
+		// 	this.canExportImages = true;
+		// }
+		// // TODO add filters
+		// const selectCount$ = this.apiLibSrv.db.find(this.typename, null, null).count$;
+		// this.query
+		// 	? selectCount$.subscribe((len) => this.count$.next(len))
+		// 	: this.count$.next(this.targets.length);
 	}
 }

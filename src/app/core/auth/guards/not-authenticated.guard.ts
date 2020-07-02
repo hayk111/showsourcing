@@ -5,6 +5,7 @@ import { filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
 import { AuthStatus } from '../services/auth-state.interface';
+import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 
 /** check if the user is authenticated and if so redirect to dashboard. Protects pages like login etc. */
 @Injectable({
@@ -17,17 +18,21 @@ export class NotAuthenticatedGuard implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.authSrv.authStatus$.pipe(
-			tap(status => log.debug('%c unauth guard status :', LogColor.GUARD, status)),
-			filter(status => status !== AuthStatus.PENDING),
-			tap(status => this.redirectOnAuthenticated(status)),
-			map(status => status === AuthStatus.NOT_AUTHENTICATED),
+		return this.authSrv.authState$.pipe(
+			tap(authState => {
+				console.log('not authenticated guard!!:', authState.state);
+			}),
+			tap(authState => log.debug('%c unauth guard status :', LogColor.GUARD, authState.state)),
+			filter(authState => authState.state !== AuthStatus.PENDING),
+			tap(authState => this.redirectOnAuthenticated(authState)),
+			map(authState => authState.state === AuthStatus.NOT_AUTHENTICATED),
 		);
 	}
 
-	redirectOnAuthenticated(authStatus: AuthStatus) {
-		if (authStatus === AuthStatus.AUTHENTICATED)
+	redirectOnAuthenticated(authState: AuthState) {
+		if (authState.state === AuthStatus.AUTHENTICATED) {
 			this.router.navigate(['']);
+		}
 	}
 
 	canActivateChild(
