@@ -18,9 +18,11 @@ export class UploaderService2 {
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): Observable<any> {
+
 		const cognitoId = this.authSrv.authState.user.pool.storage[
 			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
 		];
+
 		const obs = files.map(file => this.s3upload(file).pipe(
 			switchMap(_ => api.Attachment.create(
 					[
@@ -32,6 +34,7 @@ export class UploaderService2 {
 				)
 			),
 		));
+
 		return forkJoin(obs).pipe(
 			tap(_ => this.showToast(`Uploaded ${files.length} file(s)`)),
 			// we start with a local version for immediate display
@@ -40,6 +43,7 @@ export class UploaderService2 {
 				files: files.map(file => ({ fileName: file.name, pending: true }))
 			})
 		);
+
 	}
 
 	uploadImages(files: File[], nodeId): Observable<any> {
