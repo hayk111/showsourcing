@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~core/erm';
-import { api } from 'lib';
-import { ListFuseHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { config } from './config';
 import { TeamService } from '../../../core/auth/services/team.service';
 
@@ -39,7 +37,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
 	@Output() openAddSampleDialog = new EventEmitter<Product>();
 
-	constructor(public listHelper: ListFuseHelperService) {
+	constructor(public listHelper: ListHelper2Service) {
 		super();
 	}
 

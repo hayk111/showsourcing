@@ -3,7 +3,7 @@
 	logoTypename="Supplier"
 	info="The supplier database"
 	[buttonName]="'button.create-supplier' | translate"
-	(buttonClick)="listHelper.create()">
+	(buttonClick)="listHelper.openCreationDialog()">
 </header-list-app>
 
 <controller-table-app>
@@ -16,7 +16,7 @@
 </controller-table-app>
 
 <suppliers-table-app
-	[rows]="listHelper.paginedItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	(open)="viewSrv.goToDetails($event)"
@@ -24,7 +24,7 @@
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(createClick)="listHelper.create()"
+	(createClick)="listHelper.openCreationDialog()"
 	(update)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)">
 </suppliers-table-app>

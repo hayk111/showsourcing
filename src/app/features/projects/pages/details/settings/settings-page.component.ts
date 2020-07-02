@@ -10,13 +10,13 @@ import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 import { api } from 'lib';
 import { Project } from '~core/erm3/models';
-import { ListFuseHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 
 @Component({
 	selector: 'settings-page-app',
 	templateUrl: './settings-page.component.html',
 	styleUrls: ['./settings-page.component.scss'],
-	providers: [ListFuseHelperService],
+	providers: [ListHelper2Service],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent extends AutoUnsub implements OnInit {
@@ -36,7 +36,7 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		private fb: FormBuilder,
 		private uploader: UploaderService,
 		public translate: TranslateService,
-		private listHelper: ListFuseHelperService,
+		private listHelper: ListHelper2Service,
 	) {
 		super();
 	}
@@ -51,7 +51,7 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		this.project$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			tap(id => this.id = id),
-			switchMap(id => api.Project.get(id)),
+			switchMap(id => api.col('Project').get(id)),
 		) as any;
 
 		// this.project$.pipe(

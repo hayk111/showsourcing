@@ -19,11 +19,10 @@ import {
 	SupplierRequest,
 	SupplierRequestService
 } from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
 import { DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, ID } from '~utils';
+import { ListHelper2Service, SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'request-details-page-app',
@@ -46,9 +45,8 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
 		public dlgCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<RequestElement, RequestElementService>,
+		public listHelper: ListHelper2Service,
 		private dlgSrv: DialogService,
-		private translate: TranslateService,
 		private selectionSrv: SelectionService
 	) {
 		super();
@@ -64,21 +62,10 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		id$
 			.pipe(
 				tap(id => {
-					this.listSrv.setup({
-						entitySrv: this.reqElementSrv,
-						selectParams: {
-							sortBy: 'id',
-							query: `@links.Request.requestElements.id == "${id}"`,
-							descending: false
-						},
-						searchedFields: [],
-						entityMetadata: ERM.REQUEST_ELEMENT,
-						initialFilters: [],
-						originComponentDestroy$: this._destroy$
-					});
+					// this.listHelper.setup('');
 				}),
 				switchMap(
-					id => this.listSrv.items$,
+					id => this.listHelper.data$,
 					(id, items) => [id, items]
 				),
 				tap(([id, items]) => (this.requestElements = items ? items : [])),
@@ -146,7 +133,6 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 						status: ReplyStatus.CANCELED
 					})
 				),
-				switchMap(_ => this.listSrv.refetch())
 			)
 			.subscribe();
 	}
@@ -155,15 +141,14 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		const text = 'message.confirm-cancel-request-items';
 		const action = 'button.cancel-items';
 		const items = this.selectionSrv
-			.getSelectionValues()
-			.map((element: any) => ({
-				id: element.reply.id,
+			.getSelectedIds()
+			.map((id: string) => ({
+				id,
 				status: ReplyStatus.CANCELED
 			}));
 		this.dlgCommonSrv.openConfirmDlg({text, action}).data$
 			.pipe(
 				switchMap(_ => this.requestReplySrv.updateMany(items)),
-				switchMap(_ => this.listSrv.refetch())
 			)
 			.subscribe(_ => this.selectionSrv.unselectAll());
 	}

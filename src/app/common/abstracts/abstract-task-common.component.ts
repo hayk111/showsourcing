@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { TaskCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import {
@@ -12,10 +12,11 @@ import {
 	TaskService,
 	UserService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { Filter, FilterType, FilterService } from '~core/filters';
+import { Filter, FilterService, FilterType } from '~core/filters';
+import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
+import { ListHelper2Service } from '~core/list-page2';
+import { api } from 'lib';
 
 /** @deprecated */
 /** since we use the task component on different pages, this page will keep the methods clean */
@@ -30,19 +31,13 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub
 		protected taskSrv: TaskService,
 		protected dlgSrv: DialogService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<Task, TaskService>,
+		public listHelper: ListHelper2Service,
 		protected filterSrv: FilterService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.taskSrv.taskListUpdate$
-			.pipe(
-				switchMap(_ => this.listSrv.refetch()),
-				takeUntil(this._destroy$)
-			)
-			.subscribe();
 	}
 
 	setup(
@@ -60,15 +55,9 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub
 		}
 
 		this.filterSrv.setup([...initialFilters, ...addedFilters], ['name', 'supplier.name', 'product.name', 'reference']);
-		this.listSrv.setup({
-			entitySrv: this.taskSrv,
-			selectParams: {
-				...selectParams,
-				query: 'deleted == false AND archived == false'
-			},
-			entityMetadata: ERM.TASK,
-			originComponentDestroy$: this._destroy$
-		});
+		this.listHelper.setup(
+			'Task'
+		);
 	}
 
 	toggleMyTasks(show: boolean) {
@@ -95,12 +84,12 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub
 	}
 
 	updateTask(task: Task) {
-		this.listSrv.update(task);
+		this.listHelper.update(task);
 	}
 
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
 		this.dlgSrv
-			.open(TaskCreationDialogComponent, { product, supplier })
+			.open(TaskCreationDialogComponent, { product, supplier });
 			// don't implement creation Sample => deprecated component
 			// .pipe(
 			// 	filter((event: CloseEvent) => event.type === CloseEventType.OK),

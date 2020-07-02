@@ -4,7 +4,7 @@
 	logoTypename="Product"
 	info="The product database"
 	[buttonName]="'button.create-product' | translate"
-	(buttonClick)="listHelper.create()">
+	(buttonClick)="listHelper.openCreationDialog()">
 </header-list-app>
 
 <controller-table-app>
@@ -26,7 +26,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"
 	(open)="viewSrv.goToDetails($event)"
-	(createClick)="listHelper.create()"
+	(createClick)="listHelper.openCreationDialog()"
 	(update)="listHelper.update($event, {}, 'Product')"
 	(propertyUpdated)="listHelper.updateProperties($event, $event?.propertyName, $event?.value)"
 	(previewClick)="viewSrv.openPreview($event)"

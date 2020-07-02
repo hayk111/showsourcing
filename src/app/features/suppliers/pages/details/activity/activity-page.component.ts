@@ -58,7 +58,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	update(supplier: Supplier) {
-		api.Supplier.update([{ id: this.supplierId, ...supplier } as any])
+		api.col('Supplier').update([{ id: this.supplierId, ...supplier } as any])
 			.subscribe();
 	}
 
