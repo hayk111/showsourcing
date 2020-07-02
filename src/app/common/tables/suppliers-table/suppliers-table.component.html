@@ -88,14 +88,13 @@
 				<editable-container-app
 					class="full-width"
 					[hasAction]="false"
-					(click)="sel.openMenu()">
+					(click)="sel.openMenu($event)">
 					<editable-value-app>
 						<selector-app
 							#sel
 							typename="PropertyOption"
 							customType="Country"
 							[hasPicker]="canUpdate"
-							[canCreate]="true"
 							[width]="320"
 							(update)="listHelper.updateProperties(row?.id, 'country', $event.value)">
 							<div class="pointer" >

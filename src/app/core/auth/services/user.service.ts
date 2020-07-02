@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
+import { authStatus } from 'lib';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm/models';

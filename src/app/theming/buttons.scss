@@ -136,6 +136,14 @@ button, input[type="submit"], .button {
 		}
 	}
 
+	&.icon.medium {
+		width: 36px;
+		height: 36px;
+		icon-app {
+			font-size: var(--font-size-l);
+		}
+	}
+
 	&.icon.small {
 		width: 24px;
 		height: 24px;

@@ -46,7 +46,7 @@ import * as Pages from './pages';
 		// DetailsPage.RequestsPageComponent,
 		DetailsPage.ProductHeaderDetailsComponent,
 		DetailsPage.ProductSubHeaderDetailsComponent,
-		// DetailsPage.ProductDocketComponent,
+		DetailsPage.ProductDocketComponent,
 		DetailsPage.ProductMainComponent,
 	],
 	entryComponents: [],

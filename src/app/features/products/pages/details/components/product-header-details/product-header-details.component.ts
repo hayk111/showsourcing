@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ProductService } from '~core/erm';
-import { User } from '~core/erm';
-import { Product } from '~core/erm';
+import { Product, User } from '~core/erm3/models';
+import { api } from 'lib';
 
 @Component({
 	selector: 'product-header-details-app',
@@ -17,7 +16,7 @@ export class ProductHeaderDetailsComponent {
 	@Output() archive = new EventEmitter<Product>();
 	@Output() supplierRequest = new EventEmitter<Product>();
 
-	constructor(private productSrv: ProductService) { }
+	constructor() { }
 
 	onFavorited() {
 		this.update.emit({ id: this.product.id, favorite: true });
@@ -28,12 +27,15 @@ export class ProductHeaderDetailsComponent {
 	}
 
 	onUserChanged(user: User) {
-		this.update.emit({ id: this.product.id, assignee: new User({ id: user.id }) });
+		this.update.emit({ id: this.product.id, assigneeId: user.id });
 	}
 
 	updateProductName(isCancel: boolean, value: any, prop: string) {
 		if (!isCancel) {
-			this.productSrv.update({ id: this.product.id, name: value });
+			api.Product.update([{
+				id: this.product.id,
+				name: value
+			}]);
 		}
 	}
 

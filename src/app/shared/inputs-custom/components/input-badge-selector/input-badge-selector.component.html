@@ -1,16 +1,14 @@
 <editable-container-app
 	[hasAction]="false"
 	[readonly]="true"
-	(click)="selector?.openMenu()">
+	(click)="selector?.openMenu($event)">
 	<editable-value-app>
 		<selector-app
 			#selector
 			[canCreate]="true"
-			[typename]="type"
-			[multiple]="true"
-			[offsetX]="offsetX"
-			[offsetY]="offsetY"
+			[typename]="typename"
 			[leftSideOrientation]="leftSideOrientationSelector"
+			[multiple]="true"
 			[value]="value"
 			(update)="onUpdate($event)">
 				<ng-container *ngIf="!value?.length; else hasItems"><span class="capitalize" translate="text.none"></span></ng-container>
