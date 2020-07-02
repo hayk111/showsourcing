@@ -1,60 +1,44 @@
 import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-	Renderer2,
+	ChangeDetectionStrategy, ChangeDetectorRef, Component,
+	ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild
 } from '@angular/core';
 import { saveAs } from 'file-saver';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { ERMService } from '~core/erm';
-import { ImageService } from '~core/erm';
-import { AppImage } from '~core/erm';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { ApiService, Image, ObservableQuery } from '~core/erm3';
+import { UploaderService } from '~shared/file/services/uploader.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { customQueries } from '~core/erm3/queries/custom-queries';
+import { TeamService } from '~core/auth';
 
 @Component({
 	selector: 'carousel-app',
 	templateUrl: './carousel.component.html',
 	styleUrls: ['./carousel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [UploaderFeedbackService],
+	providers: [],
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
+	/** nodeId from which we get the images */
+	@Input() nodeId: string;
 	/** Whether images can be uploaded */
 	@Input() static = false;
 	/** size in px of the main display */
 	@Input() size = 411;
 	@Input() hasPreview = false;
-	// when the uploader service links an image to an item
-	// we need to know to which property we need to link it and if the property is an array
-	@Input() imageProperty = 'images';
-	@Input() isImagePropertyArray = true;
 
-	@Input() set images(images: AppImage[]) {
-		this.uploaderFeedback.setImages(images);
-	}
-	get images() {
-		return this.uploaderFeedback.getImages();
-	}
 
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
-	@Input() entity: any; // entity to which we can link images after an upload
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'contain';
 	@Input() showConfirmOnDelete = true;
 	@Input() hasZoomEffect = true;
 
-	@Output() uploaded = new EventEmitter<AppImage[]>();
-	@Output() deleted = new EventEmitter<AppImage>();
+	@Output() uploaded = new EventEmitter<Image[]>();
+	@Output() deleted = new EventEmitter<Image>();
 
 	@ViewChild('imgApp', { static: false }) imgApp: ImageComponent;
 	@ViewChild('imgApp', { static: false, read: ElementRef }) imgElem: ElementRef<HTMLElement>;
@@ -63,12 +47,15 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
 	defaultImg = DEFAULT_IMG;
+	imageListRef: ObservableQuery;
+	images: Image[];
+	private images$ = new BehaviorSubject<Observable<Image[]>>(of([]));
+
 
 	constructor(
-		private imageSrv: ImageService,
 		private dlgCommonSrv: DialogCommonService,
-		private uploaderFeedback: UploaderFeedbackService,
-		private ermSrv: ERMService,
+		private apiSrv: ApiService,
+		private uploaderSrv: UploaderService,
 		private cd: ChangeDetectorRef,
 		private renderer: Renderer2
 	) {
@@ -76,17 +63,28 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.uploaderFeedback.init({
-			linkedEntity: this.entity,
-			imageProperty: this.imageProperty,
-			isImagePropertyArray: this.isImagePropertyArray,
-		});
-		this.uploaderFeedback.uploaded$.pipe(takeUntil(this._destroy$)).subscribe((imgs) => {
-			this.uploaded.emit(imgs as AppImage[]);
-			// we need this condition since when we add an image the selected index will be length - 1
-			// but when property is not an array we have to set manually the index to 0
-			if (!this.isImagePropertyArray) this.selectedIndex = 0;
-		});
+		this.images$.pipe(
+			switchMap(obs => obs)
+		).subscribe(imgs => this.images = imgs);
+
+		if (this.nodeId)
+			this.fetchImages(this.nodeId);
+	}
+
+	fetchImages(nodeId: string) {
+		// TODO use list when list filters are ready
+		this.imageListRef = this.apiSrv.query(
+			{
+				query: customQueries.images,
+				variables: {
+					filters: {
+						nodeId: { eq: this.nodeId },
+						teamId: { eq: TeamService.teamSelected.id }
+					}
+				}
+			}
+		);
+		this.images$.next(this.imageListRef.data$);
 	}
 
 	back(event) {
@@ -105,8 +103,8 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	rotate() {
 		const img = this.getImg();
 		img.orientation = (img.orientation + 1) % 4;
-		this.imageSrv
-			.update({
+		this.apiSrv
+			.update<Image>('Image', {
 				...img,
 				orientation: img.orientation,
 			})
@@ -115,7 +113,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	async add(files: Array<File>) {
-		this.uploaderFeedback.addImages(files).subscribe();
+		this.uploaderSrv.uploadImages(files, this.nodeId)
+			// .onTempImages(temp => this.images.push(...temp))
+			.subscribe(_ => this.uploaded.emit());
 		// index at the end for instant feedback
 		this.selectedIndex = this.images.length - 1;
 	}
@@ -128,7 +128,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 				text: 'Are you sure you want to remove this image ?',
 			}).data$
 			.pipe(
-				switchMap(_ => this.onDeleteAccepted(img)),
+				// switchMap(_ => this.onDeleteAccepted(img)),
 				takeUntil(this._destroy$),
 			).subscribe(_ => this.deleted.emit(img));
 		} else {
@@ -137,19 +137,20 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** when image is deleted */
-	onDeleteAccepted(image: AppImage) {
-		if (this.entity) {
-			const images = this.entity.images.filter((img) => image.id !== img.id);
-			this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
-			const srv = this.ermSrv.getGlobalServiceForEntity(this.entity);
-			return srv.update({ id: this.entity.id, images });
-		}
+	onDeleteAccepted(image: Image) {
+		throw Error('not implemented yet');
+		// if (this.entity) {
+		// 	const images = this.entity.images.filter((img) => image.id !== img.id);
+		// 	this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+		// 	const srv = this.ermSrv.getGlobalServiceForEntity(this.entity);
+		// 	return srv.update({ id: this.entity.id, images });
+		// }
 	}
 
 	/** start downloading the image */
 	download() {
 		const img = this.getImg();
-		saveAs(img.urls[5].url, img.fileName);
+		saveAs(img.url, img.fileName);
 	}
 
 	getImg() {

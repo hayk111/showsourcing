@@ -2,12 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ChangePswdDlgComponent } from '~common/dialogs/custom-dialogs';
-
-import { UserService } from '~core/erm';
-import { User } from '~core/erm';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { AutoUnsub } from '~utils';
+import { UserService } from '~core/auth';
+import { ApiService, User } from '~core/erm3';
 
 @Component({
 	selector: 'profile-page-app',
@@ -15,33 +13,36 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./profile-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfilePageComponent extends AutoUnsub implements OnInit {
+export class ProfilePageComponent implements OnInit {
 
 	user$: Observable<User>;
 	userId: string;
 
 	constructor(
 		private userSrv: UserService,
+		private apiSrv: ApiService,
 		private dlgSrv: DialogService,
 		private uploaderSrv: UploaderService
 	) {
-		super();
 	}
 
 	ngOnInit() {
-		this.user$ = this.userSrv.selectUser();
+		this.user$ = this.userSrv.user$;
 		// This way we dont have to call the observable eachtime we need the id
-		this.user$.pipe(first()).subscribe(m => this.userId = m.id);
+		this.user$.pipe(first())
+			.subscribe(user => this.userId = user.id);
 	}
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		this.userSrv.update(user)
+		this.apiSrv.update('User', user)
 			.subscribe();
 	}
 
-	addFile(file: Array<File>) {
-		this.uploaderSrv.uploadImages(file, this.userSrv.userSync, 'avatar', false).subscribe();
+	addFile(files: Array<File>) {
+		// this.uploaderSrv.uploadImages(files, this.nodeId)
+		// 	.onTempImages(tempImgs => do whathever)
+		// 	.subscribe(_ => on upload finish);
 	}
 
 	pswdModal() {
