@@ -1,6 +1,7 @@
-import { client, state } from 'lib';
+import { client, state, authStatus } from 'lib';
 import * as localforage from 'localforage';
 import { filter } from 'rxjs/operators';
+import { AuthStatus } from 'showsourcing-api-lib/dist/services';
 
 localforage.config({
 	driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
@@ -17,6 +18,7 @@ client.init({
 	shouldSync: true,
 });
 
+authStatus.signIn('augustin@showsourcing.com', 'Test1234');
 
 state.auth$.pipe(
 	filter(state => state === 'AUTHENTICATED')

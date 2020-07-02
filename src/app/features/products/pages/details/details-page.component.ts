@@ -1,21 +1,16 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { tap, map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { api } from 'lib';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { RatingService } from '~shared/rating/services/rating.service';
+import { Sample } from '~core/erm3/models/sample.model';
+import { Supplier } from '~core/erm3/models/supplier.model';
+import { Task } from '~core/erm3/models/task.model';
+import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
-import { Product } from '~core/erm3/models/product.model';
-import { Sample } from '~core/erm3/models/sample.model';
-import { Task } from '~core/erm3/models/task.model';
-import { Project } from '~core/erm3/models/project.model';
-import { Supplier } from '~core/erm3/models/supplier.model';
+import { Product, api, Project } from 'showsourcing-api-lib';
 
 /**
  *
@@ -49,9 +44,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
-		private ratingSrv: RatingService,
 		public dlgCommonSrv: DialogCommonService,
-		private translate: TranslateService
 	) {
 		super();
 	}
@@ -64,8 +57,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 		this.product$ = id$.pipe(
 			switchMap(id => api.Product.get(id)),
-			takeUntil(this._destroy$)
-		) as any;
+			takeUntil(this._destroy$),
+		);
 
 		this.product$.pipe(
 			takeUntil(this._destroy$)

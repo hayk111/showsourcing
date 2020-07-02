@@ -1,35 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
-import { switchMap, startWith, tap } from 'rxjs/operators';
-import { Attachment, Image } from '~core/erm3';
-import { api } from 'lib';
+import { startWith, switchMap, tap } from 'rxjs/operators';
+import { api, authStatus, Storage } from 'showsourcing-api-lib';
 import { ToastService, ToastType } from '~shared/toast';
-import { AuthenticationService } from '~core/auth';
-import { environment } from 'environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService2 {
 
 	constructor(
-		private amplifySrv: AmplifyService,
-		private authSrv: AuthenticationService,
 		private toastSrv: ToastService
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): Observable<any> {
 
-		const cognitoId = this.authSrv.authState.user.pool.storage[
-			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
-		];
-
 		const obs = files.map(file => this.s3upload(file).pipe(
 			switchMap(_ => api.Attachment.create(
 					[
-						// {
-						// 	fileName: `${cognitoId}/${file.name}`,
-						// 	nodeId
-						// }
+						{
+							fileName: `${authStatus.cognitoId}/${file.name}`,
+							nodeId
+						}
 					]
 				)
 			),
@@ -43,13 +33,10 @@ export class UploaderService2 {
 				files: files.map(file => ({ fileName: file.name, pending: true }))
 			})
 		);
-
 	}
 
 	uploadImages(files: File[], nodeId): Observable<any> {
-		const cognitoId = this.authSrv.authState.user.pool.storage[
-			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
-		];
+		const cognitoId = authStatus.cognitoId;
 		const obs = files.map(file => this.s3upload(file).pipe(
 			tap(_ => this.showToast(`Uploaded ${files.length} images(s)`)),
 			switchMap(_ => api['Image'].create([{
@@ -67,7 +54,7 @@ export class UploaderService2 {
 	}
 
 	private s3upload(file: File): Observable<string> {
-		return from(this.amplifySrv.storage().put(
+		return from(Storage.put(
 			file.name,
 			file
 		)) as Observable<string>;
