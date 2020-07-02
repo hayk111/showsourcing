@@ -11,7 +11,7 @@ import { MembersInvitationService } from '../../services/members-invitation.serv
 import { Invitation, TeamUser, User } from '~core/erm3';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
 import { QueryType } from '~core/erm3/queries/query-type.enum';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { TeamService } from '~core/auth';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 

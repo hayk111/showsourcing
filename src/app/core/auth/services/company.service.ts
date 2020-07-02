@@ -3,7 +3,7 @@ import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
-import { api, Company } from 'lib';
+import { api, Company } from 'showsourcing-api-lib';
 
 @Injectable({
 	providedIn: 'root'

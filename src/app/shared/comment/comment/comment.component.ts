@@ -3,7 +3,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UserService } from '~core/auth';
 import { Comment } from '~core/erm3';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'comment-app',

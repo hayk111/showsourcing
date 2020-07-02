@@ -3,7 +3,7 @@ import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
 import { switchMap, startWith, tap } from 'rxjs/operators';
 import { Attachment, Image } from '~core/erm3';
-import { api } from 'lib';
+import { api, state } from 'showsourcing-api-lib';
 import { ToastService, ToastType } from '~shared/toast';
 import { AuthenticationService } from '~core/auth';
 import { environment } from 'environments/environment';
@@ -43,7 +43,7 @@ export class UploaderService2 {
 	}
 
 	uploadImages(files: File[], nodeId): Observable<any> {
-		const cognitoId = this.authSrv.authState.user.pool.storage[
+		const cognitoId = state.user.pool.storage[
 			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
 		];
 		const obs = files.map(file => this.s3upload(file).pipe(

@@ -34,13 +34,14 @@ export const routes: Array<Route> = [
 	{
 		path: '',
 		component: TemplateComponent,
-		canActivateChild: [
-			// AuthenticatedGuard,
+		canActivate: [
+			AuthenticatedGuard,
+			ClientReadyGuard
 			// HasTeamSelectedGuard, TODO: implement team select functionality and guard
 			// HasUserGuard,
 		],
 		children: [
-			{ path: '', redirectTo: 'products', pathMatch: 'full', canActivate: [ClientReadyGuard] },
+			{ path: '', redirectTo: 'products', pathMatch: 'full', canActivate: [] },
 	// 		{
 	// 			path: 'dashboard',
 	// 			loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
@@ -53,7 +54,7 @@ export const routes: Array<Route> = [
 			{
 				path: 'products',
 				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule',
-				canActivate: [ClientReadyGuard]
+				canActivate: []
 			},
 			// {
 			// 	path: 'requests',
@@ -67,7 +68,7 @@ export const routes: Array<Route> = [
 			{
 				path: 'suppliers',
 				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule',
-				canActivate: [ClientReadyGuard]
+				canActivate: []
 			},
 			// {
 			// 	path: 'settings',

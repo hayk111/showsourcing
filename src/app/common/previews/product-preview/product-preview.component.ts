@@ -3,7 +3,7 @@ import {
 	EventEmitter, Input, OnInit, Output, ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Observable } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';

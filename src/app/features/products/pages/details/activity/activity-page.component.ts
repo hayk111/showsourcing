@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Comment } from '~core/erm3';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { AutoUnsub, uuid } from '~utils';
 
 

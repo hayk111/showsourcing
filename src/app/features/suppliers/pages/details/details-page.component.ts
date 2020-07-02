@@ -6,7 +6,7 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Supplier } from '~core/erm3/models/supplier.model';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';

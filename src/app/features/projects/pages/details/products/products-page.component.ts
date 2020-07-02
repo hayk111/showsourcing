@@ -25,7 +25,7 @@ import { ListPageViewService, SelectionService, ExcludedService, ListHelper2Serv
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import _ from 'lodash';
 import { TeamService } from '~core/auth';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { ProjectProductService } from '../../../services/project-product.service';
 

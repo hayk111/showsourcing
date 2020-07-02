@@ -3,7 +3,7 @@ import { Observable, ReplaySubject, of } from 'rxjs';
 import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
 import { LocalStorageService } from '~core/local-storage';
-import { api, state } from 'lib';
+import { api, state } from 'showsourcing-api-lib';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
 import { UserService } from './user.service';

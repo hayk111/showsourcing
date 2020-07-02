@@ -8,7 +8,7 @@ import { ERM } from '~core/erm';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Project } from '~core/erm3/models';
 import { ListHelper2Service } from '~core/list-page2';
 

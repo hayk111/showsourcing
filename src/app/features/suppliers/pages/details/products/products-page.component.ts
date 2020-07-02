@@ -6,7 +6,7 @@ import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'products-page-app',

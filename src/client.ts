@@ -1,4 +1,4 @@
-import { client, state } from 'lib';
+import { client, state } from 'showsourcing-api-lib';
 import * as localforage from 'localforage';
 import { filter } from 'rxjs/operators';
 

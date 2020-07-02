@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RatingService } from '~shared/rating/services/rating.service';

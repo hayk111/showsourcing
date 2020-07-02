@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
-import { api, ISearchOptions, Typename, IApiResponse } from 'lib';
+import { api, ISearchOptions, Typename, IApiResponse } from 'showsourcing-api-lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil, tap, map, share } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, share, distinctUntilChanged } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -25,8 +25,8 @@ export class ListHelper2Service<G = any> {
 	private _pending$ = new BehaviorSubject(true);
 	pending$ = this._pending$.asObservable();
 
-	private _total$ = new BehaviorSubject<number>(0);
-	total: number;
+	total = 0;
+	private _total$ = new Subject<number>();
 	total$ = this._total$.asObservable();
 
 	constructor(
@@ -35,7 +35,6 @@ export class ListHelper2Service<G = any> {
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
 		private sortSrv: SortService,
-		private zone: NgZone
 	) {
 		// When the total change, we setup pagination
 		this.total$.pipe().subscribe((total) => {
@@ -57,6 +56,7 @@ export class ListHelper2Service<G = any> {
 		componentDestroy$ = componentDestroy$ || new Subject();
 		findFn = findFn || ((options: ISearchOptions) => api[typename].find(options));
 		this.typename = typename;
+
 		const reactiveFind = combineLatest(
 			this.filterSrv.valueChanges$,
 			this.paginationSrv.pagination$,
@@ -64,6 +64,7 @@ export class ListHelper2Service<G = any> {
 		).pipe(
 			map(([filter, pagination, sort]) => findFn({ filter: filter.queryArgs, sort, pagination })),
 		);
+
 		// data
 		reactiveFind.pipe(
 			switchMap(result => result.data$),
@@ -74,6 +75,7 @@ export class ListHelper2Service<G = any> {
 		reactiveFind.pipe(
 			switchMap(result => result.count$),
 			takeUntil(componentDestroy$),
+			distinctUntilChanged()
 		).subscribe(count => this._total$.next(count));
 	}
 

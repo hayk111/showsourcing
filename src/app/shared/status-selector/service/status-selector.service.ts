@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { api, Typename } from 'lib';
+import { api, Typename } from 'showsourcing-api-lib';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WorkflowStatus } from '~core/erm3/models';

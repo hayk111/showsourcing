@@ -4,7 +4,7 @@ import { ListQuery } from '~core/erm';
 import { Filter, FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { AutoUnsub } from '~utils';
-import { Typename } from 'lib';
+import { Typename } from 'showsourcing-api-lib';
 
 
 export function filterTypeToTypename(type: FilterType): Typename {

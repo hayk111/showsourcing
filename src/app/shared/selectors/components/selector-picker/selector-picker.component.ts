@@ -17,7 +17,7 @@ import { PropertyOptionsService } from '~shared/selectors/services/property-opti
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ID } from '~utils';
-import { Typename } from 'lib';
+import { Typename } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'selector-picker-app',
