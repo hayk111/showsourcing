@@ -4,6 +4,7 @@ import { filter, map, mapTo } from 'rxjs/operators';
 import { authStatus, IAuthState, state, Auth } from 'showsourcing-api-lib';
 import { showsourcing } from '~utils/debug-object.utils';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
+import { log } from '~utils/log';
 
 /**
  * Authentication service responsible for authentication.
@@ -56,7 +57,9 @@ export class AuthenticationService {
 
 	constructor(
 		private router: Router
-	) { }
+	) {
+		state.auth$.subscribe(state => log.debug(`auth state: ${state}`));
+	}
 
 	// SIGN IN FLOWS
 	signIn(credentials: Credentials): Promise<any> {

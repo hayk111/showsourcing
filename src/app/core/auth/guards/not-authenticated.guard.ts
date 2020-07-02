@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { IAuthState } from 'showsourcing-api-lib';
+import { IAuthState, state } from 'showsourcing-api-lib';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
 
@@ -15,9 +15,9 @@ export class NotAuthenticatedGuard implements CanActivate, CanActivateChild {
 
 	canActivate(
 		route: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
+		_state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.authSrv.authState$.pipe(
+		return state.auth$.pipe(
 			tap(authState => {
 				console.log('not authenticated guard!!:', authState);
 			}),
@@ -36,8 +36,8 @@ export class NotAuthenticatedGuard implements CanActivate, CanActivateChild {
 
 	canActivateChild(
 		childRoute: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
+		_state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.canActivate(childRoute, state);
+		return this.canActivate(childRoute, _state);
 	}
 }

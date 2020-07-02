@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap, skip } from 'rxjs/operators';
-import { log, LogColor } from '~utils';
-import { EntityName } from '~core/erm';
+import { tap } from 'rxjs/operators';
 import { CompanyService } from '~core/auth';
+import { log, LogColor } from '~utils';
 
 @Injectable({
 	providedIn: 'root'

@@ -18,7 +18,7 @@ export class UploaderService2 {
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): Observable<any> {
-		const cognitoId = this.authSrv.authState.user.pool.storage[
+		const cognitoId = state.user.pool.storage[
 			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
 		];
 		const obs = files.map(file => this.s3upload(file).pipe(

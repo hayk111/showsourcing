@@ -17,7 +17,6 @@ client.init({
 	shouldSync: true,
 });
 
-
-state.auth$.pipe(
-	filter(state => state === 'AUTHENTICATED')
-).subscribe(_ => client.sync('14fd7963-0437-4821-80fc-01f74bb78a95'));
+// state.auth$.pipe(
+// 	filter(state => state === 'AUTHENTICATED')
+// ).subscribe(_ => client.sync('14fd7963-0437-4821-80fc-01f74bb78a95'));

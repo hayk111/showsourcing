@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { GuestTemplateComponent, TemplateComponent } from '~shared/template/components';
 import { DevModeGuard } from '~utils/dev-mode.guard';
-import { HasTeamSelectedGuard } from '~features/auth/services';
+import { HasTeamSelectedGuard, HasCompanyGuard } from '~features/auth/services';
 import { AuthenticatedGuard } from '~core/auth/guards';
 import { HasUserGuard } from '~core/auth/guards/has-user.guard';
 import { ClientReadyGuard } from '~core/api-lib';
@@ -36,8 +36,9 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivate: [
 			AuthenticatedGuard,
-			ClientReadyGuard
-			// HasTeamSelectedGuard, TODO: implement team select functionality and guard
+			ClientReadyGuard,
+			HasCompanyGuard,
+			HasTeamSelectedGuard,
 			// HasUserGuard,
 		],
 		children: [
