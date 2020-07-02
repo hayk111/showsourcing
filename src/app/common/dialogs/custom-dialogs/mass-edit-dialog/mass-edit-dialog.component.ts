@@ -52,7 +52,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		protected cdRef: ChangeDetectorRef
 	) {
-		super(); ///
+		super();
 	}
 
 	ngOnInit() {
