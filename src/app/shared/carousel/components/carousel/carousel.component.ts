@@ -6,13 +6,13 @@ import { saveAs } from 'file-saver';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ApiService, Image, ObservableQuery } from '~core/erm3';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { TeamService } from '~core/auth';
+import { api, Image } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'carousel-app',
@@ -47,14 +47,12 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
 	defaultImg = DEFAULT_IMG;
-	imageListRef: ObservableQuery;
 	images: Image[];
-	private images$ = new BehaviorSubject<Observable<Image[]>>(of([]));
+	private images$ = new BehaviorSubject<Image[]>([]);
 
 
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
-		private apiSrv: ApiService,
 		private uploaderSrv: UploaderService,
 		private cd: ChangeDetectorRef,
 		private renderer: Renderer2
@@ -64,7 +62,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.images$.pipe(
-			switchMap(obs => obs)
 		).subscribe(imgs => this.images = imgs);
 
 		if (this.nodeId)
@@ -72,18 +69,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	fetchImages(nodeId: string) {
-		// TODO use list when list filters are ready
-		this.imageListRef = this.apiSrv.query(
-			{
-				query: customQueries.images,
-				variables: {
-					filters: {
-						nodeId: { eq: this.nodeId },
-						teamId: { eq: TeamService.teamSelected.id }
-					}
-				}
-			}
-		);
 		this.images$.next(this.imageListRef.data$);
 	}
 

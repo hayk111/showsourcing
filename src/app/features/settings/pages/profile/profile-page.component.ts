@@ -5,7 +5,7 @@ import { ChangePswdDlgComponent } from '~common/dialogs/custom-dialogs';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { UserService } from '~core/auth';
-import { ApiService, User } from '~core/erm3';
+import { User } from '~core/erm3';
 
 @Component({
 	selector: 'profile-page-app',
@@ -20,7 +20,6 @@ export class ProfilePageComponent implements OnInit {
 
 	constructor(
 		private userSrv: UserService,
-		private apiSrv: ApiService,
 		private dlgSrv: DialogService,
 		private uploaderSrv: UploaderService
 	) {
@@ -35,8 +34,8 @@ export class ProfilePageComponent implements OnInit {
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		this.apiSrv.update('User', user)
-			.subscribe();
+		// this.apiSrv.update('User', user)
+		// 	.subscribe();
 	}
 
 	addFile(files: Array<File>) {
