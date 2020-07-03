@@ -1,16 +1,14 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { api, Product, Sample, Project, Task, Supplier } from 'lib';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Sample } from '~core/erm3/models/sample.model';
-import { Supplier } from '~core/erm3/models/supplier.model';
-import { Task } from '~core/erm3/models/task.model';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
-import { Product, api, Project } from 'showsourcing-api-lib';
+
 
 /**
  *

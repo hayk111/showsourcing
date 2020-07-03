@@ -17,7 +17,6 @@ import {
 } from '~common/dialogs/custom-dialogs';
 import { EntityMetadata, Product, Supplier, RequestTemplate } from '~core/erm';
 import { Entity } from '~core/erm3/models/_entity.model';
-import { Typename } from '~core/erm3/typename.type';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { Vote } from '~core/erm3/models';
@@ -31,6 +30,7 @@ import {
 	SampleCreationDialogComponent
 } from '~common/dialogs/creation-dialogs';
 import { ProductSelectionDialogComponent, ProjectSelectionDialogComponent } from '~common/dialogs/selection-dialogs';
+import { Typename } from 'showsourcing-api-lib';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
