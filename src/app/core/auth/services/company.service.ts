@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { map, switchMap, tap, filter, shareReplay } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { api, Company, state, client } from 'showsourcing-api-lib';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
-import { api, Company, state, client } from 'showsourcing-api-lib';
-import * as localforage from 'localforage';
 
 
 @Injectable({
@@ -12,7 +11,7 @@ import * as localforage from 'localforage';
 })
 export class CompanyService {
 	private _company$ = new ReplaySubject<Company>(1);
-	company$ = this._company$.asObservable().pipe(shareReplay(1));
+	company$ = this._company$.asObservable();
 	hasCompany$ = this.company$.pipe(map(company => !!company));
 	companySync: Company;
 
@@ -28,16 +27,22 @@ export class CompanyService {
 				switchMap(_ => state.isUsable$),
 				filter(usable => !!usable),
 				switchMap(id => api.Company.getFirst()),
+				take(1)
 			)
 			.subscribe(company => {
 				this._company$.next(company);
-				this.companySync = company;
 			});
+		this.company$.subscribe(company => {
+			this.companySync = company;
+			client.initCompany(company);
+		});
 	}
 
 	create(company: Company) {
 		return api.Company.create(company).pipe(
-			tap(_company => this._company$.next(_company)),
+			tap(_company => {
+				this._company$.next(_company);
+			}),
 		);
 	}
 }

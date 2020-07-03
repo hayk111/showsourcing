@@ -24,7 +24,7 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.team$ = this.teamSrv.getTeamById(TeamService.teamSelected.id).pipe(tap(team => this.team = team));
+		this.team$ = this.teamSrv.teamSelected$.pipe(tap(team => this.team = team));
 	}
 
 	updateTeamName({ teamName }) {

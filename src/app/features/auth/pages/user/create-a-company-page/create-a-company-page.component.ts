@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CompanyService } from '~core/auth';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { Company } from '~core/erm3/models';
 
 @Component({
 	selector: 'create-a-company-page-app',
