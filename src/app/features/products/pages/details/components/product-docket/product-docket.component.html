@@ -5,8 +5,7 @@
 		<h3 class="section-title">Product Owner</h3>
 		<editable-container-app
 			[hasAction]="false"
-			[openOnClick]="false"
-			(click)="sel?.selector?.openMenu()">
+			(click)="sel.openMenu($event)">
 			<editable-value-app>
 				<selector-app
 					#sel

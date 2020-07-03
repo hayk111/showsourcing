@@ -1,16 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
-import { ProjectService } from '~core/erm';
-import { ERM } from '~core/erm';
-import { UploaderService } from '~shared/file/services/uploader.service';
-import { AutoUnsub } from '~utils';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { api } from 'showsourcing-api-lib';
+import { api } from 'lib';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { ERM, ProjectService } from '~core/erm';
 import { Project } from '~core/erm3/models';
 import { ListHelper2Service } from '~core/list-page2';
+import { UploaderService } from '~shared/file/services/uploader.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'settings-page-app',
@@ -30,7 +29,6 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 
 	constructor(
-		private	router: Router,
 		private route: ActivatedRoute,
 		private projectSrv: ProjectService,
 		private fb: FormBuilder,
@@ -64,8 +62,9 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onNewFiles(files: File[]) {
-		this.uploader.uploadImages(files)
-			.subscribe(imgs => this.updateProject({ logoImage: imgs[0] } as any));
+		// this.uploaderSrv.uploadImages(files, this.nodeId)
+		// 	.onTempImages( tempImgs => do something with pending imgs)
+		// 	.subscribe(_ => do something when upload finishes)
 	}
 
 	updateProject(proj: Project) {

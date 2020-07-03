@@ -231,7 +231,7 @@
 		<editable-field-app 
 			[readonly]="true"
 			[clickableReadonly]="!descriptor.readonly"
-			(click)="sel.openMenu()">
+			(click)="sel.openMenu($event)">
 			<editable-label-app>
 				{{ descriptor.definition.label }}
 			</editable-label-app>

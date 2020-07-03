@@ -2,8 +2,8 @@
 <div
 	#trigger="cdkOverlayOrigin"
 	cdkOverlayOrigin
-	class="full-width ellipsis pointer"
-	(click)="openMenu()">
+	class="selector-content ellipsis pointer"
+	(click)="openMenu($event)">
 	<ng-content></ng-content>
 </div>
 
@@ -11,14 +11,14 @@
 	*ngIf="menuOpen && hasPicker"
 	[trigger]="trigger"
 	[isOpen]="menuOpen"
-	[offsetY]="offsetY"
 	[offsetX]="offsetX"
+	[offsetY]="offsetY"
 	[leftSideOrientation]="leftSideOrientation"
 	[closeOnScroll]="true"
 	(clickOutside)="closeMenu(true)">
 	<selector-picker-app
 		class="z-2"
-		[ngStyle]="{ width: width + 'px'}"
+		[ngStyle]="{ width: width + 'px' }"
 		[searchTxt]="searchTxt"
 		[value]="value"
 		[typename]="typename"
@@ -29,7 +29,6 @@
 		[definitionReference]="definitionReference"
 		(update)="onChange($event)"
 		(close)="closeMenu(true)"
-		cdkTrapFocus
-		>
+		cdkTrapFocus>
 	</selector-picker-app>
 </cdk-overlay-app>

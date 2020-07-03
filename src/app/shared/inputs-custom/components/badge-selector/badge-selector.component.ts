@@ -1,3 +1,6 @@
+import {
+	EditableContainerComponent
+} from '../../../editable/components/editable-container/editable-container.component';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { EntityMetadata, ERM } from '~core/erm';
 import { SelectorComponent } from '~shared/selectors';
@@ -16,6 +19,7 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 	@Input() offsetY = -22;
 	@Input() multiple = false;
 	@Input() hasOpenAction = false;
+	@Input() leftSideOrientation = false;
 	@Input() hasLogo = true;
 	private initialMsg = 'Open';
 	@Input() toolTipMessage = this.initialMsg;
@@ -23,6 +27,7 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 	@Output() openActionClicked = new EventEmitter<null>();
 
 	@ViewChild(SelectorComponent, { static: false }) selector: SelectorComponent;
+	@ViewChild('editableContainer', { static: true }) editableCont: EditableContainerComponent;
 
 	erm = ERM;
 

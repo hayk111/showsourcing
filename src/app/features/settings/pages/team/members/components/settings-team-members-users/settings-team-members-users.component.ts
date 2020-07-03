@@ -1,19 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin, Observable, combineLatest, timer, of } from 'rxjs';
-import { switchMap, map, debounce, tap } from 'rxjs/operators';
+import { api } from 'lib';
+import { forkJoin, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Invitation, TeamUser, User } from '~core/erm3';
+import { FilterService } from '~core/filters';
+import { ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
-import { SelectionService, ListPageViewService } from '~core/list-page2';
-import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
-import { FilterService, FilterType } from '~core/filters';
 import { MembersInvitationService } from '../../services/members-invitation.service';
-import { Invitation, TeamUser, User } from '~core/erm3';
-import { QueryPool } from '~core/erm3/queries/query-pool.class';
-import { QueryType } from '~core/erm3/queries/query-type.enum';
-import { api } from 'showsourcing-api-lib';
-import { TeamService } from '~core/auth';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'settings-team-members-users-app',

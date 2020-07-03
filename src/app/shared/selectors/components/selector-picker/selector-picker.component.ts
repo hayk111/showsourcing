@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ERM } from '~core/erm';
-import { FilterService } from '~core/filters';
+import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, InputDirective } from '~shared/inputs';
@@ -106,10 +106,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
+
 		this.filterSrv.setup([], ['name']);
 		// TODO setup
 
 		if (this.typename === 'PropertyOption') {
+			this.listHelper.setup(this.typename);
+			// this.filterSrv.setFilters([{
+			// 	property: 'type',
+			// 	eq: FilterType.CATEGORY
+			// } as any]);
+
 			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
 			this.cd.markForCheck();
 		} else {

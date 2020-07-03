@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import {
 	ContactService, ProductService,
-	ProductVoteRequest, ProductVoteRequestService,
+	ProductVoteRequestService,
 	ProjectService, SupplierService, TeamUserService, UserService
 } from '~core/erm';
 
-import { Project, Product, Contact } from '~core/erm3/models';
 
 @Injectable()
 export class ProductDialogService extends ProductService {

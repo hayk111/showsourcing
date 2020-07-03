@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
-import { UploaderService2 } from '~shared/file/services/uploader.service2';
+import { ChangeDetectionStrategy, Component, ChangeDetectorRef,  NgZone, ViewChild, ElementRef } from '@angular/core';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Component({
 	selector: 'upload-page-app',
@@ -15,40 +15,52 @@ export class UploadPageComponent {
 	selectExample;
 	dropExample;
 
-	constructor(private uploadSrv: UploaderService2, private cd: ChangeDetectorRef) {}
+	@ViewChild('inpFile') inpFile: ElementRef<HTMLInputElement>;
+	@ViewChild('inpImg') inpImg: ElementRef<HTMLInputElement>;
+
+	constructor(
+		private uploaderSrv: UploaderService,
+		private cdRef: ChangeDetectorRef
+	) {}
 
 	onFileSelect(files: File[]) {
-		if (!this.productSelected) {
-			return alert('pick a product first');
-		}
+		this.checkSelected();
 
 		this.uploading = true;
-		this.uploadSrv.uploadFiles(files, `Product:${this.productSelected.id}`)
-			.subscribe(r => {
-				if (r.pending) {
-					this.pendingFiles = r.files;
-				} else {
-					this.uploading = false;
-					this.cd.detectChanges();
-				}
-			});
+		this.uploaderSrv.uploadFiles(files, `Product:${this.productSelected.id}`)
+			// local files
+			.onTempFiles(attachements => {
+				this.pendingFiles = attachements;
+				this.cdRef.markForCheck();
+			})
+			.subscribe(() => this.onSuccess());
 	}
 
 	onImageSelect(files: File[]) {
-		if (!this.productSelected) {
-			return alert('pick a product first');
-		}
+		this.checkSelected();
 
 		this.uploading = true;
-		this.uploadSrv.uploadImages(files, `Product:${this.productSelected.id}`)
-			.subscribe(r => {
-				if (r.pending) {
-					this.pendingImgs = r.files;
-				} else {
-					this.uploading = false;
-					this.cd.detectChanges();
-				}
-			});
+		this.uploaderSrv.uploadImages(files, `Product:${this.productSelected.id}`)
+			// local img, the url is base64 encoded image
+			.onTempImages(tempImgs => {
+				this.pendingImgs = tempImgs;
+				this.cdRef.markForCheck();
+			})
+			.subscribe(() => this.onSuccess());
+	}
+
+	private onSuccess() {
+		this.uploading = false;
+		this.pendingFiles = undefined;
+		this.pendingImgs = undefined;
+		this.cdRef.detectChanges();
+	}
+
+	private checkSelected() {
+		if (!this.productSelected) {
+			alert('pick a product first, i am going to reload the page now');
+			location.reload();
+		}
 	}
 
 }

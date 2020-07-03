@@ -1,6 +1,5 @@
-import { client, state } from 'showsourcing-api-lib';
+import { client } from 'lib';
 import * as localforage from 'localforage';
-import { filter } from 'rxjs/operators';
 
 localforage.config({
 	driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
