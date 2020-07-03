@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { CompanyService } from '~core/auth';
 import { log, LogColor } from '~utils';
 
@@ -17,8 +17,8 @@ export class HasCompanyGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.companySrv.hasCompany$.pipe(
-			tap(d => log.debug('%c hasCompanyGuard', LogColor.GUARD, d)),
+		return this.companySrv.company$.pipe(
+			map(company => !!company),
 			tap(hasCompany => this.redirect(hasCompany, route, state))
 		);
 	}

@@ -12,15 +12,6 @@ localforage.config({
 		'entities stored locally with apollo appsync for the showsourcing app',
 });
 
-authStatus.signin$.pipe(
-	filter(signIn => !!signIn),
-	first()
-).subscribe(_ => {
-	client.init({
-		offlineConfig: {storage: localforage},
-		shouldSync: true,
-	});
-});
 
 // state.auth$.pipe(
 // 	filter(state => state === 'AUTHENTICATED')

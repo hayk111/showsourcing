@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
-import { filter, first, map, shareReplay } from 'rxjs/operators';
+import { filter, first, map, shareReplay, tap, switchMap } from 'rxjs/operators';
 import { api, Team, client } from 'showsourcing-api-lib';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
@@ -51,7 +51,8 @@ export class TeamService {
 		this._teamSelected$
 		.subscribe(team => {
 			TeamService.teamSelected = team;
-			client.setTeam(team);
+			if (team)
+				client.setTeam(team);
 		});
 		this.authSrv.signOut$.subscribe(_ => this.resetSelectedTeam());
 	}
@@ -72,10 +73,10 @@ export class TeamService {
 	/** creates a team and waits for it to be valid */
 	create(teamName: string): Observable<any> {
 		const companyId = this.companySrv.companySync.id;
-		return api.Team.create(companyId, teamName, 'BUYER')
-			.pipe(
-				// switchMap(_ => this.queryAllTeamUsers.refetch())
-			);
+		return api.Team.create(companyId, teamName, 'BUYER').pipe(
+			tap(d => { debugger; }),
+			switchMap(team => this.pickTeam(team))
+		);
 	}
 
 	update(team: Team): Observable<any> {

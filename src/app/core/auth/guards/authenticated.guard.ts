@@ -16,14 +16,15 @@ export class AuthenticatedGuard implements CanActivate, CanActivateChild {
 		route: ActivatedRouteSnapshot,
 		_state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
+
 		return state.auth$.pipe(
 			tap(authState => this.redirectOnUnAuthenticated(authState, route, _state)),
-			tap(authState => log.debug('%c auth guard: auth state ?', LogColor.GUARD, authState)),
-			map(authState => authState === 'AUTHENTICATED')
+			map(authState => authState === 'AUTHENTICATED'),
 		);
 	}
 
 	redirectOnUnAuthenticated(authState: IAuthState, route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
+		log.debug(`authenticated guard -> ${authState === 'AUTHENTICATED'}`);
 		switch (authState) {
 			case 'NOT_AUTHENTICATED':
 				const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : _state.url;

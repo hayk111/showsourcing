@@ -3,16 +3,14 @@ import {
 	ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild
 } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { api, Image } from 'showsourcing-api-lib';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
-import { customQueries } from '~core/erm3/queries/custom-queries';
-import { TeamService } from '~core/auth';
-import { api, Image } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'carousel-app',
@@ -69,7 +67,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	fetchImages(nodeId: string) {
-		// api.Attachment.find;
+		api.Image.findByNodeId(nodeId);
 	}
 
 	back(event) {
@@ -97,9 +95,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
-	async add(files: Array<File>) {
+	add(files: Array<File>) {
 		this.uploaderSrv.uploadImages(files, this.nodeId)
-			// .onTempImages(temp => this.images.push(...temp))
+			.onTempImages(temp => this.images.push(...temp))
 			.subscribe(_ => this.uploaded.emit());
 		// index at the end for instant feedback
 		this.selectedIndex = this.images.length - 1;

@@ -4,6 +4,7 @@ import { AuthenticatedGuard } from '~core/auth/guards';
 import { HasCompanyGuard, HasTeamGuard, HasTeamSelectedGuard } from '~features/auth/services';
 import { GuestTemplateComponent, TemplateComponent } from '~shared/template/components';
 import { DevModeGuard } from '~utils/dev-mode.guard';
+import { SyncGuardHelper } from '~features/auth/services/sync-guard.guard';
 
 export const routes: Array<Route> = [
 	{
@@ -34,13 +35,17 @@ export const routes: Array<Route> = [
 		path: '',
 		component: TemplateComponent,
 		canActivate: [
-			AuthenticatedGuard,
-			ClientReadyGuard,
-			HasCompanyGuard,
-			HasTeamGuard,
-			HasTeamSelectedGuard,
-			// HasUserGuard,
+			SyncGuardHelper
 		],
+		data: {
+			syncGuards: [
+				AuthenticatedGuard,
+				HasCompanyGuard,
+				ClientReadyGuard,
+				HasTeamGuard,
+				HasTeamSelectedGuard,
+			]
+		},
 		children: [
 			{ path: '', redirectTo: 'products', pathMatch: 'full', canActivate: [] },
 	// 		{

@@ -5,6 +5,7 @@ import { authStatus, IAuthState, state, Auth, client } from 'showsourcing-api-li
 import { showsourcing } from '~utils/debug-object.utils';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
 import { log } from '~utils/log';
+import * as localforage from 'localforage';
 
 /**
  * Authentication service responsible for authentication.
@@ -59,6 +60,12 @@ export class AuthenticationService {
 		private router: Router
 	) {
 		state.auth$.subscribe(state => log.debug(`auth state: ${state}`));
+		this.signIn$.pipe(first()).subscribe(_ => {
+			client.init({
+				offlineConfig: {storage: localforage},
+				shouldSync: true,
+			});
+		});
 	}
 
 	// SIGN IN FLOWS

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { api, authStatus, Image } from 'showsourcing-api-lib';
+import { api, authStatus, Image, Storage } from 'showsourcing-api-lib';
 import { ToastService, ToastType } from '~shared/toast';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
 
@@ -10,7 +9,6 @@ import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/obser
 export class UploaderService {
 
 	constructor(
-		private amplifySrv: AmplifyService,
 		private toastSrv: ToastService
 	) {}
 
@@ -60,9 +58,12 @@ export class UploaderService {
 	}
 
 	private s3upload(file: File): Observable<string> {
-		return from(this.amplifySrv.storage().put(
+		return from(Storage.put(
 			file.name,
-			file
+			file,
+			{
+				level: 'private',
+			}
 		)) as Observable<string>;
 	}
 
