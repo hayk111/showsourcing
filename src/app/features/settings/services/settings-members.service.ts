@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, Subject, zip } from 'rxjs';
+import { Subject, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TeamService, UserService } from '~core/auth';
-import { Invitation, TeamUser, TeamUserService } from '~core/erm';
+import { TeamUser, TeamUserService } from '~core/erm';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsMembersService extends TeamUserService {
@@ -25,7 +25,7 @@ export class SettingsMembersService extends TeamUserService {
 		).pipe(
 			map(([user, team]) => {
 				return {
-					teamOwner: (team && team.ownerUserId && team.ownerUserId === user.id),
+					teamOwner: (team && team.owner && team.owner.id === user.id),
 					user
 				};
 			})

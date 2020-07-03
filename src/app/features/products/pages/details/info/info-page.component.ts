@@ -39,6 +39,6 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	update(product: Product) {
 		product.id = this.product.id;
-		this.productSrv.update(product).subscribe();
+		api.Product.update([product]).subscribe();
 	}
 }

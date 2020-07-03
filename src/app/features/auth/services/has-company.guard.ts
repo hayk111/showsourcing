@@ -24,6 +24,8 @@ export class HasCompanyGuard implements CanActivate, CanActivateChild {
 	}
 
 	redirect(hasCompany: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		log.debug(`has company -> ${hasCompany}`);
+
 		if (!hasCompany) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
 			this.router.navigate(['auth', 'user', 'create-a-company'], { queryParams: { returnUrl } });

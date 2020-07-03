@@ -17,14 +17,13 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.teamSrv.hasTeam$.pipe(
-			tap(d => log.debug('%c hasTeamGuard', LogColor.GUARD, d)),
-			tap(hasTeam => this.redirect(hasTeam, route, state))
-		);
+		const hasTeam = this.teamSrv.teams.length > 0;
+		this.redirect(hasTeam, route, state);
+		return hasTeam;
 	}
 
 	redirect(hasTeam: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		console.log('HasTeamGuard -> redirect -> hasTeam', hasTeam);
+		log.debug(`has team guard -> ${hasTeam}`);
 		if (!hasTeam) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
 			this.router.navigate(['auth', 'user', 'create-a-team'], { queryParams: { returnUrl } });

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter, shareReplay } from 'rxjs/operators';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
-import { api, Company } from 'showsourcing-api-lib';
+import { api, Company, state, client } from 'showsourcing-api-lib';
+import * as localforage from 'localforage';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { api, Company } from 'showsourcing-api-lib';
 })
 export class CompanyService {
 	private _company$ = new ReplaySubject<Company>(1);
-	company$ = this._company$.asObservable();
+	company$ = this._company$.asObservable().pipe(shareReplay(1));
 	hasCompany$ = this.company$.pipe(map(company => !!company));
 	companySync: Company;
 
@@ -24,6 +25,8 @@ export class CompanyService {
 		// when signing in we want to load the current company of the user
 		this.authSrv.signIn$
 			.pipe(
+				switchMap(_ => state.isUsable$),
+				filter(usable => !!usable),
 				switchMap(id => api.Company.getFirst()),
 			)
 			.subscribe(company => {

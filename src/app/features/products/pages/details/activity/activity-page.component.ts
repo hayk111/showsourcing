@@ -24,7 +24,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const id = this.route.snapshot.parent.params.id;
-		this.comments$ = api.Product.comments(id).data$;
+		// this.comments$ = ap(id).data$;
 	}
 
 	sendComment(message: string) {

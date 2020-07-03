@@ -26,7 +26,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	ngOnInit() {
 		this.samplesCount$ = api.Product.samples(this.product.id).count$;
 		this.tasksCount$ = api.Product.tasks(this.product.id).count$;
-		this.commentsCount$ = api.Product.comments(this.product.id).count$;
+		// this.commentsCount$ = api.Product.comments(this.product.id).count$;
 	}
 
 	update(value: any, prop: string) {

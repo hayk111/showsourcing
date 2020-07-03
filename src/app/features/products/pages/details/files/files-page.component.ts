@@ -46,7 +46,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.setup(
 			'Attachment',
 			this._destroy$,
-			(options) => api.Product.attachments(productId, options)
+			(options) => api.Attachment.findByNodeId(`Product:${productId}`)
 		);
 	}
 

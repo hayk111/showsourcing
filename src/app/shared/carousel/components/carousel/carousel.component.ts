@@ -24,12 +24,13 @@ import { api, Image } from 'showsourcing-api-lib';
 export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** nodeId from which we get the images */
 	@Input() nodeId: string;
+	/** alternatively we can input images */
+	@Input() images: Image[];
 	/** Whether images can be uploaded */
 	@Input() static = false;
 	/** size in px of the main display */
 	@Input() size = 411;
 	@Input() hasPreview = false;
-
 
 	// index of currently displaying img
 	@Input() selectedIndex = 0;
@@ -47,7 +48,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
 	defaultImg = DEFAULT_IMG;
-	images: Image[];
 	private images$ = new BehaviorSubject<Image[]>([]);
 
 
@@ -69,7 +69,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	fetchImages(nodeId: string) {
-		api.Attachment.find;
+		// api.Attachment.find;
 	}
 
 	back(event) {
@@ -88,11 +88,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	rotate() {
 		const img = this.getImg();
 		img.orientation = (img.orientation + 1) % 4;
-		this.apiSrv
-			.update<Image>('Image', {
+		api.Image
+			.update([{
 				...img,
 				orientation: img.orientation,
-			})
+			}])
 			.subscribe();
 	}
 

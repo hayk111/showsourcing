@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, map, mapTo } from 'rxjs/operators';
-import { authStatus, IAuthState, state, Auth } from 'showsourcing-api-lib';
+import { filter, map, mapTo, first } from 'rxjs/operators';
+import { authStatus, IAuthState, state, Auth, client } from 'showsourcing-api-lib';
 import { showsourcing } from '~utils/debug-object.utils';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
 import { log } from '~utils/log';
@@ -65,8 +65,7 @@ export class AuthenticationService {
 	signIn(credentials: Credentials): Promise<any> {
 		const { username, password } = credentials;
 
-		// authenticated$ = client.srv.authStatus.user$.pipe(map(user => !!user));\
-		return authStatus.signIn(username, password)
+		return Auth.signIn(username, password)
 			.then(user => {
 				// when user was created via the incognito console
 				if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
@@ -111,7 +110,7 @@ export class AuthenticationService {
 	// SIGN OUT FLOWS
 
 	signOut() {
-		authStatus.signOut().then(_ => this.router.navigate(['login']));
+		Auth.signOut().then(_ => this.router.navigate(['login']));
 	}
 
 	// SIGN UP FLOWS

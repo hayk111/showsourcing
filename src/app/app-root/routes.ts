@@ -1,10 +1,9 @@
 import { Route } from '@angular/router';
+import { ClientReadyGuard } from '~core/api-lib';
+import { AuthenticatedGuard } from '~core/auth/guards';
+import { HasCompanyGuard, HasTeamGuard, HasTeamSelectedGuard } from '~features/auth/services';
 import { GuestTemplateComponent, TemplateComponent } from '~shared/template/components';
 import { DevModeGuard } from '~utils/dev-mode.guard';
-import { HasTeamSelectedGuard, HasCompanyGuard } from '~features/auth/services';
-import { AuthenticatedGuard } from '~core/auth/guards';
-import { HasUserGuard } from '~core/auth/guards/has-user.guard';
-import { ClientReadyGuard } from '~core/api-lib';
 
 export const routes: Array<Route> = [
 	{
@@ -38,6 +37,7 @@ export const routes: Array<Route> = [
 			AuthenticatedGuard,
 			ClientReadyGuard,
 			HasCompanyGuard,
+			HasTeamGuard,
 			HasTeamSelectedGuard,
 			// HasUserGuard,
 		],

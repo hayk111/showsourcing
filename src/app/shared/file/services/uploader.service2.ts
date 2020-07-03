@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
-import { forkJoin, from, Observable } from 'rxjs';
-import { switchMap, startWith, tap } from 'rxjs/operators';
-import { Attachment, Image } from '~core/erm3';
-import { api, state } from 'showsourcing-api-lib';
-import { ToastService, ToastType } from '~shared/toast';
-import { AuthenticationService } from '~core/auth';
 import { environment } from 'environments/environment';
+import { forkJoin, from, Observable } from 'rxjs';
+import { startWith, switchMap, tap } from 'rxjs/operators';
+import { api, state } from 'showsourcing-api-lib';
+import { AuthenticationService } from '~core/auth';
+import { ToastService, ToastType } from '~shared/toast';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService2 {

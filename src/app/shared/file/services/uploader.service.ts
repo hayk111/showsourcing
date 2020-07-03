@@ -1,30 +1,26 @@
-import { Injectable, ChangeDetectorRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
-import { switchMap, startWith, tap } from 'rxjs/operators';
-import { ApiService, Attachment, Image } from '~core/erm3';
+import { switchMap, tap } from 'rxjs/operators';
+import { api, authStatus, Image } from 'showsourcing-api-lib';
 import { ToastService, ToastType } from '~shared/toast';
-import { AuthenticationService } from '~core/auth';
-import { environment } from 'environments/environment';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
 
 	constructor(
-		private apiSrv: ApiService,
 		private amplifySrv: AmplifyService,
-		private authSrv: AuthenticationService,
 		private toastSrv: ToastService
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): ObservableFileUpload {
-		const cognitoId = this.getCognitoId();
+		const cognitoId = authStatus.cognitoId;
 		const obsArray = files.map(file => this.s3upload(file).pipe(
-			switchMap(_ => this.apiSrv.create<Attachment>('Attachment', {
+			switchMap(_ => api.Attachment.create([{
 				fileName: `${cognitoId}/${file.name}`,
 				nodeId
-			})),
+			}])),
 		));
 		const obsResponses = forkJoin(obsArray).pipe(
 			tap(_ => this.showToast(`Uploaded ${files.length} file(s)`))
@@ -40,13 +36,13 @@ export class UploaderService {
 	}
 
 	uploadImages(files: File[], nodeId): ObservableImageUpload {
-		const cognitoId = this.getCognitoId();
+		const cognitoId = authStatus.cognitoId;
 
 		const obsArray = files.map(file => this.s3upload(file).pipe(
-			switchMap(_ => this.apiSrv.create<Image>('Image', {
+			switchMap(_ => api.Image.create([{
 				fileName: `${cognitoId}/${file.name}`,
 				nodeId
-			})),
+			}])),
 		));
 
 		const obsResponses = forkJoin(obsArray).pipe(
@@ -98,12 +94,6 @@ export class UploaderService {
 			title: 'upload successful',
 			message
 		});
-	}
-
-	private getCognitoId() {
-		return this.authSrv.authState.user.pool.storage[
-			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
-		];
 	}
 
 }

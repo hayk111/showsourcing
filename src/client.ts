@@ -1,5 +1,6 @@
-import { client } from 'lib';
+import { client, state, authStatus } from 'lib';
 import * as localforage from 'localforage';
+import { first, filter } from 'rxjs/operators';
 
 localforage.config({
 	driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
@@ -11,9 +12,14 @@ localforage.config({
 		'entities stored locally with apollo appsync for the showsourcing app',
 });
 
-client.init({
-	offlineConfig: {storage: localforage},
-	shouldSync: true,
+authStatus.signin$.pipe(
+	filter(signIn => !!signIn),
+	first()
+).subscribe(_ => {
+	client.init({
+		offlineConfig: {storage: localforage},
+		shouldSync: true,
+	});
 });
 
 // state.auth$.pipe(

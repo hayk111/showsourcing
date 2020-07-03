@@ -20,9 +20,9 @@ export class FilesCardComponent {
 	// TODO what is this property, it should be removed
 	@Input() secondaryStyle = false;
 	// TODO define how we get the image
-	attachments: Attachment[] = [];
+	@Input() files: Attachment[] = [];
 	// TODO define how we get the nodeId
-	nodeId: string;
+	@Input() nodeId: string;
 
 	constructor(
 		private uploaderSrv: UploaderService
@@ -31,7 +31,7 @@ export class FilesCardComponent {
 
 	onFileAdded(files: Array<File>) {
 		this.uploaderSrv.uploadFiles(files, this.nodeId)
-		.onTempFiles(attachments => this.attachments.push(...attachments))
+		.onTempFiles(attachments => this.files.push(...attachments))
 		.subscribe(_ => {
 			// do refetch etc if any
 		});
