@@ -1,12 +1,20 @@
 <div class="flex">
 	<span 
 		class="currency" 
-		[ngStyle]="{'font-size': '--font-size-' + size}">
+		[ngStyle]="{
+			'font-size': 'var(--font-size-' + size + ')', 
+			'font-weight': size === 'xxxl' ? '600' : '500',
+			'color': primary ? 'var(--color-txt-primary)' : 'var(--color-primary-dark)' 
+		}">
 		{{ price?.currency | const : 'currency' : 'symbol' : '1.0-2'}}
 	</span>
 	<span 
 		class="amount ellipsis"
-		[ngStyle]="{'font-size': '--font-size-' + size}">
-		{{ price?.value }}
+		[ngStyle]="{
+			'font-size': 'var(--font-size-' + size + ')', 
+			'font-weight': size === 'xxxl' ? '600' : '500',
+			'color': primary ? 'var(--color-txt-primary)' : 'var(--color-primary-dark)' 
+		}">
+		{{ price?.value || '-' }}
 	</span>
 </div>

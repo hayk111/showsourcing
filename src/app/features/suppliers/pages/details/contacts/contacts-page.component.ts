@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Supplier } from '~core/erm';
-import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { FilterType } from '~shared/filters';
 import { ID } from '~utils';
 
@@ -13,7 +13,7 @@ import { ID } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'table-page' },
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService,
 		ListPageViewService
 	]
@@ -25,7 +25,7 @@ export class ContactsPageComponent implements OnInit {
 
 	constructor(
 		protected route: ActivatedRoute,
-		protected listHelper: ListFuseHelperService,
+		protected listHelper: ListHelper2Service,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<any>
@@ -33,7 +33,7 @@ export class ContactsPageComponent implements OnInit {
 
 	ngOnInit() {
 		const supplierId = this.route.parent.snapshot.params.id;
-		this.listHelper.setup('Contact', 'Supplier', supplierId);
+		// this.listHelper.setup('Contact', 'Supplier', supplierId);
 	}
 
 	openNewContactDlg(supplier: Supplier) {

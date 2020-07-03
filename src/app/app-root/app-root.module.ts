@@ -6,7 +6,7 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2Module } from 'angulartics2';
-import { AmplifyService } from 'aws-amplify-angular';
+// import { AmplifyService } from 'aws-amplify-angular';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
@@ -60,7 +60,7 @@ import { SharedModule } from '~shared/shared.module';
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
 	providers: [
-		AmplifyService,
+		// AmplifyService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ApiInterceptor,

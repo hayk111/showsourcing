@@ -4,13 +4,12 @@ import {
 	Component,
 	OnInit
 } from '@angular/core';
-import { first } from 'rxjs/operators';
-import { SelectionService, ListHelperService } from '~core/list-page2';
-import { FilterService, FilterType } from '~core/filters';
-import { AutoUnsub } from '~utils';
 import { Export } from '~core/erm3/models';
+import { FilterService } from '~core/filters';
+import { SelectionService, ListHelper2Service } from '~core/list-page2';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'exports-page-app',
@@ -21,7 +20,7 @@ import { SortService } from '~shared/table/services/sort.service';
 		class: 'table-page'
 	},
 	providers: [
-		ListHelperService, SelectionService, SortService, PaginationService, FilterService
+		ListHelper2Service, SelectionService, SortService, PaginationService, FilterService
 	]
 })
 export class ExportsPageComponent extends AutoUnsub
@@ -29,7 +28,7 @@ export class ExportsPageComponent extends AutoUnsub
 	// selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		public listHelper: ListHelperService<Export>,
+		public listHelper: ListHelper2Service,
 		private filterSrv: FilterService,
 		private selectionSrv: SelectionService
 	) {
@@ -44,13 +43,13 @@ export class ExportsPageComponent extends AutoUnsub
 			'createdBy.lastName'
 		]);
 
-		this.listHelper.setup('Export');
+		// this.listHelper.setup('Export');
 	}
 
 	ngAfterViewInit() {
 		// we need this refetch on after view init, otherwise if we come from the redirection of the
 		// export-dlg.component we won't see the new request created
-		this.listHelper.refetch();
+		// this.listHelper.refetch();
 	}
 
 	downloadOne(exportReq: Export) {

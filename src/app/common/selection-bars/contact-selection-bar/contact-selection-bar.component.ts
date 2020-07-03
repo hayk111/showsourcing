@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
 
 import { TrackingComponent } from '~utils/tracking-component';
-import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'contact-selection-bar-app',
@@ -11,7 +10,7 @@ import { ApiService } from '~core/erm3/services/api.service';
 })
 export class ContactSelectionBarComponent extends TrackingComponent {
 	@Output() deleteSelected = new EventEmitter();
-	constructor(public apiSrv: ApiService) {
+	constructor() {
 		super();
 	}
 

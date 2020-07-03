@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
-import { SelectionService, ListPageViewService, ListFuseHelperService } from '~core/list-page2';
+import { SelectionService, ListPageViewService, ListHelper2Service } from '~core/list-page2';
 import { Tag } from '~core/erm3/models';
 import { TeamService, CompanyService } from '~core/auth';
 import { FilterService } from '~core/filters/filter.service';
@@ -17,7 +17,7 @@ import { PaginationService } from '~shared/pagination/services/pagination.servic
 	providers: [
 		SelectionService,
 		ListPageViewService,
-		ListFuseHelperService,
+		ListHelper2Service,
 		SortService,
 		PaginationService,
 	],
@@ -35,7 +35,7 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Tag>,
 		public filterSrv: FilterService,
-		public listHelper: ListFuseHelperService
+		public listHelper: ListHelper2Service
 	) {
 		super();
 	}
@@ -50,7 +50,7 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		});
 		// set searchable columns for list-fuse-helper
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Tag');
+		// this.listHelper.setup('Tag');
 	}
 
 	mergeSelected() {

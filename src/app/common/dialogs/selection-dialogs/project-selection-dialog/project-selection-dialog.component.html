@@ -1,7 +1,7 @@
 <dialog-app contentOverflow="hidden" [hasBorder]="false">
 	<dialog-header-app translate="Select Projects"></dialog-header-app>
 
-<controller-table-app [total]="listHelper.total$ | async">
+<controller-table-app>
 		<controller-table-quick-filters-app></controller-table-quick-filters-app>
 		<controller-table-quick-actions-app
 			typename="Project"
@@ -18,7 +18,7 @@
 			[hasPagination]="false"
 			[navigation]="false"
 			[selection]="selectionSrv.selection$ | async"
-			[rows]="listHelper.filteredItems$ | async"
+			[rows]="listHelper.data$ | async"
 			[pending]="listHelper.pending$ | async"
 			(selectAll)="selectionSrv.selectAll($event)"
 			(unselect)="selectionSrv.unselectOne($event)"

@@ -4,6 +4,7 @@ import { DevModeGuard } from '~utils/dev-mode.guard';
 import { HasTeamSelectedGuard } from '~features/auth/services';
 import { AuthenticatedGuard } from '~core/auth/guards';
 import { HasUserGuard } from '~core/auth/guards/has-user.guard';
+import { ClientReadyGuard } from '~core/api-lib';
 
 export const routes: Array<Route> = [
 	{
@@ -34,44 +35,50 @@ export const routes: Array<Route> = [
 		path: '',
 		component: TemplateComponent,
 		canActivateChild: [
-			AuthenticatedGuard,
-			HasTeamSelectedGuard,
-			HasUserGuard
+			// AuthenticatedGuard,
+			// HasTeamSelectedGuard, TODO: implement team select functionality and guard
+			// HasUserGuard,
 		],
 		children: [
-			{ path: '', redirectTo: 'samples', pathMatch: 'full' },
+			{ path: '', redirectTo: 'products', pathMatch: 'full', canActivate: [ClientReadyGuard] },
 	// 		{
 	// 			path: 'dashboard',
 	// 			loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
 	// 		},
-			{
-				path: 'projects',
-				loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'
-			},
+			// {
+			// 	path: 'projects',
+			// 	loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule',
+			// 	canActivate: [ClientReadyGuard]
+			// },
 			{
 				path: 'products',
-				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
+				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule',
+				canActivate: [ClientReadyGuard]
 			},
 			// {
 			// 	path: 'requests',
 			// 	loadChildren: 'app/features/requests/requests-feature.module#RequestsFeatureModule'
 			// },
-			{
-				path: 'samples',
-				loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule'
-			},
+			// {
+			// 	path: 'samples',
+			// 	loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule',
+			// 	canActivate: [ClientReadyGuard]
+			// },
 			{
 				path: 'suppliers',
-				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule'
+				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule',
+				canActivate: [ClientReadyGuard]
 			},
-			{
-				path: 'settings',
-				loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule'
-			},
-			{
-				path: 'tasks',
-				loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
-			}
+			// {
+			// 	path: 'settings',
+			// 	loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule',
+			// 	canActivate: [ClientReadyGuard]
+			// },
+			// {
+			// 	path: 'tasks',
+			// 	loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule',
+			// 	canActivate: [ClientReadyGuard]
+			// }
 		]
 	},
 	{ path: '**', redirectTo: '' }

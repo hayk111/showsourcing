@@ -19,13 +19,13 @@ export class GuestTemplateComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.auth$ = this.authSrv.authStatus$.pipe(
-			map(status => status === AuthStatus.AUTHENTICATED)
+		this.auth$ = this.authSrv.authState$.pipe(
+			map(authState => authState.state === AuthStatus.AUTHENTICATED)
 		);
-
 	}
 
 	logout() {
+		console.log('loggin out');
 		this.authSrv.signOut();
 	}
 }

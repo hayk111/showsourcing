@@ -28,7 +28,6 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateTeamName({ teamName }) {
-		console.log('SettingsPageComponent -> updateTeamName -> team', teamName, this.team);
 		if (teamName.length) {
 			this.teamSrv.update({
 				id: TeamService.teamSelected.id,

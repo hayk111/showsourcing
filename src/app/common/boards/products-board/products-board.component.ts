@@ -1,25 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import {
-	filter,
-	first,
-	map,
-	mergeMap,
-	switchMap,
-	takeUntil,
-	tap
-} from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import {
 	ERM,
 	Product,
 	ProductService,
-	ProductStatus,
-	ProductStatusService
+	ProductStatus
 } from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { SelectionService } from '~core/list-page2';
+import { DialogService } from '~shared/dialog';
 import { FilterList } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
@@ -34,7 +24,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './products-board.component.html',
 	styleUrls: ['./products-board.component.scss']
 })
-export class ProductsBoardComponent extends AutoUnsub implements OnInit {
+export class ProductsBoardComponent extends AutoUnsub {
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Product>();
 	@Output() unselectOne = new EventEmitter<Product>();
@@ -46,8 +36,6 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	// reminder, remember that in order to use kanbanservice, listSrv, etc, you have to set the providers on the parent component
 	constructor(
 		private productSrv: ProductService,
-		private productStatusSrv: ProductStatusService,
-		private listSrv: ListPageService<Product, ProductService>,
 		public dlgCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public kanbanSelectionSrv: KanbanSelectionService,
@@ -56,9 +44,6 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		private selectionSrv: SelectionService
 	) {
 		super();
-	}
-
-	ngOnInit() {
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -161,7 +146,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 		this.dlgCommonSrv.openConfirmDlg({text}).data$
 			.pipe(
-				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
+				// switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {
 				this.selectionSrv.unselectAll();

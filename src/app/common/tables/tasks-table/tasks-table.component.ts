@@ -1,16 +1,20 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { first } from 'rxjs/operators';
 import { User } from 'getstream';
-import { TaskService } from '~core/erm';
+import { ListHelper2Service } from '~core/list-page2';
 import { Task, TaskStatus, WorkflowStatus } from '~core/erm3';
 import { Color } from '~utils/colors.enum';
 import { ID } from '~utils/id.utils';
 import { defaultConfig } from '../default-columns/default-config';
-import { EntityTableComponent } from '../entity-table.component';
-import { ListFuseHelperService } from '~core/list-page2';
+import { EntityTableComponent, TableConfig } from '../entity-table.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import _ from 'lodash';
-import { first } from 'rxjs/operators';
+
+const tableConfig: TableConfig = {
+	...defaultConfig,
+	dueDate: { name: 'dueDate', translationKey: 'due-date', width: 200, sortProperty: 'dueDate' },
+};
 
 @Component({
 	selector: 'task-table-app',
@@ -33,7 +37,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 		'createdBy',
 		'creationDate'
 	];
-	static DEFAULT_TABLE_CONFIG = defaultConfig;
+	static DEFAULT_TABLE_CONFIG = tableConfig;
 	@Input() columns = TasksTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = TasksTableComponent.DEFAULT_TABLE_CONFIG;
 	@Output() openProduct = new EventEmitter<ID>();
@@ -43,7 +47,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 
 	constructor(
 		public translate: TranslateService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		private statusSrv: StatusSelectorService
 	) { super(); }
 

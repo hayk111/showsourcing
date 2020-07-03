@@ -15,6 +15,11 @@ dialog-app {
 		// }
 	}
 
+	.choice-placeholder {
+		margin-left: var(--spacing-s);
+		color: var(--color-secondary-contrast);
+	}
+
 	dialog-footer-app {
 		> *:not(:last-child) {
 			margin-right: var(--spacing-ms);

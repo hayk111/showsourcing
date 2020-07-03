@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TeamService } from '~core/auth';
 import { StatusSeederService } from './status-seeder.service';
-import { ListFuseHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { first } from 'rxjs/operators';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class SeederService {
 	constructor(
 		private teamSrv: TeamService,
 		private statusSeeder: StatusSeederService,
-		private fuseHelper: ListFuseHelperService
+		private listHelper: ListHelper2Service
 	) {
 		this.teamSrv.teamSelected$.subscribe(team => {
 			this.teamId = team.id;
@@ -26,7 +26,7 @@ export class SeederService {
 			};
 
 			// this must be updated with the future query lists
-			this.fuseHelper.setup('WorkflowStatus', undefined, this.teamId , statusQueryOptions);
+			this.listHelper.setup('WorkflowStatus');
 		});
 	}
 
@@ -35,13 +35,13 @@ export class SeederService {
 		if (!this.teamId) return;
 		const keyStorage = 'data_seeded:' + this.teamId;
 
-		this.fuseHelper.searchedItems$
-			.pipe(first())
-			.subscribe(async foundItems => {
-				if (!foundItems || !foundItems.length) {
-					await this.statusSeeder.createAllStatus();
-					localStorage.setItem(keyStorage, 'WorkFlowStatus');
-				}
-			});
+		// this.listHelper.searchedItems$
+		// 	.pipe(first())
+		// 	.subscribe(async foundItems => {
+		// 		if (!foundItems || !foundItems.length) {
+		// 			await this.statusSeeder.createAllStatus();
+		// 			localStorage.setItem(keyStorage, 'WorkFlowStatus');
+		// 		}
+		// 	});
 	}
 }

@@ -1,15 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
-import { SupplierService } from '~core/erm';
-import { ListPageService, ListPageViewService, SelectionService } from '~core/list-page';
-import { SelectParamsConfig } from '~core/erm';
-import { ERM, Supplier } from '~core/erm';
-import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
-import { ListHelperService } from '~core/list-page2';
-import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { FilterService } from '~core/filters';
+import { ListHelper2Service, ListPageViewService } from '~core/list-page2';
+import { FilterType } from '~shared/filters';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -22,7 +16,7 @@ import { FilterService } from '~core/filters';
 	templateUrl: './board-page.component.html',
 	styleUrls: ['./board-page.component.scss'],
 	providers: [
-		ListHelperService,
+		ListHelper2Service,
 		ListPageViewService,
 		FilterService,
 		KanbanSelectionService
@@ -43,7 +37,7 @@ export class BoardPageComponent implements OnInit {
 
 
 	constructor(
-		public listHelper: ListHelperService,
+		public listHelper: ListHelper2Service,
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<any>,
 		public kanbanSelectionSrv: KanbanSelectionService

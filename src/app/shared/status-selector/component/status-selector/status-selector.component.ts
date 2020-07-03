@@ -1,9 +1,8 @@
 import { Component, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { Typename } from '~core/erm3/typename.type';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
-import { Task } from '~core/erm3';
+import { Typename } from 'lib';
 
 @Component({
 	selector: 'status-selector-app',
@@ -18,7 +17,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 	private _typename: Typename;
 	@Input()
 	public set typename(typename: Typename) {
-		this.statusSrv.setupStatuses(typename);
+		// this.statusSrv.setupStatuses(typename);
 		this._typename = typename;
 	}
 	public get typename(): Typename {

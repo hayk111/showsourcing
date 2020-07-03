@@ -55,9 +55,6 @@ index: {{ currentPage }}
 				(change)="paginationSrv.setLimit($event.target.value)">
 				<option *ngFor="let i of perPageItemCount">{{i}}</option>
 			</select>
-			<span class="items-page-count">
-				{{ paginationSrv.limit$ | async }}
-			</span>
 		</div>
 	
 	</div>

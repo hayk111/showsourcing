@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter
 import { switchMap, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UserService } from '~core/auth';
-import { ApiService, Comment } from '~core/erm3';
+import { Comment } from '~core/erm3';
+import { api } from 'lib';
 
 @Component({
 	selector: 'comment-app',
@@ -20,7 +21,6 @@ export class CommentComponent implements OnInit {
 	isEditing = false;
 
 	constructor(
-		private apiSrv: ApiService,
 		private dlgCommonSrv: DialogCommonService,
 		private userSrv: UserService,
 	) { }
@@ -45,8 +45,9 @@ export class CommentComponent implements OnInit {
 	}
 
 	onSave(message: string) {
-		if (message)
-			this.apiSrv.update('Comment', { id: this.comment.id, message }).subscribe();
+		if (message) {
+			api['Comment'].update([{ id: this.comment.id, message } as any]).subscribe();
+		}
 		this.isEditing = false;
 	}
 
@@ -55,7 +56,7 @@ export class CommentComponent implements OnInit {
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
 				tap(_ => this.deleted.emit(this.comment)),
-				switchMap(_ => this.apiSrv.delete('Comment', { id: this.comment.id }))
+				switchMap(_ => api['Comment'].delete([{ id: this.comment.id }]))
 			).subscribe();
 	}
 

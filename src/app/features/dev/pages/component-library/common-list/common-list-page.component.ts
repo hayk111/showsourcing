@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { productsJson, suppliersJSON } from './mock-data';
-import { SelectionService } from '~core/list-page';
-
+import { SelectionService } from '~core/list-page2';
 @Component({
 	selector: 'common-list-page-app',
 	templateUrl: './common-list-page.component.html',

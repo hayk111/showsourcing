@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
 import { ProductService } from '~core/erm';
 import { TeamService } from '~core/erm';
-import { ApiService } from '~core/erm3/services/api.service';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 import { Typename } from '~core/erm3/typename.type';
+import { SelectorComponent } from '~shared/selectors';
 
 @Component({
 	selector: 'selector-page-app',
@@ -15,7 +15,7 @@ import { Typename } from '~core/erm3/typename.type';
 })
 export class SelectorPageComponent implements OnInit {
 
-	entityNames = ['Product', 'Project', 'PropertyOption', 'Category', 'Currency', 'Supplier', 'User', 'Country'];
+	entityNames = ['Product', 'Project', 'PropertyOption', 'Currency', 'Supplier', 'User', 'Country'];
 
 	product$: Observable<Product>;
 
@@ -26,7 +26,7 @@ export class SelectorPageComponent implements OnInit {
 	triggerType: 'badge' | 'button' = 'badge';
 
 
-	constructor(private propertyOptionSrv: PropertyOptionsService, private apiSrv: ApiService) { }
+	constructor(private propertyOptionSrv: PropertyOptionsService) { }
 
 	ngOnInit() {
 		// this.propertyOptionSrv.listPropertyOptions('Color').subscribe(data => {
@@ -50,8 +50,7 @@ export class SelectorPageComponent implements OnInit {
 		// });
 	}
 
-	update(item, prop) {
-	}
+	update(event, entity) {}
 
 	/** ===== STATUS PART ===== */
 

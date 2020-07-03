@@ -11,8 +11,7 @@ export class DescriptorPageComponent implements OnInit {
 	style = 'form';
 	columnAmount = 2;
 	updateOn = 'change';
-	properties = [
-	];
+	properties = {};
 	update = {};
 	invalidJson = false;
 	showRequiredMarker = true;

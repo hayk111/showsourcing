@@ -1,28 +1,19 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { TasksTableComponent } from '~common/tables/tasks-table/tasks-table.component';
 import {
 	ERM,
-	SelectParamsConfig,
-	Task,
-	TaskService,
-	UserService
+	SelectParamsConfig
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { DialogService } from '~shared/dialog';
 import { FilterService, FilterType } from '~core/filters';
-import { AutoUnsub } from '~utils';
-import { SelectionService, ListFuseHelperService, ListPageViewService } from '~core/list-page2';
-import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService,
 		FilterService,
 		ListPageViewService
@@ -51,8 +42,7 @@ export class TasksPageComponent implements OnInit {
 	constructor(
 		public filterSrv: FilterService,
 		public selectionSrv: SelectionService,
-		public listHelper: ListFuseHelperService,
-		public statusSrv: StatusSelectorService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>
 	) {
 	}

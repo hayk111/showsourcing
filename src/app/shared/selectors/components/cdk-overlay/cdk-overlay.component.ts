@@ -1,5 +1,5 @@
-import { CdkConnectedOverlay, ScrollDispatcher, ScrollStrategy, ScrollStrategyOptions, ConnectedPosition } from '@angular/cdk/overlay';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { CdkConnectedOverlay, ScrollDispatcher, ScrollStrategy, ScrollStrategyOptions, ConnectedPosition, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, SimpleChange, SimpleChanges } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -40,6 +40,12 @@ export class CdkOverlayComponent implements OnInit {
 			{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
 		];
 		this.cdkConnectedOverlay.positions = this.leftSideOrientation ? positions.reverse() : positions;
+
+		this.cdkConnectedOverlay.positionChange.subscribe(change => {
+			const overlayPane: any =  document.getElementsByClassName('cdk-overlay-pane')[0];
+			// unsetting selector positions to let component dynamic calculation
+			overlayPane.style.top = overlayPane.style.bottom = overlayPane.style.right = overlayPane.style.left = 'unset';
+		});
 	}
 
 
