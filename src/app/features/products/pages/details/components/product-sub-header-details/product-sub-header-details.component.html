@@ -37,12 +37,40 @@
 			</div>
 		</div>
 
-		<!-- price -->
+		<!-- price and moq -->
 		<section>
-			<price-with-quantity-app
-				[product]="product"
-				(updateField)="updatePriceMOQ($event.newValue, $event.field)">
-			</price-with-quantity-app>
+			<editable-container-app
+				#editable
+				class="full-width"
+				[hasAction]="false"
+				(opened)="inp.focus()"
+				(closed)="updatePriceMOQ(inp?.value, 'price')">
+				<editable-value-app #price>
+					<price-app [price]="product?.propertiesMap.price" size="xxxl" [primary]="false"></price-app>
+				</editable-value-app>
+				<input-price-app
+					#inp
+					[value]="{ 
+						currency: price?.currency || product?.propertiesMap?.price?.currency, 
+						value: price?.value || product?.propertiesMap?.price?.value}"
+					(keyup.enter)="editable.close()">
+				</input-price-app>
+			</editable-container-app>
+
+			<editable-container-app
+				#editable
+				[hasAction]="false"
+				(opened)="inp.focus()"
+				(closed)="updatePriceMOQ(inp.value, 'moq')">
+				<editable-value-app>
+					<div *ngIf="product?.propertiesMap?.price?.minimumOrderQuantity">
+						{{'Min ' + product?.propertiesMap?.price?.minimumOrderQuantity + ' pcs'}}
+					</div>
+					<div *ngIf="!product?.propertiesMap?.price?.minimumOrderQuantity">-</div>
+				</editable-value-app>
+				<input #inp inputApp type="number"
+					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
+			</editable-container-app>
 		</section>
 
 		<!-- supplier -->
