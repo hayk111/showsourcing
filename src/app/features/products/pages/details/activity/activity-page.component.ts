@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { api, Comment } from 'lib';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Comment } from '~core/erm3';
-import { api } from 'lib';
-import { AutoUnsub, uuid } from '~utils';
+import { AutoUnsub } from '~utils';
 
 
 
@@ -15,7 +13,6 @@ import { AutoUnsub, uuid } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityPageComponent extends AutoUnsub implements OnInit {
-	listRef: any;
 	comments$: Observable<Comment[]>;
 	private nodeId: string;
 
@@ -27,13 +24,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const id = this.route.snapshot.parent.params.id;
-		this.nodeId = `Product:${id}`;
-		// TODO: implement listRef query
-		// this.listRef = this.apiSrv.query<Comment[]>({
-		// 		query: customQueries.comments,
-		// 		variables: { nodeId: this.nodeId }
-		// 	}, true);
-		this.comments$ = this.listRef.data$;
+		this.comments$ = api.Product.comments(id).data$;
 	}
 
 	sendComment(message: string) {
@@ -41,12 +32,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		api['Comment'].create([comment]).subscribe(_ => this.listRef.refetch());
+		// api.Comment.create([comment]).subscribe();
 	}
-
-	onCommentDeleted(comment: Comment) {
-		api[this.listRef].delete([comment]);
-	}
-
 
 }
