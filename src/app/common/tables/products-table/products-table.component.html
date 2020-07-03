@@ -81,7 +81,7 @@
 					(opened)="inp.focus()"
 					(closed)="updatePriceMOQ(row, inp?.value)">
 					<editable-value-app #price>
-						<price-app [price]="row | property:'price'"></price-app>
+						<price-app [price]="row"></price-app>
 					</editable-value-app>
 					<input-price-app
 						#inp

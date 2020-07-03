@@ -30,20 +30,22 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	}
 
 	update(value: any, prop: string) {
-		console.log('ProductSubHeaderDetailsComponent -> update -> value', value);
-		console.log('ProductSubHeaderDetailsComponent -> update -> prop----------', prop);
-		this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+		if (prop === 'name') {
+			this.updated.emit({ id: this.product.id, [prop]: value });
+		} else {
+			this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+		}
 	}
 
-	updatePriceMOQ(value: Partial<Price>, field: string) {
+	updatePriceMOQ(value: Partial<Price>, field: 'price' | 'moq') {
 		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value', value);
 		const val = value.value;
 		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
 		const currency = value.currency || 'USD';
 		const price =  {
-			...(val && field !== 'minimumOrderQuantity' && { value: val }),
-			...(field !== 'minimumOrderQuantity' && { currency }),
-			...(field === 'minimumOrderQuantity' && { minimumOrderQuantity: value }),
+			...(val && field !== 'moq' && { value: val }),
+			...(field !== 'moq' && { currency }),
+			...(field === 'moq' && { minimumOrderQuantity: value }),
 		};
 		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> price', price);
 
