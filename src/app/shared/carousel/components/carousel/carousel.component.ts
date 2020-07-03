@@ -69,7 +69,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	fetchImages(nodeId: string) {
-		this.images$.next(this.imageListRef.data$);
+		api.Attachment.find;
 	}
 
 	back(event) {
