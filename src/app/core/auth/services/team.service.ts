@@ -49,18 +49,18 @@ export class TeamService {
 		this.teams$.subscribe(teams => this.onTeams(teams));
 		// putting a sync version of team
 		this._teamSelected$
-		.subscribe(team => {
-			TeamService.teamSelected = team;
-			if (team)
-				client.setTeam(team);
+		.subscribe(teamSelected => {
+			TeamService.teamSelected = teamSelected;
+			if (teamSelected)
+				client.setTeam(teamSelected);
 		});
 		this.authSrv.signOut$.subscribe(_ => this.resetSelectedTeam());
 	}
 
-	private onTeams(teams) {
+	private onTeams(teams = []) {
 		this.teams = teams;
-		if (!this.storedSelection) {
-			return;
+		if (!this.storedSelection || teams.length === 0) {
+			return this._teamSelected$.next(undefined);
 		}
 		const preselected = (teams || []).find(team => team.id === this.storedSelection.id);
 		if (preselected) {
@@ -74,7 +74,7 @@ export class TeamService {
 	create(teamName: string): Observable<any> {
 		const companyId = this.companySrv.companySync.id;
 		return api.Team.create(companyId, teamName, 'BUYER').pipe(
-			tap(d => { debugger; }),
+			tap(team => this._teams$.next([team])),
 			switchMap(team => this.pickTeam(team))
 		);
 	}
