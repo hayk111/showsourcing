@@ -4,6 +4,7 @@ import { switchMap, take, tap } from 'rxjs/operators';
 import { api, client, Company } from 'showsourcing-api-lib';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
+import { log } from '~utils/log';
 
 
 @Injectable({
@@ -23,15 +24,13 @@ export class CompanyService {
 		this.authSrv.signIn$
 			.pipe(
 				switchMap(id => api.Company.getFirst()),
-				take(1)
-			)
-			.subscribe(company => {
-				this._company$.next(company);
-			});
+			).subscribe(company => this._company$.next(company));
 		this.company$.subscribe(company => {
 			this.companySync = company;
-			if (company)
+			if (company) {
+				log.debug('client init company');
 				client.initCompany(company);
+			}
 		});
 	}
 

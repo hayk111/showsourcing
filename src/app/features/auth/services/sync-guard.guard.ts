@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { from, Observable, of } from 'rxjs';
-import { first, mergeMap, tap } from 'rxjs/operators';
+import { first, mergeMap, tap, concatMap } from 'rxjs/operators';
 
 /**
  * helper to run multiple guards in sequence order instead of
@@ -16,7 +16,7 @@ export class SyncGuardHelper implements CanActivate {
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
 
 		return from(route.data.syncGuards).pipe(
-			mergeMap((value) => {
+			concatMap((value) => {
 				const guard = this.injector.get(value);
 				const result = guard.canActivate(route, state);
 				if (result instanceof Observable) {

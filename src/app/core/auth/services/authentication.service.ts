@@ -61,6 +61,7 @@ export class AuthenticationService {
 	) {
 		state.auth$.subscribe(state => log.debug(`auth state: ${state}`));
 		this.signIn$.pipe(first()).subscribe(_ => {
+			log.debug('client init');
 			client.init({
 				offlineConfig: {storage: localforage},
 				shouldSync: true,
