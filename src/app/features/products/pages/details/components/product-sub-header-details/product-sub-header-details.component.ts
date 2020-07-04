@@ -32,26 +32,10 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		this.updated.emit({ id: this.product.id, [prop]: value });
 	}
 
-	updatePriceMOQ(value: Partial<Price>, field: string) {
-		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value', value);
-		const val = value.value;
-		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
-		const currency = value.currency || 'USD';
-		const price =  {
-			...(val && field !== 'minimumOrderQuantity' && { value: val }),
-			...(field !== 'minimumOrderQuantity' && { currency }),
-			...(field === 'minimumOrderQuantity' && { minimumOrderQuantity: value }),
-		};
-		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> price', price);
-
-		api.Product.update([{
-			id: this.product.id,
-			propertiesMap: {
-				price
-			}
-		}]).subscribe(updated => {
-			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
-		});
+	updateProperty(name: string, value: any) {
+		let propertiesMap = this.product.propertiesMap;
+		propertiesMap = { ...propertiesMap, [name]: value };
+		this.updated.emit({ id: this.product.id, propertiesMap });
 	}
 
 	onOpenSupplier(supplier: Supplier, event: MouseEvent) {

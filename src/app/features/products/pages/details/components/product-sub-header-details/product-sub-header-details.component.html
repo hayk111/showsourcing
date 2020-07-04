@@ -47,36 +47,38 @@
 
 		<section>
 			<editable-container-app 
-				#edt
+				#edtPrice
 				class="bigger-editable"
-				(opened)="priceInput.focus()">
+				(opened)="priceInput.focus()"
+				(saved)="updateProperty('price', priceInput.value)">
 				<editable-value-app >
-					{{ product?.propertiesMap?.price | appPrice : 'Set Price' }}
+					{{ product?.propertiesMap?.price?.value | appPrice : 'Set Price' }}
 				</editable-value-app>
 				<input-price-app  
 					#priceInput
 					class="flexGrow" 
-					[inline]="true">
+					[inline]="true"
+					[value]="product?.propertiesMap?.price"
+					(keyup.enter)="updateProperty('price', priceInput.value); edtPrice.close()">
 				</input-price-app>
 			</editable-container-app>
 
 			<!-- moq -->
 			<editable-container-app 
-				#edt
+				#edtMoq
 				class="bigger-editable"
-				(opened)="moqInput.focus()">
+				(opened)="moqInput.focus()"
+				(saved)="updateProperty('minimumOrderQuantity', moqInput.value)">
 				<editable-value-app >
 					{{ product?.propertiesMap?.minimumOrderQuantity || 'Set MOQ' }}
 				</editable-value-app>
-				<input #moqInput class="flexGrow"/>
+				<input 
+					#moqInput 
+					class="flexGrow" 
+					[value]="product?.propertiesMap?.minimumOrderQuantity || ''"
+					(keyup.enter)="updateProperty('minimumOrderQuantity', moqInput.value); edtMoq.close()"/>
 			</editable-container-app>
 		</section>
-
-			<!-- <price-with-quantity-app
-				[product]="product"
-				(updateField)="updatePriceMOQ($event.newValue, $event.field)">
-			</price-with-quantity-app>
-		</section> -->
 
 		<!-- supplier -->
 		<section>
@@ -94,7 +96,7 @@
 						[canCreate]="true"
 						[leftSideOrientation]="true"
 						[width]="370"
-						(update)="update($event.id, 'supplierId'); edtSupplier.close()">
+						(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">
 						<editable-value-app>
 							<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
 								<logo-app

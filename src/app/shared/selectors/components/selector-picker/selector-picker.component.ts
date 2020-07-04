@@ -227,6 +227,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * Emits the new single value so it can be updated
 	 */
 	private updateSingle() {
+		// Idk who wrote that but just return id... What about when we don't know what the selector is for
+		// for example in a dynamic form.
 		this.update.emit({
 			[this.value.__typename.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
 			value: this.value.value || this.value.name || null
