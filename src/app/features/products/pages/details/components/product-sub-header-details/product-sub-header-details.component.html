@@ -7,7 +7,7 @@
 		<!-- name -->
 		<div class="title">
 			<editable-container-app
-				#edt
+				#edtName
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
 				<editable-value-app 
@@ -21,7 +21,7 @@
 					#inpName
 					type="text"
 					[value]="product?.name"
-					(keyup.enter)="edt.close()"/>
+					(keyup.enter)="edtName.close()"/>
 			</editable-container-app>
 			<!-- badges -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
@@ -53,7 +53,8 @@
 				<editable-value-app >
 					{{ product?.propertiesMap?.price | appPrice : 'Set Price' }}
 				</editable-value-app>
-				<input-price-app  #priceInput
+				<input-price-app  
+					#priceInput
 					class="flexGrow" 
 					[inline]="true">
 				</input-price-app>
@@ -63,12 +64,11 @@
 			<editable-container-app 
 				#edt
 				class="bigger-editable"
-				(opened)="priceInput.focus()">
+				(opened)="moqInput.focus()">
 				<editable-value-app >
 					{{ product?.propertiesMap?.minimumOrderQuantity || 'Set MOQ' }}
 				</editable-value-app>
-				<input  #priceInput
-					class="flexGrow"/>
+				<input #moqInput class="flexGrow"/>
 			</editable-container-app>
 		</section>
 
@@ -82,6 +82,7 @@
 		<section>
 			<h3 class="section-title">supplier</h3>
 			<editable-container-app
+				#edtSupplier
 				class="action-hover-container-0"
 				[hasAction]="false"
 				(click)="supplierSelector?.openMenu($event, true)">
@@ -93,7 +94,7 @@
 						[canCreate]="true"
 						[leftSideOrientation]="true"
 						[width]="370"
-						(update)="update($event, 'supplier')">
+						(update)="update($event.id, 'supplierId'); edtSupplier.close()">
 						<editable-value-app>
 							<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
 								<logo-app
@@ -104,8 +105,12 @@
 								<div class="supplier-info mg-right-xxl">
 									<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
 									<div class="flex dot-separator">
-										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
-										<div *ngIf="supplier?.country">{{ supplier?.country | const: 'country' }}</div>
+										<div *ngIf="supplier?.propertiesMap?.supplierType">
+											{{ supplier?.propertiesMap?.supplierType }}
+										</div>
+										<div *ngIf="supplier?.propertiesMap?.country">
+											{{ supplier?.propertiesMap?.country | const: 'country' }}
+										</div>
 										<rating-badge-app	[score]="supplier?.score" [activeColor]="'primary'"></rating-badge-app>
 									</div>
 								</div>
@@ -139,7 +144,7 @@
 		<section>
 			<h3 class="section-title">description</h3>
 			<input-description-app
-				[description]="product?.description"
+				[description]="product?.propertiesMap?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
 	</section>
