@@ -25,7 +25,6 @@
 	<!-- we use this to place a border, otherwise the image would resize or the content itself creating a wonky display -->
 	<div *ngIf=" (i === selectedIndex) || (selectedIndex > 4 && i > 3)" class="selected"></div>
 	<img-app
-		[ngClass]="{ 'pending': img.image.pending }"
 		[image]="img.image"
 		size="xl">
 	</img-app>

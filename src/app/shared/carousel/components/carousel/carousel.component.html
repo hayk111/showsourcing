@@ -2,12 +2,12 @@
 
 	<!-- image -->
 	<div
-		#imgCtnr
-		class="img-ctnr flexCenter"
-		[ngStyle]="{'transform': getRotation(getImg()), 'height': size + 'px'}"
-		(mouseover)="zoomin($event)"
-		(mousemove)="zoomin($event)"
-		(mouseleave)="zoomout()">
+	#imgCtnr
+	class="img-ctnr flexCenter"
+	[ngStyle]="{'transform': getRotation(getImg()), 'height': size + 'px'}"
+	(mouseover)="zoomin($event)"
+	(mousemove)="zoomin($event)"
+	(mouseleave)="zoomout()">
 		<img-app
 			#imgApp
 			*ngIf="images?.length !== 0; else noImg"
@@ -29,8 +29,6 @@
 			</div>
 		</ng-template>
 	</div>
-
-  <spinner-app *ngIf="getImg()?.pending" size="xl"></spinner-app>
 
 	<!-- move back -->
 	<div

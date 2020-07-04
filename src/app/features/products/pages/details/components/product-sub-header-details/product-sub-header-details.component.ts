@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, Supplier, Sample } from '~core/erm3';
-import { api } from 'lib';
-import { Price } from '../../../../../../core/erm/models/price.model';
+import { api, Product, Supplier } from 'lib';
+import { Price } from '~core/erm3';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -30,9 +29,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	}
 
 	update(value: any, prop: string) {
-		console.log('ProductSubHeaderDetailsComponent -> update -> value', value);
-		console.log('ProductSubHeaderDetailsComponent -> update -> prop----------', prop);
-		this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+		this.updated.emit({ id: this.product.id, [prop]: value });
 	}
 
 	updatePriceMOQ(value: Partial<Price>, field: string) {

@@ -25,7 +25,7 @@ export class InitialsLogoComponent implements AfterViewInit {
 	@ViewChild('initialsElement', { static: false }) initialsElement: ElementRef;
 
 	// TODO define how we get the image
-	image: Image;
+	@Input() image: Image;
 	// TODO define how we get the nodeId
 	nodeId: string;
 	initials: string;

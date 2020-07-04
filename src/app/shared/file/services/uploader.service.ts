@@ -25,7 +25,7 @@ export class UploaderService {
 		) as ObservableFileUpload;
 
 		obsResponses.onTempFiles = (fn) => {
-			fn(files.map(file => ({ fileName: file.name, pending: true })));
+			fn(files.map(file => ({ fileName: file.name, type: 'pending' })));
 			return obsResponses;
 		};
 
@@ -75,7 +75,7 @@ export class UploaderService {
 	private convertToTempImages(files: File[]): Promise<Image[]> {
 		return Promise.all(
 			files.map(file => this.imgToBase64(file))
-		).then(b64s => b64s.map(b64 => ({ url: b64, pending: true })));
+		).then(b64s => b64s.map(b64 => ({ url: b64, type: 'pending' })));
 	}
 
 	/** converts an image to its base64 version */

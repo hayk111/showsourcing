@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Attachment, Image } from '~core/erm3';
+import { Attachment, Image } from 'showsourcing-api-lib';
 
 
 export interface ObservableFileUpload extends Observable<Attachment[]> {

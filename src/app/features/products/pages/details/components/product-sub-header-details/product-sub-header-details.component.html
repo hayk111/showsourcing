@@ -4,13 +4,15 @@
 	</carousel-app>
 
 	<div class="flexColumn product-info">
-		<!-- title -->
+		<!-- name -->
 		<div class="title">
 			<editable-container-app
 				#edt
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
-				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxl" [primary]="true">
+				<editable-value-app 
+					class="ellipsis bold-s color-txt-primary fs-xxxl" 
+					[primary]="true">
 					{{ product?.name || '-' }}
 				</editable-value-app>
 				<input
@@ -21,7 +23,7 @@
 					[value]="product?.name"
 					(keyup.enter)="edt.close()"/>
 			</editable-container-app>
-			<!-- info title -->
+			<!-- badges -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
 				<rating-badge-app 
 					class="pointer"	
@@ -29,19 +31,52 @@
 					[hasNumber]="true" 
 					(click)="ratingClicked.emit()">
 				</rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ (((samplesCount$ | async) || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ (((tasksCount$ | async) || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ (((commentsCount$ | async) || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">
+					{{ samplesCount$ | async }} Samples
+				</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">
+					{{ tasksCount$ | async }} Tasks
+					</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">
+					{{ commentsCount$ | async }} Comments
+					</div>
 			</div>
 		</div>
 
 		<!-- price -->
+
 		<section>
-			<price-with-quantity-app
+			<editable-container-app 
+				#edt
+				class="bigger-editable"
+				(opened)="priceInput.focus()">
+				<editable-value-app >
+					{{ product?.propertiesMap?.price | appPrice : 'Set Price' }}
+				</editable-value-app>
+				<input-price-app  #priceInput
+					class="flexGrow" 
+					[inline]="true">
+				</input-price-app>
+			</editable-container-app>
+
+			<!-- moq -->
+			<editable-container-app 
+				#edt
+				class="bigger-editable"
+				(opened)="priceInput.focus()">
+				<editable-value-app >
+					{{ product?.propertiesMap?.minimumOrderQuantity || 'Set MOQ' }}
+				</editable-value-app>
+				<input  #priceInput
+					class="flexGrow"/>
+			</editable-container-app>
+		</section>
+
+			<!-- <price-with-quantity-app
 				[product]="product"
 				(updateField)="updatePriceMOQ($event.newValue, $event.field)">
 			</price-with-quantity-app>
-		</section>
+		</section> -->
 
 		<!-- supplier -->
 		<section>

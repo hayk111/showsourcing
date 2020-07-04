@@ -97,10 +97,12 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
 		this.uploaderSrv.uploadImages(files, this.nodeId)
-			.onTempImages(temp => this.images.push(...temp))
+			.onTempImages(temp => {
+				this.images.push(...temp);
+				// index at the end for instant feedback
+				this.selectedIndex = this.images.length - 1;
+			})
 			.subscribe(_ => this.uploaded.emit());
-		// index at the end for instant feedback
-		this.selectedIndex = this.images.length - 1;
 	}
 
 	/** deletes the image */

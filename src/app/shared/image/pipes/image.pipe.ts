@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DEFAULT_IMG, ImageUrls } from '~utils';
-import { imageMock } from '~core/erm';
 
 /**
  * Pipes that adds the begining url for images,
@@ -61,14 +60,13 @@ export class ImagePipe implements PipeTransform {
 			// Object
 			if (typeof value === 'object') {
 
-				// AppImage Object
-				if (value.urls) {
-					return value.urls[sizeIndex].url;
-				}
-
-				// PendingImage Object
-				if (value.data) {
-					return this.sanitizer.bypassSecurityTrustUrl(value.data);
+				// Image Object
+				if (value.url) {
+					if (value.url.startsWith('data')) {
+						return this.sanitizer.bypassSecurityTrustUrl(value.url);
+					} else {
+						return `${ImageUrls[size]}/${value.url}`;
+					}
 				}
 
 				// Supplier, product, Entity object...
@@ -83,7 +81,9 @@ export class ImagePipe implements PipeTransform {
 
 			}
 			// if it's a string we return the url made of with that string
-			return `${ImageUrls[size]}/${value}`;
+			if (typeof value === 'string') {
+				return `${ImageUrls[size]}/${value}`;
+			}
 		} catch (e) {
 			console.error('catched errors on image pipe'); // do we need this?
 			return DEFAULT_IMG;

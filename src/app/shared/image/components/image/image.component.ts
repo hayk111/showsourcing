@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AppImage } from '~core/erm';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Image } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'img-app',
@@ -8,7 +9,7 @@ import { AppImage } from '~core/erm';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageComponent {
-	private _image: AppImage;
+	private _image: Image;
 
 	get image(): any {
 		return this._image;
@@ -22,7 +23,8 @@ export class ImageComponent {
 	@Input() type: string;
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down' = 'cover';
 
-	constructor() { }
+	constructor(private sanitizer: DomSanitizer) { }
+
 
 
 }
