@@ -43,40 +43,39 @@
 			</div>
 		</div>
 
-		<!-- price -->
-
+		<!-- price and moq -->
 		<section>
-			<editable-container-app 
-				#edtPrice
-				class="bigger-editable"
-				(opened)="priceInput.focus()"
-				(saved)="updateProperty('price', priceInput.value)">
-				<editable-value-app >
-					{{ product?.propertiesMap?.price?.value | appPrice : 'Set Price' }}
+			<editable-container-app
+				#editable
+				class="full-width"
+				[hasAction]="false"
+				(opened)="inp.focus()"
+				(closed)="updatePriceMOQ(inp?.value, 'price')">
+				<editable-value-app #price>
+					<price-app [price]="product?.propertiesMap.price" size="xxxl" [primary]="false"></price-app>
 				</editable-value-app>
-				<input-price-app  
-					#priceInput
-					class="flexGrow" 
-					[inline]="true"
-					[value]="product?.propertiesMap?.price"
-					(keyup.enter)="updateProperty('price', priceInput.value); edtPrice.close()">
+				<input-price-app
+					#inp
+					[value]="{ 
+						currency: price?.currency || product?.propertiesMap?.price?.currency, 
+						value: price?.value || product?.propertiesMap?.price?.value}"
+					(keyup.enter)="editable.close()">
 				</input-price-app>
 			</editable-container-app>
 
-			<!-- moq -->
-			<editable-container-app 
-				#edtMoq
-				class="bigger-editable"
-				(opened)="moqInput.focus()"
-				(saved)="updateProperty('minimumOrderQuantity', moqInput.value)">
-				<editable-value-app >
-					{{ product?.propertiesMap?.minimumOrderQuantity || 'Set MOQ' }}
+			<editable-container-app
+				#editable
+				[hasAction]="false"
+				(opened)="inp.focus()"
+				(closed)="updatePriceMOQ(inp.value, 'moq')">
+				<editable-value-app>
+					<div *ngIf="product?.propertiesMap?.price?.minimumOrderQuantity">
+						{{'Min ' + product?.propertiesMap?.price?.minimumOrderQuantity + ' pcs'}}
+					</div>
+					<div *ngIf="!product?.propertiesMap?.price?.minimumOrderQuantity">-</div>
 				</editable-value-app>
-				<input 
-					#moqInput 
-					class="flexGrow" 
-					[value]="product?.propertiesMap?.minimumOrderQuantity || ''"
-					(keyup.enter)="updateProperty('minimumOrderQuantity', moqInput.value); edtMoq.close()"/>
+				<input #inp inputApp type="number"
+					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
 			</editable-container-app>
 		</section>
 

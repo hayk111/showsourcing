@@ -29,13 +29,33 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	}
 
 	update(value: any, prop: string) {
-		this.updated.emit({ id: this.product.id, [prop]: value });
+		if (prop === 'name') {
+			this.updated.emit({ id: this.product.id, [prop]: value });
+		} else {
+			this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+		}
 	}
 
-	updateProperty(name: string, value: any) {
-		let propertiesMap = this.product.propertiesMap;
-		propertiesMap = { ...propertiesMap, [name]: value };
-		this.updated.emit({ id: this.product.id, propertiesMap });
+	updatePriceMOQ(value: Partial<Price>, field: 'price' | 'moq') {
+		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value', value);
+		const val = value.value;
+		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
+		const currency = value.currency || 'USD';
+		const price =  {
+			...(val && field !== 'moq' && { value: val }),
+			...(field !== 'moq' && { currency }),
+			...(field === 'moq' && { minimumOrderQuantity: value }),
+		};
+		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> price', price);
+
+		api.Product.update([{
+			id: this.product.id,
+			propertiesMap: {
+				price
+			}
+		}]).subscribe(updated => {
+			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
+		});
 	}
 
 	onOpenSupplier(supplier: Supplier, event: MouseEvent) {
