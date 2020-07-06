@@ -17,7 +17,7 @@ import { PropertyOptionsService } from '~shared/selectors/services/property-opti
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ID } from '~utils';
-import { Typename } from 'showsourcing-api-lib';
+import { Typename, api } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -111,12 +111,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		// TODO setup
 
 		if (this.typename === 'PropertyOption') {
-			this.listHelper.setup(this.typename);
-			// this.filterSrv.setFilters([{
-			// 	property: 'type',
-			// 	eq: FilterType.CATEGORY
-			// } as any]);
-
 			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
 			this.cd.markForCheck();
 		} else {
@@ -193,10 +187,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	onChange() {
 		this.onChangeFn(this.value);
-		if (!this.multiple)
+		if (!this.multiple) {
 			this.updateSingle();
-		else
+		} else {
 			this.updateMultiple();
+		}
 	}
 
 	/**
@@ -227,13 +222,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * Emits the new single value so it can be updated
 	 */
 	private updateSingle() {
-		// Idk who wrote that but just return id... What about when we don't know what the selector is for
-		// for example in a dynamic form.
-		this.update.emit({
-			[this.value.__typename.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
-			value: this.value.value || this.value.name || null
-		});
+		const type = this.typename === 'PropertyOption' ? this.value.type : this.value.__typename;
+		const updateData = {
+			[type.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
+		};
 
+		this.update.emit(updateData);
 		this.close.emit();
 	}
 
@@ -243,7 +237,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	onSelect(item) {
 		let itemToReturn = item;
-		itemToReturn.__typename = this.typename;
+		itemToReturn.__typename = this.typename === 'PropertyOption' ? this.customType : this.typename;
 
 		switch (this.typename) {
 			case 'Constant':
@@ -282,7 +276,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		const value = this.searchTxt;
 		if (value && this.typename) {
 			added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
-			createObs$ = this.selectorSrv.create(this.typename, added);
+			createObs$ = this.typename === 'PropertyOption' 																 ?
+				this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
+				this.selectorSrv.create(this.typename, added);
 
 			// we add it directly to the value
 			if (this.multiple && added) {
@@ -293,10 +289,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			if (createObs$ === undefined)
 				return;
 			// we are using take 1 in srv, no need for fancy destroying
-			createObs$.subscribe();
-			// we changed the value directly so we have to notify the formControl
-			this.onChange();
-			this.resetInput();
+			createObs$.subscribe((created) => {
+				this.value.id = created[0].id;
+				// we changed the value directly so we have to notify the formControl
+				this.onChange();
+				this.resetInput();
+			});
 		}
 	}
 

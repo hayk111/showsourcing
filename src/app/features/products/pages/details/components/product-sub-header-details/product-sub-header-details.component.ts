@@ -32,7 +32,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		if (prop === 'name') {
 			this.updated.emit({ id: this.product.id, [prop]: value });
 		} else {
-			this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+			this.updated.emit({ id: this.product.id, [prop]: value });
 		}
 	}
 

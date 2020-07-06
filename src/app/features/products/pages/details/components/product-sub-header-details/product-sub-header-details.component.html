@@ -134,10 +134,11 @@
 		<section>
 			<h3 class="section-title">category</h3>
 			<badge-selector-app
-				[badge]="'CATEGORY' | erm"
+				badge="PropertyOption"
+				customType="Category"
 				[value]="product?.category"
 				[leftSideOrientation]="true"
-				(update)="update($event, 'category')">
+				(update)="update($event.categoryId, 'categoryId')">
 			</badge-selector-app>
 		</section>
 

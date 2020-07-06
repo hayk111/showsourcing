@@ -18,28 +18,14 @@ export class PropertyOptionsService {
 
 	listPropertyOptions (
 		type: string,
-		teamId: string = TeamService.teamSelected.id,
-		apiOptions = {}
 	): Observable<any[]> {
-		const options = apiOptions as WatchQueryOptions;
-		options.variables = { byId: teamId, limit: 10000, type: {
-			'eq': type
-		} };
-		options.fetchPolicy = 'network-only';
-		const queryBuilder = QueryPool.getQuery('PropertyOption', QueryType.LIST_BY); // the listBy get a method to build the query
-		options.query = queryBuilder('Team');
-
-		return of(null);
-		// TODO: implement return
-		// return this.apiSrv.query<any[]>(options).data$;
+		return api.PropertyOption.findbyType(type).data$;
 	}
 
-	createPropertyOption(
-		entity: any,
-		apiOptions = {}
+	createPropertyOptions(
+		propertyOptions: [{ type: string, value: any }]
 	): Observable<any> {
-		// const options = apiOptions as MutationOptions;
-		return api.PropertyOption.create([entity]);
+		return api.PropertyOption.create(propertyOptions);
 	}
 
 	deletePropertyOption(

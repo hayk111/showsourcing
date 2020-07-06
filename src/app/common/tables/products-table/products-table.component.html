@@ -63,9 +63,9 @@
 							[canCreate]="true"
 							[width]="370"
 							(menuClosed)="eca.close()"
-							(update)="propertyUpdated.emit({ entity: row, propertyType: 'category', value: $event.value })">
+							(update)="update.emit({ id: row?.id, categoryId: $event?.categoryId})">
 							<div class="pointer" >
-								{{ (row | property: 'category') || '-' }}
+								{{ (row?.category?.value) || '-' }}
 							</div>
 						</selector-app>
 					</editable-value-app>

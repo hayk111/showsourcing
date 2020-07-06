@@ -7,6 +7,7 @@ import {
 	ControllerTableQuickActionsComponent
 
 } from './components';
+import { FilterService } from '../../core/filters/filter.service';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { CommonModule } from '@angular/common';
 import { DividerModule } from '~shared/divider/divider.module';

@@ -94,10 +94,6 @@ export class ListHelper2Service<G = any> {
 		api[typename || this.typename].update([entity]).subscribe();
 	}
 
-	updateProperties(...args: any) {
-		throw Error(`This is still here because I don't want to fix all compilation error, but it needs to be fixed where used.`);
-	}
-
 	delete(entity: any, typename?: Typename) {
 		const { id, teamId } = entity;
 		api[typename || this.typename].delete([{ id }])

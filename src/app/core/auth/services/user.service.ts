@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, tap } from 'rxjs/operators';
+import { Subject, ReplaySubject, from } from 'rxjs';
+import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm3';
 import { authStatus } from 'showsourcing-api-lib';
@@ -38,7 +38,7 @@ export class UserService {
 			// }),
 			distinctUntilChanged(),
 		).subscribe(user => {
-			this.analyticsSrv.setupUser(user);
+			// this.analyticsSrv.setupUser(user);
 		});
 	}
 
@@ -48,6 +48,7 @@ export class UserService {
 
 	private setupUser(userId: string) {
 		const { given_name, family_name, sub, email } = authStatus.user.attributes;
+		console.log('UserService -> setupUser -> authStatus', authStatus.user);
 		const user: User = {
 			firstName: given_name,
 			lastName: family_name,

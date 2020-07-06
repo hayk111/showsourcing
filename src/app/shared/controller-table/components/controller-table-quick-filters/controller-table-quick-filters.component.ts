@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '~core/auth';
+import { authStatus } from 'lib';
 import { FilterCommonService, FilterService, FilterType } from '~core/filters';
 
 export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';
@@ -17,16 +18,17 @@ export class ControllerTableQuickFiltersComponent {
 
 	constructor(
 		private filterSrv: FilterService,
+		private userSrv: UserService,
+		private cdr: ChangeDetectorRef,
 		private filterCommonSrv: FilterCommonService
 	) {}
 
 	get isAssignedToMeChecked() {
-		return {};
-		// return this.filterSrv.hasFilterValue(FilterType.ASSIGNEE, UserService.user.id);
+		return this.filterSrv.hasFilterValue(FilterType.ASSIGNEE, this.userSrv.userId);
 	}
 
 	get isCreatedByMeChecked() {
-		return this.filterSrv.hasFilterValue(FilterType.CREATED_BY, UserService.user.id);
+		return this.filterSrv.hasFilterValue(FilterType.CREATED_BY, this.userSrv.userId);
 	}
 
 	get isArchivedChecked() {
@@ -38,14 +40,28 @@ export class ControllerTableQuickFiltersComponent {
 	}
 
 	toggleAssignedToMe() {
-		const isChecked = this.isAssignedToMeChecked;
-		this.filterCommonSrv.filterByAssignedToMe(!isChecked);
+		const shouldAdd = !this.isAssignedToMeChecked;
+		const filterParam = {
+			type: FilterType.ASSIGNEE,
+			value: this.userSrv.userId
+		};
+
+		if (shouldAdd) {
+			this.filterSrv.addFilter(filterParam);
+		} else {
+			this.filterSrv.removeFilter(filterParam);
+		}
 	}
 
 	toggleArchived() {
 		const isChecked = this.isArchivedChecked;
-		// it's the opposite here we want to remove the filter when it's checked, just buy that boat dude
-		this.filterCommonSrv.filterByArchived(isChecked);
+
+		if (isChecked) {
+			this.filterSrv.removeFilterType(FilterType.ARCHIVED);
+		} else {
+			const filterParam = { type: FilterType.ARCHIVED, value: !isChecked };
+			this.filterSrv.addFilter(filterParam);
+		}
 	}
 
 	toggleCompleted() {
