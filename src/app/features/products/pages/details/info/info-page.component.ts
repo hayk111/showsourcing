@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Product, ProductService } from '~core/erm';
 import { AutoUnsub } from '~utils';
+import { Product, api } from 'showsourcing-api-lib';
 
 
 @Component({
@@ -22,7 +22,6 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private productSrv: ProductService,
 		private cd: ChangeDetectorRef,
 		public dlgCommonSrv: DialogCommonService
 	) {
@@ -32,7 +31,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
-			switchMap(params => this.productSrv.selectOne(params.id)),
+			switchMap(params => api.Product.get(params.id)),
 			tap(product => this.product = product),
 			tap(_ => this.cd.markForCheck())
 		);
@@ -40,6 +39,6 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	update(product: Product) {
 		product.id = this.product.id;
-		this.productSrv.update(product).subscribe();
+		api.Product.update([product]).subscribe();
 	}
 }

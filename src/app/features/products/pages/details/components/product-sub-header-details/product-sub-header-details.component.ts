@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, Supplier, Sample } from '~core/erm3';
-import { api } from 'lib';
-import { Price } from '../../../../../../core/erm/models/price.model';
+import { api, Product, Supplier } from 'lib';
+import { Price } from '~core/erm3';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -26,7 +25,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	ngOnInit() {
 		this.samplesCount$ = api.Product.samples(this.product.id).count$;
 		this.tasksCount$ = api.Product.tasks(this.product.id).count$;
-		this.commentsCount$ = api.Product.comments(this.product.id).count$;
+		// this.commentsCount$ = api.Product.comments(this.product.id).count$;
 	}
 
 	update(value: any, prop: string) {

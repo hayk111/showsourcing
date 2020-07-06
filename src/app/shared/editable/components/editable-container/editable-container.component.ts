@@ -28,9 +28,13 @@ export class EditableContainerComponent {
 	@Input() hasOverflow = true;
 	/** whether the readonly version is still clickable */
 	@Input() clickableReadonly = false;
+	/** when it opens */
 	@Output() opened = new EventEmitter<null>();
+	/** when it close (cancel + save included) */
 	@Output() closed = new EventEmitter<null>();
+	/** when save clicked */
 	@Output() saved = new EventEmitter<null>();
+	/** when cancel clicked */
 	@Output() canceled = new EventEmitter<null>();
 	@ContentChild(InputDirective) input: InputDirective;
 

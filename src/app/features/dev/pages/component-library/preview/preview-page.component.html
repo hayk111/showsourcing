@@ -5,7 +5,6 @@
 			<!-- Banner here you will transclude the component that you want to appear on the banner -->
 			<preview-banner-app (closed)="toggle = !toggle">
 				<carousel-app
-					[images]="(product$ | async)?.images"
 					[selectedIndex]="selectedIndex"
 					objectFit="cover"
 					(imgClick)="openModal($event)"

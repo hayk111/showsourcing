@@ -3,9 +3,19 @@
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+	position: relative;
+	justify-content: center;
+	align-items: center;
 }
 
 img {
 	height: 100%;
 	width: 100%;
+	&.pending {
+		opacity: 0.4;
+	}
+}
+
+spinner-app {
+	position:absolute;
 }

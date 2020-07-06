@@ -59,7 +59,8 @@ import { routes } from './routes';
 		Pages.PackagingPageComponent,
 		Pages.PricePageComponent,
 		Pages.CustomInputsPageComponent,
-		Pages.UploadPageComponent
+		Pages.UploadPageComponent,
+		Pages.CarouselPageComponent
 	],
 	exports: [],
 	providers: []

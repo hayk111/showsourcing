@@ -5,7 +5,7 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Comment, CommentService, ERM, Product, UserService } from '~core/erm';
 import { Sample } from '~core/erm3/models';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';

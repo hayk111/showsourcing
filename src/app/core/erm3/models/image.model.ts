@@ -8,8 +8,11 @@ export class Image extends Entity<Image> {
 	id?: string;
 	teamId?: string;
 	team?: Team;
+	url?: string;
 	fileName?: string;
 	orientation?: number;
 	imageType?: 'JPG' | 'PNG' | 'GIF';
 	nodeId?: string;
+	// front-end property
+	pending?: boolean;
 }

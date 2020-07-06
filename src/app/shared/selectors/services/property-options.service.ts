@@ -3,7 +3,7 @@ import {
 	MutationOptions,
 	WatchQueryOptions
 } from 'apollo-client';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Observable, of } from 'rxjs';
 import { TeamService } from '~core/auth';
 import { Entity } from '~core/erm3/models/_entity.model';

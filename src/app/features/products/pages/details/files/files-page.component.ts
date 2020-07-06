@@ -5,9 +5,9 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { Attachment, ERM, UserService } from '~core/erm';
 import { ListHelper2Service, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils';
 import { api } from 'lib';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Component({
 	selector: 'files-page-app',
@@ -17,7 +17,6 @@ import { api } from 'lib';
 	providers: [
 		ListHelper2Service,
 		SelectionService,
-		UploaderFeedbackService
 	]
 })
 export class FilesPageComponent extends AutoUnsub implements OnInit {
@@ -33,6 +32,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		protected userSrv: UserService,
 		protected router: Router,
 		protected dlgSrv: DialogService,
+		private uploaderSrv: UploaderService,
 		public dialogCommonSrv: DialogCommonService,
 		public listHelper: ListHelper2Service,
 		public selectionSrv: SelectionService,
@@ -43,7 +43,11 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const productId = this.route.parent.snapshot.params.id;
-		this.listHelper.setup('Attachment', this._destroy$, (options) => api.Product.attachments(productId, options));
+		this.listHelper.setup(
+			'Attachment',
+			this._destroy$,
+			(options) => api.Attachment.findByNodeId(`Product:${productId}`)
+		);
 	}
 
 	addFile(files: Array<File>) {

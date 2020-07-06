@@ -1,18 +1,18 @@
 <div class="flex container">
 	<carousel-app
-		[entity]="product"
-		[images]="product?.images"
 		[hasPreview]="true">
 	</carousel-app>
 
 	<div class="flexColumn product-info">
-		<!-- title -->
+		<!-- name -->
 		<div class="title">
 			<editable-container-app
-				#edt
+				#edtName
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
-				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxl" [primary]="true">
+				<editable-value-app 
+					class="ellipsis bold-s color-txt-primary fs-xxxl" 
+					[primary]="true">
 					{{ product?.name || '-' }}
 				</editable-value-app>
 				<input
@@ -21,9 +21,9 @@
 					#inpName
 					type="text"
 					[value]="product?.name"
-					(keyup.enter)="edt.close()"/>
+					(keyup.enter)="edtName.close()"/>
 			</editable-container-app>
-			<!-- info title -->
+			<!-- badges -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
 				<rating-badge-app 
 					class="pointer"	
@@ -31,9 +31,15 @@
 					[hasNumber]="true" 
 					(click)="ratingClicked.emit()">
 				</rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ (((samplesCount$ | async) || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ (((tasksCount$ | async) || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ (((commentsCount$ | async) || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">
+					{{ samplesCount$ | async }} Samples
+				</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">
+					{{ tasksCount$ | async }} Tasks
+					</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">
+					{{ commentsCount$ | async }} Comments
+					</div>
 			</div>
 		</div>
 
@@ -77,6 +83,7 @@
 		<section>
 			<h3 class="section-title">supplier</h3>
 			<editable-container-app
+				#edtSupplier
 				class="action-hover-container-0"
 				[hasAction]="false"
 				(click)="supplierSelector?.openMenu($event, true)">
@@ -88,7 +95,7 @@
 						[canCreate]="true"
 						[leftSideOrientation]="true"
 						[width]="370"
-						(update)="update($event, 'supplier')">
+						(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">
 						<editable-value-app>
 							<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
 								<logo-app
@@ -99,8 +106,12 @@
 								<div class="supplier-info mg-right-xxl">
 									<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
 									<div class="flex dot-separator">
-										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
-										<div *ngIf="supplier?.country">{{ supplier?.country | const: 'country' }}</div>
+										<div *ngIf="supplier?.propertiesMap?.supplierType">
+											{{ supplier?.propertiesMap?.supplierType }}
+										</div>
+										<div *ngIf="supplier?.propertiesMap?.country">
+											{{ supplier?.propertiesMap?.country | const: 'country' }}
+										</div>
 										<rating-badge-app	[score]="supplier?.score" [activeColor]="'primary'"></rating-badge-app>
 									</div>
 								</div>
@@ -134,7 +145,7 @@
 		<section>
 			<h3 class="section-title">description</h3>
 			<input-description-app
-				[description]="product?.description"
+				[description]="product?.propertiesMap?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
 	</section>

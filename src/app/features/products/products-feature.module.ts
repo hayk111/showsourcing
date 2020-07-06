@@ -40,7 +40,7 @@ import * as Pages from './pages';
 		Pages.DetailsPageComponent,
 		DetailsPage.ActivityPageComponent,
 		DetailsPage.SamplesPageComponent,
-		// DetailsPage.InfoPageComponent,
+		DetailsPage.InfoPageComponent,
 		DetailsPage.FilesPageComponent,
 		DetailsPage.TasksPageComponent,
 		// DetailsPage.RequestsPageComponent,

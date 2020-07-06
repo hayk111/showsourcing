@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
+import { ClientReadyGuard } from '~core/api-lib';
+import { AuthenticatedGuard } from '~core/auth/guards';
+import { HasCompanyGuard, HasTeamGuard, HasTeamSelectedGuard } from '~features/auth/services';
 import { GuestTemplateComponent, TemplateComponent } from '~shared/template/components';
 import { DevModeGuard } from '~utils/dev-mode.guard';
-import { HasTeamSelectedGuard } from '~features/auth/services';
-import { AuthenticatedGuard } from '~core/auth/guards';
-import { HasUserGuard } from '~core/auth/guards/has-user.guard';
-import { ClientReadyGuard } from '~core/api-lib';
+import { SyncGuardHelper } from '~features/auth/services/sync-guard.guard';
 
 export const routes: Array<Route> = [
 	{
@@ -34,13 +34,20 @@ export const routes: Array<Route> = [
 	{
 		path: '',
 		component: TemplateComponent,
-		canActivateChild: [
-			// AuthenticatedGuard,
-			// HasTeamSelectedGuard, TODO: implement team select functionality and guard
-			// HasUserGuard,
+		canActivate: [
+			SyncGuardHelper
 		],
+		data: {
+			syncGuards: [
+				AuthenticatedGuard,
+				HasCompanyGuard,
+				ClientReadyGuard,
+				HasTeamGuard,
+				HasTeamSelectedGuard,
+			]
+		},
 		children: [
-			{ path: '', redirectTo: 'products', pathMatch: 'full', canActivate: [ClientReadyGuard] },
+			{ path: '', redirectTo: 'products', pathMatch: 'full', canActivate: [] },
 	// 		{
 	// 			path: 'dashboard',
 	// 			loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
@@ -53,7 +60,7 @@ export const routes: Array<Route> = [
 			{
 				path: 'products',
 				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule',
-				canActivate: [ClientReadyGuard]
+				canActivate: []
 			},
 			// {
 			// 	path: 'requests',
@@ -67,7 +74,7 @@ export const routes: Array<Route> = [
 			{
 				path: 'suppliers',
 				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule',
-				canActivate: [ClientReadyGuard]
+				canActivate: []
 			},
 			// {
 			// 	path: 'settings',

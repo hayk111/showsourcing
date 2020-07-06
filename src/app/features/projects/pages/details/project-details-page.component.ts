@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Observable } from 'rxjs';
 import { ERM, Project } from '~core/erm';
 import { ListHelper2Service } from '~core/list-page2';

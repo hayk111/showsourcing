@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import { IAuthState, state } from 'showsourcing-api-lib';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
-import { AuthStatus } from '../services/auth-state.interface';
-import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 
 /** check if the user is authenticated and if so redirect to dashboard. Protects pages like login etc. */
 @Injectable({
@@ -16,29 +15,29 @@ export class NotAuthenticatedGuard implements CanActivate, CanActivateChild {
 
 	canActivate(
 		route: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
+		_state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.authSrv.authState$.pipe(
+		return state.auth$.pipe(
 			tap(authState => {
-				console.log('not authenticated guard!!:', authState.state);
+				console.log('not authenticated guard!!:', authState);
 			}),
-			tap(authState => log.debug('%c unauth guard status :', LogColor.GUARD, authState.state)),
-			filter(authState => authState.state !== AuthStatus.PENDING),
+			tap(authState => log.debug('%c unauth guard status :', LogColor.GUARD, authState)),
+			filter(authState => authState !== 'AUTHENTICATING'),
 			tap(authState => this.redirectOnAuthenticated(authState)),
-			map(authState => authState.state === AuthStatus.NOT_AUTHENTICATED),
+			map(authState => authState === 'NOT_AUTHENTICATED'),
 		);
 	}
 
-	redirectOnAuthenticated(authState: AuthState) {
-		if (authState.state === AuthStatus.AUTHENTICATED) {
+	redirectOnAuthenticated(authState: IAuthState) {
+		if (authState === 'AUTHENTICATED') {
 			this.router.navigate(['']);
 		}
 	}
 
 	canActivateChild(
 		childRoute: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
+		_state: RouterStateSnapshot
 	): boolean | Observable<boolean> | Promise<boolean> {
-		return this.canActivate(childRoute, state);
+		return this.canActivate(childRoute, _state);
 	}
 }

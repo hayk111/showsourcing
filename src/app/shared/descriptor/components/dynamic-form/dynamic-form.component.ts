@@ -22,7 +22,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() columnAmount = 1;
 	@Input() updateOn: 'blur' | 'change' = 'change';
 	@Input() showRequiredMarker = true;
-	@Input() properties: {};
+	@Input() properties = {};
 	@ViewChild('formElem', { static: true }) formElem: ElementRef<HTMLFormElement>;
 	@Output() update = new EventEmitter<{}>();
 	/** used to display the fields inside columns */

@@ -17,7 +17,7 @@ import { PropertyOptionsService } from '~shared/selectors/services/property-opti
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ID } from '~utils';
-import { Typename } from 'lib';
+import { Typename } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -227,6 +227,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * Emits the new single value so it can be updated
 	 */
 	private updateSingle() {
+		// Idk who wrote that but just return id... What about when we don't know what the selector is for
+		// for example in a dynamic form.
 		this.update.emit({
 			[this.value.__typename.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
 			value: this.value.value || this.value.name || null

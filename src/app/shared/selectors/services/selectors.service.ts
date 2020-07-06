@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { Typename } from '~core/erm3/typename.type';
 

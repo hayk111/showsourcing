@@ -25,7 +25,7 @@ import { ListPageViewService, SelectionService, ExcludedService, ListHelper2Serv
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import _ from 'lodash';
 import { TeamService } from '~core/auth';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { ProjectProductService } from '../../../services/project-product.service';
 
@@ -140,20 +140,20 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	 * Deassociate the selected products from the current project
 	 */
 	deassociateSelectedProducts(prodcutsSelected: Product[]) {
-		const options: any = {};
-		options.mutation = customQueries.deleteProjectProduct;
-		options.variables = {
-			input: {},
-			condition: {
-				teamId: { eq: TeamService.teamSelected.id },
-				projectId: { eq: this.projectId }
-			}
-		};
+		// const options: any = {};
+		// options.mutation = customQueries.deleteProjectProduct;
+		// options.variables = {
+		// 	input: {},
+		// 	condition: {
+		// 		teamId: { eq: TeamService.teamSelected.id },
+		// 		projectId: { eq: this.projectId }
+		// 	}
+		// };
 
-		prodcutsSelected.forEach((product: Product) => {
-			options.variables.condition.productId =  { eq: product.id };
-			// this.apiSrv.mutate(options).subscribe();
-		});
+		// prodcutsSelected.forEach((product: Product) => {
+		// 	options.variables.condition.productId =  { eq: product.id };
+		// 	// this.apiSrv.mutate(options).subscribe();
+		// });
 	}
 
 	/** Open the find products dialog and passing selected products to it */
