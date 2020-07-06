@@ -3,6 +3,7 @@ import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm3';
+import { authStatus } from 'showsourcing-api-lib';
 import { AuthenticationService } from './authentication.service';
 
 
@@ -28,7 +29,7 @@ export class UserService {
 	init() {
 		this.authSrv.signIn$.pipe(
 			// preemptively putting the "user" so we don't need to wait to make calls with user id
-			tap(id => this.setupUser({ id } as User)),
+			tap((userId: string) => this.setupUser(userId)),
 			// switchMap(_ => this.apiLibSrv.ready$.toPromise()),
 			// switchMap(ready => {
 			// 	// if (ready) {
@@ -37,7 +38,6 @@ export class UserService {
 			// }),
 			distinctUntilChanged(),
 		).subscribe(user => {
-			this.setupUser(user);
 			this.analyticsSrv.setupUser(user);
 		});
 	}
@@ -46,12 +46,19 @@ export class UserService {
 		return this.user$;
 	}
 
-	private setupUser(user: User) {
+	private setupUser(userId: string) {
+		const { given_name, family_name, sub, email } = authStatus.user.attributes;
+		const user: User = {
+			firstName: given_name,
+			lastName: family_name,
+			id: sub,
+			email
+		};
 		this._user$.next(user);
 		this.user = user;
 		this.userId = this.userId || user.id;
 		UserService.user = user;
-		UserService.userId = UserService.userId || user.id;
+		UserService.userId = UserService.userId || userId || user.id;
 	}
 
 }
