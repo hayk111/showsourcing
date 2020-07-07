@@ -147,7 +147,7 @@
 			<h3 class="section-title">description</h3>
 			<input-description-app
 				[description]="product?.propertiesMap?.description"
-				(update)="update($event, 'description')">
+				(update)="update({ description: $event }, 'propertiesMap')">
 			</input-description-app>
 	</section>
 

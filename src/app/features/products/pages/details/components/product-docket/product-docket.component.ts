@@ -20,15 +20,13 @@ export class ProductDocketComponent implements OnInit {
 	@Output() goToSamples = new EventEmitter<null>();
 
 	productSamples$: Observable<Sample[]>;
+	productTasks$: Observable<Task[]>;
 
 	constructor() { }
 
 	ngOnInit() {
 		this.productSamples$ = api.Sample.findByProduct(this.product.id).data$;
-
-		this.productSamples$.subscribe(samples => {
-			console.log('ProductDocketComponent -> ngOnInit -> samples', samples);
-		});
+		this.productTasks$ = api.Task.findByProduct(this.product.id).data$ as Observable<any[]>;
 	}
 
 }
