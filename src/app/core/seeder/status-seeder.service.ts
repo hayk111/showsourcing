@@ -41,7 +41,7 @@ export class StatusSeederService {
 	constructor() {}
 
 	async listStatuses(): Promise<any> {
-		return api.WorkflowStatus.find('WorkflowStatus').data$.pipe(first()).toPromise();
+		return api['WorkflowStatus'].find('WorkflowStatus').data$.pipe(first()).toPromise();
 	}
 
 	/** delete all WorkflowStatus in current team */
@@ -71,7 +71,7 @@ export class StatusSeederService {
 				}
 				// the last name is "Refused"
 				if (i === stepNames.length - 1) newStatus.category = this._categoryTypes.REFUSED;
-				return api.WorkflowStatus.create([newStatus]).pipe(first()).toPromise();
+				return api['WorkflowStatus'].create([newStatus]).pipe(first()).toPromise();
 			});
 			return [...accPromises, ...promises];
 		}, allPromises);
