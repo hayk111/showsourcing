@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Entity } from '~core/erm3/models/_entity.model';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { of } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { uuid } from '../../utils';

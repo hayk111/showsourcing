@@ -22,6 +22,10 @@ const customQueries = {
 };
 
 
+/**
+ * @deprecated
+ * The service is deprecated, use "auth/services/user.service.ts"
+ */
 @Injectable({
 	providedIn: 'root',
 })

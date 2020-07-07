@@ -29,14 +29,12 @@ export class AppComponent implements OnInit {
 		this.companySrv.init();
 		this.analytics.init();
 
-		registerLocaleData(localeEn, 'en-EN');
-		registerLocaleData(localeFr, 'fr-FR');
-		registerLocaleData(localeEs, 'es-ES');
-		registerLocaleData(localeZh, 'zh-CH');
+		registerLocaleData(localeEn, 'en');
+		registerLocaleData(localeFr, 'fr');
+		registerLocaleData(localeEs, 'es');
+		registerLocaleData(localeZh, 'zh');
 		this.translate.setDefaultLang('en-US');
 		this.translate.use('en-US');
-
-		// this.seederSrv.seed();
 	}
 
 }

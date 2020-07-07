@@ -9,7 +9,7 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AppImage, Comment, CommentService, ERM } from '~core/erm';
 import { Supplier, Vote } from '~core/erm3/models';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { ListHelper2Service } from '~core/list-page2';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';

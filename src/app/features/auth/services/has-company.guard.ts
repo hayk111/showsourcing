@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap, skip } from 'rxjs/operators';
-import { log, LogColor } from '~utils';
-import { EntityName } from '~core/erm';
+import { tap, map } from 'rxjs/operators';
 import { CompanyService } from '~core/auth';
+import { log, LogColor } from '~utils';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,13 +17,15 @@ export class HasCompanyGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.companySrv.hasCompany$.pipe(
-			tap(d => log.debug('%c hasCompanyGuard', LogColor.GUARD, d)),
+		return this.companySrv.company$.pipe(
+			map(company => !!company),
 			tap(hasCompany => this.redirect(hasCompany, route, state))
 		);
 	}
 
 	redirect(hasCompany: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		log.debug(`has company -> ${hasCompany}`);
+
 		if (!hasCompany) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
 			this.router.navigate(['auth', 'user', 'create-a-company'], { queryParams: { returnUrl } });

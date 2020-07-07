@@ -43,7 +43,7 @@ export class InputPriceComponent extends AbstractInput {
 	}
 
 	focus() {
-		this.amountInp.focus();
+		this.amountInp.select();
 	}
 
 }

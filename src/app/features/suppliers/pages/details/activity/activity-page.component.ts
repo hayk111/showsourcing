@@ -6,7 +6,7 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Comment, Contact, Product, Sample, Supplier, Task } from '~core/erm3';
 import { AutoUnsub } from '~utils';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 
 @Component({

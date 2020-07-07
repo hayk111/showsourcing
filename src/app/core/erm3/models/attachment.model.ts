@@ -12,4 +12,6 @@ export class Attachment extends Entity<Attachment> {
 	size?: number | null;
 	deleted?: boolean;
 	nodeId?: string;
+	// front-end property
+	pending?:  boolean;
 }

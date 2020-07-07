@@ -3,7 +3,7 @@ import { tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Product, Project } from '~core/erm3/models';
 import { DialogService } from '~shared/dialog';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Typename } from '~core/erm3/typename.type';
 
 @Component({

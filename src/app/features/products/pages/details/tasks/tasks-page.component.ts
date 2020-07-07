@@ -5,6 +5,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { FilterService } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { api } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -33,10 +34,11 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.route.parent.params.pipe(
-			map(params => params.id),
-			tap(id => this.product = { id }),
-			takeUntil(this._destroy$)
-		).subscribe(id => this.listHelper.setup('Task'));
+		const productId = this.route.parent.snapshot.params.id;
+		this.listHelper.setup(
+			'Task',
+			this._destroy$,
+			(options) => api.Product.tasks(productId)
+		);
 	}
 }

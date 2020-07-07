@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
-import { state } from 'lib';
+import { state } from 'showsourcing-api-lib';
 import { tap } from 'rxjs/operators';
 
 @Injectable({

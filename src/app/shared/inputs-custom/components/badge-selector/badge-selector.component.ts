@@ -15,6 +15,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class BadgeSelectorComponent extends TrackingComponent implements OnInit {
 
 	@Input() badge: EntityMetadata;
+	@Input() customType: string;
 	@Input() value: any;
 	@Input() offsetY = -22;
 	@Input() multiple = false;

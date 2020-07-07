@@ -27,7 +27,7 @@
     <!-- left -->
     <div class="left">
       <h3 class="ms" translate="header.product-images"></h3>
-      <carousel-app [hasPreview]="true" [static]="true" [images]="selectedElement?.images"></carousel-app>
+      <carousel-app [hasPreview]="true" [static]="true"></carousel-app>
 			<span class="spacer mg-ms"></span>
       <h3 *ngIf="selectedElement?.attachments?.length" class="ms" translate="header.product-attachments"></h3>
       <file-list-app [hasPlaceholder]="false" [static]="true" [files]="selectedElement?.attachments"></file-list-app>
@@ -85,8 +85,7 @@
       <file-list-app
         [showConfirmOnDelete]="false"
         [hasPlaceholder]="false"
-        [files]="files"
-        [linkedItem]="reply"></file-list-app>
+        [files]="files"></file-list-app>
       <div class="spacer mg-s" *ngIf="files.length > 0"></div>
       <button tabFocusAction [disabled]="isDisabled()" class="secondary add-attachment capitalize" (click)="inpFile.click()" translate="button.add-attachments"></button>
 			<input [disabled]="isDisabled()" #inpFile multiple="true" type="file" (fileSelect)="addAttachment($event)"/>

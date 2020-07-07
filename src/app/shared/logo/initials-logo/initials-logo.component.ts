@@ -1,15 +1,7 @@
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	Input,
-	OnInit,
-	Renderer2,
-	ViewChild,
-} from '@angular/core';
-import { AppImage, EntityName } from '~core/erm';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
+import { Image } from '~core/erm3';
+import { Typename } from '~core/erm3/typename.type';
+import { UploaderService } from '~shared/file/services/uploader.service';
 import { IconUtils, Size } from '~utils';
 
 @Component({
@@ -17,9 +9,8 @@ import { IconUtils, Size } from '~utils';
 	templateUrl: './initials-logo.component.html',
 	styleUrls: ['./initials-logo.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [UploaderFeedbackService]
 })
-export class InitialsLogoComponent implements AfterViewInit, OnInit {
+export class InitialsLogoComponent implements AfterViewInit {
 
 	private _name: string;
 	@Input() set name(name: string) {
@@ -29,34 +20,23 @@ export class InitialsLogoComponent implements AfterViewInit, OnInit {
 	get name() {
 		return this._name;
 	}
-	@Input() set image(image: AppImage) {
-		this.uploaderFeedbackSrv.setImages([image]);
-	}
-	get image() {
-		return this.uploaderFeedbackSrv.getImages().length ? this.uploaderFeedbackSrv.getImages()[0] : null;
-	}
-	@Input() entity: any;
-	@Input() type: EntityName;
+	@Input() type: Typename;
 	@Input() size: Size = 'm';
-
 	@ViewChild('initialsElement', { static: false }) initialsElement: ElementRef;
 
+	// TODO define how we get the image
+	@Input() image: Image;
+	// TODO define how we get the nodeId
+	nodeId: string;
 	initials: string;
 	pending = false;
 
 	constructor(
 		private hostElement: ElementRef,
-		private uploaderFeedbackSrv: UploaderFeedbackService,
+		private uploaderSrv: UploaderService,
 		private render: Renderer2
 	) { }
 
-	ngOnInit() {
-		this.uploaderFeedbackSrv.init({
-			linkedEntity: this.entity,
-			imageProperty: 'logoImage',
-			isImagePropertyArray: false
-		});
-	}
 
 	ngAfterViewInit() {
 		const color = IconUtils.iconsColorMap[this.type] || 'secondary';
@@ -71,7 +51,11 @@ export class InitialsLogoComponent implements AfterViewInit, OnInit {
 
 	addLogo(files: File[]) {
 		this.pending = true;
-		this.uploaderFeedbackSrv.addImages(files).subscribe(_ => this.pending = false);
+		this.uploaderSrv.uploadImages(files, this.nodeId)
+			.onTempImages(imgs => this.image = imgs[0])
+			.subscribe(_ => {
+				// do refetch or whatever is needed here
+			});
 	}
 
 	private setInitials(text?: string) {

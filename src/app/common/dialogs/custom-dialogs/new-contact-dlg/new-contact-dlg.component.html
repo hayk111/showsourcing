@@ -65,11 +65,7 @@
 			<label translate="text.business-card"></label>
 			<carousel-app
 				*ngIf="contact$ | async as contact"
-				[imageProperty]="'businessCardImage'"
-				[isImagePropertyArray]="false"
-				[entity]="contact"
-				[size]="340"
-				[images]="[contact?.businessCardImage]">
+				[size]="340">
 			</carousel-app>
 
 		</form>

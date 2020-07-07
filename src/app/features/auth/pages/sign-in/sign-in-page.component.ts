@@ -40,12 +40,8 @@ export class SignInPageComponent implements OnInit {
 		if (this.form.valid) {
 			this.pending$.next(true);
 			this.authSrv.signIn(this.form.value)
-				.then((signIn) => {
-					console.log('SignInPageComponent -> signIn -> signIn', signIn);
-					this.pending$.next(false);
-				})
+				// .then((signIn) => this.pending$.next(false))
 				.catch(e => {
-					console.log('SignInPageComponent -> signIn -> e', e);
 					this.error = e.code;
 					this.pending$.next(false);
 				});

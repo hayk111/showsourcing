@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Attachment } from '~core/erm';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { Attachment } from '~core/erm3';
 import { AutoUnsub, DEFAULT_FILE_ICON } from '~utils';
-import { PendingFile } from '~utils/pending-file.class';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 export enum PageType {
 	product = 'PRODUCT',
@@ -15,40 +14,27 @@ export enum PageType {
 	templateUrl: './files-card.component.html',
 	styleUrls: ['./files-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [UploaderFeedbackService]
 })
-export class FilesCardComponent extends AutoUnsub implements OnInit {
+export class FilesCardComponent {
 
-	@Input() set files(files: Array<Attachment>) {
-		this.uploaderFeedback.setFiles(files);
-	}
-	get files(): Array<Attachment> {
-		return this.uploaderFeedback.getFiles();
-	}
-
-	defaultImg = DEFAULT_FILE_ICON;
-
+	// TODO what is this property, it should be removed
 	@Input() secondaryStyle = false;
-	@Input() linkedItem: any;
-	@Output() uploaded = new EventEmitter<Attachment[]>();
-	@Output() deleted = new EventEmitter<Attachment>();
+	// TODO define how we get the image
+	@Input() files: Attachment[] = [];
+	// TODO define how we get the nodeId
+	@Input() nodeId: string;
 
 	constructor(
-		private uploaderFeedback: UploaderFeedbackService
+		private uploaderSrv: UploaderService
 	) {
-		super();
-	}
-
-
-	ngOnInit() {
-		this.uploaderFeedback.init({ linkedEntity: this.linkedItem });
-		this.uploaderFeedback.uploaded$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(attachments => this.uploaded.emit(attachments as Attachment[]));
 	}
 
 	onFileAdded(files: Array<File>) {
-		this.uploaderFeedback.addFiles(files).subscribe();
+		this.uploaderSrv.uploadFiles(files, this.nodeId)
+		.onTempFiles(attachments => this.files.push(...attachments))
+		.subscribe(_ => {
+			// do refetch etc if any
+		});
 	}
 
 }

@@ -10,10 +10,10 @@ import {
 	SupplierRequestService
 } from '~core/erm';
 import { DialogService } from '~shared/dialog';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { UploaderService } from '~shared/file/services/uploader.service';
 
 
 
@@ -22,7 +22,6 @@ import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.componen
 	templateUrl: './request-reply-dlg.component.html',
 	styleUrls: ['./request-reply-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [UploaderFeedbackService]
 })
 export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	@Input() selectedIndex = 0;
@@ -50,7 +49,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		private replySrv: RequestReplyService,
 		private requestSrv: SupplierRequestService,
 		private dlgSrv: DialogService,
-		private uploaderFeedback: UploaderFeedbackService,
+		private uploaderSrv: UploaderService,
 		private translate: TranslateService,
 		private extendedFieldSrv: ExtendedFieldService
 	) {
@@ -72,15 +71,6 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 		if (this.isDisabled())
 			this.descriptionCtrl.disable();
-	}
-
-
-	get images() {
-		return this.uploaderFeedback.getImages();
-	}
-
-	get files() {
-		return this.uploaderFeedback.getFiles();
 	}
 
 	next() {
@@ -110,9 +100,6 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			this.localFields = [...this.reply.fields];
 		this.initialLoad = false;
 		this.definitions = this.reply.fields.map(field => field.definition);
-		this.uploaderFeedback.setImages(this.reply.images);
-		this.uploaderFeedback.setFiles(this.reply.attachments);
-		this.uploaderFeedback.init({ linkedEntity: this.reply });
 	}
 
 	save(updateStatus = false, lastItem = false) {
@@ -194,11 +181,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	addImage(files: File[]) {
-		this.uploaderFeedback.addImages(files).subscribe();
 	}
 
 	addAttachment(files: File[]) {
-		this.uploaderFeedback.addFiles(files).subscribe();
 	}
 
 	hasEmptyField() {
@@ -206,8 +191,6 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	deleteImg(img: AppImage) {
-		this.uploaderFeedback.deleteImg(img);
-		this.uploaderFeedback.setImages(this.selectedElement.reply.images.filter(image => !image.deleted));
 	}
 
 	getTooltipMessage() {

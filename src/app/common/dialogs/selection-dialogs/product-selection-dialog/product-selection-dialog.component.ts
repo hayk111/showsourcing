@@ -7,7 +7,7 @@ import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { tap, first, switchMap} from 'rxjs/operators';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { TeamService } from '~core/auth';
 import { ProjectProductService } from '~features/projects/services/project-product.service';
 

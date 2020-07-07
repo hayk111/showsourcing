@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Export, Product, Sample, Supplier, Task } from '~core/erm3/models';
 import { Typename } from '~core/erm3/typename.type';
 import { DialogService } from '~shared/dialog/services';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 
 export enum ExportFormat {
 	PDF = 'PDF',

@@ -16,7 +16,7 @@ import { Filter, FilterService, FilterType } from '~core/filters';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 
 /** @deprecated */
 /** since we use the task component on different pages, this page will keep the methods clean */

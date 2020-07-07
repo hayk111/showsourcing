@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
-import { Supplier, api } from 'lib';
+import { Supplier, api } from 'showsourcing-api-lib';
 import { config } from './config';
 import { ListHelper2Service } from '~core/list-page2';
 

@@ -3,7 +3,7 @@ import {
 	EventEmitter, Input, OnInit, Output, ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Observable } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
@@ -67,7 +67,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
-		private uploader: UploaderService,
+		private uploaderSrv: UploaderService,
 		private cd: ChangeDetectorRef,
 		private router: Router,
 		private commentSrv: CommentService,
@@ -124,7 +124,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 		const uuids: string[] = await this._addPendingImg(files);
 		this.cd.markForCheck();
-		this.uploader
+		this.uploaderSrv
 			.uploadImages(files, this.product)
 			.pipe(first())
 			.subscribe(

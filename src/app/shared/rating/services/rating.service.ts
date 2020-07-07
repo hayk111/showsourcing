@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from '~core/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Vote, Product, Supplier } from '~core/erm3/models';
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Entity } from '~core/erm3/models/_entity.model';
 import { customQueries } from '~core/erm3/queries/custom-queries';
 import { filter, map, tap } from 'rxjs/operators';

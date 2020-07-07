@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { TeamService } from '~core/auth';
 import { switchMap } from 'rxjs/operators';
-import { Team } from '~core/erm3/models';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -28,9 +27,8 @@ export class CreateATeamPageComponent {
 
 	onSubmit() {
 		if (this.form.valid) {
-			const team = this.form.value;
-			this.teamSrv.create(team).pipe(
-				switchMap(_team => this.teamSrv.pickTeam(_team))
+			const name = this.form.value.name;
+			this.teamSrv.create(name).pipe(
 			).subscribe(_ => this.router.navigate(['']));
 		}
 	}

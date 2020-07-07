@@ -37,7 +37,7 @@ export class PreviewCarouselComponent extends AutoUnsub {
 	defaultImg = DEFAULT_IMG;
 
 	constructor(
-		private uploader: UploaderService,
+		private uploaderSrv: UploaderService,
 		private cd: ChangeDetectorRef,
 		private ermSrv: ERMService
 	) { super(); }
@@ -54,7 +54,7 @@ export class PreviewCarouselComponent extends AutoUnsub {
 
 		const uuids: string[] = await this.addPendingImg(files);
 		this.cd.markForCheck();
-		this.uploader.uploadImages(files, this.entity).subscribe(imgs => {
+		this.uploaderSrv.uploadImages(files, this.entity).subscribe(imgs => {
 			// removing pending image
 			this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
 		}, e => this._pendingImages = []);

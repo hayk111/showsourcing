@@ -1,4 +1,4 @@
-import { api } from 'lib';
+import { api } from 'showsourcing-api-lib';
 import { Entity } from '~core/erm3/models/_entity.model';
 import gql from 'graphql-tag';
 import { first } from 'rxjs/operators';

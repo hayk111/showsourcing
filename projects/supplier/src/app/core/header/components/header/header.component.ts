@@ -50,7 +50,7 @@ export class HeaderComponent extends AutoUnsub implements OnInit {
 	}
 
 	logout() {
-		this.authSrv.logout();
+		this.authSrv.signOut();
 	}
 
 	onSearchBarStateChanged(state) {

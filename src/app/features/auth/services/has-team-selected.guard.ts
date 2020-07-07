@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { TeamService } from '~core/auth/services/team.service';
 import { log, LogColor } from '~utils';
 
@@ -17,13 +17,15 @@ export class HasTeamSelectedGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		this.redirect(false, route, state);
-		return false;
+		return this.teamSrv.teamSelected$.pipe(
+			map(team => !!team),
+			tap(team => this.redirect(team, route, state))
+		);
 	}
 
-	redirect(hasTeam: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		console.log('HasTeamSelectedGuard -> redirect -> hasTeam', hasTeam);
-		if (!hasTeam) {
+	redirect(hasTeamSelected: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		log.debug(`has team selected guard -> ${hasTeamSelected}`);
+		if (!hasTeamSelected) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
 			this.router.navigate(['auth', 'user', 'pick-a-team'], { queryParams: { returnUrl } });
 		}
