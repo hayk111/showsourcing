@@ -19,7 +19,7 @@ export class PropertyOptionsService {
 	listPropertyOptions (
 		type: string,
 	): Observable<any[]> {
-		return api.PropertyOption.findbyType(type).data$;
+		return api.PropertyOption.findByType(type).data$;
 	}
 
 	createPropertyOptions(
