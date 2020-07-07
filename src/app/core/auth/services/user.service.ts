@@ -27,9 +27,6 @@ export class UserService {
 	}
 
 	init() {
-		authStatus.signIn('augustin@showsourcing.com', 'Test1234').then(user => {
-			console.log('UserService -> init -> user', user);
-		});
 		this.authSrv.signIn$.pipe(
 			// preemptively putting the "user" so we don't need to wait to make calls with user id
 			tap((userId: string) => this.setupUser(userId)),
