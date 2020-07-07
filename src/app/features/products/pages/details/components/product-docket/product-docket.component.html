@@ -41,7 +41,7 @@
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
 		<task-catalog-app
-			[tasks]="product?.tasksLinked?.items"
+			[tasks]="productTasks$ | async"
 			(taskClicked)="previewTask.emit($event)"
 			(showMore)="goToTasks.emit()">
 		</task-catalog-app>
@@ -54,7 +54,7 @@
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addSample.emit()" translate="button.add"></div>
 		</div>
 		<sample-catalog-app
-			[samples]="product?.samplesLinked?.items"
+			[samples]="productSamples$ | async"
 			(sampleClicked)="previewSample.emit($event)"
 			(showMore)="goToSamples.emit()">
 		</sample-catalog-app>
@@ -63,8 +63,9 @@
 	<!-- about -->
 	<section>
 		<h3 class="section-title">About this product</h3>
-		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
-		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
-		<small *ngIf="product.event">Found at {{ product?.event?.description?.name }}</small>
+		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.createdAt | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedAt | date: 'dd MMMM yyyy' }}</small><br>
+		<!-- TODO: implement event part -->
+		<!-- <small *ngIf="product.event">Found at {{ product?.event?.description?.name }}</small> -->
 	</section>
 </card-app>

@@ -50,6 +50,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 			...(!moq && { currency }),
 			...(moq && { minimumOrderQuantity: moq }),
 		};
+		console.log('ProductsTableComponent -> updatePriceMOQ -> price', price);
 
 		api.Product.update([{
 			id: product.id,

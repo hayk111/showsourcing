@@ -48,6 +48,7 @@ export class DialogCommonService {
 	 * @returns DialogRef: an object of observables who stream $close, $data, $cancel.
 	 */
 	openCreationDlg(typename: Typename, linkedEntities?: Record<string, Entity>) {
+		console.log('DialogCommonService -> openCreationDlg -> typename', typename);
 		// dialogs disponibles from imports
 		const creationDialogs: Partial<Record<Typename, any>> = {
 			Product: ProductCreationDialogComponent,

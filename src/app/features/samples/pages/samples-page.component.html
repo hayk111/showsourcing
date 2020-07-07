@@ -18,7 +18,7 @@
 </controller-table-app>
 
 <samples-table-app
-	[rows]="listHelper.paginedItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	(select)="selectionSrv.selectOne($event, true)"

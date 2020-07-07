@@ -11,4 +11,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class EditableValueComponent {
 	@Input() primary = false;
+	@Input() resizable = true;
 }

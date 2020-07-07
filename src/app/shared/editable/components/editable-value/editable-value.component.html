@@ -1,6 +1,7 @@
 <span 
 	class="flex ctnr"
-	[ngClass]="primary ? 'color-txt-primary' : 'color-txt-secondary'">
+	[ngClass]="primary ? 'color-txt-primary' : 'color-txt-secondary'"
+	[ngStyle]="{'width': resizable ? '100%' : '200px'}">
 	<ng-content></ng-content>
 </span>
 <span 
