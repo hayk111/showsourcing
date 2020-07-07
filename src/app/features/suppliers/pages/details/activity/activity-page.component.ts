@@ -46,10 +46,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 		this.comments$ = id$.pipe(
 			map(id => this.nodeId = `Supplier:${id}`),
-			map(nodeId => api['Comment'].find(null, {
-				property: 'nodeId',
-				contains: nodeId
-			}).data$),
+			map(nodeId => api['Comment'].findByNodeId(nodeId).data$),
 			tap(query => this.commentListRef = query),
 			switchMap(query => query)
 		);
@@ -72,7 +69,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onCommentDeleted(comment: Comment) {
-		api['Comment'].delete('Comment', [comment]);
+		api.Comment.delete([comment]);
 	}
 
 	goToSamples() {

@@ -1,6 +1,6 @@
 <h2 class="l flexStart">Samples</h2>
 
-<ng-container *ngIf="(listHelper.filteredItems$ | async) as samples; else spinner">
+<ng-container *ngIf="(listHelper.data$ | async) as samples; else spinner">
 	<ng-container *ngIf="samples?.length; else placeholder">
 		<!-- list -->
 		<sample-list-item-app

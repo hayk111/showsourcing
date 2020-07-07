@@ -60,32 +60,28 @@ export const routes: Array<Route> = [
 			{
 				path: 'products',
 				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule',
-				canActivate: []
 			},
 			// {
 			// 	path: 'requests',
 			// 	loadChildren: 'app/features/requests/requests-feature.module#RequestsFeatureModule'
 			// },
-			// {
-			// 	path: 'samples',
-			// 	loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule',
-			// 	canActivate: [ClientReadyGuard]
-			// },
+			{
+				path: 'samples',
+				loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule',
+			},
 			{
 				path: 'suppliers',
 				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule',
-				canActivate: []
 			},
 			// {
 			// 	path: 'settings',
 			// 	loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule',
 			// 	canActivate: [ClientReadyGuard]
 			// },
-			// {
-			// 	path: 'tasks',
-			// 	loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule',
-			// 	canActivate: [ClientReadyGuard]
-			// }
+			{
+				path: 'tasks',
+				loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule',
+			}
 		]
 	},
 	{ path: '**', redirectTo: '' }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Filter, FilterType, FilterService, FilterCommonService } from '~core/filters';
+import { Filter, FilterType, FilterService } from '~core/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 
 /**
@@ -21,8 +21,7 @@ export class FilterBtnListComponent extends TrackingComponent {
 	otherFiltersLabelShown = false;
 
 	constructor(
-		public filterSrv: FilterService,
-		public filterCommonSrv: FilterCommonService
+		public filterSrv: FilterService
 	) {
 		super();
 	}

@@ -23,8 +23,8 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.samplesCount$ = api.Product.samples(this.product.id).count$;
-		this.tasksCount$ = api.Product.tasks(this.product.id).count$;
+		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
+		this.tasksCount$ = api.Task.findByProduct(this.product.id).count$;
 		// this.commentsCount$ = api.Product.comments(this.product.id).count$;
 	}
 

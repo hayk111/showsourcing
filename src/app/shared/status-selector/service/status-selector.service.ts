@@ -27,7 +27,7 @@ export class StatusSelectorService {
 
 	setupStatuses(typename: Typename) {
 		this.typename = typename;
-		api.col('Product').statuses();
+		api.WorkflowStatus.findByType(typename as any);
 	}
 
 	updateStatus(status: WorkflowStatus, entity?: any): Observable<any> {

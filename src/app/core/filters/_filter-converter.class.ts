@@ -62,6 +62,9 @@ export class FilterConverter {
 			const propertiesWithType = this.propertyInArr(property, and);
 
 			if (propertiesWithType.length) {
+				const index = and.findIndex((item) => ('or' in item) && item.or[0].property.startsWith(property));
+				and.splice(index, 1);
+
 				or.push(...propertiesWithType, this.getFieldCondition(property, filter));
 				and.push({or});
 				and = and.filter((item) => {
@@ -94,6 +97,7 @@ export class FilterConverter {
 					contains: value
 				};
 			case FilterType.SUPPLIER:
+			case FilterType.CATEGORY:
 				return {
 					property: type + 'Id',
 					contains: value
@@ -107,7 +111,18 @@ export class FilterConverter {
 	}
 
 	private propertyInArr(prop: string, arr: any[]): any[] {
-		return arr.filter((item) => ('property' in item) && item.property.startsWith(prop));
+		let propertyMatches = [];
+		arr.forEach((item) => {
+			if (('property' in item) && item.property.startsWith(prop)) {
+				propertyMatches.push(item);
+			}
+
+			if ('or' in item) {
+				propertyMatches = item.or.filter(elem => ('property' in elem) && elem.property.startsWith(prop));
+			}
+		});
+
+		return propertyMatches;
 	}
 
 }
