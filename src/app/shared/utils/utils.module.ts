@@ -11,6 +11,7 @@ import { UserNamePipe } from '~shared/utils/pipes/user-name.pipe';
 import { TabFocusActionDirective } from './directives/tab-focus-action.directive';
 import { CountryCityPipe } from './pipes/country-city.pipe';
 import { PropertyPipe } from './pipes/property.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
 	imports: [
@@ -27,6 +28,7 @@ import { PropertyPipe } from './pipes/property.pipe';
 		TooltipDirective,
 		TooltipComponent,
 		TabFocusActionDirective,
+		CapitalizePipe,
 		CountryCityPipe,
 		HorizontalScrollDirective,
 		PropertyPipe,
@@ -39,6 +41,7 @@ import { PropertyPipe } from './pipes/property.pipe';
 		ConstPipe,
 		GroupByPipe,
 		AutoFocusDirective,
+		CapitalizePipe,
 		TooltipDirective,
 		TabFocusActionDirective,
 		CountryCityPipe,

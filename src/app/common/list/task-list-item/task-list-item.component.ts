@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Task } from '~core/erm';
+import { Task } from '~core/erm3';
 
 import { AbstractListItemComponent } from '../abstract-list-item.component';
 import { StatusUtils } from '~utils';

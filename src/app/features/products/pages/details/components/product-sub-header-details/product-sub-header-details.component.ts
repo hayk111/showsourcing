@@ -37,16 +37,15 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	}
 
 	updatePriceMOQ(value: Partial<Price>, field: 'price' | 'moq') {
-		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value', value);
 		const val = value.value;
 		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
 		const currency = value.currency || 'USD';
 		const price =  {
+			...this.product.propertiesMap.price,
 			...(val && field !== 'moq' && { value: val }),
 			...(field !== 'moq' && { currency }),
 			...(field === 'moq' && { minimumOrderQuantity: value }),
 		};
-		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> price', price);
 
 		api.Product.update([{
 			id: this.product.id,

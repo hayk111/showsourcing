@@ -82,14 +82,17 @@ export class ListHelper2Service<G = any> {
 		).subscribe(count => this._total$.next(count));
 	}
 
-	openCreationDialog(addedProperties: any = {}) {
+	openCreationDialog(addedProperties: any = {}, typename: Typename = this.typename) {
+		console.log('ListHelper2Service<G -> openCreationDialog -> typename', typename);
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
-				typename: this.typename,
+				typename,
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => api[this.typename].create([entity])),
+				switchMap((entity) => {
+					return api[typename].create([{...entity, ...addedProperties}]);
+				}),
 			).subscribe();
 	}
 
@@ -111,10 +114,20 @@ export class ListHelper2Service<G = any> {
 	}
 
 	deleteSelected() {
-		const selecteds = this.selectionSrv.getSelectedValues();
+		const selectedIds = this.selectionSrv.getSelectedValues().map(selected => selected.id);
 		this.dlgSrv
 			.open(ConfirmDialogComponent)
-			.data$.pipe(switchMap((_) => api[this.typename].delete(selecteds as any)))
+			.data$
+			.pipe(
+				map(_ => {
+					console.log('deleteSelected -> selectedIds1', selectedIds);
+					return selectedIds.map(selected => ({ id: selected }));
+				}),
+				switchMap((selectedIds) => {
+					console.log('deleteSelected -> selectedIds2', selectedIds);
+					return api[this.typename].delete(selectedIds);
+				})
+			)
 			.subscribe((_) => {
 				this.selectionSrv.unselectAll();
 			});
