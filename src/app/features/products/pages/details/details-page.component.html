@@ -21,8 +21,8 @@
 			<product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
-				(addTask)="dlgCommonSrv.openCreationDlg('Task', product)"
-				(addSample)="dlgCommonSrv.openCreationDlg('Sample', product)"
+				(addTask)="listHelper.openCreationDialog({ productId: product.id }, 'Task')"
+				(addSample)="listHelper.openCreationDialog({ productId: product.id }, 'Sample')"
 				(previewSample)="openSamplePreview($event)"
 				(previewTask)="openTaskPreview($event)"
 				(goToSamples)="goToTable('samples')"
