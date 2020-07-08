@@ -64,11 +64,11 @@ export class DashboardPageComponent extends AutoUnsub implements OnInit {
 			this.yourProducts$ = this.dashboardSrv.getFirstFewProducts();
 		});
 
-		this.statusSrv.statusUpdate$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(_ => {
-			this.yourProducts$ = this.dashboardSrv.getFirstFewProducts();
-		});
+		// this.statusSrv.statusUpdate$
+		// 	.pipe(takeUntil(this._destroy$))
+		// 	.subscribe(_ => {
+		// 	this.yourProducts$ = this.dashboardSrv.getFirstFewProducts();
+		// });
 	}
 
 	redirInviteTeam() {

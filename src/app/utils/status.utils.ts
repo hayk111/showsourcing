@@ -6,7 +6,7 @@ export enum StatusCategory {
 	PREPARATION = 'Preparation', // ? What is preparation ?
 	NEW = 'NEW',
 	IN_PROGRESS = 'INPROGRESS',
-	VALIDATED = 'VALIDED',
+	VALIDATED = 'VALIDATED',
 	REFUSED = 'REFUSED',
 }
 

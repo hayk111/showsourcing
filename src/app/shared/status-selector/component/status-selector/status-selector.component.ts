@@ -17,7 +17,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 	private _typename: Typename;
 	@Input()
 	public set typename(typename: Typename) {
-		// this.statusSrv.setupStatuses(typename);
+		this.statusSrv.setupStatuses(typename);
 		this._typename = typename;
 	}
 	public get typename(): Typename {
@@ -47,12 +47,8 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	updateStatus(newStatus, entity) {
 		this.statusUpdated.emit(newStatus);
-		this.entity.status = newStatus;
 		if (!entity.id) return;
-		this.statusSrv.updateStatus(newStatus, entity).subscribe((newEntity) => {
-			this.entity = newEntity;
-			this.cd.markForCheck();
-		});
+		this.statusSrv.updateStatus(newStatus, entity);
 	}
 
 	isLast() {
@@ -70,7 +66,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 		return statuses.find((status) => status.step === nextStep);
 	}
 
-	next() {
-		return this.updateStatus(this.getNextStatus(), this.entity);
+	next(): void {
+		this.updateStatus(this.getNextStatus(), this.entity);
 	}
 }

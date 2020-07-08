@@ -55,19 +55,3 @@
 			<icon-app class="caret" name="caret-right"></icon-app>
 		</button>
 	</ng-container>
-
-<!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
-<!-- <task-status-badge-app
-	*ngIf="typename === 'Task' && canUpdate"
-	[task]="entity"
-	[size]="selectSize"
-	(update)="updateTask($event)">
-</task-status-badge-app> -->
-
-<!-- <status-badge-app #immutableStatusBadge
-	*ngIf="!canUpdate"
-	class="pointer"
-	[status]="entity?.status"
-	[typeEntity]="typename"
-	[size]="selectSize">
-</status-badge-app> -->
