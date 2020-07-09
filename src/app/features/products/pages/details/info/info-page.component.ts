@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
+import { productDetailsDescriptorMock, shippingPackagingDescriptorMock } from './descriptors';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
 import { Product, api } from 'showsourcing-api-lib';
@@ -18,7 +18,9 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;
-	descriptor = descriptorMock;
+
+	detailsGeneralDescriptor = productDetailsDescriptorMock;
+	shippingPackagingDescriptor = shippingPackagingDescriptorMock;
 
 	constructor(
 		private route: ActivatedRoute,

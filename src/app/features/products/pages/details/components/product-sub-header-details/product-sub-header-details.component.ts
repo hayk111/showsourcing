@@ -37,8 +37,11 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	}
 
 	updatePriceMOQ(value: Partial<Price>, field: 'price' | 'moq') {
+		if (!value) {
+			return;
+		}
+
 		const val = value.value;
-		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
 		const currency = value.currency || 'USD';
 		const price =  {
 			...this.product.propertiesMap.price,

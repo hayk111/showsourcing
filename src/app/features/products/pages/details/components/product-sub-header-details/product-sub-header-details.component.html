@@ -46,7 +46,7 @@
 		<!-- price and moq -->
 		<section>
 			<editable-container-app
-				#editable
+				#editablePrice
 				class="full-width"
 				[hasAction]="false"
 				(opened)="inpPrice.focus()"
@@ -59,12 +59,12 @@
 					[value]="{ 
 						currency: price?.currency || product?.propertiesMap?.price?.currency, 
 						value: price?.value || product?.propertiesMap?.price?.value}"
-					(keyup.enter)="editable.close()">
+					(keyup.enter)="editablePrice.close()">
 				</input-price-app>
 			</editable-container-app>
 
 			<editable-container-app
-				#editable
+				#editableMOQ
 				[hasAction]="false"
 				(opened)="inpMOQ.focus()"
 				(closed)="updatePriceMOQ(inpMOQ.value, 'moq')">
@@ -79,7 +79,7 @@
 					inputApp 
 					type="number"
 					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" 
-					(keyup.enter)="editable.close()"/>
+					(keyup.enter)="editableMOQ.close()"/>
 			</editable-container-app>
 		</section>
 

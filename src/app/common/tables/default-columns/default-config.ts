@@ -17,7 +17,7 @@ export const defaultConfig: TableConfig = {
 	supplierCount: { name: 'supplierCount', translationKey: 'suppliers', width: 72, sortable: false },
 	taskCount: { name: 'taskCount', translationKey: 'tasks', width: 72, sortable: false },
 	sampleCount: { name: 'sampleCount', translationKey: 'samples', width: 72, sortable: false },
-	supplier: { name: 'supplier', translationKey: 'supplier', width: 210, sortProperty: 'supplier.id' },
+	supplier: { name: 'supplier', translationKey: 'supplier', width: 210, sortProperty: 'supplier.name' },
 	product: { name: 'product', translationKey: 'product', width: 210, sortProperty: 'product.id' },
 	dueDate: { name: 'dueDate', translationKey: 'due-date', width: 200, sortProperty: 'dueDate' },
 	done: { name: 'done', translationKey: 'done', width: 110, sortProperty: 'done' },
