@@ -37,7 +37,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 			property: 'categoryId',
 			type: 'selector',
 			typename: 'PropertyOption',
-			typePropertyOption: 'Category',
+			typePropertyOption: 'CATEGORY',
 		},
 		{
 			label: 'Tags',
@@ -88,13 +88,18 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	setSelector(value: any) {
 		const property = this.propertySelected;
 		this.toUpdate = { callback: property.type.toLowerCase() + 'Update', property, value: value };
-		if (property === 'Supplier') {
-			this.toUpdate.value = cache.get('Supplier', this.toUpdate.value.supplierId);
+		if (property.property === 'supplierId') {
+			this.toUpdate.value = cache.get('Supplier', value.supplierId);
+		} else if (property.property === 'categoryId') {
+			this.toUpdate.value = cache.get('PropertyOption', value.categoryId);
 		}
-		// TODO add productTag, productCategory, assignee
+		// TODO add productTag, assignee
 	}
 
 	update() {
+		if (!this.toUpdate) {
+			return;
+		}
 		this.dlgSrv.data(this.toUpdate);
 		this.dlgSrv.close();
 	}

@@ -77,7 +77,7 @@
 					(update)="setSelector($event)"
 				>
 					<button>
-						{{ toUpdate?.value?.name || 'select a ' + propertySelected.label }}
+						{{ toUpdate?.value?.name || toUpdate?.value?.value || 'select a ' + propertySelected.label }}
 					</button>
 				</selector-app>
 			</ng-container>
