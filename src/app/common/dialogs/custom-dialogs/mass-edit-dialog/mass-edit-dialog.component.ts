@@ -11,6 +11,7 @@ import { UserService } from '~core/auth';
 import { Typename } from '~core/erm3/typename.type';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
+import { cache } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'mass-edit-dialog-app',
@@ -82,6 +83,15 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		const fakeVote = { voteCreatedById: this.userSrv.userId, rating };
 		this.fakeVotes = [fakeVote];
 		this.toUpdate = { callback: 'ratingUpdate', property: 'votes', value: fakeVote };
+	}
+
+	setSelector(value: any) {
+		const property = this.propertySelected;
+		this.toUpdate = { callback: property.type.toLowerCase() + 'Update', property, value: value };
+		if (property === 'Supplier') {
+			this.toUpdate.value = cache.get('Supplier', this.toUpdate.value.supplierId);
+		}
+		// TODO add productTag, productCategory, assignee
 	}
 
 	update() {
