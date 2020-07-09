@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { UserService } from '~core/erm';
-import { User } from '~core/erm';
+import { UserService } from '~core/auth';
+import { User } from '~core/erm3';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class AddCommentComponent {
 		private userSrv: UserService,
 		public element: ElementRef
 	) {
-		this.user = this.userSrv.userSync;
+		this.user = UserService.user;
 	}
 
 	addComment() {

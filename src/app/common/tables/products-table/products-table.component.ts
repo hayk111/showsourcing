@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { api } from 'lib';
-import { Product } from '~core/erm3';
+import { Product, Price } from '~core/erm3';
 import { ListHelper2Service } from '~core/list-page2';
 import { config } from './config';
 import { TeamService } from '../../../core/auth/services/team.service';
@@ -42,15 +42,18 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
-	updatePriceMOQ(product: Product, { value, currency, moq }) {
-		currency = currency || 'USD';
-		const price =  {
+	updatePriceMOQ(product: Product, priceVal: Partial<Price>) {
+		if (!priceVal) {
+			return;
+		}
+
+		const currency = priceVal.currency || 'USD';
+		const price: Price =  {
 			...product.propertiesMap.price,
-			...(value && { value }),
-			...(!moq && { currency }),
-			...(moq && { minimumOrderQuantity: moq }),
+			...(priceVal.value && { value: priceVal.value }),
+			...(!priceVal.minimumOrderQuantity && { currency }),
+			...(priceVal.minimumOrderQuantity && { minimumOrderQuantity: priceVal.minimumOrderQuantity }),
 		};
-		console.log('ProductsTableComponent -> updatePriceMOQ -> price', price);
 
 		api.Product.update([{
 			id: product.id,

@@ -1,6 +1,6 @@
 
 export interface Price {
-	label?: string;
-	value?: any;
-	currency?: any;
+	value?: number;
+	currency?: string;
+	minimumOrderQuantity?: number;
 }
