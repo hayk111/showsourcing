@@ -3,8 +3,8 @@ import {
 	EventEmitter, Input, OnInit, Output, ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { api } from 'showsourcing-api-lib';
-import { Observable } from 'rxjs';
+import { api, models} from 'showsourcing-api-lib';
+import { Observable, Subscription } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
@@ -27,13 +27,18 @@ import { AutoUnsub, PendingImage } from '~utils';
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
-	private _product: any;
+	private _product: any = {};
 	teamVotes$: Observable<Vote[]>;
 	userVote$: Observable<Vote>;
+	productSubscription$: Subscription;
 
 	@Input()
 	set product(value: any) {
-		this._product = value;
+		this.productSubscription$?.unsubscribe();
+		this.productSubscription$ = api.Product.get(value?.id).subscribe(product => {
+			this._product = product;
+			this.cd.markForCheck();
+		});
 	}
 	get product() {
 		return this._product;
