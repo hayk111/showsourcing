@@ -55,7 +55,7 @@ export class StatusUtils {
 	 * @returns the specific color of the status, if there isn't any, returns default status color
 	 */
 	static getStatusColor(status: WorkflowStatus): Color {
-		if (status && StatusUtils.statusColorMap[status.category])
+		if (status?.name && StatusUtils.statusColorMap[status.category])
 			return StatusUtils.statusColorMap[status.category];
 		else
 			return StatusUtils.DEFAULT_STATUS_COLOR;
@@ -67,7 +67,7 @@ export class StatusUtils {
 	 * @returns the specific icon color of the status, if there isn't any, returns default status icon color
 	 */
 	static getStatusIconColor(status: WorkflowStatus): Color {
-		if (status && StatusUtils.statusColorMap[status.category])
+		if (status?.name && StatusUtils.statusColorMap[status.category])
 			return StatusUtils.statusColorMap[status.category];
 		else
 			return StatusUtils.DEFAULT_STATUS_ICON_COLOR;

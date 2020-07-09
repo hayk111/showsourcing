@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit,
+	ChangeDetectorRef,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { UserService } from '~core/auth';
@@ -17,6 +23,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	@Input() items: any[];
 
 	choiceSelected: string;
+	userVote: any;
 
 	// object to specify which field must be updated with which value.
 	toUpdate: { callback: string; property: string; value: any };
