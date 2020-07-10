@@ -45,7 +45,7 @@
 
 		<!-- price and moq -->
 		<section>
-			<editable-container-app
+			<!-- <editable-container-app
 				#editablePrice
 				class="full-width"
 				[hasAction]="false"
@@ -80,7 +80,12 @@
 					type="number"
 					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" 
 					(keyup.enter)="editableMOQ.close()"/>
-			</editable-container-app>
+			</editable-container-app> -->
+
+			<price-with-quantity-app
+				[price]="product?.propertiesMap?.price"
+				(updateField)="updatePriceMOQ($event.newValue, $event.field)">
+			</price-with-quantity-app>
 		</section>
 
 		<!-- supplier -->

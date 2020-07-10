@@ -60,14 +60,16 @@
 </ng-template>
 
 <!-- previews -->
-<!-- <sample-preview-app
+<sample-preview-app
 	*ngIf="previewOpened && sample"
 	[sample]="sample"
-	(close)="closePreview()">
-</sample-preview-app> -->
+	(close)="closePreview()"
+	(clickOutside)="closePreview()">
+</sample-preview-app>
 
-<!-- <task-preview-app
+<task-preview-app
 	*ngIf="previewOpened && task"
 	[task]="task"
-	(close)="closePreview()">
-</task-preview-app> -->
+	(close)="closePreview()"
+	(clickOutside)="closePreview()">
+</task-preview-app>

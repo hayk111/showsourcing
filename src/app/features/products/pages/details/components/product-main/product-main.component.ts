@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
+import { api, Typename } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'product-main-app',
@@ -7,26 +9,21 @@ import { Product } from '~core/erm';
 	styleUrls: ['./product-main.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductMainComponent {
+export class ProductMainComponent implements OnInit {
 	@Input() product: Product;
 
-	getCount(type: string) {
-		if (!this.product)
-			return;
+	sampleCount$: Observable<number>;
+	taskCount$: Observable<number>;
+	commentCount$: Observable<number>;
 
-		// switch (type) {
-		// 	case 'tasks':
-		// 		return this.product.tasksLinked.count;
-		// 	case 'files':
-		// 		return this.product.attachments.length;
-		// 	case 'samples':
-		// 		return this.product.samplesLinked.count;
-		// 	case 'requests':
-		// 		return 0; // TODO find a solution for this
-		// 	case 'comments':
-		// 		return this.product.comments.length;
-		// 	default:
-		// 		return 'INVALID';
-		// }
+	ngOnInit() {
+		this.sampleCount$ = api.Sample.findByProduct(this.product.id).count$;
+		this.taskCount$ = api.Task.findByProduct(this.product.id).count$;
+		this.commentCount$ =  api.Comment.findByNodeId('product:' + this.product.id).count$;
+
+		this.commentCount$.subscribe(count => {
+			console.log('ProductMainComponent -> ngOnInit -> count', count);
+		});
+
 	}
 }
