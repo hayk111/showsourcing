@@ -68,7 +68,7 @@
 		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>
-			<rating-badge-app class="pointer"	[vote]="vote$ | async" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
+			<rating-badge-app class="pointer"	[score]="supplier?.score" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
 			<div class="txt-btn capitalize" (click)="selectSecondTab('sample')">{{ ((supplier?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (supplier?.samplesLinked?.count || 0)} }}</div>
 			<div class="txt-btn capitalize" (click)="selectSecondTab('task')">{{ ((supplier?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (supplier?.tasksLinked?.count || 0)} }}</div>
 			<div class="txt-btn capitalize" (click)="selectThirdTab()">{{ ((supplier?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (supplier?.comments?.length || 0)} }}</div>

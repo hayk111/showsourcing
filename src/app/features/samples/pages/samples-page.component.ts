@@ -12,7 +12,7 @@ import {
 import { UserService } from '~core/auth/services';
 import { FilterType } from '~shared/filters';
 import { FilterService } from '~core/filters';
-import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils';
 
 
@@ -21,7 +21,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './samples-page.component.html',
 	styleUrls: ['./samples-page.component.scss'],
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		ListPageViewService,
 		FilterService,
 		SelectionService
@@ -52,7 +52,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public filterSrv: FilterService,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>,
 		public elem: ElementRef,
 		private userSrv: UserService,
@@ -94,7 +94,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	create() {
-		this.listHelper.create();
+		this.listHelper.openCreationDialog();
 	}
 
 }

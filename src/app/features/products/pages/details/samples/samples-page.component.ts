@@ -4,7 +4,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { Product } from '~core/erm';
 import { FilterService } from '~core/filters';
 import { ListPageViewService, SelectionService } from '~core/list-page2';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -13,7 +13,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./samples-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService,
 		FilterService
 	]
@@ -25,7 +25,7 @@ export class SamplesPageComponent extends TrackingComponent implements OnInit {
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
-		public listHelper: ListFuseHelperService,
+		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
@@ -36,6 +36,6 @@ export class SamplesPageComponent extends TrackingComponent implements OnInit {
 	ngOnInit() {
 		this.productId = this.route.parent.snapshot.params.id;
 		this.product = { id: this.productId };
-		this.listHelper.setup('Sample', 'Product', this.productId);
+		this.listHelper.setup('Sample');
 	}
 }

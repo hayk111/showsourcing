@@ -21,7 +21,8 @@ export class ControllerTableQuickFiltersComponent {
 	) {}
 
 	get isAssignedToMeChecked() {
-		return this.filterSrv.hasFilterValue(FilterType.ASSIGNEE, UserService.user.id);
+		return {};
+		// return this.filterSrv.hasFilterValue(FilterType.ASSIGNEE, UserService.user.id);
 	}
 
 	get isCreatedByMeChecked() {

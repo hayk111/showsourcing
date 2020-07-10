@@ -2,10 +2,10 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { tap, map, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ApiService } from '~core/erm3/services/api.service';
+import { api } from 'lib';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RatingService } from '~shared/rating/services/rating.service';
@@ -47,7 +47,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private apiSrv: ApiService,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
 		private ratingSrv: RatingService,
@@ -64,9 +63,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.product$ = id$.pipe(
-			switchMap(id => this.apiSrv.get('Product', id).data$),
+			switchMap(id => api.Product.get(id)),
 			takeUntil(this._destroy$)
-		);
+		) as any;
 
 		this.product$.pipe(
 			takeUntil(this._destroy$)
@@ -128,22 +127,22 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		this.apiSrv
-			.update('Product', { id: this.product.id, status: { id: statusId } })
+		api.col('Product')
+			.update([{ id: this.product.id, status: { id: statusId } } as any])
 			.subscribe();
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		this.apiSrv
-			.update('Product', { id: this.product.id, favorite: true })
+		api.col('Product')
+			.update([{ id: this.product.id, favorite: true } as any])
 			.subscribe();
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		this.apiSrv
-			.update('Product', { id: this.product.id, favorite: false })
+		api.col('Product')
+			.update([{ id: this.product.id, favorite: false } as any])
 			.subscribe();
 	}
 
@@ -159,8 +158,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(product: Product) {
-		this.apiSrv
-			.update('Product', { id: this.product.id, ...product })
+		api.col('Product')
+			.update([{ id: this.product.id, ...product } as any])
 			.subscribe();
 	}
 

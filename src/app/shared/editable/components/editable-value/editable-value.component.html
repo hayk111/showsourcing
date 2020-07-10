@@ -1,4 +1,10 @@
-<span class="ctnr color-txt-secondary">
+<span 
+	class="flex ctnr"
+	[ngClass]="primary ? 'color-txt-primary' : 'color-txt-secondary'">
 	<ng-content></ng-content>
 </span>
-<span class="default color-txt-secondary capitalize" translate="text.none"></span>
+<span 
+	class="flex default capitalize"
+	[ngClass]="primary ? 'color-txt-primary' : 'color-txt-secondary'"
+	translate="text.none">
+</span>

@@ -41,8 +41,6 @@
 
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
 	(close)="selectionSrv.unselectAll()">
 
 	<button class="icon light" (click)="listHelper.deleteSelected()">

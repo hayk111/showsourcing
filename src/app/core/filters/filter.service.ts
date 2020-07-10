@@ -56,7 +56,8 @@ export class FilterService {
 		this.valuesByType = this.converter.valuesByType(this.filters);
 		this.filtersByType = this.converter.filtersByType(this.filters);
 		this.queryArg = this.converter.filtersToQueryArg(this.filters);
-		this._valueChanges$.next({queryArg: this.queryArg});
+		console.log('FilterService -> setFilters -> this.queryArg', this.queryArg);
+		this._valueChanges$.next(this.queryArg);
 	}
 
 	/** adds a search to the predicate and restart setFilters */

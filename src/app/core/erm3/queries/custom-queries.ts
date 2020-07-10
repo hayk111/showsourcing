@@ -18,7 +18,7 @@ export const customQueries = {
 		}
 	}`),
 	getProjectProducts: gql(`query GetProject($id: ID!) {
-		getProject(id: $id){
+		getProject(ixd: $id){
 			id
 			products {
 				items {

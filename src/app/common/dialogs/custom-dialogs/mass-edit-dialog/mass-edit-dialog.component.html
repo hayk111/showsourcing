@@ -12,6 +12,7 @@
 		<!-- Selection of the property to edit -->
 		<div class="mg-bottom-l">
 			<selector-default-app
+				tabFocusAction
 				itemKey="label"
 				[items]="fieldsChoice"
 				(selected)="setPropertySelected($event)"
@@ -20,12 +21,9 @@
 				textLabel="properties"
 				textPlaceholder=""
 			>
-				<selector-placeholder-app
-					trigger
-					autoFocus
-					[name]="(propertySelected$ | async)?.label"
-					[placeholder]="'placeholder.select-property' | translate"
-				></selector-placeholder-app>
+				<selector-placeholder-app trigger>
+					<span class="choice-placeholder">{{choiceSelected}}</span>
+				</selector-placeholder-app>
 			</selector-default-app>
 		</div>
 
@@ -52,7 +50,7 @@
 
 			<!-- edit of rating -->
 			<ng-container *ngSwitchCase="'rating'">
-				<rating-stars-action-app (valueVoted)="setRating($event)" [votes]="fakeVotes">
+				<rating-stars-action-app (valueVoted)="setRating($event)" [userVote]="userVote">
 				</rating-stars-action-app>
 			</ng-container>
 
@@ -88,12 +86,11 @@
 
 	<dialog-footer-app>
 		<button
-			tabFocusAction
 			class="capitalize secondary"
 			(click)="cancel()"
 			translate="button.cancel"
 		></button>
-		<button tabFocusAction class="capitalize" (click)="update()" translate="button.update"></button>
+		<button class="capitalize" (click)="update()" translate="button.update"></button>
 	</dialog-footer-app>
 </dialog-app>
 

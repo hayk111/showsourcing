@@ -12,11 +12,10 @@
 
 	<button
 		*ngIf="hasFilters"
-		class="icon big"
+		class="icon filter-btn"
 		(click)="viewSrv.openFilterPanel()"
 		translate="button.show-filters">
 		<icon-app
-			class="mg-left-xs"
 			[ngClass]="viewSrv.filterPanelOpen? 'color-primary' : 'color-third'" 
 			name="filter" 
 			size="s">
@@ -33,8 +32,8 @@
 	<divider-app [vertical]="true"></divider-app>
 
 	<span class="capitalize entities-count">
-		{{ total }}
-		{{ total < 2 ?
+		{{ listHelperSrv.total }}
+		{{ listHelperSrv.total < 2 ?
 			 (viewSrv.typename | translate) : 
 			 (viewSrv.typename + 's' | translate) }}
 			 <!-- TODO make translate work -->

@@ -21,7 +21,10 @@ export class PriceComponent {
 	@Input() moq: number;
 	@Input() moqDesc: string;
 
-	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
+	// whether input text color is primary
+	@Input() primary = true;
+
+	@Input() size: 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' = 'm';
 
 	get currency(): string {
 		return this._price.currency || null;

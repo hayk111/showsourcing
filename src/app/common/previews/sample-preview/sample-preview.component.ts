@@ -5,10 +5,10 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Comment, CommentService, ERM, Product, UserService } from '~core/erm';
 import { Sample } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
-import { ListHelperService } from '~core/list-page2';
+import { api } from 'lib';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
+import { ListHelper2Service } from '~core/list-page2';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -36,18 +36,16 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	descriptor = descriptorMock;
 
 	constructor(
-		private listHelper: ListHelperService,
+		private listHelper: ListHelper2Service,
 		private commentSrv: CommentService,
 		private userSrv: UserService,
 		private previewSrv: PreviewService,
 		private dlgCommonSrv: DialogCommonService,
-		private apiSrv: ApiService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-
 		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });
 	}
 
@@ -56,7 +54,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		this.updateSample({ [prop]: value });
 	}
 
-	updateSample(sample: Sample) {
+	updateSample(sample: Partial<Sample>) {
 		const newSample = { ...sample, id: this.sample.id };
 		this.listHelper.update(newSample);
 		this._sample = newSample;
@@ -77,7 +75,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this sample ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(switchMap((_) => this.apiSrv.delete('Sample', sample)))
+			.data$.pipe(switchMap((_) => api.col('Sample').delete([sample as any])))
 			.subscribe((_) => this.close.emit());
 	}
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
@@ -11,7 +11,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	templateUrl: './files-page.component.html',
 	styleUrls: ['./files-page.component.scss'],
 	providers: [
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectionService
 	],
 	host: {
@@ -22,7 +22,7 @@ export class FilesPageComponent implements OnInit {
 
 	constructor(
 		protected route: ActivatedRoute,
-		protected listHelper: ListFuseHelperService,
+		protected listHelper: ListHelper2Service,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<any>
@@ -31,7 +31,7 @@ export class FilesPageComponent implements OnInit {
 
 	ngOnInit() {
 		const supplierId = this.route.parent.snapshot.params.id;
-		this.listHelper.setup('Attachment', 'Supplier', supplierId);
+		// this.listHelper.setup('Attachment', 'Supplier', supplierId);
 	}
 
 	addToProject(event) {

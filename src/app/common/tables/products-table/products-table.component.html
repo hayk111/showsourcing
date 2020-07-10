@@ -52,17 +52,18 @@
 					#eca
 					class="full-width"
 					[hasAction]="false"
-					(click)="sel.openMenu()">
+					(click)="sel.openMenu($event)">
 					<editable-value-app>
 						<selector-app
 							#sel
 							typename="PropertyOption"
 							customType="category"
 							[hasPicker]="canUpdate"
+							[leftSideOrientation]="true"
 							[canCreate]="true"
 							[width]="370"
 							(menuClosed)="eca.close()"
-							(update)="this.listHelper.updateProperties(row?.id, 'category', $event.value)">
+							(update)="propertyUpdated.emit({ entity: row, propertyType: 'category', value: $event.value })">
 							<div class="pointer" >
 								{{ (row | property: 'category') || '-' }}
 							</div>
@@ -78,9 +79,9 @@
 					class="full-width"
 					[hasAction]="false"
 					(opened)="inp.focus()"
-					(closed)="updatePrice(row?.id, inp, listHelper.getProperty('price', row?.properties))">
+					(closed)="updatePriceMOQ(row, inp?.value)">
 					<editable-value-app #price>
-						<price-app [price]="row | property:'price'"></price-app>
+						<price-app [price]="row?.propertiesMap?.price"></price-app>
 					</editable-value-app>
 					<input-price-app
 						#inp
@@ -97,7 +98,7 @@
 					class="full-width"
           [hasAction]="false"
           (opened)="inp.focus()"
-          (closed)="listHelper.updateProperties(row?.id, 'price', { minimumOrderQuantity: inp.value, additionalFields: listHelper.getProperty('price', row?.properties)})">
+					(closed)="updatePriceMOQ(row, { moq: inp.value })">
           <editable-value-app>
             <moq-app
 							*ngIf="row | property:'price':'minimumOrderQuantity'"
@@ -126,7 +127,7 @@
 </table-app>
 
 <!-- contextual menu -->
-<!-- <ng-template #contextualMenuTemplate let-row="row">
+<ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
 		(click)="update.emit({ id: row.id, favorite: true })">
 		<div class="icon-box square flexCenter mg-right-s">
@@ -170,5 +171,5 @@
 		</div>
 		<span translate="button.delete"></span>
 	</context-menu-item-warn-app>
-</ng-template> -->
+</ng-template>
 

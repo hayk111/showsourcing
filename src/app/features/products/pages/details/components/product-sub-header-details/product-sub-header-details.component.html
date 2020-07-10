@@ -12,7 +12,7 @@
 				#edt
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
-				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxl" [primary]="true">
 					{{ product?.name || '-' }}
 				</editable-value-app>
 				<input
@@ -25,19 +25,52 @@
 			</editable-container-app>
 			<!-- info title -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
-				<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="ratingClicked.emit()"></rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ ((product?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ ((product?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ ((product?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
+				<rating-badge-app 
+					class="pointer"	
+					[score]="product?.score" 
+					[hasNumber]="true" 
+					(click)="ratingClicked.emit()">
+				</rating-badge-app>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ (((samplesCount$ | async) || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ (((tasksCount$ | async) || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ (((commentsCount$ | async) || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
 			</div>
 		</div>
 
-		<!-- price -->
+		<!-- price and moq -->
 		<section>
-			<price-with-quantity-app
-				[product]="product"
-				(updateField)="update($event.newValue, $event.field)">
-			</price-with-quantity-app>
+			<editable-container-app
+				#editable
+				class="full-width"
+				[hasAction]="false"
+				(opened)="inp.focus()"
+				(closed)="updatePriceMOQ(inp?.value, 'price')">
+				<editable-value-app #price>
+					<price-app [price]="product?.propertiesMap.price" size="xxxl" [primary]="false"></price-app>
+				</editable-value-app>
+				<input-price-app
+					#inp
+					[value]="{ 
+						currency: price?.currency || product?.propertiesMap?.price?.currency, 
+						value: price?.value || product?.propertiesMap?.price?.value}"
+					(keyup.enter)="editable.close()">
+				</input-price-app>
+			</editable-container-app>
+
+			<editable-container-app
+				#editable
+				[hasAction]="false"
+				(opened)="inp.focus()"
+				(closed)="updatePriceMOQ(inp.value, 'moq')">
+				<editable-value-app>
+					<div *ngIf="product?.propertiesMap?.price?.minimumOrderQuantity">
+						{{'Min ' + product?.propertiesMap?.price?.minimumOrderQuantity + ' pcs'}}
+					</div>
+					<div *ngIf="!product?.propertiesMap?.price?.minimumOrderQuantity">-</div>
+				</editable-value-app>
+				<input #inp inputApp type="number"
+					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
+			</editable-container-app>
 		</section>
 
 		<!-- supplier -->
@@ -46,14 +79,14 @@
 			<editable-container-app
 				class="action-hover-container-0"
 				[hasAction]="false"
-				[openOnClick]="false"
-				(click)="supplierSelector?.openMenu()">
+				(click)="supplierSelector?.openMenu($event, true)">
 				<editable-value-app>
 					<!-- Put this inside a component has a unique style tho -->
 					<selector-app
 						#supplierSelector
 						typename="Supplier"
 						[canCreate]="true"
+						[leftSideOrientation]="true"
 						[width]="370"
 						(update)="update($event, 'supplier')">
 						<editable-value-app>
@@ -68,7 +101,7 @@
 									<div class="flex dot-separator">
 										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
 										<div *ngIf="supplier?.country">{{ supplier?.country | const: 'country' }}</div>
-										<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+										<rating-badge-app	[score]="supplier?.score" [activeColor]="'primary'"></rating-badge-app>
 									</div>
 								</div>
 								<button class="eye-icon icon light action-hover-item-0">
@@ -92,6 +125,7 @@
 			<badge-selector-app
 				[badge]="'CATEGORY' | erm"
 				[value]="product?.category"
+				[leftSideOrientation]="true"
 				(update)="update($event, 'category')">
 			</badge-selector-app>
 		</section>

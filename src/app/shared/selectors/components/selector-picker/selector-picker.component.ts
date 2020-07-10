@@ -1,23 +1,23 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener,
-				 Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+	AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener,
+	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ERM } from '~core/erm';
-import { Typename } from '~core/erm3/typename.type';
-import { FilterService } from '~core/filters';
-import { isLocalList } from '~core/list-page2/is-local-list.function';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
-import { ListHelperService } from '~core/list-page2/list-helper.service';
+import { FilterService, FilterType } from '~core/filters';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ID } from '~utils';
+import { Typename } from 'lib';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -25,8 +25,7 @@ import { ID } from '~utils';
 	styleUrls: ['./selector-picker.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListHelperService,
-		ListFuseHelperService,
+		ListHelper2Service,
 		SelectorsService,
 		FilterService
 	]
@@ -95,8 +94,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	constructor(
 		public selectorSrv: SelectorsService,
-		private fuseHelperSrv: ListFuseHelperService,
-		private listHelperSrv: ListHelperService,
+		private listHelper: ListHelper2Service,
 		private propertyOptionSrv: PropertyOptionsService,
 		private filterSrv: FilterService,
 		protected cd: ChangeDetectorRef,
@@ -108,14 +106,22 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
+
 		this.filterSrv.setup([], ['name']);
+		// TODO setup
 
 		if (this.typename === 'PropertyOption') {
+			this.listHelper.setup(this.typename);
+			// this.filterSrv.setFilters([{
+			// 	property: 'type',
+			// 	eq: FilterType.CATEGORY
+			// } as any]);
+
 			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
 			this.cd.markForCheck();
 		} else {
-			this.fuseHelperSrv.setup(this.typename);
-			this.choices$ = this.fuseHelperSrv.paginedItems$;
+			this.listHelper.setup(this.typename);
+			this.choices$ = this.listHelper.data$;
 			this.cd.markForCheck();
 		}
 

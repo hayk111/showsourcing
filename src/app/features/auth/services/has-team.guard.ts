@@ -24,6 +24,7 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 	}
 
 	redirect(hasTeam: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		console.log('HasTeamGuard -> redirect -> hasTeam', hasTeam);
 		if (!hasTeam) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
 			this.router.navigate(['auth', 'user', 'create-a-team'], { queryParams: { returnUrl } });

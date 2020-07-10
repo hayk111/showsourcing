@@ -20,9 +20,6 @@ export class InputBadgeSelectorComponent extends AbstractInput {
 		return this._value;
 	}
 	@Input() typename: Typename; // should be only 'Tag' | 'Project';
-	// position of the selector in case we need a special one
-	@Input() offsetX = 0;
-	@Input() offsetY = -28;
 	// wheter the selector opens to the most right side or the most left side
 	@Input() leftSideOrientationSelector = false;
 	@Output() change = new EventEmitter<Tag[] | Project[]>();

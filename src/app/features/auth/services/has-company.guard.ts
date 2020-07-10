@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { Observable } from 'rxjs';
 import { map, tap, skip } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
-import { ApiService } from '~core/erm3/services/api.service';
 import { EntityName } from '~core/erm';
 import { CompanyService } from '~core/auth';
 

@@ -13,7 +13,6 @@ import { TableModule } from '../../table.module';
 import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
-import { Sort } from '~core/erm3/services/api.service';
 import { Subscription } from 'rxjs';
 
 class Item {
@@ -76,7 +75,7 @@ class TestComponent extends EntityTableComponent<Item> {
 
 	hasSelection: boolean;
 	hasPagination: boolean;
-	currentSort: Sort;
+	currentSort: any;
 }
 
 xdescribe('TableComponent', () => {

@@ -9,10 +9,6 @@ import { DescriptorService } from '~shared/descriptor/services/descriptor.servic
 import { log } from '~utils/log';
 
 
-export interface Property {
-	name: string;
-	value: any;
-}
 
 @Component({
 	selector: 'dynamic-form2-app',
@@ -26,9 +22,9 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() columnAmount = 1;
 	@Input() updateOn: 'blur' | 'change' = 'change';
 	@Input() showRequiredMarker = true;
-	@Input() properties: Property[];
+	@Input() properties: {};
 	@ViewChild('formElem', { static: true }) formElem: ElementRef<HTMLFormElement>;
-	@Output() update = new EventEmitter<Property[]>();
+	@Output() update = new EventEmitter<{}>();
 	/** used to display the fields inside columns */
 	sections: SectionWithColumns[];
 	/** form group for the form */
@@ -50,7 +46,6 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			switchMap(group => group.valueChanges),
 			tap(d => this.cd.markForCheck()),
 			// we transform it into the array of properties
-			map(value => this.descriptorSrv.objectToProperties(value)),
 			takeUntil(this._destroy$)
 		).subscribe(properties => this.update.emit(properties));
 	}
@@ -108,10 +103,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	private buildFormGroup() {
 		this.formGroup = this.descriptorSrv
 			.descriptorToFormGroup(this.descriptor, { updateOn: this.updateOn });
-		// patch with existing values
-		const values = this.descriptorSrv
-				.propertiesToObject(this.properties);
-		this.formGroup.patchValue(values);
+
+		this.formGroup.patchValue(this.properties);
 		this.formGroup$.next(this.formGroup);
 		log.debug('built form group', this.formGroup);
 	}

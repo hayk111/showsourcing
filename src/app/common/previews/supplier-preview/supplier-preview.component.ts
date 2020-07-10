@@ -9,8 +9,8 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AppImage, Comment, CommentService, ERM } from '~core/erm';
 import { Supplier, Vote } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
-import { ListHelperService } from '~core/list-page2';
+import { api } from 'lib';
+import { ListHelper2Service } from '~core/list-page2';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
@@ -54,13 +54,12 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
 
 	constructor(
-		private listHelper: ListHelperService,
+		private listHelper: ListHelper2Service,
 		private commentSrv: CommentService,
 		private previewSrv: PreviewService,
 		private router: Router,
 		public dlgCommonSrv: DialogCommonService,
 		public translateService: TranslateService,
-		private apiSrv: ApiService,
 		public ratingSrv: RatingService,
 	) {
 		super();
@@ -77,7 +76,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	// UPDATE FUNCTIONS
 	updateSupplier(supplierConfig: Supplier) {
 		const supplier = { ...supplierConfig, id: this.supplier.id };
-		this.listHelper.update(supplier);
+		api.Supplier.update(supplier as any);
 		this._supplier = supplier;
 	}
 
@@ -101,7 +100,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this supplier ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(switchMap((_) => this.apiSrv.delete('Supplier', supplier)))
+			.data$.pipe(switchMap((_) => api.col('Supplier').delete([supplier as any])))
 			.subscribe((_) => this.close.emit());
 	}
 

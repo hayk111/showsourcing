@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SampleStatusService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListHelper2Service } from '~core/list-page2';
 import { ERM, SampleStatus } from '~core/erm';
 import { AbstractStatusWorkflowComponent } from '../shared/abstract-status-workflow.component';
 
@@ -15,8 +15,8 @@ export class SampleStatusPageComponent extends AbstractStatusWorkflowComponent<S
 
 	constructor(
 		protected sampleStatusSrv: SampleStatusService,
-		public listSrv: ListPageService<SampleStatus, SampleStatusService>,
+		public listHelper: ListHelper2Service,
 		public dialogCommonSrv: DialogCommonService
-	) { super(sampleStatusSrv, listSrv, dialogCommonSrv, ERM.SAMPLE_STATUS); }
+	) { super(sampleStatusSrv, listHelper, dialogCommonSrv, ERM.SAMPLE_STATUS); }
 
 }

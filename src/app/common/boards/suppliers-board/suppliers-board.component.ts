@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ERM, Supplier, SupplierService, SupplierStatus, SupplierStatusService } from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
@@ -12,6 +11,7 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-interface.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'suppliers-board-app',
@@ -19,7 +19,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	styleUrls: ['./suppliers-board.component.scss'],
 	providers: [KanbanService]
 })
-export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
+export class SuppliersBoardComponent extends AutoUnsub {
 	@Input() selection: Observable<Map<string, any>>;
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Supplier>();
@@ -47,7 +47,6 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private supplierSrv: SupplierService,
 		private supplierStatusSrv: SupplierStatusService,
-		private listSrv: ListPageService<Supplier, SupplierService>,
 		public dlgCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService,
@@ -57,8 +56,6 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 
-	ngOnInit() {
-	}
 
 	loadMore(col: KanbanColumn) {
 		const query = this.getColQuery(col.id);
@@ -116,11 +113,11 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.selectionSrv.selectOne(supplier));
+		// suppliers.forEach(supplier => this.selectionSrv.selectOne(supplier ));
 	}
 
 	onColumnUnselected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.selectionSrv.unselectOne(supplier));
+		// suppliers.forEach(supplier => this.selectionSrv.unselectOne(supplier));
 	}
 
 	onFavoriteAllSelected() {
@@ -146,7 +143,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 
 		this.dlgCommonSrv.openConfirmDlg({text}).data$
 			.pipe(
-				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
+				// switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {
 				this.selectionSrv.unselectAll();

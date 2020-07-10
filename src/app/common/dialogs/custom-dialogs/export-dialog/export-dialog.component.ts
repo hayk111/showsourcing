@@ -3,16 +3,14 @@ import {
 	ChangeDetectorRef,
 	Component,
 	Input,
-	OnInit,
+	OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
-import { switchMap, take, first } from 'rxjs/operators';
-import { DialogService } from '~shared/dialog/services';
+import { Export, Product, Sample, Supplier, Task } from '~core/erm3/models';
 import { Typename } from '~core/erm3/typename.type';
-import { ApiService } from '~core/erm3/services/api.service';
-import { Request, Export, Product, Supplier, Sample, Task } from '~core/erm3/models';
+import { DialogService } from '~shared/dialog/services';
+import { api } from 'lib';
 
 export enum ExportFormat {
 	PDF = 'PDF',
@@ -53,7 +51,6 @@ export class ExportDialogComponent implements OnInit {
 		public dlgSrv: DialogService,
 		private router: Router,
 		private cdr: ChangeDetectorRef,
-		private apiSrv: ApiService
 	) {}
 
 	ngOnInit() {
@@ -67,7 +64,7 @@ export class ExportDialogComponent implements OnInit {
 	/** create an export and check when it's ready on the backend. */
 	export() {
 		// const query = this.query ? this.query : (this.targets as ExportEntity[]).map(target => `id == '${target.id}'`).join(' or ');
-		const query = 'what exactly should be the query ? apollo query option ? If not, how to pass params ?'; //TODO adapt the query
+		const query = 'what exactly should be the query ? apollo query option ? If not, how to pass params ?'; // TODO adapt the query
 		const request = {
 			target: ExportTarget[this.typename.toUpperCase()],
 			format: this.selectedFormat,
@@ -75,19 +72,19 @@ export class ExportDialogComponent implements OnInit {
 		};
 		this.requestCreated = true;
 		this.cdr.detectChanges();
-		this.apiSrv
-			.create<Request>('Export', request)
-			.pipe
-			// switchMap(exp => this.exportSrv.isExportReady(exp)) // TODO implement isExportReady
-			()
-			.subscribe(
-				(exp) => {
-					this.exportReq = exp;
-					this.fileReady = true;
-					this.cdr.detectChanges();
-				},
-				(err) => this.dlgSrv.cancel()
-			);
+		// api.export
+		// 	.create('Export', [request as any])
+		// 	.pipe
+		// 	// switchMap(exp => this.exportSrv.isExportReady(exp)) // TODO implement isExportReady
+		// 	()
+		// 	.subscribe(
+		// 		(exp) => {
+		// 			this.exportReq = exp[0];
+		// 			this.fileReady = true;
+		// 			this.cdr.detectChanges();
+		// 		},
+		// 		(err) => this.dlgSrv.cancel()
+		// 	);
 	}
 
 	/** download the file if it's ready */
@@ -107,15 +104,15 @@ export class ExportDialogComponent implements OnInit {
 
 	/** get number of entities to export and specify pdf/images exports if products */
 	private setExportData() {
-		// Only Product can export pdf and images
-		if (this.typename === 'Product') {
-			this.canExportPdf = true;
-			this.canExportImages = true;
-		}
-		// TODO add filters
-		const selectCount$ = this.apiSrv.searchBy(this.typename).total$.pipe(first());
-		this.query
-			? selectCount$.subscribe((len) => this.count$.next(len))
-			: this.count$.next(this.targets.length);
+		// // Only Product can export pdf and images
+		// if (this.typename === 'Product') {
+		// 	this.canExportPdf = true;
+		// 	this.canExportImages = true;
+		// }
+		// // TODO add filters
+		// const selectCount$ = this.apiLibSrv.db.find(this.typename, null, null).count$;
+		// this.query
+		// 	? selectCount$.subscribe((len) => this.count$.next(len))
+		// 	: this.count$.next(this.targets.length);
 	}
 }

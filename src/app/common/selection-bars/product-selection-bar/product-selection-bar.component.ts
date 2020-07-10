@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { TrackingComponent } from '~utils/tracking-component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectionService, ListHelperService } from '~core/list-page2';
+import { Product } from '~core/erm3';
+import { ListHelper2Service, SelectionService } from '~core/list-page2';
 import { RatingService } from '~shared/rating/services/rating.service';
-import { Product, ApiService } from '~core/erm3';
-import { forkJoin } from 'rxjs';
-import { ToastService, Toast, ToastType } from '~shared/toast';
-import { translate } from '~utils';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
+import { Toast, ToastService, ToastType } from '~shared/toast';
+import { translate } from '~utils';
+import { TrackingComponent } from '~utils/tracking-component';
+
 
 @Component({
 	selector: 'product-selection-bar-app',
@@ -30,9 +29,8 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private selectionSrv: SelectionService,
-		private listHelper: ListHelperService,
+		private listHelper: ListHelper2Service,
 		private ratingSrv: RatingService,
-		private apiSrv: ApiService,
 		private notificationSrv: ToastService,
 		private statusSrv: StatusSelectorService
 	) {
@@ -50,7 +48,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	}
 
 	removeFromProject() {
-		this.removeProjectProducts.emit(this.selectionSrv.getSelectedValues());
+		this.removeProjectProducts.emit(this.selectionSrv.getSelectedValues() as any);
 	}
 
 	exportProducts() {
@@ -101,7 +99,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	}
 
 	ratingUpdate({ value }) {
-		const products: Product[] = this.selectionSrv.getSelectedValues();
+		const products: Product[] = this.selectionSrv.getSelectedValues() as any;
 		// TODO starVote should return an observable to do action after BE response
 		const updates = products.map(product => {
 			// return this.ratingSrv.starVote(product.votes, value.rating, 'Product:' + product.id, false);

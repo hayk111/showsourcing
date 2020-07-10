@@ -2,14 +2,14 @@
 
 <div class="flex" 
 	*ngFor="let row of value; let i = index">
-	<input-price2-app
+	<input-price-app
 		class="mg-bottom-ms"
 		[hasLabel]="true"
 		[readonly]="readonly" 
 		[(ngModel)]="value[i]"
 		(change)="onChangeFn(value)"
 		(blur)="onTouchedFn()">
-	</input-price2-app>
+	</input-price-app>
 </div>
 
 <button class="small mg-bottom-ms mg-right-ms" (click)="addRow()">

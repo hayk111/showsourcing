@@ -1,9 +1,7 @@
-
 <ng-container *ngIf="product$ | async as product; else spinner">
-	<!-- <product-header-details-app
+	<product-header-details-app
 		[product]="product"
 		(update)="updateProduct($event)"
-		(export)="dlgCommonSrv.openExportDlg(erm.PRODUCT.singular, [$event])"
 		(delete)="deleteProduct($event)"
 		(archive)="onArchive($event)"
 		(supplierRequest)="openSupplierRequest($event)">
@@ -15,12 +13,12 @@
 		(redirect)="goToTable($event)"
 		(ratingClicked)="scrollToRating()"
 		(openSupplier)="goToSupplier($event)">
-	</product-sub-header-details-app> -->
+	</product-sub-header-details-app>
 
 	<div class="flex ctnr">
 		<div class="left">
 			<!-- docket card -->
-			<!-- <product-docket-app
+			<product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
 				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
@@ -29,7 +27,7 @@
 				(previewTask)="openTaskPreview($event)"
 				(goToSamples)="goToTable('samples')"
 				(goToTasks)="goToTable('tasks')">
-			</product-docket-app> -->
+			</product-docket-app>
 
 			<!-- rating card -->
 			<!-- <card-app #rating class="mg-top-l">

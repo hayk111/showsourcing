@@ -12,7 +12,7 @@
 	<textarea
 		inputApp #txtArea
 		[ngClass]="(editing$ | async) ? 'show' : 'hide'"
-		[value]="description"
+		[value]="description || ''"
 		(input)="txtAreaDesc = txtArea.value"
 		[placeholder]="'placeholer.no-description-yet' | translate">
 	</textarea>

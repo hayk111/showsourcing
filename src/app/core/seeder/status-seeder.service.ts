@@ -1,4 +1,4 @@
-import { ApiService } from '~core/erm3';
+import { api } from 'lib';
 import { Entity } from '~core/erm3/models/_entity.model';
 import gql from 'graphql-tag';
 import { first } from 'rxjs/operators';
@@ -38,16 +38,16 @@ export class StatusSeederService {
 		],
 	};
 
-	constructor(private apiSrv: ApiService) {}
+	constructor() {}
 
 	async listStatuses(): Promise<any> {
-		return this.apiSrv.listBy('WorkflowStatus').data$.pipe(first()).toPromise();
+		return api['WorkflowStatus'].find('WorkflowStatus').data$.pipe(first()).toPromise();
 	}
 
 	/** delete all WorkflowStatus in current team */
 	async deleteAllStatuses(): Promise<any> {
 		const allStatuses: any = await this.listStatuses();
-		return await this.apiSrv.deleteMany('WorkflowStatus', allStatuses).pipe(first()).toPromise();
+		return await api['WorkflowStatus'].delete(allStatuses).pipe(first()).toPromise();
 	}
 
 	async createAllStatus(): Promise<any> {
@@ -71,7 +71,7 @@ export class StatusSeederService {
 				}
 				// the last name is "Refused"
 				if (i === stepNames.length - 1) newStatus.category = this._categoryTypes.REFUSED;
-				return this.apiSrv.create('WorkflowStatus', newStatus as Entity).pipe(first()).toPromise();
+				return api['WorkflowStatus'].create([newStatus]).pipe(first()).toPromise();
 			});
 			return [...accPromises, ...promises];
 		}, allPromises);

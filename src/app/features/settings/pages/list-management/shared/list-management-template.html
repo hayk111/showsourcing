@@ -32,9 +32,9 @@
 	</header-nav-app>
 </header-details-app>
 
-<controller-table-app [total]="listHelper.total$ | async" class="spacing-ms" [hasFilters]="false">
+<controller-table-app class="spacing-ms" [hasFilters]="false">
 	<controller-table-content-app>
-		<button class="capitalize" (click)="listHelper.create()">
+		<button class="capitalize" (click)="listHelper.openCreationDialog()">
 			{{ 'button.create-' + typename.toLowerCase() | translate }}
 		</button>
 	</controller-table-content-app>
@@ -54,15 +54,13 @@
 	(selectAll)="selectionSrv.selectAll($event, false)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(unselectAll)="selectionSrv.unselectAll()"
-	(createClick)="listHelper.create()"
+	(createClick)="listHelper.openCreationDialog()"
 >
 </list-management-table-app>
 
 <selection-bar-app
 	*ngIf="(selectionSrv.selection$ | async) as selection"
-	[entityMetadata]="typename"
-	[isShown]="selection.size > 0"
-	[selection]="selection"
+	[typename]="typename"
 	(close)="selectionSrv.unselectAll()"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselectAll)="selectionSrv.unselectAll()"

@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ListQuery } from '~core/erm';
-import { Typename } from '~core/erm3/typename.type';
 import { Filter, FilterService, FilterType } from '~core/filters';
-import { ListHelperService } from '~core/list-page2';
-import { isLocalList } from '~core/list-page2/is-local-list.function';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { AutoUnsub } from '~utils';
+import { Typename } from 'lib';
 
 
 export function filterTypeToTypename(type: FilterType): Typename {
@@ -37,7 +35,7 @@ export function filterTypeToTypename(type: FilterType): Typename {
 	styleUrls: ['./filter-selection-entity-panel.component.scss'],
 	providers: [
 		FilterService,
-		ListHelperService,
+		ListHelper2Service,
 	]
 })
 export class FilterSelectionEntityPanelComponent extends AutoUnsub implements OnInit {
@@ -57,8 +55,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 
 	constructor(
 		public filterSrv: FilterService, /** this is the filter service just for this panel search */
-		private listHelper: ListHelperService,
-		private fuseHelper: ListFuseHelperService
+		private listHelper: ListHelper2Service,
 	) {
 		super();
 	}
@@ -66,22 +63,12 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	ngOnInit(): void {
 		// TODO do the filterSrv, searched fields setup for teamUser etc
 		this.typename = filterTypeToTypename(this.type);
-		this.isLocalList = isLocalList(this.typename);
-		if (isLocalList) {
-			this.fuseHelper.setup(this.typename);
-			this.choices$ = this.fuseHelper.searchedItems$;
-		} else {
-			this.listHelper.setup(this.typename);
-			this.choices$ = this.listHelper.filteredItems$ as Observable<any[]>;
-		}
+		this.listHelper.setup(this.typename);
+		this.choices$ = this.listHelper.data$;
 	}
 
 	loadMore() {
-		if (isLocalList) {
-			this.fuseHelper.loadMore();
-		} else {
-			this.listHelper.loadMore();
-		}
+		this.listHelper.loadMore();
 	}
 
 	onItemAdded(entity) {

@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-	EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+	EventEmitter, Input, OnInit, Output, ViewChild
+} from '@angular/core';
 import { Router } from '@angular/router';
-import {Observable} from 'rxjs';
+import { api } from 'lib';
+import { Observable } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
@@ -9,13 +12,12 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
 import { Product, Vote } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
-import { ListHelperService } from '~core/list-page2';
+import { ListHelper2Service } from '~core/list-page2';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
-import { AutoUnsub, PendingImage } from '~utils';
 import { RatingService } from '~shared/rating/services/rating.service';
+import { AutoUnsub, PendingImage } from '~utils';
 
 @Component({
 	selector: 'product-preview-app',
@@ -63,11 +65,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
-		private listHelper: ListHelperService,
+		private listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
-		private apiSrv: ApiService,
 		private router: Router,
 		private commentSrv: CommentService,
 		private previewSrv: PreviewService,
@@ -88,8 +89,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
 		const product = { ...productConfig, id: this._product.id };
-		this.listHelper.update(product);
+		this.listHelper.update(product, 'Product');
 		this._product = product;
+		this.updated.emit(product);
 	}
 
 	update(value: any, prop: string) {
@@ -148,7 +150,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(tap((_) => this.apiSrv.delete('Product', product)))
+			.data$.pipe(tap((_) => api.col('Product').delete([product as any])))
 			.subscribe((prod) => {
 				this.close.emit();
 			});

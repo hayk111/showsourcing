@@ -19,7 +19,7 @@ export class InputPriceComponent extends AbstractInput {
 
 	@Input()
 	set value(value: Price) {
-		this.valueTemp = value;
+		this.valueTemp = value ? value : { value: null, currency: 'USD'};
 	}
 	get value() {
 		// we want to return a value only if the amount (value.value)

@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
-import { SeederService } from '~core/seeder/seeder.service';
 
 @Component({
 	selector: 'app-root',
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userSrv: UserService,
 		private translate: TranslateService,
-		private seederSrv: SeederService
 	) {}
 
 	ngOnInit(): void {
@@ -36,7 +34,6 @@ export class AppComponent implements OnInit {
 		registerLocaleData(localeZh, 'zh-CH');
 		this.translate.setDefaultLang('en-US');
 		this.translate.use('en-US');
-
 
 		// this.seederSrv.seed();
 	}

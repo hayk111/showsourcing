@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils';
@@ -24,6 +24,7 @@ export class SignInPageComponent implements OnInit {
 	constructor(
 		private authSrv: AuthenticationService,
 		private route: ActivatedRoute,
+		private router: Router,
 		private fb: FormBuilder
 	) { }
 
@@ -39,10 +40,15 @@ export class SignInPageComponent implements OnInit {
 		if (this.form.valid) {
 			this.pending$.next(true);
 			this.authSrv.signIn(this.form.value)
-			.catch(e => {
-				this.error = e.code;
-				this.pending$.next(false);
-			});
+				.then((signIn) => {
+					console.log('SignInPageComponent -> signIn -> signIn', signIn);
+					this.pending$.next(false);
+				})
+				.catch(e => {
+					console.log('SignInPageComponent -> signIn -> e', e);
+					this.error = e.code;
+					this.pending$.next(false);
+				});
 		}
 	}
 

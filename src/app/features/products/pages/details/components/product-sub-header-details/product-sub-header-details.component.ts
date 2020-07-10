@@ -1,5 +1,8 @@
+import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, Supplier } from '~core/erm';
+import { Product, Supplier, Sample } from '~core/erm3';
+import { api } from 'lib';
+import { Price } from '../../../../../../core/erm/models/price.model';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -8,20 +11,52 @@ import { Product, Supplier } from '~core/erm';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductSubHeaderDetailsComponent implements OnInit {
-
 	@Input() product: Product;
 	@Output() updated = new EventEmitter<Product>();
 	@Output() redirect = new EventEmitter<string>();
 	@Output() ratingClicked = new EventEmitter<undefined>();
 	@Output() openSupplier = new EventEmitter<Supplier>();
 
+	samplesCount$: Observable<number>;
+	tasksCount$: Observable<number>;
+	commentsCount$: Observable<number>;
+
 	constructor() { }
 
 	ngOnInit() {
+		this.samplesCount$ = api.Product.samples(this.product.id).count$;
+		this.tasksCount$ = api.Product.tasks(this.product.id).count$;
+		this.commentsCount$ = api.Product.comments(this.product.id).count$;
 	}
 
 	update(value: any, prop: string) {
-		this.updated.emit({ id: this.product.id, [prop]: value });
+		if (prop === 'name') {
+			this.updated.emit({ id: this.product.id, [prop]: value });
+		} else {
+			this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+		}
+	}
+
+	updatePriceMOQ(value: Partial<Price>, field: 'price' | 'moq') {
+		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value', value);
+		const val = value.value;
+		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
+		const currency = value.currency || 'USD';
+		const price =  {
+			...(val && field !== 'moq' && { value: val }),
+			...(field !== 'moq' && { currency }),
+			...(field === 'moq' && { minimumOrderQuantity: value }),
+		};
+		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> price', price);
+
+		api.Product.update([{
+			id: this.product.id,
+			propertiesMap: {
+				price
+			}
+		}]).subscribe(updated => {
+			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
+		});
 	}
 
 	onOpenSupplier(supplier: Supplier, event: MouseEvent) {
