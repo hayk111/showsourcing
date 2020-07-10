@@ -20,7 +20,7 @@ export class StatusSelectorService {
 		});
 	}
 
-	setupStatuses(typename: Typename) {
+	setup(typename: Typename) {
 		if (typename === this.typename) {
 			return;
 		}

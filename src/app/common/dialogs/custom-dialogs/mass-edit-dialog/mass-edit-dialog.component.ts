@@ -88,12 +88,15 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	setSelector(value: any) {
 		const property = this.propertySelected;
 		this.toUpdate = { callback: property.type.toLowerCase() + 'Update', property, value: value };
-		if (property.property === 'supplierId') {
-			this.toUpdate.value = cache.get('Supplier', value.supplierId);
-		} else if (property.property === 'categoryId') {
-			this.toUpdate.value = cache.get('PropertyOption', value.categoryId);
+		switch (property.property) {
+			case 'supplierId':
+				this.toUpdate.value = cache.get('Supplier', value.supplierId);
+				break;
+			case 'categoryId':
+				this.toUpdate.value = cache.get('PropertyOption', value.categoryId);
+				break;
+				// TODO add productTag, assignee
 		}
-		// TODO add productTag, assignee
 	}
 
 	update() {
