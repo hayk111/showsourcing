@@ -2,11 +2,11 @@
 	<card-nav-app>
 		<nav-app class="pd-left-l pd-top-m">
 			<nav-item-app link="./info" icon="product" [name]="'nav.product-details' | translate"></nav-item-app>
-			<nav-item-app link="./activity" icon="activity" [name]="'nav.activity' | translate" [badgeContent]="getCount('comments')"></nav-item-app>
-			<nav-item-app link="./samples" icon="sample" [name]="'nav.samples' | translate" [badgeContent]="getCount('samples')"></nav-item-app>
-			<nav-item-app link="./files" icon="files" [name]="'nav.files' | translate" [badgeContent]="getCount('files')"></nav-item-app>
-			<nav-item-app link="./tasks" icon="check-circle" [name]="'nav.tasks' | translate" [badgeContent]="getCount('tasks')"></nav-item-app>
-			<nav-item-app link="./requests" icon="envelope" [name]="'nav.quotes' | translate" [badgeContent]="getCount('requests')"></nav-item-app>
+			<nav-item-app link="./activity" icon="activity" [name]="'nav.activity' | translate" [badgeContent]="commentCount$ | async"></nav-item-app>
+			<nav-item-app link="./samples" icon="sample" [name]="'nav.samples' | translate" [badgeContent]="sampleCount$ | async"></nav-item-app>
+			<nav-item-app link="./files" icon="files" [name]="'nav.files' | translate" [badgeContent]="0"></nav-item-app>
+			<nav-item-app link="./tasks" icon="check-circle" [name]="'nav.tasks' | translate" [badgeContent]="taskCount$ | async"></nav-item-app>
+			<nav-item-app link="./requests" icon="envelope" [name]="'nav.quotes' | translate" [badgeContent]="0"></nav-item-app>
 		</nav-app>
 	</card-nav-app>
 

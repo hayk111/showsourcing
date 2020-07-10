@@ -3,8 +3,21 @@
 	flex-direction: column;
 }
 
-.price {
+editable-container-app {
+	display: inline-block;
+	width: fit-content;
+	
+	&.empty:not(.open) {
+		&:hover {
+			background: #E9EDF5;
+		}
+	
+		height: 32px;
+		line-height: 0.5;
+	}
+}
 
+.price {
 	.amount {
 		color: var(--color-primary);
 		font-size: var(--font-size-xxxl);
@@ -14,8 +27,4 @@
 
 .moq {
 	color: var(--color-txt-secondary);
-}
-
-editable-container-app {
-	display: inline-block;
 }
