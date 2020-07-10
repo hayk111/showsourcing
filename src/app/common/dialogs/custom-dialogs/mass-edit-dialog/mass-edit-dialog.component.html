@@ -74,10 +74,10 @@
 					[typename]="propertySelected.typename"
 					[customType]="propertySelected.typePropertyOption"
 					[canCreate]="true"
-					(update)="setProperty('selector', $event, propertySelected)"
+					(update)="setSelector($event)"
 				>
 					<button>
-						{{ toUpdate?.value?.name || 'select a ' + propertySelected.label }} selector
+						{{ toUpdate?.value?.name || toUpdate?.value?.value || 'select a ' + propertySelected.label }}
 					</button>
 				</selector-app>
 			</ng-container>

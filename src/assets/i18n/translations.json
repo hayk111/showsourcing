@@ -815,6 +815,7 @@
     "no-request-items": "no request items",
     "no-requests": "No requests",
     "no-sample": "No sample",
+		"no-status": "No Status",
     "no-supplier": "No supplier",
     "no-task": "No task",
     "no-team-member": "No team member",

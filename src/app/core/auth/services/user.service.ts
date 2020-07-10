@@ -48,7 +48,6 @@ export class UserService {
 
 	private setupUser(userId: string) {
 		const { given_name, family_name, sub, email } = authStatus.user.attributes;
-		console.log('UserService -> setupUser -> authStatus', authStatus.user);
 		const user: User = {
 			firstName: given_name,
 			lastName: family_name,

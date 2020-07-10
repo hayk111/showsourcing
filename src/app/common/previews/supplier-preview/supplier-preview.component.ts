@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AppImage, Comment, CommentService, ERM } from '~core/erm';
-import { Supplier, Vote } from '~core/erm3/models';
-import { api } from 'showsourcing-api-lib';
+import { api, Supplier, Vote  } from 'showsourcing-api-lib';
 import { ListHelper2Service } from '~core/list-page2';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
@@ -23,21 +22,26 @@ import { RatingService } from '~shared/rating/services/rating.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
+
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */
 	@Input() isPreview = true;
 	// whether we reselect / subscribe to item given the supplier id
 	@Input() shouldSelect = true;
 	@Output() close = new EventEmitter<null>();
-
-	private _supplier: Supplier;
-	@Input()
-	set supplier(value: Supplier) {
-		this._supplier = value;
+	@Input() set supplier(value: any) {
+		this._supplierSubscription$?.unsubscribe();
+		this._supplierSubscription$ = api.Supplier.get(value?.id).subscribe(supplier => {
+			this._supplier = supplier;
+			this.cd.markForCheck();
+		});
 	}
 	get supplier() {
 		return this._supplier;
 	}
+	private _supplier: any/* Supplier */;
+	private _supplierSubscription$: Subscription;
+
 
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 	@ViewChild(SampleCatalogComponent, { read: ElementRef, static: false }) sampleCatalog: ElementRef;
@@ -62,6 +66,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		public dlgCommonSrv: DialogCommonService,
 		public translateService: TranslateService,
 		public ratingSrv: RatingService,
+		private cd: ChangeDetectorRef
 	) {
 		super();
 	}

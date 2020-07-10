@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit,
+	ChangeDetectorRef,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { UserService } from '~core/auth';
 import { Typename } from '~core/erm3/typename.type';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
+import { cache } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'mass-edit-dialog-app',
@@ -17,6 +24,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	@Input() items: any[];
 
 	choiceSelected: string;
+	userVote: any;
 
 	// object to specify which field must be updated with which value.
 	toUpdate: { callback: string; property: string; value: any };
@@ -29,7 +37,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 			property: 'categoryId',
 			type: 'selector',
 			typename: 'PropertyOption',
-			typePropertyOption: 'Category',
+			typePropertyOption: 'CATEGORY',
 		},
 		{
 			label: 'Tags',
@@ -77,7 +85,24 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		this.toUpdate = { callback: 'ratingUpdate', property: 'votes', value: fakeVote };
 	}
 
+	setSelector(value: any) {
+		const property = this.propertySelected;
+		this.toUpdate = { callback: property.type.toLowerCase() + 'Update', property, value: value };
+		switch (property.property) {
+			case 'supplierId':
+				this.toUpdate.value = cache.get('Supplier', value.supplierId);
+				break;
+			case 'categoryId':
+				this.toUpdate.value = cache.get('PropertyOption', value.categoryId);
+				break;
+				// TODO add productTag, assignee
+		}
+	}
+
 	update() {
+		if (!this.toUpdate) {
+			return;
+		}
 		this.dlgSrv.data(this.toUpdate);
 		this.dlgSrv.close();
 	}
