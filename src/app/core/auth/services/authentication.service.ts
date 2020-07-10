@@ -118,7 +118,7 @@ export class AuthenticationService {
 	// SIGN OUT FLOWS
 
 	signOut() {
-		Auth.signOut().then(_ => this.router.navigate(['login']));
+		Auth.signOut().then(_ => this.router.navigate(['auth', 'sign-in']));
 	}
 
 	// SIGN UP FLOWS

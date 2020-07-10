@@ -72,7 +72,7 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 			this.description &&
 			this.description.length
 		) {
-			this.render.setStyle(this.container.nativeElement, 'height', '80px');
+			this.render.setStyle(this.container.nativeElement, 'height', '77px');
 			this.showMore = true;
 		}
 		this.cd.detectChanges();
