@@ -2,13 +2,12 @@ import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
 	Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap, debounce, debounceTime } from 'rxjs/operators';
 import { Descriptor, PropertyDescriptor } from '~core/erm3/models';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
 import { log } from '~utils/log';
-
-
+import _ from 'lodash';
 
 @Component({
 	selector: 'dynamic-form2-app',
@@ -45,9 +44,13 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		this.formGroup$.pipe(
 			switchMap(group => group.valueChanges),
 			tap(d => this.cd.markForCheck()),
-			// we transform it into the array of properties
+			// removing properties with "falsy" values
+			map(properties => _.pickBy(properties, (val, key) => !!properties[key])),
+			debounceTime(400),
 			takeUntil(this._destroy$)
-		).subscribe(properties => this.update.emit(properties));
+		).subscribe(properties => {
+			this.update.emit(properties);
+		});
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {

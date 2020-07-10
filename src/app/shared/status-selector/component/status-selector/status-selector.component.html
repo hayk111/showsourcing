@@ -41,17 +41,30 @@
 </context-menu-app>
 
 <ng-container *ngIf="type === 'button'">
-		<button
-			*ngIf="!isLast()"
-			class="caretCtnr flex"
-			[class.big]="selectSize === 'l'"
-			[ngClass]="statusUtils.getStatusColor(entity?.status || fakeStatus)"
-			toolTip
-			[toolTipMessage]="('message.next-status' | translate) +
-				' ' + ('text.' + getNextStatus()?.name | translate)"
-			toolTipPosition="below-left"
-			(click)="next()">
+	<button
+		*ngIf="!isLast()"
+		class="caretCtnr flex"
+		[class.big]="selectSize === 'l'"
+		[ngClass]="statusUtils.getStatusColor(entity?.status || fakeStatus)"
+		toolTip
+		[toolTipMessage]="
+			('message.next-status' | translate) + ' ' + ('text.' + getNextStatus()?.name | translate)
+		"
+		toolTipPosition="below-left"
+		(click)="next()"
+	>
+		<icon-app class="caret" name="caret-right"></icon-app>
+	</button>
+</ng-container>
 
-			<icon-app class="caret" name="caret-right"></icon-app>
-		</button>
-	</ng-container>
+<!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
+<!-- <ng-template #taskBadge>
+	<task-status-badge-app
+		*ngIf="typename === 'Task'"
+		[task]="entity"
+		[statuses]="statusSrv.listStatus$ | async"
+		[size]="selectSize"
+		(update)="updateStatus($event, entity)"
+	>
+	</task-status-badge-app>
+</ng-template> -->

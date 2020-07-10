@@ -10,10 +10,10 @@
 	<div class="txt-btn" (click)="nameClick.emit(task)">{{ task?.name }}</div>
 </div>
 <div class="right flexEnd dot-separator-txt-primary">
-	<div>{{ task?.assignee | formatUserName: true }}</div>
+	<div>{{ task?.createdBy | formatUserName: true }}</div>
 	<div
 		*ngIf="task?.dueDate"
-		[class.color-warn]="statusUtils.isOverdue(task) && !task?.done">
+		[class.color-warn]="statusUtils.isOverdue(task) && !task?.completed">
 		{{ task?.dueDate | date: 'dd MMMM yyyy':'':translate.currentLang }}
 	</div>
 </div>

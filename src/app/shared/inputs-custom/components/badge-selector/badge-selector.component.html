@@ -1,5 +1,6 @@
 <editable-container-app
 	[hasAction]="false"
+	[isOpen]="selector?.menuOpen"
 	(click)="selector.openMenu($event)">
 	<editable-value-app>
 		<ng-container [ngSwitch]="badge">
@@ -110,7 +111,7 @@
 					[leftSideOrientation]="leftSideOrientation"
 					(update)="update.emit($event)">
 					<div class="flexVAlign">
-						<logo-app *ngIf="hasLogo" class="pointer" [typename]="customType" size="xs"></logo-app>
+						<logo-app *ngIf="hasLogo" class="pointer" [typename]="customType | capitalize" size="xs"></logo-app>
 						<div *ngIf="value?.value as value; else noVal"  class="category-wrap flex flexWrap">
 							<div class="ellipsis category-info dot-separator">
 								<span class="ellipsis"> {{ value }}  </span>

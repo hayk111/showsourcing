@@ -26,7 +26,7 @@ export class StatusSeederService {
 			'Refused',
 		],
 		SUPPLIER: ['New supplier', 'Onboarding', 'Validated', 'Refused'],
-		// TASK: [],
+		TASK: ['Pending', 'Done', 'Overdue'],
 		SAMPLE: [
 			'New sample',
 			'To order',

@@ -200,7 +200,8 @@
 	<!-- Rating -->
 	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
 		<rating-dashboard-app
-			[userVote]="vote$ | async"
+			[teamVotes]="teamVotes$ | async"
+			[userVote]="userVote$ | async"
 			[nodeId]="'supplier:' + supplier?.id"
 			(update)="updateVote($event)"
 			(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)">

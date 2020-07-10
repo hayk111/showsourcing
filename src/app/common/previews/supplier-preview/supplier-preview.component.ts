@@ -22,9 +22,13 @@ import { RatingService } from '~shared/rating/services/rating.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
-	private _supplier: any/* Supplier */;
-	vote$: Observable<Vote>;
-	private _supplierSubscription$: Subscription;
+
+	@Input() canClose = true;
+	/** wether we display it as a preview or part of a component (supplier details) */
+	@Input() isPreview = true;
+	// whether we reselect / subscribe to item given the supplier id
+	@Input() shouldSelect = true;
+	@Output() close = new EventEmitter<null>();
 	@Input() set supplier(value: any) {
 		this._supplierSubscription$?.unsubscribe();
 		this._supplierSubscription$ = api.Supplier.get(value?.id).subscribe(supplier => {
@@ -35,13 +39,9 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	get supplier() {
 		return this._supplier;
 	}
+	private _supplier: any/* Supplier */;
+	private _supplierSubscription$: Subscription;
 
-	@Input() canClose = true;
-	/** wether we display it as a preview or part of a component (supplier details) */
-	@Input() isPreview = true;
-	// whether we reselect / subscribe to item given the supplier id
-	@Input() shouldSelect = true;
-	@Output() close = new EventEmitter<null>();
 
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 	@ViewChild(SampleCatalogComponent, { read: ElementRef, static: false }) sampleCatalog: ElementRef;
@@ -49,6 +49,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false })
 	ratingDashboard: ElementRef;
 
+	userVote$: Observable<Vote>;
+	teamVotes$: Observable<Vote[]>;
 	supplier$: Observable<Supplier>;
 	selectedIndex = 0;
 	modalOpen = false;
@@ -70,11 +72,12 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.vote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id);
+		this.userVote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id);
+		this.teamVotes$ = this.ratingSrv.getTeamVotes('supplier:' + this._supplier.id);
 	}
 
-	updateVote(vote: Observable<Vote>) {
-		this.vote$ = vote;
+	updateVote(vote$: Observable<Vote>) {
+		this.userVote$ = vote$;
 	}
 
 	// UPDATE FUNCTIONS

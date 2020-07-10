@@ -8,7 +8,9 @@ export class TaskQueries extends BaseQueries {
 		dueDate
 		product { name }
 		supplier { name }
-		status { name }
+		status {
+			${StatusQueries.defaultFields}
+		}
 		createdBy { firstName lastName }
 		assignee { firstName lastName }
 		createdAt

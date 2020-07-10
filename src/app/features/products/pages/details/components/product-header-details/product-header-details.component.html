@@ -20,7 +20,7 @@
 				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
 				</span>
-				<span *ngIf="product && product.propertiesMap.price && product.propertiesMap.price.value !== null">
+				<span *ngIf="product && product.propertiesMap.price && product.propertiesMap.price.value">
 					<price-app class="color-txt-secondary" [price]="product?.propertiesMap.price"></price-app>
 				</span>
 				<span *ngIf="product?.category" class="category">

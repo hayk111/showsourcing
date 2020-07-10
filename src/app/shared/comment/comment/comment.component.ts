@@ -15,7 +15,7 @@ export class CommentComponent implements OnInit {
 
 	@Input() comment: Comment;
 	@Output() deleted = new EventEmitter<Comment>();
-	/** if the comment belings to the current user or not */
+	/** if the comment belongs to the current user or not */
 	isMine = false;
 	/** if we are currently editing the comment */
 	isEditing = false;
@@ -26,7 +26,8 @@ export class CommentComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.isMine = this.userSrv.user.id === this.comment.createdBy.id;
+		console.log('CommentComponent -> ngOnInit -> this.comment00000', this.comment.createdBy, this.userSrv.userId);
+		this.isMine = this.userSrv.userId === this.comment.createdBy.id;
 	}
 
 	urlify(text) {
@@ -45,8 +46,10 @@ export class CommentComponent implements OnInit {
 	}
 
 	onSave(message: string) {
+		console.log('CommentComponent -> onSave -> message', message);
+
 		if (message) {
-			api['Comment'].update([{ id: this.comment.id, message } as any]).subscribe();
+			api.Comment.update([{ id: this.comment.id, message } as any]).subscribe();
 		}
 		this.isEditing = false;
 	}
@@ -56,7 +59,7 @@ export class CommentComponent implements OnInit {
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
 				tap(_ => this.deleted.emit(this.comment)),
-				switchMap(_ => api['Comment'].delete([{ id: this.comment.id }]))
+				switchMap(_ => api.Comment.delete([{ id: this.comment.id }]))
 			).subscribe();
 	}
 

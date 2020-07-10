@@ -13,8 +13,9 @@
 			<dynamic-form2-app
 				#form
 				[style]="'editable'"
-				[descriptor]="descriptor"
-				[columnAmount]="2">
+				[descriptor]="detailsGeneralDescriptor"
+				[columnAmount]="2"
+				(update)="update($event)">
 			</dynamic-form2-app>
 		</accordion-content-app>
 	</accordion-app>
@@ -25,7 +26,7 @@
 			<dynamic-form2-app
 				#form
 				[style]="'editable'"
-				[descriptor]="descriptor"
+				[descriptor]="shippingPackagingDescriptor"
 				[columnAmount]="2">
 			</dynamic-form2-app>
 		</accordion-content-app>
