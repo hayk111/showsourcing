@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Comment, CommentService, ERM, Product, UserService } from '~core/erm';
-import { Sample } from '~core/erm3/models';
-import { api } from 'showsourcing-api-lib';
+import { api, Sample } from 'showsourcing-api-lib';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
@@ -17,9 +16,14 @@ import { ListHelper2Service } from '~core/list-page2';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit {
-	private _sample: Sample;
-	@Input() set sample(value: Sample) {
-		this._sample = value;
+	private _sample: any /*Sample*/;
+	private _sampleSubscription$: Subscription;
+	@Input() set sample(value: any) {
+		this._sampleSubscription$?.unsubscribe();
+		this._sampleSubscription$ = api.Sample.get(value?.id).subscribe(sample => {
+			this._sample = sample;
+			this.cd.markForCheck();
+		});
 	}
 	get sample() {
 		return this._sample;
@@ -41,6 +45,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 		private userSrv: UserService,
 		private previewSrv: PreviewService,
 		private dlgCommonSrv: DialogCommonService,
+		private cd: ChangeDetectorRef,
 	) {
 		super();
 	}

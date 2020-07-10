@@ -1,4 +1,11 @@
-import { Component, Input, ViewChild, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import {
+	Component,
+	Input,
+	ViewChild,
+	ChangeDetectorRef,
+	Output,
+	EventEmitter,
+} from '@angular/core';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
@@ -17,14 +24,17 @@ export class StatusSelectorComponent extends AutoUnsub {
 	private _typename: Typename;
 	@Input()
 	public set typename(typename: Typename) {
-		// this.statusSrv.setupStatuses(typename);
+		this.statusSrv.setup(typename);
 		this._typename = typename;
 	}
 	public get typename(): Typename {
 		return this._typename;
 	}
 
-	@Input() entity: any = {}; // the entity can be optional => for the mass update
+	// the entity can be optional => for the mass update
+	@Input() entity: any = {};
+	// the fakeStatus is used to don't update entity when clicking a new status => for the mass update
+	@Input() fakeStatus: any = {};
 
 	@Input() displayStep = false; // show the number before the status's name
 
@@ -39,7 +49,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 
-	statusUtils = StatusUtils; // TODO adapt this for colors and move it in service
+	statusUtils = StatusUtils;
 
 	constructor(public statusSrv: StatusSelectorService, private cd: ChangeDetectorRef) {
 		super();
@@ -47,12 +57,11 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	updateStatus(newStatus, entity) {
 		this.statusUpdated.emit(newStatus);
-		this.entity.status = newStatus;
-		if (!entity.id) return;
-		this.statusSrv.updateStatus(newStatus, entity).subscribe((newEntity) => {
-			this.entity = newEntity;
-			this.cd.markForCheck();
-		});
+		if (!entity.id) {
+			this.fakeStatus = newStatus;
+			return;
+		}
+		this.statusSrv.updateStatus(newStatus, entity);
 	}
 
 	isLast() {
@@ -67,10 +76,10 @@ export class StatusSelectorComponent extends AutoUnsub {
 	getNextStatus() {
 		const statuses = this.statusSrv.listStatus;
 		const nextStep = this.entity.status.step + 1;
-		return statuses.find((status) => status.step === nextStep);
+		return statuses.find(status => status.step === nextStep);
 	}
 
-	next() {
-		return this.updateStatus(this.getNextStatus(), this.entity);
+	next(): void {
+		this.updateStatus(this.getNextStatus(), this.entity);
 	}
 }
