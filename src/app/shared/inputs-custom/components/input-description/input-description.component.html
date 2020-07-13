@@ -1,5 +1,6 @@
 <div #container class="descripton-container">
 	<editable-container-app
+		[isModal]="asModal"
 		[readonly]="!asModal"
 		(closed)="updateDescription($event, inpDescription.value)"
 		(clickOutside)="adaptSize()"
@@ -11,7 +12,8 @@
 			<!-- we need an ng-container, so editable-value knows when its empty to place the default placeholder -->
 			<div *ngIf="description?.length" class="description">{{ description }}</div>
 		</editable-value-app>
-		<textarea inputApp #inpDescription autofocus="true"
+		<textarea 
+			inputApp #inpDescription autofocus="true"
 			class="full-width"
 			[value]="description || ''"
 			(keyup.enter)="updateDescription(false, inpDescription.value)">

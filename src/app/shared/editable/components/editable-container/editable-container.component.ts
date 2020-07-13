@@ -3,8 +3,7 @@ import {
 	Input, Output, ContentChild, HostListener
 } from '@angular/core';
 import { InputDirective } from '~shared/inputs';
-
-
+import { ESCAPE } from '@angular/cdk/keycodes';
 
 @Component({
 	selector: 'editable-container-app',
@@ -19,6 +18,7 @@ import { InputDirective } from '~shared/inputs';
 })
 export class EditableContainerComponent {
 	@Input() isOpen = false;
+	@Input() isModal = false;
 	/** Whether the editable value app should be hidden when container opened */
 	@Input() hideOnOpen = false;
 	/** Whether click on the value should open the editor */
@@ -42,10 +42,20 @@ export class EditableContainerComponent {
 
 	constructor(private cd: ChangeDetectorRef) { }
 
+	@HostListener('document:keydown', ['$event'])
+	onKeydownHandler(event: KeyboardEvent) {
+		event.stopPropagation();
+
+		if (event.keyCode === ESCAPE) {
+			this.close();
+		}
+	}
+
 	close(isOutsideClick?: boolean) {
 		if (!this.isOpen || (isOutsideClick && !this.closeOnOutsideClick)) {
 			return;
 		}
+		console.log('close..');
 		this.isOpen = false;
 		this.closed.emit();
 		// we run detect change here because on close we can lose focus of an input

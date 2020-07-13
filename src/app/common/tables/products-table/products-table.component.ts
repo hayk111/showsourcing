@@ -42,18 +42,37 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
-	updatePriceMOQ(product: Product, priceVal: Partial<Price>) {
-		if (!priceVal) {
-			return;
+	updatePriceMOQ(product: Product, priceVal: Partial<Price>, type: 'price' | 'moq') {
+		let price: Price;
+
+		if (type === 'price') {
+			const currency = priceVal && priceVal.currency ? priceVal.currency : 'USD';
+			const value = priceVal && priceVal.value ? priceVal.value : undefined;
+
+			price =  {
+				...product.propertiesMap.price,
+				value,
+				currency
+			};
+
+			if (!value) {
+				delete price.currency;
+				delete price.value;
+			}
+		} else {
+			const moq = priceVal && priceVal.minimumOrderQuantity ? priceVal.minimumOrderQuantity : undefined;
+
+			price = {
+				...product.propertiesMap.price,
+				minimumOrderQuantity: moq
+			};
+
+			if (!moq) {
+				delete price.minimumOrderQuantity;
+			}
 		}
 
-		const currency = priceVal.currency || 'USD';
-		const price: Price =  {
-			...product.propertiesMap.price,
-			...(priceVal.value && { value: priceVal.value }),
-			...(!priceVal.minimumOrderQuantity && { currency }),
-			...(priceVal.minimumOrderQuantity && { minimumOrderQuantity: priceVal.minimumOrderQuantity }),
-		};
+		console.log('ProductsTableComponent -> updatePriceMOQ -> price', price);
 
 		api.Product.update([{
 			id: product.id,
@@ -62,13 +81,4 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 			}
 		}]).subscribe();
 	}
-
-		// this.propertyUpdated.emit({
-		// 	entity: product,
-		// 	propertyName,
-		// 	value: {
-		// 		value: inputValue.value ? inputValue.value.value : null,
-		// 		currency,
-		// 	}
-		// });
 }

@@ -80,7 +80,7 @@
 					[hideOnOpen]="true"
 					[hasAction]="false"
 					(opened)="inp.focus()"
-					(closed)="updatePriceMOQ(row, inp?.value)">
+					(closed)="updatePriceMOQ(row, inp?.value, 'price')">
 					<editable-value-app #price>
 						<price-app [price]="row?.propertiesMap?.price"></price-app>
 					</editable-value-app>
@@ -100,7 +100,7 @@
 					[hideOnOpen]="true"
           [hasAction]="false"
           (opened)="inp.focus()"
-					(closed)="updatePriceMOQ(row, { minimumOrderQuantity: inp.value })">
+					(closed)="updatePriceMOQ(row, { minimumOrderQuantity: inp.value }, 'moq')">
           <editable-value-app>
             <moq-app
 							*ngIf="row | property:'price':'minimumOrderQuantity'"

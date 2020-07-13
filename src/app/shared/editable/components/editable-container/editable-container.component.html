@@ -11,13 +11,12 @@
 	*ngIf="isOpen" 
 	class="flex flexGrow flexVAlign openBlock" 
 	(clickOutside)="close(true)">
-
-	<ng-content></ng-content>
-
-	<editable-actions-app 
-		*ngIf="hasAction"
-		(cancel)="cancel()"
-		(save)="save()">
-	</editable-actions-app>
-
+	<ng-container *ngIf="!isModal">
+		<ng-content></ng-content>
+		<editable-actions-app 
+			*ngIf="hasAction"
+			(cancel)="cancel()"
+			(save)="save()">
+		</editable-actions-app>
+	</ng-container>
 </div>
