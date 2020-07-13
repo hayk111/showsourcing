@@ -83,7 +83,6 @@ export class EditableContainerComponent {
 	}
 
 	editableValueVisible(): boolean {
-		console.log('EditableContainerComponent -> editableValueVisible -> this.isOpen', this.isOpen, this.hideOnOpen);
 		if (!this.isOpen || this.isOpen && !this.hideOnOpen) {
 			return true;
 		}
