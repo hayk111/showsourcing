@@ -1,5 +1,6 @@
 <editable-container-app
 	[hasAction]="false"
+	[isOpen]="selector?.menuOpen"
 	(click)="selector.openMenu($event)">
 	<editable-value-app>
 		<ng-container [ngSwitch]="badge">
@@ -9,6 +10,7 @@
 				<selector-app
 					#selector
 					typename="Product"
+					[customType]="customType"
 					[canCreate]="true"
 					[leftSideOrientation]="leftSideOrientation"
 					[width]="370"
@@ -35,6 +37,7 @@
 				<selector-app
 					#selector
 					typename="Supplier"
+					[customType]="customType"
 					[canCreate]="true"
 					[width]="370"
 					[leftSideOrientation]="leftSideOrientation"
@@ -61,6 +64,7 @@
 				<selector-app
 					#selector
 					typename="SupplierType"
+					[customType]="customType"
 					[canCreate]="true"
 					[width]="370"
 					[leftSideOrientation]="leftSideOrientation"
@@ -80,6 +84,7 @@
 				<selector-app
 					#selector
 					typename="Country"
+					[customType]="customType"
 					[width]="370"
 					[leftSideOrientation]="leftSideOrientation"
 					(update)="update.emit($event)">
@@ -93,11 +98,12 @@
 				</selector-app>
 			</div>
 
-			<!-- Category -->
-			<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container">
+			<!-- PropertyOption -->
+			<div *ngSwitchCase="'PropertyOption'" class="flexStart icon-container">
 				<selector-app
 					#selector
-					typename="Category"
+					typename="PropertyOption"
+					[customType]="customType"
 					[value]="value"
 					[canCreate]="true"
 					[multiple]="multiple"
@@ -105,19 +111,16 @@
 					[leftSideOrientation]="leftSideOrientation"
 					(update)="update.emit($event)">
 					<div class="flexVAlign">
-						<logo-app *ngIf="hasLogo" class="pointer" typename="Category" size="xs"></logo-app>
-						<div *ngIf="value?.length; else noArray"  class="category-wrap flex flexWrap">
+						<logo-app *ngIf="hasLogo" class="pointer" [typename]="customType | capitalize" size="xs"></logo-app>
+						<div *ngIf="value?.value as value; else noVal"  class="category-wrap flex flexWrap">
 							<div class="ellipsis category-info dot-separator">
-								<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
+								<span class="ellipsis"> {{ value }}  </span>
 							</div>
 						</div>
-						<ng-template #noArray>
-							<span *ngIf="value?.name; else empty" class="ellipsis flexVAlign"> {{ value?.name }} </span>
-							<ng-template #empty>
-								<span class="ellipsis flexVAlign">
-									{{ (multiple ? 'OBJ.set-category.plural' : 'OBJ.set-category.singular') | translate }}
-								</span >
-							</ng-template>
+						<ng-template #noVal>
+							<span class="ellipsis flexVAlign">
+								{{ (multiple ? 'OBJ.set-category.plural' : 'OBJ.set-category.singular') | translate }}
+							</span>
 						</ng-template>
 					</div>
 				</selector-app>

@@ -45,7 +45,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.supplierId = this.route.parent.snapshot.params.id;
 		this.supplier = { id: this.supplierId };
-		this.listHelper.setup('Product', this._destroy$, (opts) => api.Supplier.products(this.supplierId, opts));
+		this.listHelper.setup('Product', this._destroy$); // (opts) => api.Supplier.products(this.supplierId, opts)
 	}
 
 	/** instead of deleting the product, we deassociate the supplier from it */

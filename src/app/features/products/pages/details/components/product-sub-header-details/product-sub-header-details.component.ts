@@ -23,8 +23,8 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.samplesCount$ = api.Product.samples(this.product.id).count$;
-		this.tasksCount$ = api.Product.tasks(this.product.id).count$;
+		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
+		this.tasksCount$ = api.Task.findByProduct(this.product.id).count$;
 		// this.commentsCount$ = api.Product.comments(this.product.id).count$;
 	}
 
@@ -32,21 +32,23 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		if (prop === 'name') {
 			this.updated.emit({ id: this.product.id, [prop]: value });
 		} else {
-			this.updated.emit({ id: this.product.id, [prop + 'Id']: value[prop + 'Id'] });
+			this.updated.emit({ id: this.product.id, [prop]: value });
 		}
 	}
 
 	updatePriceMOQ(value: Partial<Price>, field: 'price' | 'moq') {
-		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value', value);
+		if (!value) {
+			return;
+		}
+
 		const val = value.value;
-		// console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> value, currency, moq', value, currency, moq);
 		const currency = value.currency || 'USD';
 		const price =  {
+			...this.product.propertiesMap.price,
 			...(val && field !== 'moq' && { value: val }),
 			...(field !== 'moq' && { currency }),
 			...(field === 'moq' && { minimumOrderQuantity: value }),
 		};
-		console.log('ProductSubHeaderDetailsComponent -> updatePriceMOQ -> price', price);
 
 		api.Product.update([{
 			id: this.product.id,

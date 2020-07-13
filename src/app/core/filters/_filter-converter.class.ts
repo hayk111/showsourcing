@@ -1,6 +1,7 @@
 import { Filter } from './filter.class';
 import { FilterType } from './filter-type.enum';
 import { ValuesByType, FiltersByType } from './filter-by.type';
+import _ from 'lodash';
 
 /**
  * Helper class to help with filter convertion
@@ -52,9 +53,27 @@ export class FilterConverter {
 		if (filters.length === 1) {
 			return this.getFieldCondition((filters[0] as any).property || (filters[0] as any).type, filters[0]);
 		}
-		const and = [];
+
+		let and = [];
 		filters.forEach(filter => {
-			and.push(this.getFieldCondition((filter as any).property || (filter as any).type, filter));
+			const or = [];
+			const property = (filter as any).property || (filter as any).type;
+			// finding duplicate filters in the "and" array
+			const propertiesWithType = this.propertyInArr(property, and);
+
+			if (propertiesWithType.length) {
+				const index = and.findIndex((item) => ('or' in item) && item.or[0].property.startsWith(property));
+				and.splice(index, 1);
+
+				or.push(...propertiesWithType, this.getFieldCondition(property, filter));
+				and.push({or});
+				and = and.filter((item) => {
+					return 'property' in item ? !item.property.startsWith(property) : true ;
+				});
+				return;
+			}
+
+			and.push(this.getFieldCondition(property, filter));
 		});
 		return and.length > 1 ? { and } : and[0];
 	}
@@ -66,6 +85,8 @@ export class FilterConverter {
 		const eq = equality || 'contains';
 		switch (type) {
 			case FilterType.DELETED:
+			case FilterType.ARCHIVED:
+			case FilterType.FAVORITE:
 				return {
 					property: type,
 					isTrue: value
@@ -73,6 +94,12 @@ export class FilterConverter {
 			case FilterType.SEARCH:
 				return {
 					property: this.searchedFields[0], // TODO: implement multiple filters pass
+					contains: value
+				};
+			case FilterType.SUPPLIER:
+			case FilterType.CATEGORY:
+				return {
+					property: type + 'Id',
 					contains: value
 				};
 			default:
@@ -83,22 +110,19 @@ export class FilterConverter {
 		}
 	}
 
-	/** add the search string to the filter predicate to get the complete search query params */
-	private getSearchArg(value: string) {
-		const searchArg = { or: [] };
-		if (this.searchedFields.length === 1) {
-			return {
-				type: this.searchedFields[0],
-				contains:  value.toLowerCase()
-			};
-		}
-		this.searchedFields.forEach(searchedField => {
-			searchArg.or.push({
-				type: searchedField,
-				contains:  value.toLowerCase()
-			});
+	private propertyInArr(prop: string, arr: any[]): any[] {
+		let propertyMatches = [];
+		arr.forEach((item) => {
+			if (('property' in item) && item.property.startsWith(prop)) {
+				propertyMatches.push(item);
+			}
+
+			if ('or' in item) {
+				propertyMatches = item.or.filter(elem => ('property' in elem) && elem.property.startsWith(prop));
+			}
 		});
-		return searchArg;
+
+		return propertyMatches;
 	}
 
 }

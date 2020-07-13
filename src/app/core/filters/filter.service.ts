@@ -56,7 +56,6 @@ export class FilterService {
 		this.valuesByType = this.converter.valuesByType(this.filters);
 		this.filtersByType = this.converter.filtersByType(this.filters);
 		this.queryArg = this.converter.filtersToQueryArg(this.filters);
-		console.log('FilterService -> setFilters -> this.queryArg', this.queryArg);
 		this._valueChanges$.next(this.queryArg);
 	}
 
@@ -122,5 +121,14 @@ export class FilterService {
 					startFil => startFil.type === fil.type && startFil.value === fil.value
 				)
 		).length;
+	}
+
+	filterByProp(type: FilterType, value: boolean) {
+		if (value) {
+			const filterParam = { type, value };
+			this.addFilter(filterParam);
+		} else {
+			this.removeFilterType(type);
+		}
 	}
 }

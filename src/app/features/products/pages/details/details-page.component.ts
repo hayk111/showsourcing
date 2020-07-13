@@ -8,7 +8,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
-
+import { ListHelper2Service } from '~core/list-page2';
 
 /**
  *
@@ -42,6 +42,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
+		public listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
 	) {
 		super();
@@ -149,7 +150,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(product: Product) {
-		api.col('Product')
+		console.log('DetailsPageComponent -> updateProduct -> productkkkkkk', product);
+		api.Product
 			.update([{ id: this.product.id, ...product } as any])
 			.subscribe();
 	}

@@ -145,12 +145,10 @@
 // 	sections: sections,
 // };
 
-
-
 import { Descriptor, SectionDescriptor, PropertyDescriptor } from '~core/erm3/models';
 import { PropertyType } from '~core/erm3/models/property-definition.model';
 
-const fields1: PropertyDescriptor[] = [
+const fields: PropertyDescriptor[] = [
 	{
 		definition: {
 			label: 'TEXT',
@@ -215,59 +213,8 @@ const fields1: PropertyDescriptor[] = [
 	},
 ];
 
-const fields2: PropertyDescriptor[] = [
-	{
-		definition: {
-			label: 'checkbox',
-			type: PropertyType.CHECKBOX,
-			name: 'checkbox',
-		},
-		readonly: false,
-	},
-	{
-		definition: {
-			label: 'textarea',
-			type: PropertyType.TEXTAREA,
-			name: 'textarea',
-		},
-		readonly: false,
-		required: false
-	},
-	{
-		definition: {
-			label: 'packaging',
-			type: PropertyType.PACKAGING,
-			name: 'packaging',
-		},
-		required: false,
-		readonly: false
-	},
-	{
-		definition: {
-			label: 'price',
-			type: PropertyType.PRICE,
-			name: 'price',
-		},
-		required: false,
-		readonly: false
-	},
-	{
-		definition: {
-			label: 'price matrix',
-			type: PropertyType.PRICE_MATRIX,
-			name: 'price_matrix',
-		},
-		required: false,
-		readonly: false
-	}
-];
-
-export const sections: SectionDescriptor[] = [
-	{ properties: fields1 },
-];
-
-export const descriptorMock: Descriptor = {
-	sections: sections
+export const shippingPackagingDescriptorMock: Descriptor = {
+	sections: [{ properties: fields }]
 };
 
 

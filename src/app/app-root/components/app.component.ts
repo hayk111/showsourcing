@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 		private translate: TranslateService,
 	) {}
 
-	ngOnInit(): void {
+	ngOnInit() {
 		this.userSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();

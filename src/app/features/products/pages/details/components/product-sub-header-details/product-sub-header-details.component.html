@@ -45,38 +45,47 @@
 
 		<!-- price and moq -->
 		<section>
-			<editable-container-app
-				#editable
+			<!-- <editable-container-app
+				#editablePrice
 				class="full-width"
 				[hasAction]="false"
-				(opened)="inp.focus()"
-				(closed)="updatePriceMOQ(inp?.value, 'price')">
+				(opened)="inpPrice.focus()"
+				(closed)="updatePriceMOQ(inpPrice?.value, 'price')">
 				<editable-value-app #price>
 					<price-app [price]="product?.propertiesMap.price" size="xxxl" [primary]="false"></price-app>
 				</editable-value-app>
 				<input-price-app
-					#inp
+					#inpPrice
 					[value]="{ 
 						currency: price?.currency || product?.propertiesMap?.price?.currency, 
 						value: price?.value || product?.propertiesMap?.price?.value}"
-					(keyup.enter)="editable.close()">
+					(keyup.enter)="editablePrice.close()">
 				</input-price-app>
 			</editable-container-app>
 
 			<editable-container-app
-				#editable
+				#editableMOQ
 				[hasAction]="false"
-				(opened)="inp.focus()"
-				(closed)="updatePriceMOQ(inp.value, 'moq')">
+				(opened)="inpMOQ.focus()"
+				(closed)="updatePriceMOQ(inpMOQ.value, 'moq')">
 				<editable-value-app>
 					<div *ngIf="product?.propertiesMap?.price?.minimumOrderQuantity">
 						{{'Min ' + product?.propertiesMap?.price?.minimumOrderQuantity + ' pcs'}}
 					</div>
 					<div *ngIf="!product?.propertiesMap?.price?.minimumOrderQuantity">-</div>
 				</editable-value-app>
-				<input #inp inputApp type="number"
-					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
-			</editable-container-app>
+				<input 
+					#inpMOQ 
+					inputApp 
+					type="number"
+					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" 
+					(keyup.enter)="editableMOQ.close()"/>
+			</editable-container-app> -->
+
+			<price-with-quantity-app
+				[price]="product?.propertiesMap?.price"
+				(updateField)="updatePriceMOQ($event.newValue, $event.field)">
+			</price-with-quantity-app>
 		</section>
 
 		<!-- supplier -->
@@ -134,10 +143,11 @@
 		<section>
 			<h3 class="section-title">category</h3>
 			<badge-selector-app
-				[badge]="'CATEGORY' | erm"
+				badge="PropertyOption"
+				customType="category"
 				[value]="product?.category"
 				[leftSideOrientation]="true"
-				(update)="update($event, 'category')">
+				(update)="update($event.categoryId, 'categoryId')">
 			</badge-selector-app>
 		</section>
 
@@ -146,7 +156,7 @@
 			<h3 class="section-title">description</h3>
 			<input-description-app
 				[description]="product?.propertiesMap?.description"
-				(update)="update($event, 'description')">
+				(update)="update({ description: $event }, 'propertiesMap')">
 			</input-description-app>
 	</section>
 

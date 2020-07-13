@@ -56,7 +56,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 
 	updateTask(taskConfig: any) {
 		const task = { ...taskConfig, id: this.task.id };
-		this.listHelper.update(task);
+		this.listHelper.update(task, 'Task');
 		this._task = task;
 	}
 

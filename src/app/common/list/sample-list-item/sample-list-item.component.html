@@ -1,6 +1,5 @@
 <div class="left flexStart">
 	<checkbox-app
-		class="mg-right-ms"
 		[value]="isSelected(sample)"
 		(check)="select.emit(sample)"
 		(uncheck)="unselect.emit(sample)">
@@ -10,5 +9,5 @@
 </div>
 <div class="right flexEnd">
 	<status-badge-app class="mg-right-l" [status]="sample?.status"></status-badge-app>
-	<div>{{ sample?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang }}</div>
+	<div>{{ sample?.createdAt | date: 'dd MMMM yyyy':'':translate.currentLang }}</div>
 </div>

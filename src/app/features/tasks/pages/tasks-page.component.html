@@ -21,6 +21,7 @@
 <task-table-app
 	[rows]="listHelper.data$ | async"
 	[selection]="selectionSrv.selection$ | async"
+	[statuses]="statusSrv.listStatus$ | async"
 	[pending]="false"
 	(update)="listHelper.update($event)"
 	(select)="selectionSrv.selectOne($event, true)"

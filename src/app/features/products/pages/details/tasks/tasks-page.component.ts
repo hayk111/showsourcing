@@ -20,7 +20,8 @@ import { api } from 'showsourcing-api-lib';
 	]
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {
-	product;
+	productId: string;
+
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
@@ -34,11 +35,12 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const productId = this.route.parent.snapshot.params.id;
+		this.productId = this.route.parent.snapshot.params.id;
+
 		this.listHelper.setup(
 			'Task',
 			this._destroy$,
-			(options) => api.Product.tasks(productId)
+			(options) => api.Task.findByProduct(this.productId)
 		);
 	}
 }

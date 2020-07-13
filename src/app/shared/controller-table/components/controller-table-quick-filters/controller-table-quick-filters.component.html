@@ -1,6 +1,7 @@
 
 <!-- archived -->
 <button
+	#btn
 	*ngIf="quickFilters.includes('archived')"
 	class="light mg-left-ms"
 	toolTip
@@ -8,13 +9,16 @@
 	(click)="toggleArchived()">
 	<checkbox-app
 		class="mg-right-xs"
-		[value]="isArchivedChecked">
+		[autoFocus]="true"
+		[value]="isArchivedChecked"
+		(update)="btn.click()">
 	</checkbox-app>
 	{{ 'text.show-archived' | translate }}
 </button>
 
 <!-- assignee -->
 <button
+	#btn
 	*ngIf="quickFilters.includes('assignee')"
 	class="light mg-left-ms"
 	toolTip
@@ -22,7 +26,9 @@
 	(click)="toggleAssignedToMe()">
 	<checkbox-app
 		class="mg-right-xs"
-		[value]="isAssignedToMeChecked">
+		[autoFocus]="true"
+		[value]="isAssignedToMeChecked"
+		(update)="btn.click()">
 	</checkbox-app>
 	{{ 'text.assigned-to-me' | translate }}
 </button>

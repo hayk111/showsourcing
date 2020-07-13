@@ -6,6 +6,8 @@ import { FilterService } from '~core/filters';
 import { ListPageViewService, SelectionService } from '~core/list-page2';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { TrackingComponent } from '~utils/tracking-component';
+import { api } from 'showsourcing-api-lib';
+import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 
 @Component({
 	selector: 'samples-page-app',
@@ -18,7 +20,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 		FilterService
 	]
 })
-export class SamplesPageComponent extends TrackingComponent implements OnInit {
+export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	private productId: string;
 	product: Product;
 
@@ -36,6 +38,14 @@ export class SamplesPageComponent extends TrackingComponent implements OnInit {
 	ngOnInit() {
 		this.productId = this.route.parent.snapshot.params.id;
 		this.product = { id: this.productId };
-		this.listHelper.setup('Sample');
+		this.listHelper.setup(
+			'Sample',
+			this._destroy$,
+			(options) => api.Sample.findByProduct(this.productId)
+		);
+
+		api.Sample.findByProduct(this.productId).data$.subscribe(data => {
+			console.log('TasksPageComponent -> ngOnInit -> data', data);
+		});
 	}
 }

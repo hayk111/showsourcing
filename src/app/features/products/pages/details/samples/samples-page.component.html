@@ -1,6 +1,6 @@
 <h2 class="l flexStart">Samples</h2>
 
-<ng-container *ngIf="(listHelper.filteredItems$ | async) as samples; else spinner">
+<ng-container *ngIf="(listHelper.data$ | async) as samples; else spinner">
 	<ng-container *ngIf="samples?.length; else placeholder">
 		<!-- list -->
 		<sample-list-item-app
@@ -16,7 +16,7 @@
 		<div class="flex buttons-container">
 			<button
 				class="capitalize"
-				(click)="dialogCommonSrv.openCreationSampleDialog(product)"
+				(click)="listHelper.openCreationDialog({ productId: product.id })"
 				translate="button.create-sample">
 			</button>
 			<div class="flexCenter">
@@ -38,7 +38,7 @@
 		[title]="'No samples on this product'"
 		[subtitle]="'Create & Track your samples'">
 		<button class="capitalize" 
-		(click)="listHelper.openCreationDialog({product: product})" 
+		(click)="listHelper.openCreationDialog({ productId: product.id })" 
 		translate="button.create-sample"></button>
 	</entity-placeholder-app>
 </ng-template>

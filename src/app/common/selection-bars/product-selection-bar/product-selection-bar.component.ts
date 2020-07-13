@@ -7,7 +7,8 @@ import { StatusSelectorService } from '~shared/status-selector/service/status-se
 import { Toast, ToastService, ToastType } from '~shared/toast';
 import { translate } from '~utils';
 import { TrackingComponent } from '~utils/tracking-component';
-
+import { api } from 'showsourcing-api-lib';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-selection-bar-app',
@@ -23,7 +24,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	massUpdateToast: Toast = {
 		title: translate('multiple-edition'),
 		message: translate('your-items-updated'),
-		type: ToastType.SUCCESS
+		type: ToastType.SUCCESS,
 	};
 
 	constructor(
@@ -107,13 +108,11 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	}
 
 	statusUpdate({ value }) {
-		const products = this.selectionSrv.getSelectedValues();
-		// const updates = products.map(product =>
-			// this.statusSrv.setupStatuses()
-			// this.statusSrv.updateStatus()
-		// );
-		// forkJoin(updates).subscribe(resp => {
-			// this.notificationSrv.add(this.massUpdateToast);
-		// });
+		const productIds = this.selectionSrv.getSelectedIds();
+		const entries = productIds.map(productId => ({ entityId: productId, statusId: value.id }));
+		const updates = api.WorkflowStatus.updatesForType('PRODUCT', entries);
+		updates.pipe(first()).subscribe(resp => {
+			this.notificationSrv.add(this.massUpdateToast);
+		});
 	}
 }

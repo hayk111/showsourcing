@@ -93,10 +93,10 @@
 						<selector-app
 							#sel
 							typename="PropertyOption"
-							customType="Country"
+							customType="country"
 							[hasPicker]="canUpdate"
 							[width]="320"
-							(update)="listHelper.updateProperties(row?.id, 'country', $event.value)">
+							(update)="update.emit({ id: row?.id, country: $event?.country})">
 							<div class="pointer" >
 								{{ row | property: 'country' }}
 							</div>

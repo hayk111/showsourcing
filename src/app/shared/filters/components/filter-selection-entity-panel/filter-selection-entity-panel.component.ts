@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { ListQuery } from '~core/erm';
 import { Filter, FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
+import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 import { AutoUnsub } from '~utils';
 import { Typename } from 'showsourcing-api-lib';
 
@@ -14,7 +15,7 @@ export function filterTypeToTypename(type: FilterType): Typename {
 			return 'TeamUser';
 		case FilterType.CATEGORY:
 		case FilterType.CATEGORIES:
-			return 'Category';
+			return 'PropertyOption';
 		case FilterType.PRODUCT:
 			return 'Product';
 		case FilterType.PROJECT:
@@ -35,6 +36,7 @@ export function filterTypeToTypename(type: FilterType): Typename {
 	styleUrls: ['./filter-selection-entity-panel.component.scss'],
 	providers: [
 		FilterService,
+		PropertyOptionsService,
 		ListHelper2Service,
 	]
 })
@@ -55,16 +57,26 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 
 	constructor(
 		public filterSrv: FilterService, /** this is the filter service just for this panel search */
+		private propertyOptionSrv: PropertyOptionsService,
 		private listHelper: ListHelper2Service,
 	) {
 		super();
 	}
 
 	ngOnInit(): void {
-		// TODO do the filterSrv, searched fields setup for teamUser etc
+		this.filterSrv.setup([], ['value']);
 		this.typename = filterTypeToTypename(this.type);
-		this.listHelper.setup(this.typename);
-		this.choices$ = this.listHelper.data$;
+
+		if (this.typename === 'PropertyOption') {
+			this.propertyOptionSrv.setup(this.type as any);
+			this.choices$ = this.propertyOptionSrv.data$;
+			this.choices$.subscribe(data => {
+				console.log('FilterSelectionEntityPanelComponent -> ngOnInit -> data', data);
+			});
+		} else {
+			this.listHelper.setup(this.typename);
+			this.choices$ = this.listHelper.data$;
+		}
 	}
 
 	loadMore() {
@@ -95,6 +107,8 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			case FilterType.EVENT:
 			case FilterType.EVENTS:
 				return `${choice.description.name}`;
+			case FilterType.CATEGORY:
+				return choice.value;
 			default:
 				return choice.name;
 		}

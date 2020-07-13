@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, map, mapTo, first } from 'rxjs/operators';
-import { authStatus, IAuthState, state, Auth, client } from 'showsourcing-api-lib';
+import { authStatus, state, Auth, client } from 'showsourcing-api-lib';
 import { showsourcing } from '~utils/debug-object.utils';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
 import { log } from '~utils/log';
@@ -118,7 +118,7 @@ export class AuthenticationService {
 	// SIGN OUT FLOWS
 
 	signOut() {
-		Auth.signOut().then(_ => this.router.navigate(['login']));
+		Auth.signOut().then(_ => this.router.navigate(['auth', 'sign-in']));
 	}
 
 	// SIGN UP FLOWS

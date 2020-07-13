@@ -150,7 +150,7 @@
 import { Descriptor, SectionDescriptor, PropertyDescriptor } from '~core/erm3/models';
 import { PropertyType } from '~core/erm3/models/property-definition.model';
 
-const fields1: PropertyDescriptor[] = [
+const fields: PropertyDescriptor[] = [
 	{
 		definition: {
 			label: 'TEXT',
@@ -262,12 +262,8 @@ const fields2: PropertyDescriptor[] = [
 	}
 ];
 
-export const sections: SectionDescriptor[] = [
-	{ properties: fields1 },
-];
-
-export const descriptorMock: Descriptor = {
-	sections: sections
+export const productDetailsDescriptorMock: Descriptor = {
+	sections: [{ properties: fields }]
 };
 
 
