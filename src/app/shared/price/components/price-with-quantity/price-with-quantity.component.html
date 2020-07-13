@@ -2,6 +2,7 @@
 	#editablePrice
 	class="price"
 	[ngClass]="{'empty': !price || !price?.value}"
+	[hideOnOpen]="true"
 	[hasAction]="false"
 	(closed)="updateProductField($event, inpPrice?.value, 'price')"
 	(opened)="inpPrice?.select()"
@@ -24,6 +25,7 @@
 	#editableMOQ
 	class="moq"
 	[ngClass]="{'empty': !price || !price?.minimumOrderQuantity}"
+	[hideOnOpen]="true"
 	[hasAction]="false"
 	(closed)="updateProductField($event, inputMOQ.value, 'moq')"
 	(opened)="inputMOQ.select()"

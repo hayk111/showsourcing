@@ -38,6 +38,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() width = 395;
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
+	@Input() extraOffset = { offsetX: 0, offsetY: 25 };
 	@Input() disabled = false;
 	// we use it only if we have to initialize the selector with a search
 	@Input() searchTxt = '';
@@ -93,8 +94,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 			if (event && calculateOffset) {
 				const targetPositions = event.target.getBoundingClientRect();
-				this.offsetX = targetPositions.x;
-				this.offsetY = targetPositions.y + 25;
+				this.offsetX = targetPositions.x + this.extraOffset.offsetX;
+				this.offsetY = targetPositions.y + this.extraOffset.offsetY;
 			}
 
 			this.cdr.markForCheck();

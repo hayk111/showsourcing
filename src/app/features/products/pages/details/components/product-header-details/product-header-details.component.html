@@ -1,7 +1,7 @@
 <header-details-app [headerType]="'details'">
 
 	<header-details-title-app *ngIf="product">
-		<editable-container-app #edt (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
+		<editable-container-app #edt [hideOnOpen]="true" (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
 			<editable-value-app style="line-height: normal;" [resizable]="false">
 				{{ product?.name || ('message.unnamed-product' | translate) }}
 			</editable-value-app>
