@@ -63,6 +63,7 @@
 						#sel
 						typename="Supplier"
 						[width]="350"
+						[canCreate]="true"
 						[leftSideOrientation]="true"
 						[offsetX]="4"
 						(menuClosed)="eca.close()"
@@ -174,6 +175,7 @@
 	<!-- due date -->
 	<ng-container *ngSwitchCase="'dueDate'">
 		<editable-container-app #edt
+			[hideOnOpen]="true"
 			class="full-width"
 			(closed)="onUpdateDueDate(row, inp.value)">
 			<editable-value-app class="ellipsis">

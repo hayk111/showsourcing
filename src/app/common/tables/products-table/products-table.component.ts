@@ -60,9 +60,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 			propertiesMap: {
 				price
 			}
-		}]).subscribe(updated => {
-			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
-		});
+		}]).subscribe();
 	}
 
 		// this.propertyUpdated.emit({

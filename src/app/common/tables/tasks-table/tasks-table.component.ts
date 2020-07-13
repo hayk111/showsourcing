@@ -66,7 +66,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 
 	iconClass(task: Task) {
 		let iconClass = 'color-txt-third';
-		if (task && task.status === TaskStatus.DONE) {
+		if (task && task.status.name === TaskStatus.DONE) {
 			iconClass = 'task-done';
 		} else if (this.isOverdue(task)) {
 			iconClass = 'color-warn';
@@ -75,20 +75,21 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	}
 
 	iconName(task: Task) {
-		return (task && task.status === TaskStatus.DONE) || this.isOverdue(task) ? 'check-circle' : 'check-circle-light';
+		return (task && task.status.name === TaskStatus.DONE) || this.isOverdue(task) ? 'check-circle' : 'check-circle-light';
 	}
 
 	updateDueDateStatus({ entity, dueDate }) {
 		const { id, status } = entity;
-		let updateStatus = null;
+		const updateStatus = null;
 
-		if (this.isOverdue(dueDate)) {
-			updateStatus = this.getStatus(TaskStatus.OVERDUE);
-		} else {
-			updateStatus = status && status.name === TaskStatus.OVERDUE ? this.getStatus(TaskStatus.PENDING) : this.getStatus(TaskStatus.DONE);
-		}
+		// TODO: implement logic for overdued statuses
+		// if (this.isOverdue(dueDate)) {
+		// 	updateStatus = this.getStatus(TaskStatus.OVERDUE);
+		// } else {
+		// 	updateStatus = status && status.name === TaskStatus.OVERDUE ? this.getStatus(TaskStatus.PENDING) : this.getStatus(TaskStatus.DONE);
+		// }
 
-		this.statusSrv.updateStatus(updateStatus, { id }).pipe(first()).subscribe();
+		// this.statusSrv.updateStatus(updateStatus, { id }).pipe(first()).subscribe();
 
 		this.listHelper.update({
 			id,

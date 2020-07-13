@@ -19,6 +19,8 @@ import { InputDirective } from '~shared/inputs';
 })
 export class EditableContainerComponent {
 	@Input() isOpen = false;
+	/** Whether the editable value app should be hidden when container opened */
+	@Input() hideOnOpen = false;
 	/** Whether click on the value should open the editor */
 	@Input() readonly = false;
 	@Input() closeOnOutsideClick = true;
@@ -80,4 +82,12 @@ export class EditableContainerComponent {
 		this.cd.markForCheck();
 	}
 
+	editableValueVisible(): boolean {
+		console.log('EditableContainerComponent -> editableValueVisible -> this.isOpen', this.isOpen, this.hideOnOpen);
+		if (!this.isOpen || this.isOpen && !this.hideOnOpen) {
+			return true;
+		}
+
+		return false;
+	}
 }

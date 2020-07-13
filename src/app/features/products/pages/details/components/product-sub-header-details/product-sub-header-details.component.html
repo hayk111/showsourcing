@@ -8,6 +8,7 @@
 		<div class="title">
 			<editable-container-app
 				#edtName
+				[hideOnOpen]="true"
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
 				<editable-value-app 
@@ -95,6 +96,7 @@
 				#edtSupplier
 				class="action-hover-container-0"
 				[hasAction]="false"
+				[isOpen]="supplierSelector?.menuOpen"
 				(click)="supplierSelector?.openMenu($event, true)">
 				<editable-value-app>
 					<!-- Put this inside a component has a unique style tho -->
@@ -102,6 +104,7 @@
 						#supplierSelector
 						typename="Supplier"
 						[canCreate]="true"
+						[extraOffset]="{ offsetX: 0, offsetY: 35 }"
 						[leftSideOrientation]="true"
 						[width]="370"
 						(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">

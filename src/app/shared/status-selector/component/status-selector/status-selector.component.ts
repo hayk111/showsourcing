@@ -15,6 +15,7 @@ import { Typename } from 'showsourcing-api-lib';
 	selector: 'status-selector-app',
 	templateUrl: './status-selector.component.html',
 	styleUrls: ['./status-selector.component.scss'],
+	providers: [StatusSelectorService],
 	host: {
 		class: 'pointer',
 	},
