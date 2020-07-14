@@ -55,7 +55,6 @@ export class EditableContainerComponent {
 		if (!this.isOpen || (isOutsideClick && !this.closeOnOutsideClick)) {
 			return;
 		}
-		console.log('close..');
 		this.isOpen = false;
 		this.closed.emit();
 		// we run detect change here because on close we can lose focus of an input

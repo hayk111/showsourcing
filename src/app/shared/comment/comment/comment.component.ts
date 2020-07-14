@@ -26,7 +26,6 @@ export class CommentComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		console.log('CommentComponent -> ngOnInit -> this.comment00000', this.comment.createdBy, this.userSrv.userId);
 		this.isMine = this.userSrv.userId === this.comment.createdBy.id;
 	}
 
@@ -46,8 +45,6 @@ export class CommentComponent implements OnInit {
 	}
 
 	onSave(message: string) {
-		console.log('CommentComponent -> onSave -> message', message);
-
 		if (message) {
 			api.Comment.update([{ id: this.comment.id, message } as any]).subscribe();
 		}
