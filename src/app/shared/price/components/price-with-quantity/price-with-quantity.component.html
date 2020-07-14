@@ -42,7 +42,7 @@
 	<input inputApp
 		#inputMOQ
 		restrictInput="decimal"
-		[value]="price?.moqDescription"
+		[value]="price?.minimumOrderQuantity"
 		type="number"
 		(keyup.enter)="editableMOQ.close();"/>
 </editable-container-app>

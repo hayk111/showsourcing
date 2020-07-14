@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product, User } from '~core/erm3/models';
-import { api } from 'lib';
+import { User } from '~core/erm3/models';
+import { api, Product } from 'lib';
 
 @Component({
 	selector: 'product-header-details-app',

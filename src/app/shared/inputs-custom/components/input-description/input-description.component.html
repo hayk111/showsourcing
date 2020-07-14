@@ -2,12 +2,14 @@
 	<editable-container-app
 		[isModal]="asModal"
 		[readonly]="!asModal"
+		[hasOverflow]="false"
 		(closed)="updateDescription($event, inpDescription.value)"
 		(clickOutside)="adaptSize()"
 		(opened)="inpDescription.select()"
 		(click)="asModal ? openDescModal() : null">
 		<label-app class="capitalize" translate="text.description"></label-app>
 		<editable-value-app
+			[hasOverflow]="true"
 			class="fs-m">
 			<!-- we need an ng-container, so editable-value knows when its empty to place the default placeholder -->
 			<div *ngIf="description?.length" class="description">{{ description }}</div>
