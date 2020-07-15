@@ -36,11 +36,9 @@ form-field-app {
 
 
 .container-items {
-	min-height: 80px;
-	max-height: 210px;
+	height: 148px;
 	overflow-y: auto;
 	overflow-x: hidden;
-
 
 	.selector-row {
 		padding: 0 var(--spacing-ms);

@@ -12,8 +12,13 @@ editable-container-app {
 			background: #E9EDF5;
 		}
 	
-		height: 32px;
+		height: var(--spacing-xl);
 		line-height: 0.5;
+	}
+
+	&.price {
+		display: flex;
+		height: var(--spacing-xl);
 	}
 }
 

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { api, Product, Supplier } from 'lib';
 import { Price } from '~core/erm3';
 import { updateProductPriceMOQ } from '~utils/price.utils';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -35,8 +36,11 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	updatePriceMoq(priceVal: Partial<Price>, type: 'price' | 'moq') {
 		const newVal = type === 'moq' ? { minimumOrderQuantity: priceVal } : priceVal;
 		updateProductPriceMOQ(this.price, newVal as any, type, this.product.id)
+			.pipe(first())
 			.subscribe((updatedProducts: Product[]) => {
-				this.price = updatedProducts[0].propertiesMap.price;
+				this.price = updatedProducts.length && updatedProducts[0].propertiesMap
+					? updatedProducts[0].propertiesMap.price
+					: undefined;
 			});
 	}
 

@@ -21,7 +21,7 @@
 					<dynamic-editable-field-app
 						*ngFor="let descriptor of propertyDescriptors" 
 						[descriptor]="descriptor"
-						[control]="formGroup.controls[descriptor.definition.name]">
+						[control]="formGroup?.controls[descriptor?.definition?.name]">
 					</dynamic-editable-field-app>
 				</ng-template>
 			</div>

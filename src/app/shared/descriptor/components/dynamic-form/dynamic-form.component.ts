@@ -8,6 +8,7 @@ import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-c
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
 import { log } from '~utils/log';
 import _ from 'lodash';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
 	selector: 'dynamic-form2-app',
@@ -27,7 +28,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	/** used to display the fields inside columns */
 	sections: SectionWithColumns[];
 	/** form group for the form */
-	formGroup: FormGroup;
+	formGroup: FormGroup = this.fb.group({});
 	/** when a new formgroup is created */
 	private formGroup$ = new ReplaySubject<FormGroup>(1);
 	private _destroy$ = new Subject<void>();
@@ -37,6 +38,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	constructor(
+		private fb: FormBuilder,
 		private descriptorSrv: DescriptorService,
 		private cd: ChangeDetectorRef) {}
 
@@ -63,11 +65,11 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		const styleChanged = changes.style &&
 			changes.style.previousValue !== changes.style.currentValue;
 
-		if (colChanged || descriptorChanged) {
+		if (changes.descriptor.currentValue && (colChanged || descriptorChanged)) {
 			this.makeColumns();
 		}
 
-		if (descriptorChanged || updateOnChanged) {
+		if (changes.descriptor.currentValue && (descriptorChanged || updateOnChanged)) {
 			this.buildFormGroup();
 		}
 

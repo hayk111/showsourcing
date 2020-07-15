@@ -6,8 +6,8 @@ import {
 	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, Subject, Subscription, of } from 'rxjs';
+import { map, switchMap, tap, debounce, debounceTime } from 'rxjs/operators';
 import { ERM } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
@@ -26,13 +26,14 @@ import { Typename, api } from 'showsourcing-api-lib';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListHelper2Service,
+		PropertyOptionsService,
 		SelectorsService,
 		FilterService
 	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 	@Input() typename: Typename;
-	@Input() customType: string;
+	@Input() customType: Typename;
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() filterList = new FilterList([]);
@@ -56,8 +57,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	/** choices to iterate */
 	choices$: Observable<any[]>;
-	/** local choices to iterate, these choices are not in our DB */
-	choicesLocal = [];
+	choices: any[];
 
 	choicesSubscription: Subscription;
 
@@ -106,28 +106,29 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-
-		this.filterSrv.setup([], ['name']);
-		// TODO setup
-
 		if (this.typename === 'PropertyOption') {
-			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			this.filterSrv.setup([], ['value']);
+			this.propertyOptionSrv.setup(this.customType);
+			this.choices$ = this.propertyOptionSrv.data$
+				.pipe(
+					tap(choices => {
+						this.choices = choices;
+					})
+				);
 			this.cd.markForCheck();
 		} else {
+			this.filterSrv.setup([], ['name']);
 			this.listHelper.setup(this.typename);
-			this.choices$ = this.listHelper.data$;
+			this.choices$ = this.listHelper.data$.pipe(tap(choices => this.choices = choices));
 			this.cd.markForCheck();
 		}
 
 		if (this.canCreate) {
 			this.nameExists$ = this.searched$.pipe(
-				switchMap(_ => this.choices$.pipe(
-					map(items => this.checkExist(items)),
-					// if text is found on choices$ OR
-					// if the text is empty OR
-					// if the text is inside the value array (only multiple allowed)
-					map(items => (!!items.length || !this.searchTxt || this.hasName(this.searchTxt)))
-				))
+				map(_ => this.checkExist(this.choices)),
+				map(items => {
+					return (!!items.length || !this.searchTxt || this.hasName(this.searchTxt));
+				}),
 			);
 		}
 
@@ -175,11 +176,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param text
 	 */
 	search(text, setFirstItemActive = true) {
+		console.log('SelectorPickerComponent -> search -> this.searchTxt', this.searchTxt);
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
 
-		this.filterSrv.search(this.searchTxt);
-		this.searched$.next(this.searchTxt);
+		of(null)
+			.pipe(debounceTime(400))
+			.subscribe(_ => {
+				console.log('debounced...', this.searchTxt);
+				this.filterSrv.search(this.searchTxt);
+				this.searched$.next(this.searchTxt);
+			});
 	}
 
 	/**
@@ -264,7 +271,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @returns list of items that match the current searchTxt
 	 */
 	private checkExist(items: any[]) {
-		return items.filter(it => it.name === this.searchTxt);
+		return items.filter(it => it.name === this.searchTxt || it.value === this.searchTxt);
 	}
 
 	/**
@@ -374,8 +381,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	// this method should only be used when multiple true, since we acces the value as an array
 	private hasName(name: string) {
 		let hasName = false;
-		if (!this.multiple)
+		if (!this.multiple) {
 			return hasName;
+		}
 		if (this.value && this.value.length) {
 			hasName = !!this.value.find(value => value.name.toLowerCase() === name);
 		}

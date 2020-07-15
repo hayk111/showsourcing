@@ -21,13 +21,16 @@
 					{{ product?.reference }}
 				</span>
 				<span *ngIf="product && product.propertiesMap.price && product.propertiesMap.price.value">
-					<price-app class="color-txt-secondary" [price]="product?.propertiesMap.price"></price-app>
+					<price-app 
+						class="color-txt-secondary" 
+						[price]="{
+							value: product?.propertiesMap?.price?.value,
+							currency: product?.propertiesMap?.price?.currency
+						}">
+					</price-app>
 				</span>
 				<span *ngIf="product?.category" class="category">
 					{{ product?.category?.value }}
-				</span>
-				<span *ngIf="product?.supplier" class="hyphen-separator">
-					{{ product?.supplier?.name }}
 				</span>
 				<rating-badge-app [score]="product?.score"></rating-badge-app>
 			</div>

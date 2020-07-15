@@ -1,10 +1,13 @@
 
 .left {
+	width: 50%;
 	> * {
 		margin-right: var(--spacing-ms);
 	}
 	search-bar-app {
-		width: 260px;
+		flex: 1;
+		min-width: 120px;
+		max-width: 260px;
 	}
 }
 

@@ -5,7 +5,7 @@
 	[hideOnOpen]="true"
 	[hasAction]="false"
 	(closed)="updateProductField($event, inpPrice?.value, 'price')"
-	(opened)="inpPrice?.select()"
+	(opened)="inpPrice?.focus()"
 	(saved)="updateProductField(false, inpPrice?.value, 'price')">
 	<editable-value-app>
 		<price-app
