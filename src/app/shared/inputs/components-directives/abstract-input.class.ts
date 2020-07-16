@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Directive, forwardRef, Input, Optional } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TrackingComponent } from '~utils/tracking-component';
 
 /** factory function to create an access provider */
 export function makeAccessorProvider(type: any) {
@@ -13,7 +14,7 @@ export function makeAccessorProvider(type: any) {
 // The goal of this class is to abstract the value accessor implementation
 @Directive()
 // tslint:disable-next-line: directive-class-suffix
-export class AbstractInput implements ControlValueAccessor {
+export class AbstractInput extends TrackingComponent implements ControlValueAccessor {
 	@Input() value: any = '';
 	@Input() disabled: boolean;
 	@Input() readonly: boolean;
@@ -21,7 +22,9 @@ export class AbstractInput implements ControlValueAccessor {
 	protected onTouchedFn = (any?: any) => { };
 	protected onChangeFn = (any?: any) => { };
 
-	constructor(@Optional() protected cd?: ChangeDetectorRef) {}
+	constructor(@Optional() protected cd?: ChangeDetectorRef) {
+		super();
+	}
 
 	// Called when patchValue or setValue is called on the form control
 	// Allows Angular to update the model

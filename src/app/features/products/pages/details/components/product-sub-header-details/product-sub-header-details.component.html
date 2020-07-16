@@ -8,7 +8,9 @@
 		<div class="title">
 			<editable-container-app
 				#edtName
+				class="sub-header-container product-name"
 				[hideOnOpen]="true"
+				[isFullWidth]="false"
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
 				<editable-value-app 
@@ -32,15 +34,9 @@
 					[hasNumber]="true" 
 					(click)="ratingClicked.emit()">
 				</rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">
-					{{ samplesCount$ | async }} Samples
-				</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">
-					{{ tasksCount$ | async }} Tasks
-					</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">
-					{{ commentsCount$ | async }} Comments
-					</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ samplesCount$ | async }} Samples</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ tasksCount$ | async }} Tasks</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ commentsCount$ | async }} Comments</div>
 			</div>
 		</div>
 
@@ -57,8 +53,9 @@
 			<h3 class="section-title">supplier</h3>
 			<editable-container-app
 				#edtSupplier
-				class="action-hover-container-0"
+				class="action-hover-container-0 sub-header-container"
 				[hasAction]="false"
+				[isFullWidth]="false"
 				[isOpen]="supplierSelector?.menuOpen"
 				(click)="supplierSelector?.openMenu($event, true)">
 				<editable-value-app>
@@ -111,6 +108,8 @@
 			<badge-selector-app
 				badge="PropertyOption"
 				customType="category"
+				[isFullWidth]="false"
+				[hoverLight]="true"
 				[value]="product?.category"
 				[leftSideOrientation]="true"
 				(update)="update($event.categoryId, 'categoryId')">
@@ -122,6 +121,7 @@
 			<h3 class="section-title">description</h3>
 			<input-description-app
 				[description]="product?.propertiesMap?.description"
+				[hoverLight]="true"
 				(update)="update({ description: $event }, 'propertiesMap')">
 			</input-description-app>
 		</section>

@@ -97,7 +97,11 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			this.menuOpen = true;
 
 			if (event && calculateOffset) {
-				const targetPositions = event.target.getBoundingClientRect();
+				const parentNode = event.currentTarget.parentNode;
+				// if selector inner element is clicked the position is calculated using it's parent - "selector" element position
+				const targetPositions =  parentNode.tagName.toLowerCase().includes('selector')
+					? parentNode.getBoundingClientRect()
+					: event.target.getBoundingClientRect();
 				this.offsetX = targetPositions.x + this.extraOffset.offsetX;
 				this.offsetY = targetPositions.y + this.extraOffset.offsetY - (this.isBelowVertical(targetPositions) ? 290 : 0);
 			}

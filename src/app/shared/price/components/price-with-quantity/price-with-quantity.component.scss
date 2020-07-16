@@ -9,7 +9,7 @@ editable-container-app {
 	
 	&.empty:not(.open) {
 		&:hover {
-			background: #E9EDF5;
+			background: rgb(249, 250, 252);
 		}
 	
 		height: var(--spacing-xl);

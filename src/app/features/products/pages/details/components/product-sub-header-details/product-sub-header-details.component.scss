@@ -18,7 +18,15 @@
 	}
 
 	.product-info {
-		width: 766px
+		width: 766px;
+		
+		.product-name {
+			height: var(--spacing-xl);
+		}
+	}
+
+	.sub-header-container:hover {
+		background: var(--color-bg-secondary);
 	}
 }
 
@@ -40,8 +48,8 @@
 }
 
 .title-input {
-	height: 36px;
-	font-size: var(--font-size-xxxxl);
+	height: var(--spacing-xl);
+	font-size: var(--font-size-xxxl);
 }
 
 .bigger-editable {

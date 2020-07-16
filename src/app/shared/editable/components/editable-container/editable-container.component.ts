@@ -12,6 +12,8 @@ import { ESCAPE } from '@angular/cdk/keycodes';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen',
+		'[class.full-width]': 'isFullWidth',
+		'[class.fit-content]': '!isFullWidth',
 		'[class.clickable]': '!isOpen && (!readonly || readonly && clickableReadonly)',
 		'[class.with-overflow]': 'hasOverflow',
 	}
@@ -19,6 +21,7 @@ import { ESCAPE } from '@angular/cdk/keycodes';
 export class EditableContainerComponent {
 	@Input() isOpen = false;
 	@Input() isModal = false;
+	@Input() isFullWidth = true;
 	/** Whether the editable value app should be hidden when container opened */
 	@Input() hideOnOpen = false;
 	/** Whether click on the value should open the editor */

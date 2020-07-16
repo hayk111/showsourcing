@@ -31,6 +31,7 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 	@Input() hasLabel = false;
 	// wether we display a modal or not
 	@Input() asModal = true;
+	@Input() hoverLight = false;
 	@Output() update = new EventEmitter<string>();
 
 	@ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;

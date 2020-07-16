@@ -41,7 +41,8 @@ product-sub-header-details-app {
 	.left {
 		display: flex;
 		width: 844px;
-		justify-content: space-around;
+		justify-content: space-between;
+		margin-right: 0;
 		align-items: baseline;
 		flex-wrap: wrap;
 	}
