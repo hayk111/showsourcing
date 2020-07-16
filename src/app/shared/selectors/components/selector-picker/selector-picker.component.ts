@@ -183,7 +183,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		of(null)
 			.pipe(debounceTime(400))
 			.subscribe(_ => {
-				console.log('debounced...', this.searchTxt);
 				this.filterSrv.search(this.searchTxt);
 				this.searched$.next(this.searchTxt);
 			});

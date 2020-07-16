@@ -24,7 +24,7 @@ product-sub-header-details-app {
 
 .left {
 	width: 340px;
-	margin-right: var(--spacing-l);
+	margin: 0 var(--spacing-l) var(--spacing-l) 0;
 }
 
 .right {
@@ -36,6 +36,21 @@ product-sub-header-details-app {
 		width: 735px;
 	}
 }
+
+@media all and (max-width: 1168px) {
+	.left {
+		display: flex;
+		width: 844px;
+		justify-content: space-around;
+		align-items: baseline;
+		flex-wrap: wrap;
+	}
+
+	.right {
+		width: 844px;
+	}
+}
+
 
 .spinner-ctnr {
 	height: 100%;

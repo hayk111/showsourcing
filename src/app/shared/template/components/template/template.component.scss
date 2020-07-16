@@ -9,5 +9,5 @@ main {
 	width: calc(100% - 50px);
 	background: var(--color-bg-secondary);
 	overflow-y: auto;
-	overflow-x: hidden;
+	overflow-x: auto;
 }

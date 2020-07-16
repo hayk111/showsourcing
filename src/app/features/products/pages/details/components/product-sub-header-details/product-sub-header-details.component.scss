@@ -1,18 +1,36 @@
 :host {
 	background: white;
 	display: flex;
+	justify-content: center;
 	border-bottom: 1px solid var(--color-divider);
 }
 
 .container {
+	width: 1200px;
 	background: white;
+	justify-content: center;
 	padding-top: var(--spacing-ms);
 	padding-bottom: var(--spacing-l);
 
 	carousel-app {
-		margin-left: 88px;
-		margin-right: var(--spacing-xxl);
+		margin-right: var(--spacing-l);
 		height: 482px;
+	}
+
+	.product-info {
+		width: 766px
+	}
+}
+
+@media all and (min-width: 1169px) and (max-width: 1300px) {
+	.product-info {
+		width: 665px !important;
+	}
+}
+
+@media all and (max-width: 1168px) {
+	.product-info {
+		width: 410px !important;
 	}
 }
 
