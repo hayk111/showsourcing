@@ -56,6 +56,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {
+		console.log('DynamicFormComponent -> ngOnInit -> this.descriptor', this.descriptor, this.style);
 		const colChanged = changes.columnAmount &&
 			changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
 		const updateOnChanged = changes.updateOn &&
@@ -102,6 +103,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 				const sectionWithColumn = { ...section, columns };
 				return sectionWithColumn;
 			});
+		console.log('DynamicFormComponent -> makeColumns -> this.sections', this.sections);
 		log.debug('made columns', this.sections);
 	}
 

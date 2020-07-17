@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DynamicFieldComponent } from './components/dynamic-field/dynamic-field.component';
 import { DynamicEditableFieldComponent } from './components/dynamic-editable-field/dynamic-editable-field.component';
+import { UtilsModule } from '~shared/utils/utils.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs';
 import { EditableModule } from '~shared/editable';
@@ -19,6 +20,7 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 		DynamicFormComponent,
 	],
 	imports: [
+		UtilsModule,
 		CommonModule,
 		ReactiveFormsModule,
 		FormsModule,

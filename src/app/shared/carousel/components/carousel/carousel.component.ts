@@ -61,7 +61,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.images$.subscribe(imgs => {
-			console.log('CarouselComponent -> ngOnInit -> imgs6767676767676767676767', imgs);
 			this.images = imgs;
 		});
 

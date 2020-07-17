@@ -19,10 +19,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	product: Product;
 
-	descriptor$ = api.Descriptor.findByType('PRODUCT').data$
-		.pipe(
-			map((descriptors: Descriptor[]) => descriptors.length ? descriptors[0] : undefined
-		));
+	descriptor$: Observable<Descriptor>;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -44,13 +41,31 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	update(product: Product) {
-		console.log('InfoPageComponent -> update -> product', product);
-		product.id = this.product.id;
-		api.Product.update([{
-			id: product.id,
-			propertiesMap: product
-		}]).subscribe();
+	update(property: Partial<Product>) {
+		console.log('InfoPageComponent -> update -> property', property);
+
+		const propertyName = Object.keys(property)[0];
+
+		if (this.isRoot(propertyName)) {
+			api.Product.update([{
+				id: this.product.id,
+				[propertyName]: property[propertyName]
+			}]).subscribe();
+		} else {
+			api.Product.update([{
+				id: this.product.id,
+				propertiesMap: property
+			}]).subscribe();
+		}
+	}
+
+	private isRoot(propertyName: string) {
+		switch (propertyName) {
+			case 'name' :
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	info(ev) {
