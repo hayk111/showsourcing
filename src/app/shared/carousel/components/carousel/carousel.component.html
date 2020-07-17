@@ -14,9 +14,9 @@
 			class="pointer"
 			[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }"
 			[image]="getImg()"
+			[pending]="pending"
 			[size]="'xl'"
-			[objectFit]="objectFit"
-			(click)="modalCarousel.open()">
+			[objectFit]="objectFit">
 		</img-app>
 
 		<!-- no image -->

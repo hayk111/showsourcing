@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { api, Product, Supplier } from 'lib';
 import { Price } from '~core/erm3';
 import { updateProductPriceMOQ } from '~utils/price.utils';
@@ -24,9 +24,18 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	tasksCount$: Observable<number>;
 	commentsCount$: Observable<number>;
 
-	constructor() { }
+	supplierSelectorHovered = false;
+
+	constructor(
+		private cdr: ChangeDetectorRef,
+	) { }
 
 	ngOnInit() {
+
+		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
+			console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> data', data);
+		});
+
 		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
 		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
 		this.tasksCount$ = api.Task.findByProduct(this.product.id).count$;

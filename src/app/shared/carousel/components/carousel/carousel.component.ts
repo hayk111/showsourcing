@@ -3,8 +3,8 @@ import {
 	ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild
 } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { BehaviorSubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 import { api, Image } from 'showsourcing-api-lib';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UploaderService } from '~shared/file/services/uploader.service';
@@ -16,7 +16,7 @@ import { DEFAULT_IMG } from '~utils/constants';
 	selector: 'carousel-app',
 	templateUrl: './carousel.component.html',
 	styleUrls: ['./carousel.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.Default,
 	providers: [],
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
@@ -48,26 +48,28 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	defaultImg = DEFAULT_IMG;
 	private images$ = new BehaviorSubject<Image[]>([]);
 
+	pending = false;
 
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private uploaderSrv: UploaderService,
-		private cd: ChangeDetectorRef,
+		private cdr: ChangeDetectorRef,
 		private renderer: Renderer2
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.images$.pipe(
-		).subscribe(imgs => this.images = imgs);
+		this.images$.subscribe(imgs => {
+			console.log('CarouselComponent -> ngOnInit -> imgs6767676767676767676767', imgs);
+			this.images = imgs;
+		});
 
-		if (this.nodeId)
-			this.fetchImages(this.nodeId);
-	}
-
-	fetchImages(nodeId: string) {
-		api.Image.findByNodeId(nodeId);
+		if (this.nodeId) {
+			api.Image.findByNodeId(this.nodeId).data$
+				.pipe(tap((images: any[]) => this.images$.next(images)))
+				.subscribe();
+		}
 	}
 
 	back(event) {
@@ -77,8 +79,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	next(event) {
-		if (this.selectedIndex < this.images.length - 1) this.selectedIndex++;
-		else this.selectedIndex = 0;
+		if (this.selectedIndex < this.images.length - 1) {
+			this.selectedIndex++;
+		} else {
+			this.selectedIndex = 0;
+		}
 		event.stopPropagation();
 	}
 
@@ -96,13 +101,17 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
+		this.pending = true;
 		this.uploaderSrv.uploadImages(files, this.nodeId)
 			.onTempImages(temp => {
 				this.images.push(...temp);
-				// index at the end for instant feedback
-				this.selectedIndex = this.images.length - 1;
+				this.selectedIndex = 0;
 			})
-			.subscribe(_ => this.uploaded.emit());
+			.subscribe(images => {
+				this.pending = false;
+				this.cdr.markForCheck();
+				this.uploaded.emit();
+			});
 	}
 
 	/** deletes the image */
@@ -138,6 +147,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		saveAs(img.url, img.fileName);
 	}
 
+	open(comp) {
+		console.log('CarouselComponent -> open -> comp', comp);
+		comp.open();
+	}
+
 	getImg() {
 		return this.images ? this.images[this.selectedIndex] : null;
 	}
@@ -159,7 +173,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	setSelectedIndex(value: number) {
 		this.selectedIndex = value;
 		// change coming from above
-		this.cd.markForCheck();
+		this.cdr.markForCheck();
 	}
 
 	/** Trackby function for ngFor */

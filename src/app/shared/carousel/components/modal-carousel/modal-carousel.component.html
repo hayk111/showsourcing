@@ -1,7 +1,7 @@
 <!-- modal carousel that can be seen when clicking on the normal carousel -->
 <div cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
 
-<cdk-overlay-app [trigger]="trigger" [isOpen]="isOpen" (clickOutside)="close()">
+<cdk-overlay-app [trigger]="trigger" [isOpen]="isOpen">
 	<div class="modal">
 		<ng-container [ngSwitch]="entity?.__typename">
 			<product-modal-header-list

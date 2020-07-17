@@ -26,6 +26,8 @@
 	<div *ngIf=" (i === selectedIndex) || (selectedIndex > 4 && i > 3)" class="selected"></div>
 	<img-app
 		[image]="img.image"
-		size="xl">
+		[height]="'calc(100% - 4px)'"
+		[width]="'calc(100% - 4px)'"
+		size="s">
 	</img-app>
 </div>

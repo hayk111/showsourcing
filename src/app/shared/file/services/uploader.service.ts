@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, from, Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import { api, authStatus, Image, Storage } from 'showsourcing-api-lib';
+import { switchMap, tap, concatMap } from 'rxjs/operators';
+import { api, authStatus, Image, Storage, Auth } from 'showsourcing-api-lib';
 import { ToastService, ToastType } from '~shared/toast';
+import { UserService } from '~core/auth';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
+import { uuid } from '~utils';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
 
+	private uploadingImgName: string;
+
 	constructor(
-		private toastSrv: ToastService
+		private toastSrv: ToastService,
+		private userSrv: UserService
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): ObservableFileUpload {
@@ -34,16 +39,24 @@ export class UploaderService {
 	}
 
 	uploadImages(files: File[], nodeId): ObservableImageUpload {
-		const cognitoId = authStatus.cognitoId;
+		console.log('uploading files======', authStatus.user, files, nodeId);
 
+		console.log('UploaderService -> uploadImages -> this.userSrv.identityId', this.userSrv.identityId);
 		const obsArray = files.map(file => this.s3upload(file).pipe(
-			switchMap(_ => api.Image.create([{
-				fileName: `${cognitoId}/${file.name}`,
-				nodeId
-			}])),
+			tap((imgData) => {
+				console.log('UploaderService -> uploadImages -> imgData', imgData);
+			}),
+			switchMap((img: any) => {
+				console.log('UploaderService -> uploadImages -> this.uploadingImgName', this.uploadingImgName);
+				return api.Image.create([{
+					fileName: `${this.userSrv.identityId}/${this.uploadingImgName}`,
+					nodeId
+				}]);
+			}),
 		));
 
 		const obsResponses = forkJoin(obsArray).pipe(
+			switchMap(() => Auth.currentUserCredentials()),
 			tap(_ => this.showToast(`Uploaded ${files.length} image(s)`))
 		) as ObservableImageUpload;		// casting to add the temp function
 
@@ -58,8 +71,11 @@ export class UploaderService {
 	}
 
 	private s3upload(file: File): Observable<string> {
+		const extension = file.name.slice(file.name.lastIndexOf('.'));
+		this.uploadingImgName = uuid() + extension;
+		console.log('UploaderService -> file00000', extension, this.uploadingImgName);
 		return from(Storage.put(
-			file.name,
+			this.uploadingImgName,
 			file,
 			{
 				level: 'private',
