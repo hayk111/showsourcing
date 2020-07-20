@@ -103,10 +103,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.pending = true;
 		this.uploaderSrv.uploadImages(files, this.nodeId)
 			.onTempImages(temp => {
-				this.images.push(...temp);
+				console.log('CarouselComponent -> add -> temp', temp);
+				this.images.unshift(...temp);
 				this.selectedIndex = 0;
+				this.cdr.markForCheck();
 			})
 			.subscribe(images => {
+				console.log('CarouselComponent -> add -> images', images);
 				this.pending = false;
 				this.cdr.markForCheck();
 				this.uploaded.emit();

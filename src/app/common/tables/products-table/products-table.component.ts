@@ -43,6 +43,10 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
+	ngOnChanges() {
+		console.log('EntityTableComponent<T> -> ngOnInit -> this.rows', this.rows);
+	}
+
 	updatePriceMoq(previousPrice: Price, priceVal: Partial<Price>, type: 'price' | 'moq', productId: string) {
 		updateProductPriceMOQ(previousPrice, priceVal, type, productId).subscribe();
 	}

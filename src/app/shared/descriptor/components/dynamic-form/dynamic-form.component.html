@@ -1,8 +1,6 @@
 <form #formElem [formGroup]="formGroup">
 
-	<ng-container
-		*ngFor="let section of sections">
-		<h3 *ngIf="section?.name" class="mg-v-m">{{ section.name }}</h3>
+	<ng-container>
 		<div class="flex">
 			<div 
 				*ngFor="let propertyDescriptors of section.columns; let isLast = last"

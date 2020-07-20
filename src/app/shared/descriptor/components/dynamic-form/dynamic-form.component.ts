@@ -17,16 +17,18 @@ import { FormBuilder } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
-	@Input() descriptor: Descriptor;
+	@Input() section: SectionWithColumns;
 	@Input() style: 'form' | 'editable' = 'form';
 	@Input() columnAmount = 1;
 	@Input() updateOn: 'blur' | 'change' = 'change';
 	@Input() showRequiredMarker = true;
 	@Input() properties = {};
+	@Input() rootProperties = {};
+	// keeping "descriptor" here in order not to have compile errors, this should be removed
+	@Input() descriptor: Descriptor;
 	@ViewChild('formElem', { static: true }) formElem: ElementRef<HTMLFormElement>;
 	@Output() update = new EventEmitter<{}>();
 	/** used to display the fields inside columns */
-	sections: SectionWithColumns[];
 	/** form group for the form */
 	formGroup: FormGroup = this.fb.group({});
 	/** when a new formgroup is created */
@@ -48,6 +50,20 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			tap(d => this.cd.markForCheck()),
 			// removing properties with "falsy" values
 			map(properties => _.pickBy(properties, (val, key) => !!properties[key])),
+			map(properties => {
+				const returnObj: any = {};
+				// TODO: remove this block, temporary solution for properties with key containing "Id"
+				// - like supplierId, categoryId, etc
+				Object.keys(properties).forEach(key => {
+					if (key.toLowerCase().includes('id')) {
+						returnObj[key] = properties[key][key];
+					} else {
+						returnObj[key] = properties[key];
+					}
+				});
+
+				return returnObj;
+			}),
 			debounceTime(400),
 			takeUntil(this._destroy$)
 		).subscribe(properties => {
@@ -56,23 +72,30 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {
-		console.log('DynamicFormComponent -> ngOnInit -> this.descriptor', this.descriptor, this.style);
 		const colChanged = changes.columnAmount &&
 			changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
 		const updateOnChanged = changes.updateOn &&
 			changes.updateOn.previousValue !== changes.updateOn.currentValue;
-		const descriptorChanged = changes.descriptor &&
-			changes.descriptor.previousValue !== changes.descriptor.currentValue;
+		const sectionChanged = changes.section &&
+			changes.section.previousValue !== changes.section.currentValue;
+		const propertiesChanged = changes.properties &&
+			!(_.isEqual(changes.properties.previousValue, changes.properties.currentValue));
+		const rootPropsChanged = changes.rootProperties &&
+			!(_.isEqual(changes.rootProperties.previousValue, changes.rootProperties.currentValue));
 		const styleChanged = changes.style &&
-			changes.style.previousValue !== changes.style.currentValue;
+		changes.style.previousValue !== changes.style.currentValue;
 
-		if (changes.descriptor.currentValue && (colChanged || descriptorChanged)) {
+		if (changes.section && (colChanged || sectionChanged)) {
 			this.makeColumns();
 		}
 
-		if (changes.descriptor.currentValue && (descriptorChanged || updateOnChanged)) {
+		if (changes.section && (sectionChanged || updateOnChanged)) {
 			this.buildFormGroup();
 		}
+
+		// if (propertiesChanged || rootPropsChanged) {
+		// 	this.buildFormGroup();
+		// }
 
 		if (styleChanged) {
 			this.cd.markForCheck();
@@ -81,7 +104,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	reset() {
-		const value = this.descriptorSrv.descriptorToValueObject(this.descriptor);
+		const value = this.descriptorSrv.descriptorToValueObject(this.section);
 		this.formGroup.reset(value);
 	}
 
@@ -90,28 +113,23 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	 * If we have two columns we will have 2 columns with each half the field, etc..
 	 */
 	private makeColumns() {
-		this.sections = this.descriptor.sections
-			.map(section => {
-				const propertyDescriptors = section.properties;
-				const fieldPerCol = Math.ceil(propertyDescriptors.length / this.columnAmount);
-				const columns: PropertyDescriptor[][] = [];
-				for (let i = 0; i < this.columnAmount; i++) {
-					const start = i * fieldPerCol;
-					const end = i * fieldPerCol + fieldPerCol;
-					columns[i] = propertyDescriptors.slice(start, end);
-				}
-				const sectionWithColumn = { ...section, columns };
-				return sectionWithColumn;
-			});
-		console.log('DynamicFormComponent -> makeColumns -> this.sections', this.sections);
-		log.debug('made columns', this.sections);
+		const propertyDescriptors = this.section.properties;
+		const fieldPerCol = Math.ceil(propertyDescriptors.length / this.columnAmount);
+		const columns: PropertyDescriptor[][] = [];
+		for (let i = 0; i < this.columnAmount; i++) {
+			const start = i * fieldPerCol;
+			const end = i * fieldPerCol + fieldPerCol;
+			columns[i] = propertyDescriptors.slice(start, end);
+		}
+		const sectionWithColumn = { ...this.section, columns };
+		this.section = sectionWithColumn;
+		log.debug('made columns', this.section);
+		return sectionWithColumn;
 	}
 
 	private buildFormGroup() {
-		this.formGroup = this.descriptorSrv
-			.descriptorToFormGroup(this.descriptor, { updateOn: this.updateOn });
-
-		this.formGroup.patchValue(this.properties);
+		this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
+		this.formGroup.patchValue({...this.properties, ...this.rootProperties});
 		this.formGroup$.next(this.formGroup);
 		log.debug('built form group', this.formGroup);
 	}
