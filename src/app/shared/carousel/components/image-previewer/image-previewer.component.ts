@@ -29,7 +29,7 @@ export class ImagePreviewerComponent extends TrackingComponent {
 		return this._images;
 	}
 	/** size in px of the images */
-	@Input() size = 48;
+	@Input() size = 44;
 	/** whether previews can be deleted */
 	@Input() isDeletable = false;
 	// index of currently displaying img

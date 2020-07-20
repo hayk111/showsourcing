@@ -106,6 +106,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
+		console.log('SelectorPickerComponent -> ngOnInit -> this.typename', this.typename, this.customType);
 		if (this.typename === 'PropertyOption') {
 			this.filterSrv.setup([], ['value']);
 			this.propertyOptionSrv.setup(this.customType);

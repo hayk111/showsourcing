@@ -23,6 +23,12 @@ export class ImageComponent {
 	@Input() type: string;
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down' = 'cover';
 
+	@Input() pending = false;
+
+	// TODO: quick solution for the image previews, refactor this and remov width and height
+	@Input() width = '100%';
+	@Input() height = '100%';
+
 	constructor(private sanitizer: DomSanitizer) { }
 
 

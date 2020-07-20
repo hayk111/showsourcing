@@ -236,10 +236,11 @@
 				{{ descriptor?.definition?.label }}
 			</editable-label-app>
 			<editable-value-app>
-				<selector-app 
+				<selector-app
 					#sel
-					[typename]="descriptor?.definition?.selectorSettings.type"
-					[customType]="descriptor?.definition?.selectorSettings.propertyOptionType"
+					[typename]="typename | capitalize"
+					[customType]="customType | capitalize"
+					[canCreate]="true"
 					[readonly]="descriptor.readonly"
 					[required]="descriptor.required"
 					[formControl]="control">

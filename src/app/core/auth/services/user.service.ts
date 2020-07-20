@@ -3,7 +3,7 @@ import { Subject, ReplaySubject, from } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm3';
-import { authStatus } from 'showsourcing-api-lib';
+import { authStatus, Auth } from 'showsourcing-api-lib';
 import { AuthenticationService } from './authentication.service';
 
 
@@ -19,6 +19,7 @@ export class UserService {
 	static user: User;
 	userId: string;
 	static userId: string;
+	identityId: string;
 
 	constructor(
 		protected authSrv: AuthenticationService,
@@ -40,6 +41,12 @@ export class UserService {
 		).subscribe(user => {
 			// this.analyticsSrv.setupUser(user);
 		});
+
+		Auth
+			.currentUserCredentials()
+			.then(credentials => {
+				this.identityId = credentials.identityId;
+			});
 	}
 
 	selectUser() {

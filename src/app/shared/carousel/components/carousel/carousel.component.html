@@ -14,9 +14,9 @@
 			class="pointer"
 			[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }"
 			[image]="getImg()"
+			[pending]="pending"
 			[size]="'xl'"
-			[objectFit]="objectFit"
-			(click)="modalCarousel.open()">
+			[objectFit]="objectFit">
 		</img-app>
 
 		<!-- no image -->
@@ -24,8 +24,8 @@
 			<div
 				class="flexColumn flexCenter empty"
 				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
-				<span class="bold" translate="text.no-picture"></span>
-				<button *ngIf="!static" class="secondary" tabFocusAction (click)="openFileBrowser()" (keyEnter)="openFileBrowser()" translate="button.add-picture"></button>
+				<icon-app name="camera" [size]="36"></icon-app>
+				<button *ngIf="!static" class="secondary" tabFocusAction (click)="openFileBrowser()" (keyEnter)="openFileBrowser()" translate="button.upload-picture"></button>
 			</div>
 		</ng-template>
 	</div>

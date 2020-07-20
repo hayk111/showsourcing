@@ -32,4 +32,14 @@ export class DynamicEditableFieldComponent implements OnInit {
 			this.control.setValue(!this.control.value);
 		}
 	}
+
+	get typename(): string {
+		const type = this.descriptor.definition.selectorSettings.type.toLowerCase();
+		return type === 'custom' ? 'PropertyOption' : type;
+	}
+
+	get customType(): string {
+		const customType = this.descriptor.definition.selectorSettings.propertyOptionType.toLowerCase();
+		return customType;
+	}
 }

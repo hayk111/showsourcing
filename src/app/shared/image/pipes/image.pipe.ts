@@ -44,49 +44,46 @@ export class ImagePipe implements PipeTransform {
 		value: any | string,
 		size: ('xs' | 's' | 'm' | 'l' | 'xl') = 'xl',
 		type: string = 'image' // can be supplier, product etc..
-	): string | SafeUrl {
+		): string | SafeUrl {
 
-		try {
-			// we get the size index from the map
-			const sizeIndex = this.sizeIndexMap.get(size);
-			// no value
-			if (!value)
-				return DEFAULT_IMG;
-
-			// array
-			if (Array.isArray(value)) {
-				return value[0].urls[sizeIndex].url;
-			}
-			// Object
-			if (typeof value === 'object') {
-
-				// Image Object
-				if (value.url) {
-					if (value.url.startsWith('data')) {
-						return this.sanitizer.bypassSecurityTrustUrl(value.url);
-					} else {
-						return `${ImageUrls[size]}/${value.url}`;
-					}
-				}
-
-				// Supplier, product, Entity object...
-				if (Array.isArray(value.images)) {
-					return value.images[0].urls[sizeIndex].url;
-				}
-
-				// Preview uploaded image case
-				if (value.hasOwnProperty('fileName')) {
-					return `${this.fileUrl}/xl/${value.fileName}`; // default size is taken xl, can be changed later
-				}
-
-			}
-			// if it's a string we return the url made of with that string
-			if (typeof value === 'string') {
-				return `${ImageUrls[size]}/${value}`;
-			}
-		} catch (e) {
-			console.error('catched errors on image pipe'); // do we need this?
+		// we get the size index from the map
+		const sizeIndex = this.sizeIndexMap.get(size);
+		// no value
+		if (!value)
 			return DEFAULT_IMG;
+
+		// array
+		if (Array.isArray(value)) {
+			return value[0].urls[sizeIndex].url;
+		}
+		// Object
+		if (typeof value === 'object') {
+
+			// Image Object
+			if (value.url) {
+				if (value.url.startsWith('data')) {
+					return this.sanitizer.bypassSecurityTrustUrl(value.url);
+				} else {
+					const extension = value.url.slice(value.url.lastIndexOf('.'));
+					const url = value.url.slice(0, value.url.lastIndexOf('.'));
+					return value.url;
+				}
+			}
+
+			// Supplier, product, Entity object...
+			if (Array.isArray(value.images)) {
+				return value.images[0].urls[sizeIndex].url;
+			}
+
+			// Preview uploaded image case
+			if (value.hasOwnProperty('fileName')) {
+				return `${this.fileUrl}/xl/${value.fileName}`; // default size is taken xl, can be changed later
+			}
+
+		}
+		// if it's a string we return the url made of with that string
+		if (typeof value === 'string') {
+			return `${ImageUrls[size]}/${value}`;
 		}
 	}
 

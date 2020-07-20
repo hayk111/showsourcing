@@ -21,6 +21,11 @@ export class ModalCarouselComponent {
 	isOpen = false;
 	slideAnimationState = 'inactive';
 	direction = 'none';
+
+	ngOnInit() {
+		console.log('ModalCarouselComponent -> ngOnInit -> this.images', this.images);
+	}
+
 	@HostListener('document:keydown', ['$event'])
 	onKeydownHandler(event: KeyboardEvent) {
 		switch (event.keyCode) {
@@ -105,10 +110,14 @@ export class ModalCarouselComponent {
 		this.slideAnimationState = 'active';
 		if (Number.isInteger(index))
 			this.selectedIndex = index;
+			console.log('ModalCarouselComponent -> open -> this.isOpen', this.isOpen);
 		this.isOpen = true;
 	}
 
 	close() {
+		console.trace();
+		console.log('close999999999999');
+		this.isOpen = false;
 		this.direction = 'close';
 		this.slideAnimationState = 'inactive';
 	}

@@ -14,7 +14,21 @@
 
 	carousel-app {
 		margin-right: var(--spacing-l);
-		height: 482px;
+		height: 410px;
+	}
+
+	.supplier-section {
+		max-width: 170px;
+	}
+
+	.supplier-editable {
+		width: 125px;
+		display: inline-block;
+	}
+
+	.eye-container {
+		display: inline-flex;
+		height: 100%;
 	}
 
 	.product-info {
@@ -25,8 +39,17 @@
 		}
 	}
 
+	.hover-with-padding:hover {
+		background: var(--color-bg-secondary);
+		padding: 4px 8px;
+	}
+
 	.sub-header-container:hover {
 		background: var(--color-bg-secondary);
+	}
+
+	.sub-header-container-no-hover:hover {
+		background: transparent;
 	}
 }
 
@@ -61,14 +84,17 @@
 	.supplier-name {
 		line-height: 1;
 	}
+}
 
+.eye-container {
 	button.eye-icon {
-		position: absolute;
-		right: 0;
-		top: 0;
 		icon-app {
 			transition: 0.3s;
 			color: var(--color-vibrant);
+		}
+
+		&:hover {
+			background: transparent;
 		}
 
 		&:hover icon-app {
