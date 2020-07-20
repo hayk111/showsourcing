@@ -33,9 +33,6 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
-			console.log('InfoPageComponent -> ngOnInit -> data DDD', data);
-		});
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => api.Product.get(params.id)),
@@ -45,15 +42,10 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	update(product: Product) {
-		console.log('InfoPageComponent -> update -> product', product);
 		product.id = this.product.id;
 		api.Product.update([{
 			id: product.id,
 			propertiesMap: product
 		}]).subscribe();
-	}
-
-	info(ev) {
-		console.log('InfoPageComponent -> info -> ev', ev);
 	}
 }

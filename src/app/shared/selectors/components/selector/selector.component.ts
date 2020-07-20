@@ -71,7 +71,6 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			this.tab.typing.pipe(
 				tap(key => {
 					word += key;
-					console.log('SelectorComponent -> ngOnInit -> word', word);
 				}),
 				debounceTime(300),
 			).subscribe(_ => {
