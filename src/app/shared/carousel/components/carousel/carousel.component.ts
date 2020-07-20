@@ -49,6 +49,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	private images$ = new BehaviorSubject<Image[]>([]);
 
 	pending = false;
+	tempImg: any;
 
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
@@ -103,6 +104,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.pending = true;
 		this.uploaderSrv.uploadImages(files, this.nodeId)
 			.onTempImages(temp => {
+				this.tempImg = temp[0];
 				console.log('CarouselComponent -> add -> temp', temp);
 				this.images.unshift(...temp);
 				this.selectedIndex = 0;
@@ -155,6 +157,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	getImg() {
+		if (this.pending) {
+			return this.tempImg;
+		}
 		return this.images ? this.images[this.selectedIndex] : null;
 	}
 

@@ -40,8 +40,7 @@ export class DynamicEditableFieldComponent implements OnInit {
 	}
 
 	getSelectorValue(id: string): Observable<any> {
-		console.log('DynamicEditableFieldComponent -> id', id);
-		if (id) {
+		if (id && api[this.typename]) {
 			return api[this.typename].get(id);
 		}
 
