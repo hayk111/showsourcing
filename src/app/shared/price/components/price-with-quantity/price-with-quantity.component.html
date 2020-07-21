@@ -2,9 +2,10 @@
 	#editablePrice
 	class="price"
 	[ngClass]="{'empty': !price || !price?.value}"
+	[hideOnOpen]="true"
 	[hasAction]="false"
 	(closed)="updateProductField($event, inpPrice?.value, 'price')"
-	(opened)="inpPrice?.select()"
+	(opened)="inpPrice?.focus()"
 	(saved)="updateProductField(false, inpPrice?.value, 'price')">
 	<editable-value-app>
 		<price-app
@@ -24,6 +25,7 @@
 	#editableMOQ
 	class="moq"
 	[ngClass]="{'empty': !price || !price?.minimumOrderQuantity}"
+	[hideOnOpen]="true"
 	[hasAction]="false"
 	(closed)="updateProductField($event, inputMOQ.value, 'moq')"
 	(opened)="inputMOQ.select()"
@@ -40,7 +42,7 @@
 	<input inputApp
 		#inputMOQ
 		restrictInput="decimal"
-		[value]="price?.moqDescription"
+		[value]="price?.minimumOrderQuantity"
 		type="number"
 		(keyup.enter)="editableMOQ.close();"/>
 </editable-container-app>

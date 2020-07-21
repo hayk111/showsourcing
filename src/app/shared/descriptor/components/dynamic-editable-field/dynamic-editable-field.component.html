@@ -1,5 +1,5 @@
 
-<ng-container [ngSwitch]="descriptor.definition.type">
+<ng-container [ngSwitch]="descriptor?.definition?.type">
 
 	<!-- STRING -->
 	<ng-container *ngSwitchDefault>
@@ -8,8 +8,8 @@
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
 			(canceled)="reset()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
 			<input 
 				inputApp
 				#inp
@@ -28,13 +28,13 @@
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
 			(canceled)="reset()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
 				type="number"
-				[value]="control.value"
+				[value]="control?.value"
 				[required]="descriptor.required"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
@@ -48,8 +48,8 @@
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
 			(canceled)="reset()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -67,8 +67,8 @@
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
 			(canceled)="reset()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -87,11 +87,11 @@
 			[clickableReadonly]="!descriptor.readonly"
 			[readonly]="true"
 			(click)="inp.click()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
 			<editable-value-app>
 				<div 
 					class="color-square"
-					[ngStyle]="{ 'background': control.value }">
+					[ngStyle]="{ 'background': control?.value }">
 				</div>
 			</editable-value-app>
 		</editable-field-app>
@@ -112,8 +112,8 @@
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
 			(canceled)="reset()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -131,8 +131,8 @@
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
 			(canceled)="reset()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -153,8 +153,8 @@
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
 			(canceled)="reset()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
 			<textarea 
 				#inp
 				inputApp
@@ -172,11 +172,11 @@
 			[readonly]="true"
 			[clickableReadonly]="!descriptor.readonly"
 			(click)="toggleValue()">
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
 			<editable-value-app>
 				<checkbox-app 
 					[readonly]="true" 
-					[value]="control.value">
+					[value]="control?.value">
 				</checkbox-app>
 			</editable-value-app>
 		</editable-field-app>
@@ -191,7 +191,7 @@
 			(canceled)="reset()"
 			(opened)="priceInput.focus()">
 			<editable-label-app>
-				{{ descriptor.definition.label }}
+				{{ descriptor?.definition?.label }}
 			</editable-label-app>
 			<editable-value-app>
 				{{ control?.value?.value }} 
@@ -208,7 +208,7 @@
 
 	<!-- PRICE MATRIX -->
 	<ng-container *ngSwitchCase="type.PRICE_MATRIX">
-		<h3 class="mg-v-ms">{{ descriptor.definition.label }}</h3>
+		<h3 class="mg-v-ms">{{ descriptor?.definition?.label }}</h3>
 		<editable-price-matrix-app
 			[readonly]="descriptor.readonly"
 			[formControl]="control"
@@ -218,7 +218,7 @@
 
 	<!-- PACKAGING -->
 	<ng-container *ngSwitchCase="type.PACKAGING">
-		<h3 class="mg-v-ms">{{ descriptor.definition.label }}</h3>
+		<h3 class="mg-v-ms">{{ descriptor?.definition?.label }}</h3>
 		<editable-packaging-app
 			[readonly]="descriptor.readonly"
 			[formControl]="control"
@@ -233,13 +233,13 @@
 			[clickableReadonly]="!descriptor.readonly"
 			(click)="sel.openMenu($event)">
 			<editable-label-app>
-				{{ descriptor.definition.label }}
+				{{ descriptor?.definition?.label }}
 			</editable-label-app>
 			<editable-value-app>
 				<selector-app 
 					#sel
-					[typename]="descriptor.definition.selectorSettings.type"
-					[customType]="descriptor.definition.selectorSettings.propertyOptionType"
+					[typename]="descriptor?.definition?.selectorSettings.type"
+					[customType]="descriptor?.definition?.selectorSettings.propertyOptionType"
 					[readonly]="descriptor.readonly"
 					[required]="descriptor.required"
 					[formControl]="control">

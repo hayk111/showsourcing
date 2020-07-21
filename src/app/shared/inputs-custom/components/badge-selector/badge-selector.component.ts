@@ -17,6 +17,7 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 	@Input() badge: EntityMetadata;
 	@Input() customType: string;
 	@Input() value: any;
+	@Input() isFullWidth: boolean;
 	@Input() offsetY = -22;
 	@Input() multiple = false;
 	@Input() hasOpenAction = false;
@@ -24,6 +25,8 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 	@Input() hasLogo = true;
 	private initialMsg = 'Open';
 	@Input() toolTipMessage = this.initialMsg;
+	/** whether the hovor color should be var(--color-bg-secondary) or not, default is not */
+	@Input() hoverLight = false;
 	@Output() update = new EventEmitter<any>();
 	@Output() openActionClicked = new EventEmitter<null>();
 

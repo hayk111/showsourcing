@@ -43,9 +43,5 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 			this._destroy$,
 			(options) => api.Sample.findByProduct(this.productId)
 		);
-
-		api.Sample.findByProduct(this.productId).data$.subscribe(data => {
-			console.log('TasksPageComponent -> ngOnInit -> data', data);
-		});
 	}
 }

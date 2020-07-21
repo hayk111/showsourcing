@@ -3,8 +3,7 @@ import {
 	Input, Output, ContentChild, HostListener
 } from '@angular/core';
 import { InputDirective } from '~shared/inputs';
-
-
+import { ESCAPE } from '@angular/cdk/keycodes';
 
 @Component({
 	selector: 'editable-container-app',
@@ -13,12 +12,18 @@ import { InputDirective } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen',
+		'[class.full-width]': 'isFullWidth',
+		'[class.fit-content]': '!isFullWidth',
 		'[class.clickable]': '!isOpen && (!readonly || readonly && clickableReadonly)',
 		'[class.with-overflow]': 'hasOverflow',
 	}
 })
 export class EditableContainerComponent {
 	@Input() isOpen = false;
+	@Input() isModal = false;
+	@Input() isFullWidth = true;
+	/** Whether the editable value app should be hidden when container opened */
+	@Input() hideOnOpen = false;
 	/** Whether click on the value should open the editor */
 	@Input() readonly = false;
 	@Input() closeOnOutsideClick = true;
@@ -39,6 +44,15 @@ export class EditableContainerComponent {
 	@ContentChild(InputDirective) input: InputDirective;
 
 	constructor(private cd: ChangeDetectorRef) { }
+
+	@HostListener('document:keydown', ['$event'])
+	onKeydownHandler(event: KeyboardEvent) {
+		event.stopPropagation();
+
+		if (event.keyCode === ESCAPE) {
+			this.close();
+		}
+	}
 
 	close(isOutsideClick?: boolean) {
 		if (!this.isOpen || (isOutsideClick && !this.closeOnOutsideClick)) {
@@ -80,4 +94,11 @@ export class EditableContainerComponent {
 		this.cd.markForCheck();
 	}
 
+	editableValueVisible(): boolean {
+		if (!this.isOpen || this.isOpen && !this.hideOnOpen) {
+			return true;
+		}
+
+		return false;
+	}
 }

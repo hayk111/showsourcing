@@ -16,10 +16,12 @@ export class DescriptorService {
 				if (prop.required) {
 					validators.push(Validators.required);
 				}
-				ctrls[prop.definition.name] = [
-					prop.defaultValue ? JSON.parse(prop.defaultValue) : null,
-					...validators
-				];
+				if (prop.definition && prop.definition.name) {
+					ctrls[prop.definition.name] = [
+						prop.defaultValue ? JSON.parse(prop.defaultValue) : null,
+						...validators
+					];
+				}
 			})
 		);
 		return this.fb.group(ctrls, options);

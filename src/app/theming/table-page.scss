@@ -2,7 +2,8 @@
 .table-page {
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
+	overflow-y: hidden;
+	overflow-x: auto;
 	height: 100%;
 
 	controller-table-app {

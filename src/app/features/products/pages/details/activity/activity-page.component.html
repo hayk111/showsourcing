@@ -5,7 +5,7 @@
 	</add-comment-app>
 	<divider-app *ngIf="comments.length > 0"></divider-app>
 	<comment-list-app 
-		sizeLogo="xxl" 
+		sizeLogo="xl" 
 		[amountViewMore]="8" 
 		[comments]="comments"
 		(addComment)="comment?.focus()">

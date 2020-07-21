@@ -76,7 +76,7 @@
 							[width]="320"
 							(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
 							<div class="pointer" >
-								{{ row | property: 'category' }}
+								{{ (row?.category?.value) || '-' }}
 							</div>
 						</selector-app>
 					</editable-value-app>
@@ -97,8 +97,8 @@
 							[hasPicker]="canUpdate"
 							[width]="320"
 							(update)="update.emit({ id: row?.id, country: $event?.country})">
-							<div class="pointer" >
-								{{ row | property: 'country' }}
+							<div class="pointer">
+								{{ row?.propertiesMap?.country || '-' }}
 							</div>
 						</selector-app>
 					</editable-value-app>

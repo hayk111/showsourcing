@@ -48,7 +48,7 @@
 		[ngClass]="statusUtils.getStatusColor(entity?.status || fakeStatus)"
 		toolTip
 		[toolTipMessage]="
-			('message.next-status' | translate) + ' ' + ('text.' + getNextStatus()?.name | translate)
+			('message.next-status' | translate) + ' ' + (('text.' + getNextStatus()?.name.toLocaleLowerCase()) | translate)
 		"
 		toolTipPosition="below-left"
 		(click)="next()"

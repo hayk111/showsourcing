@@ -8,6 +8,7 @@ import {
 	Input,
 	OnInit,
 	Output,
+	ViewChild
 } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
 import { FilterList } from '~shared/filters/models/filter-list.class';
@@ -38,6 +39,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() width = 395;
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
+	@Input() extraOffset = { offsetX: 0, offsetY: 30 };
 	@Input() disabled = false;
 	// we use it only if we have to initialize the selector with a search
 	@Input() searchTxt = '';
@@ -67,7 +69,10 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		if (this.tab) {
 			let word = '';
 			this.tab.typing.pipe(
-				tap(key => word += key),
+				tap(key => {
+					word += key;
+					console.log('SelectorComponent -> ngOnInit -> word', word);
+				}),
 				debounceTime(300),
 			).subscribe(_ => {
 				this.openMenu(null, true, word);
@@ -92,9 +97,13 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			this.menuOpen = true;
 
 			if (event && calculateOffset) {
-				const targetPositions = event.target.getBoundingClientRect();
-				this.offsetX = targetPositions.x;
-				this.offsetY = targetPositions.y + 25;
+				const parentNode = event.currentTarget.parentNode;
+				// if selector inner element is clicked the position is calculated using it's parent - "selector" element position
+				const targetPositions =  parentNode.tagName.toLowerCase().includes('selector')
+					? parentNode.getBoundingClientRect()
+					: event.target.getBoundingClientRect();
+				this.offsetX = targetPositions.x + this.extraOffset.offsetX;
+				this.offsetY = targetPositions.y + this.extraOffset.offsetY - (this.isBelowVertical(targetPositions) ? 290 : 0);
 			}
 
 			this.cdr.markForCheck();
@@ -119,4 +128,12 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		this.onChangeFn(this.value);
 		this.update.emit(this.value);
 	}
+	/**
+	 * Whether the target clicked is below the vertical middle
+	 * @param  {any} position: clicked target position
+	 */
+	private isBelowVertical(position: any) {
+		return position.y - window.innerHeight / 2 > 20;
+	}
+
 }

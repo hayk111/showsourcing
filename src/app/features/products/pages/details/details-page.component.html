@@ -15,7 +15,7 @@
 		(openSupplier)="goToSupplier($event)">
 	</product-sub-header-details-app>
 
-	<div class="flex ctnr">
+	<div class="flex ctnr flexWrap">
 		<div class="left">
 			<!-- docket card -->
 			<product-docket-app
@@ -30,23 +30,22 @@
 			</product-docket-app>
 
 			<!-- rating card -->
-			<!-- <card-app #rating class="mg-top-l">
+			<card-app #rating class="mg-top-l">
 				<card-title-app size="s">Team Rating</card-title-app>
 				<rating-dashboard-app
-					[votes]="product?.votes"
-					[type]="erm.PRODUCT.singular"
+					[teamVotes]="product?.votes"
 					(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
 					(update)="updateProduct({ id: product?.id, votes: $event })">
 				</rating-dashboard-app>
-			</card-app> -->
+			</card-app>
 
 			<!-- Project card -->
-			<!-- <project-list-card-app
-				[projects]="product?.projects"
+			<project-list-card-app
+				[projects]="[]"
 				(update)="updateProduct({ id: product?.id, projects: $event })"
 				(openProject)="openProjectDetails($event)"
-				(deleteProject)="dissociateProject(product?.projects, $event)">
-			</project-list-card-app> -->
+				(deleteProject)="dissociateProject([], $event)">
+			</project-list-card-app>
 
 		</div>
 		<product-main-app #main class="right" [product]="product"></product-main-app>

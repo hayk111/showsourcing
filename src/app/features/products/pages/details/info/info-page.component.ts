@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { productDetailsDescriptorMock, shippingPackagingDescriptorMock } from './descriptors';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
-import { Product, api } from 'showsourcing-api-lib';
+import { api, Product, Descriptor } from 'showsourcing-api-lib';
 
 
 @Component({
@@ -19,8 +19,10 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	product: Product;
 
-	detailsGeneralDescriptor = productDetailsDescriptorMock;
-	shippingPackagingDescriptor = shippingPackagingDescriptorMock;
+	descriptor$ = api.Descriptor.findByType('PRODUCT').data$
+		.pipe(
+			map((descriptors: Descriptor[]) => descriptors.length ? descriptors[0] : undefined
+		));
 
 	constructor(
 		private route: ActivatedRoute,
@@ -31,6 +33,9 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
+			console.log('InfoPageComponent -> ngOnInit -> data DDD', data);
+		});
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => api.Product.get(params.id)),

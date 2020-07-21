@@ -1,5 +1,7 @@
 <editable-container-app
+	[class.hover-light]="hoverLight"
 	[hasAction]="false"
+	[isFullWidth]="isFullWidth"
 	[isOpen]="selector?.menuOpen"
 	(click)="selector.openMenu($event)">
 	<editable-value-app>

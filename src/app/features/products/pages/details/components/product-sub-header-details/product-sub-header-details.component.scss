@@ -6,17 +6,39 @@
 }
 
 .container {
+	width: 1200px;
 	background: white;
+	justify-content: center;
 	padding-top: var(--spacing-ms);
 	padding-bottom: var(--spacing-l);
 
 	carousel-app {
+		margin-right: var(--spacing-l);
 		height: 482px;
-		margin-right: var(--spacing-xxl);
 	}
 
 	.product-info {
-		width: 740px;
+		width: 766px;
+		
+		.product-name {
+			height: var(--spacing-xl);
+		}
+	}
+
+	.sub-header-container:hover {
+		background: var(--color-bg-secondary);
+	}
+}
+
+@media all and (min-width: 1169px) and (max-width: 1300px) {
+	.product-info {
+		width: 665px !important;
+	}
+}
+
+@media all and (max-width: 1168px) {
+	.product-info {
+		width: 410px !important;
 	}
 }
 
@@ -26,8 +48,8 @@
 }
 
 .title-input {
-	height: 36px;
-	font-size: var(--font-size-xxxxl);
+	height: var(--spacing-xl);
+	font-size: var(--font-size-xxxl);
 }
 
 .bigger-editable {

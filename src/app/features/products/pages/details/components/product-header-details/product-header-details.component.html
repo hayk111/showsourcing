@@ -1,13 +1,7 @@
 <header-details-app [headerType]="'details'">
 
 	<header-details-title-app *ngIf="product">
-		<editable-container-app #edt (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
-			<editable-value-app style="line-height: normal;" [resizable]="false">
-				{{ product?.name || ('message.unnamed-product' | translate) }}
-			</editable-value-app>
-			<input inputApp type="text" #inpName [value]="product?.name" (keyup.enter)="edt.close()">
-		</editable-container-app>
-		<!-- {{ product?.name || ('message.unnamed-product' | translate) }} -->
+		{{ product?.name }}
 	</header-details-title-app>
 
 
@@ -21,13 +15,16 @@
 					{{ product?.reference }}
 				</span>
 				<span *ngIf="product && product.propertiesMap.price && product.propertiesMap.price.value">
-					<price-app class="color-txt-secondary" [price]="product?.propertiesMap.price"></price-app>
+					<price-app 
+						class="color-txt-secondary" 
+						[price]="{
+							value: product?.propertiesMap?.price?.value,
+							currency: product?.propertiesMap?.price?.currency
+						}">
+					</price-app>
 				</span>
 				<span *ngIf="product?.category" class="category">
-					{{ product?.category?.name }}
-				</span>
-				<span *ngIf="product?.supplier" class="hyphen-separator">
-					{{ product?.supplier?.name }}
+					{{ product?.category?.value }}
 				</span>
 				<rating-badge-app [score]="product?.score"></rating-badge-app>
 			</div>

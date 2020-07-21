@@ -123,6 +123,10 @@
   width: 100%;
 }
 
+.fit-content {
+	width: fit-content;
+}
+
 .full-height {
 	height: 100%;
 }
@@ -227,6 +231,9 @@
 	overflow-y: auto !important;
 }
 
+.hover-light:hover {
+	background: var(--color-bg-secondary);
+}
 
 // fixed size of the dot font-size-m
 // note: if in the future we use more sizes, implement @each $size in $sizes

@@ -2,6 +2,8 @@ import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { api, Product, Supplier } from 'lib';
 import { Price } from '~core/erm3';
+import { updateProductPriceMOQ } from '~utils/price.utils';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -16,6 +18,8 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	@Output() ratingClicked = new EventEmitter<undefined>();
 	@Output() openSupplier = new EventEmitter<Supplier>();
 
+	price: Price;
+
 	samplesCount$: Observable<number>;
 	tasksCount$: Observable<number>;
 	commentsCount$: Observable<number>;
@@ -23,9 +27,21 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
 		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
 		this.tasksCount$ = api.Task.findByProduct(this.product.id).count$;
-		// this.commentsCount$ = api.Product.comments(this.product.id).count$;
+		this.commentsCount$ = api.Comment.findByNodeId('product:' + this.product.id).count$;
+	}
+
+	updatePriceMoq(priceVal: Partial<Price>, type: 'price' | 'moq') {
+		const newVal = type === 'moq' ? { minimumOrderQuantity: priceVal } : priceVal;
+		updateProductPriceMOQ(this.price, newVal as any, type, this.product.id)
+			.pipe(first())
+			.subscribe((updatedProducts: Product[]) => {
+				this.price = updatedProducts.length && updatedProducts[0].propertiesMap
+					? updatedProducts[0].propertiesMap.price
+					: undefined;
+			});
 	}
 
 	update(value: any, prop: string) {
@@ -34,30 +50,6 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		} else {
 			this.updated.emit({ id: this.product.id, [prop]: value });
 		}
-	}
-
-	updatePriceMOQ(value: Partial<Price>, field: 'price' | 'moq') {
-		if (!value) {
-			return;
-		}
-
-		const val = value.value;
-		const currency = value.currency || 'USD';
-		const price =  {
-			...this.product.propertiesMap.price,
-			...(val && field !== 'moq' && { value: val }),
-			...(field !== 'moq' && { currency }),
-			...(field === 'moq' && { minimumOrderQuantity: value }),
-		};
-
-		api.Product.update([{
-			id: this.product.id,
-			propertiesMap: {
-				price
-			}
-		}]).subscribe(updated => {
-			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
-		});
 	}
 
 	onOpenSupplier(supplier: Supplier, event: MouseEvent) {

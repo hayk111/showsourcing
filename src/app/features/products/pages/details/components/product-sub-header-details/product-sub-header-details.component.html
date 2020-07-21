@@ -1,4 +1,4 @@
-<div class="flex container">
+<div class="flex container flexWrap">
 	<carousel-app
 		[hasPreview]="true">
 	</carousel-app>
@@ -8,6 +8,9 @@
 		<div class="title">
 			<editable-container-app
 				#edtName
+				class="sub-header-container product-name"
+				[hideOnOpen]="true"
+				[isFullWidth]="false"
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
 				<editable-value-app 
@@ -31,60 +34,17 @@
 					[hasNumber]="true" 
 					(click)="ratingClicked.emit()">
 				</rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">
-					{{ samplesCount$ | async }} Samples
-				</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">
-					{{ tasksCount$ | async }} Tasks
-					</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">
-					{{ commentsCount$ | async }} Comments
-					</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ samplesCount$ | async }} Samples</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ tasksCount$ | async }} Tasks</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ commentsCount$ | async }} Comments</div>
 			</div>
 		</div>
 
 		<!-- price and moq -->
 		<section>
-			<!-- <editable-container-app
-				#editablePrice
-				class="full-width"
-				[hasAction]="false"
-				(opened)="inpPrice.focus()"
-				(closed)="updatePriceMOQ(inpPrice?.value, 'price')">
-				<editable-value-app #price>
-					<price-app [price]="product?.propertiesMap.price" size="xxxl" [primary]="false"></price-app>
-				</editable-value-app>
-				<input-price-app
-					#inpPrice
-					[value]="{ 
-						currency: price?.currency || product?.propertiesMap?.price?.currency, 
-						value: price?.value || product?.propertiesMap?.price?.value}"
-					(keyup.enter)="editablePrice.close()">
-				</input-price-app>
-			</editable-container-app>
-
-			<editable-container-app
-				#editableMOQ
-				[hasAction]="false"
-				(opened)="inpMOQ.focus()"
-				(closed)="updatePriceMOQ(inpMOQ.value, 'moq')">
-				<editable-value-app>
-					<div *ngIf="product?.propertiesMap?.price?.minimumOrderQuantity">
-						{{'Min ' + product?.propertiesMap?.price?.minimumOrderQuantity + ' pcs'}}
-					</div>
-					<div *ngIf="!product?.propertiesMap?.price?.minimumOrderQuantity">-</div>
-				</editable-value-app>
-				<input 
-					#inpMOQ 
-					inputApp 
-					type="number"
-					[value]="product?.propertiesMap?.price?.minimumOrderQuantity" 
-					(keyup.enter)="editableMOQ.close()"/>
-			</editable-container-app> -->
-
 			<price-with-quantity-app
 				[price]="product?.propertiesMap?.price"
-				(updateField)="updatePriceMOQ($event.newValue, $event.field)">
+				(updateField)="updatePriceMoq($event.newValue, $event.field)">
 			</price-with-quantity-app>
 		</section>
 
@@ -93,8 +53,10 @@
 			<h3 class="section-title">supplier</h3>
 			<editable-container-app
 				#edtSupplier
-				class="action-hover-container-0"
+				class="action-hover-container-0 sub-header-container"
 				[hasAction]="false"
+				[isFullWidth]="false"
+				[isOpen]="supplierSelector?.menuOpen"
 				(click)="supplierSelector?.openMenu($event, true)">
 				<editable-value-app>
 					<!-- Put this inside a component has a unique style tho -->
@@ -102,6 +64,7 @@
 						#supplierSelector
 						typename="Supplier"
 						[canCreate]="true"
+						[extraOffset]="{ offsetX: 0, offsetY: 35 }"
 						[leftSideOrientation]="true"
 						[width]="370"
 						(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">
@@ -145,6 +108,8 @@
 			<badge-selector-app
 				badge="PropertyOption"
 				customType="category"
+				[isFullWidth]="false"
+				[hoverLight]="true"
 				[value]="product?.category"
 				[leftSideOrientation]="true"
 				(update)="update($event.categoryId, 'categoryId')">
@@ -156,9 +121,10 @@
 			<h3 class="section-title">description</h3>
 			<input-description-app
 				[description]="product?.propertiesMap?.description"
+				[hoverLight]="true"
 				(update)="update({ description: $event }, 'propertiesMap')">
 			</input-description-app>
-	</section>
+		</section>
 
 	<!-- tags -->
 	<section>

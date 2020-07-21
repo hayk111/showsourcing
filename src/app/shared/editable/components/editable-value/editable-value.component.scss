@@ -1,5 +1,11 @@
 :host {
-	text-transform: none;	
+	text-transform: none;
+
+	&.with-overflow {
+		span {
+			padding: 4px 8px;
+		}
+	}
 }
 
 .ctnr:not(:empty) {

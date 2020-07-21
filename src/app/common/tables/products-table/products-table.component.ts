@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { api } from 'lib';
 import { Product, Price } from '~core/erm3';
+import { updateProductPriceMOQ } from '~utils/price.utils';
 import { ListHelper2Service } from '~core/list-page2';
 import { config } from './config';
 import { TeamService } from '../../../core/auth/services/team.service';
@@ -42,35 +43,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 		super();
 	}
 
-	updatePriceMOQ(product: Product, priceVal: Partial<Price>) {
-		if (!priceVal) {
-			return;
-		}
-
-		const currency = priceVal.currency || 'USD';
-		const price: Price =  {
-			...product.propertiesMap.price,
-			...(priceVal.value && { value: priceVal.value }),
-			...(!priceVal.minimumOrderQuantity && { currency }),
-			...(priceVal.minimumOrderQuantity && { minimumOrderQuantity: priceVal.minimumOrderQuantity }),
-		};
-
-		api.Product.update([{
-			id: product.id,
-			propertiesMap: {
-				price
-			}
-		}]).subscribe(updated => {
-			console.log('ProductsTableComponent -> updatePrice -> updated', updated);
-		});
+	updatePriceMoq(previousPrice: Price, priceVal: Partial<Price>, type: 'price' | 'moq', productId: string) {
+		updateProductPriceMOQ(previousPrice, priceVal, type, productId).subscribe();
 	}
-
-		// this.propertyUpdated.emit({
-		// 	entity: product,
-		// 	propertyName,
-		// 	value: {
-		// 		value: inputValue.value ? inputValue.value.value : null,
-		// 		currency,
-		// 	}
-		// });
 }

@@ -10,7 +10,7 @@ import { FormBuilder } from '@angular/forms';
 export class CarouselPageComponent  {
 	product;
 	static = false;
-	size = 411;
+	size = 410;
 	hasPreview: boolean;
 	hasZoomEffect = true;
 	showConfirmOnDelete: boolean;
