@@ -43,9 +43,6 @@ export class UploaderService {
 
 		console.log('UploaderService -> uploadImages -> this.userSrv.identityId', this.userSrv.identityId);
 		const obsArray = files.map(file => this.s3upload(file).pipe(
-			tap((imgData) => {
-				console.log('UploaderService -> uploadImages -> imgData', imgData);
-			}),
 			switchMap((img: any) => {
 				console.log('UploaderService -> uploadImages -> this.uploadingImgName', this.uploadingImgName);
 				return api.Image.create([{

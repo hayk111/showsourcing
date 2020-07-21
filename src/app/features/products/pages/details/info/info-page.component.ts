@@ -19,7 +19,11 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	product: Product;
 
-	descriptor$: Observable<Descriptor>;
+	descriptor$ = api.Descriptor.findByType('PRODUCT')
+		.data$
+		.pipe(
+			map(descriptors => descriptors.length && descriptors[0])
+		);
 
 	constructor(
 		private route: ActivatedRoute,
@@ -33,35 +37,61 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
 			console.log('InfoPageComponent -> ngOnInit -> data DDD', data);
 		});
+<<<<<<< HEAD
 		this.product$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),
 			switchMap(params => api.Product.get(params.id)),
 			tap(product => this.product = product),
 			tap(_ => this.cd.markForCheck())
 		);
+=======
+		console.log('InfoPageComponent -> ngOnInit -> this.route.parent.snapshot.params', this.route.parent.snapshot.params.id);
+
+		this.product$ = api.Product.get(this.route.parent.snapshot.params.id)
+			.pipe(
+				takeUntil(this._destroy$),
+				tap(product => {
+					this.product = product;
+				}),
+				tap(_ => this.cd.markForCheck())
+			);
+>>>>>>> deployment
 	}
 
 	update(property: Partial<Product>) {
-		console.log('InfoPageComponent -> update -> property', property);
+		console.log('InfoPageComponent -> update -> property---', property);
+		const propertiesToUpdate: any = {
+			propertiesMap: {}
+		};
 
-		const propertyName = Object.keys(property)[0];
-
-		if (this.isRoot(propertyName)) {
-			api.Product.update([{
-				id: this.product.id,
-				[propertyName]: property[propertyName]
-			}]).subscribe();
-		} else {
-			api.Product.update([{
-				id: this.product.id,
-				propertiesMap: property
-			}]).subscribe();
+		if (property) {
+			Object.keys(property).forEach(key => {
+				if (this.isRoot(key)) {
+					console.log('InfoPageComponent -> update -> property[key]', property[key]);
+					propertiesToUpdate[key] = property[key];
+				} else {
+					propertiesToUpdate.propertiesMap[key] = property[key];
+				}
+			});
 		}
+
+		console.log('InfoPageComponent -> update -> propertiesToUpdate', propertiesToUpdate);
+		api.Product.update([{
+			id: this.product.id,
+			...propertiesToUpdate
+		}]).subscribe();
+	}
+
+	get rootProperties() {
+		const { supplierId, categoryId } = this.product;
+		return { name: this.product.name, supplierId, categoryId };
 	}
 
 	private isRoot(propertyName: string) {
 		switch (propertyName) {
-			case 'name' :
+			case 'name':
+			case 'supplierId':
+			case 'categoryId':
 				return true;
 			default:
 				return false;

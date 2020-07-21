@@ -15,7 +15,8 @@ export class ImagePreviewerComponent extends TrackingComponent {
 	/** array of images displayed */
 	private _images: Array<AppImage> = [];
 	@Input() set images(images: Array<AppImage>) {
-		this._images = images;
+		console.log('ImagePreviewerComponent -> @Input -> images', images);
+		this._images = images.filter((img: any) => !!img.url && !img.pending);
 		this.imagesWithIndices = [];
 
 		this.images.forEach((image: AppImage, i) => {

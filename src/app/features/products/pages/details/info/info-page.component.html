@@ -7,30 +7,37 @@
 		</button>
 	</div>
 
-	<accordion-app>
-		<accordion-title-app>General</accordion-title-app>
-		<accordion-content-app *ngIf="product$ | async as product; else loader">
-			<dynamic-form2-app
-				#form
-				[style]="'editable'"
-				[descriptor]="descriptor$ | async"
-				[columnAmount]="2"
-				(update)="update($event)">
-			</dynamic-form2-app>
-		</accordion-content-app>
-	</accordion-app>
+	<ng-container *ngIf="(descriptor$ | async)?.sections as sections">
+		<ng-container *ngFor="let section of sections">
+			<accordion-app>
+				<accordion-title-app>{{section?.name}}</accordion-title-app>
+				<accordion-content-app *ngIf="product$ | async as product; else loader">
+					<dynamic-form2-app
+						#form
+						[style]="'editable'"
+						[section]="section"
+						[rootProperties]="rootProperties"
+						[properties]="product?.propertiesMap"
+						[columnAmount]="2"
+						(update)="update($event)">
+					</dynamic-form2-app>
+				</accordion-content-app>
+			</accordion-app>
+		</ng-container>
+	</ng-container>
 
-	<accordion-app>
+	<!-- <accordion-app>
 		<accordion-title-app>Shipping & Packaging</accordion-title-app>
 		<accordion-content-app *ngIf="product$ | async as product; else loader">
 			<dynamic-form2-app
 				#form
 				[style]="'editable'"
 				[descriptor]="descriptor$ | async"
+				[properties]="product?.propertiesMap"
 				[columnAmount]="2">
 			</dynamic-form2-app>
 		</accordion-content-app>
-	</accordion-app>
+	</accordion-app> -->
 
 </div>
 
