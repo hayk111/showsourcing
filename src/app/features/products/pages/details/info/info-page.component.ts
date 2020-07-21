@@ -38,11 +38,6 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
 			console.log('InfoPageComponent -> ngOnInit -> data DDD', data);
 		});
-<<<<<<< Updated upstream
-		console.log('InfoPageComponent -> ngOnInit -> this.route.parent.snapshot.params', this.route.parent.snapshot.params.id);
-=======
->>>>>>> Stashed changes
-
 		this.product$ = api.Product.get(this.route.parent.snapshot.params.id)
 			.pipe(
 				takeUntil(this._destroy$),
