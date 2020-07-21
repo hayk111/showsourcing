@@ -4,3 +4,9 @@
 	height: 16px;
 }
 
+editable-field-app {
+	cursor: pointer;
+	&:hover {
+		background: var(--color-bg-secondary);
+	}
+}

@@ -126,6 +126,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 		if (this.canCreate) {
 			this.nameExists$ = this.searched$.pipe(
+				debounceTime(400),
 				map(_ => this.checkExist(this.choices)),
 				map(items => {
 					return (!!items.length || !this.searchTxt || this.hasName(this.searchTxt));

@@ -47,16 +47,16 @@
 	</div>
 
 	<!-- menu -->
-	<context-menu-app class="menu visible-on-hover" *ngIf="!static">
+	<context-menu-app class="menu visible-on-hover" *ngIf="!static && !!getImg()">
 		<!-- hint: we zoomin on mousemove because that's what we do when hovering the image,
 		since this is above the image we do it here too, we can't let the event pass through like
 		for the counter because this should respond to clicks -->
 		<context-menu-trigger-app (mousemove)="zoomin($event)">
-				<icon-app
-					name="dots-vertical"
-					class="btn"
-					aria-label="more">
-				</icon-app>
+			<icon-app
+				name="dots-vertical"
+				class="btn"
+				aria-label="more">
+			</icon-app>
 		</context-menu-trigger-app>
 		<context-menu-item-app>
 			<a [href]="getImg() | image:'xl'" download translate="button.download"></a>
@@ -71,7 +71,8 @@
 	for the counter because this should respond to clicks -->
 	<div
 		*ngIf="!static"
-		class="btn add pointer visible-on-hover"
+		class="btn pointer visible-on-hover"
+		[ngClass]="!!getImg() ? 'add' : 'add-no-menu'"
 		(click)="openFileBrowser()"
 		(mousemove)="zoomin($event)"
 		translate="button.add">

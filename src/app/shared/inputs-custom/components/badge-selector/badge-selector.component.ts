@@ -42,6 +42,10 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 			this.toolTipMessage = this.toolTipMessage + ' ' + this.badge.singular;
 	}
 
+	ngOnChanges() {
+		console.log('BadgeSelectorComponent -> ngOnInit -> this.value elit', this.value);
+	}
+
 	getDynamicOffsetX() {
 		// Y (the offset that we want to move the selector) = -X (size of the selector) + 395, linear function
 		return this.selector ? - this.selector.elem.nativeElement.offsetWidth + 395 : 0;
