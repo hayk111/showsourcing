@@ -290,12 +290,19 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 			// we add it directly to the value
 			if (this.multiple && added) {
-				this.value.push(added);
-			} else if (!this.multiple)
+				if (this.value && this.value.length) {
+					this.value.push(added);
+				} else {
+					this.value = [];
+				}
+			} else if (!this.multiple) {
 				this.value = added;
+			}
 
-			if (createObs$ === undefined)
+			if (createObs$ === undefined) {
 				return;
+			}
+
 			// we are using take 1 in srv, no need for fancy destroying
 			createObs$.subscribe((created) => {
 				this.value.id = created[0].id;

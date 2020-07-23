@@ -5,7 +5,7 @@
 	</header-details-title-app>
 
 
-	<logo-app [logo]="product?.images[0]" size="l" typename="Product"></logo-app>
+	<logo-app [logo]="product?.images | firstImage" size="l" typename="Product"></logo-app>
 
 	<header-details-info-app>
 		<div class="flex flexVAlign color-txt-secondary">

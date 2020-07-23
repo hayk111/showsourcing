@@ -5,7 +5,7 @@
 		<logo-app
 			class="pointer"
 			size="s"
-			[logo]="row.images && row.images[0]"
+			[logo]="row.images && (row.images | firstImage)"
 			[color]="logoColor"
 			[typename]="typename"
 			(click)="onLogoClick(row)">

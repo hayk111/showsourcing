@@ -62,6 +62,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.images$.subscribe(imgs => {
 			this.images = imgs;
+			this.cdr.markForCheck();
 		});
 
 		if (this.nodeId) {
@@ -99,12 +100,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	rotate() {
 		const img = this.getImg();
 		img.orientation = (img.orientation + 1) % 4;
-		api.Image
-			.update([{
-				...img,
-				orientation: img.orientation,
-			}])
-			.subscribe();
+		api.Image.update([{
+			id: img.id,
+			orientation: img.orientation,
+		}]).subscribe();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
@@ -174,8 +173,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** opens the file browser window so the user can select a file he wants to upload */
-	openFileBrowser() {
-		if (!this.static) this.inpFile.nativeElement.click();
+	openFileBrowser(ev) {
+		ev.stopPropagation();
+		if (!this.static) {
+			this.inpFile.nativeElement.click();
+		}
 	}
 
 	setSelectedIndex(value: number) {

@@ -31,7 +31,6 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-
 		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
 			console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> data', data);
 		});
