@@ -18,6 +18,7 @@ export class ImagePreviewerComponent extends TrackingComponent {
 		console.log('ImagePreviewerComponent -> @Input -> images', images);
 		this._images = images.filter((img: any) => !!img.url && !img.pending);
 		this.imagesWithIndices = [];
+		console.log('ImagePreviewerComponent -> @Input -> this.imagesWithIndices', this.imagesWithIndices);
 
 		this.images.forEach((image: AppImage, i) => {
 			this.imagesWithIndices.push({
