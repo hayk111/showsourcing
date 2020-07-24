@@ -54,7 +54,6 @@ export class ListHelper2Service<G = any> {
 		findFn?: (options: ISearchOptions) => IApiResponse,
 	) {
 		componentDestroy$ = componentDestroy$ || new Subject();
-		console.log('ListHelper2Service<G -> typename', typename);
 		findFn = findFn || ((options: ISearchOptions) => api[typename].find(options));
 		this.typename = typename;
 
@@ -63,10 +62,7 @@ export class ListHelper2Service<G = any> {
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			map(([filter, pagination, sort]) => {
-				console.log('ListHelper2Service<G -> sort22', sort);
-				return findFn({ filter, sort, pagination });
-			}),
+			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination }))
 		);
 
 		// data
