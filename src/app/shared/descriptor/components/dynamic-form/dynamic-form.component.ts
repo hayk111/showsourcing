@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
 	Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ReplaySubject, Subject } from 'rxjs';
-import { map, switchMap, takeUntil, tap, debounce, debounceTime } from 'rxjs/operators';
+import { ReplaySubject, Subject, from } from 'rxjs';
+import { map, switchMap, takeUntil, tap, debounce, debounceTime, first } from 'rxjs/operators';
 import { Descriptor, PropertyDescriptor } from '~core/erm3/models';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
@@ -23,7 +23,6 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() updateOn: 'blur' | 'change' = 'change';
 	@Input() showRequiredMarker = true;
 	@Input() properties = {};
-	@Input() rootProperties = {};
 	// keeping "descriptor" here in order not to have compile errors, this should be removed
 	@Input() descriptor: Descriptor;
 	@ViewChild('formElem', { static: true }) formElem: ElementRef<HTMLFormElement>;
@@ -35,6 +34,9 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	private formGroup$ = new ReplaySubject<FormGroup>(1);
 	private _destroy$ = new Subject<void>();
 
+	updated = false;
+	formBuilt = false;
+
 	get valid() {
 		return this.formGroup.valid;
 	}
@@ -45,9 +47,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		private cd: ChangeDetectorRef) {}
 
 	ngOnInit() {
-		this.formGroup$.pipe(
-			switchMap(group => group.valueChanges),
-			// tap(d => this.cd.markForCheck()),
+		from(this.formGroup.valueChanges).pipe(
+			// switchMap(group => group.valueChanges),
 			// removing properties with "falsy" values
 			map(properties => _.pickBy(properties, (val, key) => !!properties[key])),
 			map(properties => {
@@ -65,13 +66,15 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 				return returnObj;
 			}),
 			debounceTime(400),
-			takeUntil(this._destroy$)
+			takeUntil(this._destroy$),
 		).subscribe(properties => {
+			console.log('Calllled-----', properties);
 			this.update.emit(properties);
 		});
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
+		console.log('DynamicFormComponent -> ngOnChanges -> changes', changes);
 		// console.log('this.rootProperties', this.rootProperties);
 		const colChanged = changes.columnAmount &&
 			changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
@@ -80,10 +83,10 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		const sectionChanged = changes.section &&
 			changes.section.previousValue !== changes.section.currentValue;
 		const propertiesChanged = changes.properties &&
-			!(this.isEqual(changes.properties.previousValue, changes.properties.currentValue));
-		const rootPropsChanged = changes.rootProperties &&
-			!(this.isEqual(changes.rootProperties.previousValue, changes.rootProperties.currentValue));
+			!(_.isEqual(changes.properties.previousValue, changes.properties.currentValue));
 		const styleChanged = changes.style && changes.style.previousValue !== changes.style.currentValue;
+		console.log('DynamicFormComponent -> ngOnChanges -> changes.properties.previousValue, changes.properties.currentValue',
+				 changes.properties.previousValue, changes.properties.currentValue, 'changed::::', propertiesChanged);
 
 		if (changes.section && (colChanged || sectionChanged)) {
 			this.makeColumns();
@@ -93,14 +96,14 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			this.buildFormGroup();
 		}
 
-		if (rootPropsChanged || propertiesChanged) {
-			this.debouncedFormGroup();
-		}
+		// if (propertiesChanged) {
+		// 	this.formGroup.patchValue({...this.properties });
+		// 	this.cd.markForCheck();
+		// }
 
 		if (styleChanged) {
 			this.cd.markForCheck();
 		}
-
 	}
 
 	reset() {
@@ -137,9 +140,9 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	private debouncedFormGroup = _.debounce(this.buildFormGroup.bind(this), 10);
 
 	private buildFormGroup() {
-		console.log('build.....');
+		console.log('build form.....');
 		this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
-		this.formGroup.patchValue({...this.properties, ...this.rootProperties});
+		this.formGroup.patchValue({...this.properties});
 		this.formGroup$.next(this.formGroup);
 		log.debug('built form group', this.formGroup);
 	}

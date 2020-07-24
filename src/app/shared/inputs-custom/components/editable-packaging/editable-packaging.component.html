@@ -77,7 +77,7 @@
 	#edtLengthUnit
 	[readonly]="true"
 	[clickableReadonly]="!readonly"
-	(click)="lengthUnitSelector.openMenu()"
+	(click)="lengthUnitSelector.openMenu($event)"
 	(saved)="onChangeFn(value)"
 	(opened)="storeValue('lengthUnit', value.lengthUnit)"
 	(canceled)="onCancel('lengthUnit')">
@@ -149,7 +149,7 @@
 	#edtWeightUnit
 	[readonly]="true"
 	[clickableReadonly]="!readonly"
-	(click)="weightUnitSelector.openMenu()"
+	(click)="weightUnitSelector.openMenu($event)"
 	(saved)="onChangeFn(value)"
 	(opened)="storeValue('weightUnit', value.weightUnit)"
 	(canceled)="onCancel('weightUnit')">
