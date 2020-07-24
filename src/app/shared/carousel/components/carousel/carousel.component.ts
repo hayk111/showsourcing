@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, tap, filter } from 'rxjs/operators';
 import { api, Image } from 'showsourcing-api-lib';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UploaderService } from '~shared/file/services/uploader.service';
@@ -49,7 +49,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	private images$ = new BehaviorSubject<Image[]>([]);
 
 	pending = false;
-	tempImg: any;
 
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
@@ -63,11 +62,21 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.images$.subscribe(imgs => {
 			this.images = imgs;
+			this.cdr.markForCheck();
 		});
 
 		if (this.nodeId) {
-			api.Image.findByNodeId(this.nodeId).data$
-				.pipe(tap((images: any[]) => this.images$.next(images)))
+			api.Image.findByNodeId(this.nodeId, {
+				sort: { direction: 'ASC', property: 'createdAt' }
+			}).data$
+				.pipe(
+					filter((images: Image[]) => {
+						return images.length && images[images.length - 1] && !!images[images.length - 1].url;
+					}),
+					tap((images: any[]) => {
+						this.images$.next(images);
+					})
+				)
 				.subscribe();
 		}
 	}
@@ -91,12 +100,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	rotate() {
 		const img = this.getImg();
 		img.orientation = (img.orientation + 1) % 4;
-		api.Image
-			.update([{
-				...img,
-				orientation: img.orientation,
-			}])
-			.subscribe();
+		api.Image.update([{
+			id: img.id,
+			orientation: img.orientation,
+		}]).subscribe();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
@@ -104,14 +111,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.pending = true;
 		this.uploaderSrv.uploadImages(files, this.nodeId)
 			.onTempImages(temp => {
-				this.tempImg = temp[0];
-				console.log('CarouselComponent -> add -> temp', temp);
-				this.images.unshift(...temp);
-				this.selectedIndex = 0;
+				this.selectedIndex = this.images.length;
+				this.images = [...this.images, ...temp];
 				this.cdr.markForCheck();
 			})
-			.subscribe(images => {
-				console.log('CarouselComponent -> add -> images', images);
+			.subscribe(() => {
 				this.pending = false;
 				this.cdr.markForCheck();
 				this.uploaded.emit();
@@ -152,14 +156,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	open(comp) {
-		console.log('CarouselComponent -> open -> comp', comp);
 		comp.open();
 	}
 
 	getImg() {
-		if (this.pending) {
-			return this.tempImg;
-		}
 		return this.images ? this.images[this.selectedIndex] : null;
 	}
 
@@ -173,8 +173,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** opens the file browser window so the user can select a file he wants to upload */
-	openFileBrowser() {
-		if (!this.static) this.inpFile.nativeElement.click();
+	openFileBrowser(ev) {
+		ev.stopPropagation();
+		if (!this.static) {
+			this.inpFile.nativeElement.click();
+		}
 	}
 
 	setSelectedIndex(value: number) {

@@ -31,10 +31,11 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-
 		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
 			console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> data', data);
 		});
+
+		console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> this.product', this.product);
 
 		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
 		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;

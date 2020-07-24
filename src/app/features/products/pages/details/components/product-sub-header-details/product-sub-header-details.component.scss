@@ -14,7 +14,6 @@
 
 	carousel-app {
 		margin-right: var(--spacing-l);
-		height: 410px;
 	}
 
 	.supplier-section {
@@ -22,7 +21,7 @@
 	}
 
 	.supplier-editable {
-		width: 125px;
+		width: 135px;
 		display: inline-block;
 	}
 
@@ -82,6 +81,11 @@
 .supplier-container {
 	position: relative;
 	.supplier-name {
+		display: block;
+		width: 80px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 		line-height: 1;
 	}
 }

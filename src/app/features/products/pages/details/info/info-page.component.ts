@@ -18,6 +18,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;
+	properties: any;
 
 	descriptor$ = api.Descriptor.findByType('PRODUCT')
 		.data$
@@ -37,14 +38,6 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
 			console.log('InfoPageComponent -> ngOnInit -> data DDD', data);
 		});
-<<<<<<< HEAD
-		this.product$ = this.route.parent.params.pipe(
-			takeUntil(this._destroy$),
-			switchMap(params => api.Product.get(params.id)),
-			tap(product => this.product = product),
-			tap(_ => this.cd.markForCheck())
-		);
-=======
 		console.log('InfoPageComponent -> ngOnInit -> this.route.parent.snapshot.params', this.route.parent.snapshot.params.id);
 
 		this.product$ = api.Product.get(this.route.parent.snapshot.params.id)
@@ -53,9 +46,9 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 				tap(product => {
 					this.product = product;
 				}),
+				// tap(_ => this.properties = { ...this.product.propertiesMap }),
 				tap(_ => this.cd.markForCheck())
 			);
->>>>>>> deployment
 	}
 
 	update(property: Partial<Product>) {

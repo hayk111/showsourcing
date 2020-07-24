@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, SimpleChanges, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { tap, map, switchMap } from 'rxjs/operators';
 import { api, Typename } from 'showsourcing-api-lib';
 import { PropertyDescriptor, PropertyType } from '~core/erm3';
 
@@ -11,18 +11,37 @@ import { PropertyDescriptor, PropertyType } from '~core/erm3';
 	styleUrls: ['./dynamic-editable-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicEditableFieldComponent implements OnInit {
+export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 	@Input() descriptor: PropertyDescriptor;
 	@Input() control: FormControl;
 
-	selectorValue$: Observable<string>;
+	selectorEntityId$ = new BehaviorSubject<string>('');
+	selectorValue$ = new BehaviorSubject<string>('');
 
 	type = PropertyType;
 	initialValue;
 
 	ngOnInit() {
 		this.initialValue = this.control.value;
-		this.selectorValue$ = this.getSelectorValue(this.initialValue).pipe(map(entity => entity.value || entity.name));
+		this.selectorEntityId$.next(this.initialValue);
+
+		this.selectorEntityId$
+			.pipe(
+				switchMap((id) => this.getSelectorValue(id)),
+				map(entity => entity.value || entity.name),
+				tap(value => {
+					// console.log('DynamicEditableFieldComponent -> ngOnInit -> value======', value);
+					this.selectorValue$.next(value);
+				})
+			).subscribe();
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		const { control } = changes;
+		if (this.descriptor.definition.type === this.type.SELECTOR) {
+			this.selectorEntityId$.next(control.currentValue.value);
+			// console.log('DynamicEditableFieldComponent -> ngOnChanges -> this.control00000000', this.control, changes);
+		}
 	}
 
 	onSave() {
@@ -48,7 +67,7 @@ export class DynamicEditableFieldComponent implements OnInit {
 	}
 
 	selectorUpdate(event) {
-		console.log('selectorUpdate:::', event);
+		// console.log('selectorUpdate:::', event);
 	}
 
 	get typename(): string {
@@ -62,8 +81,7 @@ export class DynamicEditableFieldComponent implements OnInit {
 
 	get customType(): string {
 		if (this.descriptor.definition.selectorSettings) {
-			const customType = this.descriptor.definition.selectorSettings.propertyOptionType.toLowerCase();
-			return this.capitalize(customType);
+			return this.descriptor.definition.selectorSettings.propertyOptionType.toLowerCase();
 		}
 
 		return '';

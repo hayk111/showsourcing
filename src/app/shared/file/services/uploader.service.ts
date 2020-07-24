@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, from, Observable } from 'rxjs';
+import { forkJoin, from, Observable, zip } from 'rxjs';
 import { switchMap, tap, concatMap } from 'rxjs/operators';
 import { api, authStatus, Image, Storage, Auth } from 'showsourcing-api-lib';
 import { ToastService, ToastType } from '~shared/toast';
@@ -39,21 +39,17 @@ export class UploaderService {
 	}
 
 	uploadImages(files: File[], nodeId): ObservableImageUpload {
-		console.log('uploading files======', authStatus.user, files, nodeId);
-
-		console.log('UploaderService -> uploadImages -> this.userSrv.identityId', this.userSrv.identityId);
-		const obsArray = files.map(file => this.s3upload(file).pipe(
-			switchMap((img: any) => {
-				console.log('UploaderService -> uploadImages -> this.uploadingImgName', this.uploadingImgName);
-				return api.Image.create([{
-					fileName: `${this.userSrv.identityId}/${this.uploadingImgName}`,
-					nodeId
-				}]);
-			}),
-		));
+		const obsArray = files.map(file => this.s3upload(file));
 
 		const obsResponses = forkJoin(obsArray).pipe(
-			switchMap(() => Auth.currentUserCredentials()),
+			switchMap((images) => { // images are returned from s3upload function with corresponding names in S3
+				const toCreate = [];
+				images.forEach((img: any) => {
+					toCreate.push({ fileName: `${this.userSrv.identityId}/${img.key}`, nodeId });
+				});
+				return api.Image.create(toCreate);
+			}),
+			// switchMap(() => Auth.currentUserCredentials()),
 			tap(_ => this.showToast(`Uploaded ${files.length} image(s)`))
 		) as ObservableImageUpload;		// casting to add the temp function
 
@@ -69,10 +65,8 @@ export class UploaderService {
 
 	private s3upload(file: File): Observable<string> {
 		const extension = file.name.slice(file.name.lastIndexOf('.'));
-		this.uploadingImgName = uuid() + extension;
-		console.log('UploaderService -> file00000', extension, this.uploadingImgName);
 		return from(Storage.put(
-			this.uploadingImgName,
+			uuid() + extension,
 			file,
 			{
 				level: 'private',

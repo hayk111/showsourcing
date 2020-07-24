@@ -12,6 +12,7 @@ import { TabFocusActionDirective } from './directives/tab-focus-action.directive
 import { CountryCityPipe } from './pipes/country-city.pipe';
 import { PropertyPipe } from './pipes/property.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { FirstImage } from './pipes/first-image.pipe';
 
 @NgModule({
 	imports: [
@@ -21,6 +22,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 		ClickOutsideDirective,
 		DateToTimeAgoPipe,
 		UserNamePipe,
+		FirstImage,
 		GroupByPipe,
 		InfiniScrollDirective,
 		ConstPipe,
@@ -39,6 +41,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 		UserNamePipe,
 		InfiniScrollDirective,
 		ConstPipe,
+		FirstImage,
 		GroupByPipe,
 		AutoFocusDirective,
 		CapitalizePipe,

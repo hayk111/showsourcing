@@ -54,6 +54,7 @@ export class ListHelper2Service<G = any> {
 		findFn?: (options: ISearchOptions) => IApiResponse,
 	) {
 		componentDestroy$ = componentDestroy$ || new Subject();
+		console.log('ListHelper2Service<G -> typename', typename);
 		findFn = findFn || ((options: ISearchOptions) => api[typename].find(options));
 		this.typename = typename;
 

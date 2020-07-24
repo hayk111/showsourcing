@@ -30,7 +30,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	@Output() update = new EventEmitter<{}>();
 	/** used to display the fields inside columns */
 	/** form group for the form */
-	formGroup: FormGroup = this.fb.group({});
+	formGroup: FormGroup = this.fb.group({name: ''});
 	/** when a new formgroup is created */
 	private formGroup$ = new ReplaySubject<FormGroup>(1);
 	private _destroy$ = new Subject<void>();
@@ -47,7 +47,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	ngOnInit() {
 		this.formGroup$.pipe(
 			switchMap(group => group.valueChanges),
-			tap(d => this.cd.markForCheck()),
+			// tap(d => this.cd.markForCheck()),
 			// removing properties with "falsy" values
 			map(properties => _.pickBy(properties, (val, key) => !!properties[key])),
 			map(properties => {
@@ -71,7 +71,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnChanges(changes: SimpleChanges ) {
+	ngOnChanges(changes: SimpleChanges) {
+		// console.log('this.rootProperties', this.rootProperties);
 		const colChanged = changes.columnAmount &&
 			changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
 		const updateOnChanged = changes.updateOn &&
@@ -79,11 +80,10 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		const sectionChanged = changes.section &&
 			changes.section.previousValue !== changes.section.currentValue;
 		const propertiesChanged = changes.properties &&
-			!(_.isEqual(changes.properties.previousValue, changes.properties.currentValue));
+			!(this.isEqual(changes.properties.previousValue, changes.properties.currentValue));
 		const rootPropsChanged = changes.rootProperties &&
-			!(_.isEqual(changes.rootProperties.previousValue, changes.rootProperties.currentValue));
-		const styleChanged = changes.style &&
-		changes.style.previousValue !== changes.style.currentValue;
+			!(this.isEqual(changes.rootProperties.previousValue, changes.rootProperties.currentValue));
+		const styleChanged = changes.style && changes.style.previousValue !== changes.style.currentValue;
 
 		if (changes.section && (colChanged || sectionChanged)) {
 			this.makeColumns();
@@ -93,9 +93,9 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			this.buildFormGroup();
 		}
 
-		// if (propertiesChanged || rootPropsChanged) {
-		// 	this.buildFormGroup();
-		// }
+		if (rootPropsChanged || propertiesChanged) {
+			this.debouncedFormGroup();
+		}
 
 		if (styleChanged) {
 			this.cd.markForCheck();
@@ -127,7 +127,17 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		return sectionWithColumn;
 	}
 
+	isEqual(val1, val2) {
+		if ((!val1 || !Object.keys(val1).length) && (!val2 || !Object.keys(val2).length)) {
+			return true;
+		}
+		return _.isEqual(val1, val2);
+	}
+
+	private debouncedFormGroup = _.debounce(this.buildFormGroup.bind(this), 10);
+
 	private buildFormGroup() {
+		console.log('build.....');
 		this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
 		this.formGroup.patchValue({...this.properties, ...this.rootProperties});
 		this.formGroup$.next(this.formGroup);
