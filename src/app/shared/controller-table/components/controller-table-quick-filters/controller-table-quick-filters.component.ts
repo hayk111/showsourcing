@@ -2,6 +2,7 @@ import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '~core/auth';
 import { authStatus } from 'lib';
 import { FilterCommonService, FilterService, FilterType } from '~core/filters';
+import { Typename } from 'showsourcing-api-lib';
 
 export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';
 
@@ -14,6 +15,7 @@ export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';
 	}
 })
 export class ControllerTableQuickFiltersComponent {
+	@Input() typename: Typename;
 	@Input() quickFilters: QuickFilter[] = ['archived', 'assignee'];
 
 	constructor(

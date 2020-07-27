@@ -106,7 +106,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-		console.log('SelectorPickerComponent -> ngOnInit -> this.typename', this.typename, this.customType);
 		if (this.typename === 'PropertyOption') {
 			this.filterSrv.setup([], ['value']);
 			this.propertyOptionSrv.setup(this.customType);
@@ -182,7 +181,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param text
 	 */
 	search(text, setFirstItemActive = true) {
-		console.log('SelectorPickerComponent -> search -> this.searchTxt', this.searchTxt);
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
 
@@ -289,17 +287,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (value && this.typename) {
 			added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
 			createObs$ = this.typename === 'PropertyOption' 																 ?
-				this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
-				this.selectorSrv.create(this.typename as any, added);
+			this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
+			this.selectorSrv.create(this.typename as any, added);
 
 			// we add it directly to the value
-			if (this.multiple && added) {
+			if (this.multiple) {
 				if (this.value && this.value.length) {
 					this.value.push(added);
 				} else {
 					this.value = [];
 				}
-			} else if (!this.multiple) {
+			} else {
 				this.value = added;
 			}
 
