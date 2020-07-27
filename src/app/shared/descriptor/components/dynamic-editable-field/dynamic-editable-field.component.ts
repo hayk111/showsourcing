@@ -67,7 +67,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 	}
 
 	selectorUpdate(event) {
-		// console.log('selectorUpdate:::', event);
+		this.selectorEntityId$.next(event[Object.keys(event)[0]]);
 	}
 
 	get typename(): string {

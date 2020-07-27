@@ -92,7 +92,7 @@
 		<editable-container-app
 			[hasAction]="false"
 			[readonly]="true"
-			(click)="sel?.selector?.openMenu()">
+			(click)="sel?.selector?.openMenu($event)">
 			<editable-value-app>
 				<selector-app
 					#sel

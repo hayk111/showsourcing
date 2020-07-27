@@ -3,7 +3,7 @@ import {
 	Input, Output, ContentChild, HostListener
 } from '@angular/core';
 import { InputDirective } from '~shared/inputs';
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { ESCAPE, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
 	selector: 'editable-container-app',
@@ -51,6 +51,10 @@ export class EditableContainerComponent {
 
 		if (event.keyCode === ESCAPE) {
 			this.close();
+		}
+
+		if (event.keyCode === ENTER) {
+			this.save();
 		}
 	}
 

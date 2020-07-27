@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap, map } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, first } from 'rxjs/operators';
 import { productDetailsDescriptorMock, shippingPackagingDescriptorMock } from './descriptors';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
 import { api, Product, Descriptor } from 'showsourcing-api-lib';
-
+import _ from 'lodash';
 
 @Component({
 	selector: 'info-page-app',
@@ -23,7 +23,8 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	descriptor$ = api.Descriptor.findByType('PRODUCT')
 		.data$
 		.pipe(
-			map(descriptors => descriptors.length && descriptors[0])
+			map(descriptors => descriptors.length && descriptors[0]),
+			first(),
 		);
 
 	constructor(
@@ -46,8 +47,20 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 				tap(product => {
 					this.product = product;
 				}),
+				tap(product => {
+					const props = {
+						...product.propertiesMap,
+						name: product.name,
+						supplierId: product.supplierId,
+						categoryId: product.categoryId,
+					};
+
+					if (!_.isEqual(this.properties, props)) {
+						this.properties = props;
+					}
+				}),
 				// tap(_ => this.properties = { ...this.product.propertiesMap }),
-				tap(_ => this.cd.markForCheck())
+				tap(_ => this.cd.markForCheck()),
 			);
 	}
 
@@ -60,15 +73,19 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		if (property) {
 			Object.keys(property).forEach(key => {
 				if (this.isRoot(key)) {
-					console.log('InfoPageComponent -> update -> property[key]', property[key]);
 					propertiesToUpdate[key] = property[key];
 				} else {
 					propertiesToUpdate.propertiesMap[key] = property[key];
+					if (key === 'price') { // temporary solutionn for price with default currenct "USD"
+						propertiesToUpdate.propertiesMap[key] = {
+							...propertiesToUpdate.propertiesMap[key],
+							currency: 'USD'
+						};
+					}
 				}
 			});
 		}
 
-		console.log('InfoPageComponent -> update -> propertiesToUpdate', propertiesToUpdate);
 		api.Product.update([{
 			id: this.product.id,
 			...propertiesToUpdate
