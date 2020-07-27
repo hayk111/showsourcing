@@ -35,9 +35,9 @@
 					[hasNumber]="true" 
 					(click)="ratingClicked.emit()">
 				</rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ samplesCount$ | async }} Samples</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ tasksCount$ | async }} Tasks</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ commentsCount$ | async }} Comments</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ getCount(samplesCount$ | async, 'Sample') }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ getCount(tasksCount$ | async, 'Task') }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ getCount(commentsCount$ | async, 'Comment') }}</div>
 			</div>
 		</div>
 

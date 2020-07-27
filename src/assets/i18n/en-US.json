@@ -132,12 +132,20 @@
     "INCO_TERM": {
       "plural": "inco terms",
       "singular": "inco term"
+		},
+		"INCOTERM": {
+      "plural": "inco terms",
+      "singular": "inco term"
     },
     "INVITATION": {
       "plural": "invitations",
       "singular": "invitation"
     },
     "LENGTH_UNIT": {
+      "plural": "length units",
+      "singular": "length unit"
+		},
+		"LENGTHUNIT": {
       "plural": "length units",
       "singular": "length unit"
     },
@@ -252,12 +260,20 @@
     "TEAM_USER": {
       "plural": "team users",
       "singular": "team user"
+		},
+		"TEAMUSER": {
+      "plural": "team users",
+      "singular": "team user"
     },
     "USER": {
       "plural": "users",
       "singular": "user"
     },
     "WEIGHT_UNIT": {
+      "plural": "weight units",
+      "singular": "weight unit"
+		},
+		"WEIGHTUNIT": {
       "plural": "weight units",
       "singular": "weight unit"
     }

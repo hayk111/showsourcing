@@ -18,16 +18,16 @@ export class UploaderService {
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): ObservableFileUpload {
-		const cognitoId = authStatus.cognitoId;
-		const obsArray = files.map(file => this.s3upload(file).pipe(
-			switchMap(_ => api.Attachment.create([{
-				fileName: `${cognitoId}/${file.name}`,
-				nodeId
-			}])),
-		));
+		const obsArray = files.map(file => this.s3upload(file));
 		const obsResponses = forkJoin(obsArray).pipe(
-			tap(_ => this.showToast(`Uploaded ${files.length} file(s)`))
-		) as ObservableFileUpload;
+			switchMap((files) => {
+				const toCreate = [];
+				files.forEach((file: any) => {
+					toCreate.push({ fileName: `${this.userSrv.identityId}/${file.key}`, nodeId });
+				});
+				return api.Attachment.create(toCreate);
+			}),
+		) as ObservableFileUpload;		// casting to add the temp function
 
 		obsResponses.onTempFiles = (fn) => {
 			fn(files.map(file => ({ fileName: file.name, type: 'pending' })));
@@ -50,7 +50,6 @@ export class UploaderService {
 				return api.Image.create(toCreate);
 			}),
 			// switchMap(() => Auth.currentUserCredentials()),
-			tap(_ => this.showToast(`Uploaded ${files.length} image(s)`))
 		) as ObservableImageUpload;		// casting to add the temp function
 
 		obsResponses.onTempImages = (fn) => {
@@ -61,6 +60,14 @@ export class UploaderService {
 
 		return obsResponses;
 
+	}
+
+	showToast(message: string, title = 'upload successful', type = ToastType.SUCCESS) {
+		this.toastSrv.add({
+			type,
+			title,
+			message
+		});
 	}
 
 	private s3upload(file: File): Observable<string> {
@@ -93,14 +100,6 @@ export class UploaderService {
 				resolve((e.target as any).result);
 			};
 			reader.readAsDataURL(file);
-		});
-	}
-
-	private showToast(message: string) {
-		this.toastSrv.add({
-			type: ToastType.SUCCESS,
-			title: 'upload successful',
-			message
 		});
 	}
 

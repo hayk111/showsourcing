@@ -154,6 +154,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
+	get placeholderTypeName(): string {
+		return this.typename === 'PropertyOption' ? this.customType.toUpperCase() : this.typename.toUpperCase();
+	}
+
 	/**
 	 * when the selector has multiple choice, we call this function to filter choices
 	 * so the elements inside the value (array), does not appear on the choices

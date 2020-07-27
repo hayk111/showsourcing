@@ -31,6 +31,8 @@ export class EditableContainerComponent {
 	@Input() hasAction = true;
 	/** whether there is an overflowing background on hover */
 	@Input() hasOverflow = true;
+	/** whether the display value div has a padding to right, used for description container */
+	@Input() hasDisplayValuePadding = false;
 	/** whether the readonly version is still clickable */
 	@Input() clickableReadonly = false;
 	/** when it opens */

@@ -20,9 +20,9 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 	]
 })
 export class FilesPageComponent extends AutoUnsub implements OnInit {
-
 	@ViewChild('inpFile', { static: true }) inpFile: ElementRef<HTMLInputElement>;
 
+	productId: string;
 	// this is used by upload service, so it can link to the product
 	linkedEntity: any;
 	erm = ERM;
@@ -42,18 +42,20 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const productId = this.route.parent.snapshot.params.id;
+		this.productId = this.route.parent.snapshot.params.id;
 		this.listHelper.setup(
 			'Attachment',
 			this._destroy$,
-			(options) => api.Attachment.findByNodeId(`Product:${productId}`)
+			(options) => api.Attachment.findByNodeId(`product:${this.productId}`)
 		);
 	}
 
 	addFile(files: Array<File>) {
-		// this.uploadFeedback.addFiles(files)
-		// 	.pipe(switchMap(_ => this.listSrv.refetch()))
-		// 	.subscribe();
+		console.log('FilesPageComponent -> addFile -> files', files);
+		this.uploaderSrv.uploadFiles(files, `product:${this.productId}`)
+			.subscribe(done => {
+				console.log('FilesPageComponent -> addFile -> done', done);
+			});
 	}
 
 	download(attachment: Attachment) {

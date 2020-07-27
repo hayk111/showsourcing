@@ -5,7 +5,7 @@
 				inputApp 
 				formControlName="name" 
 				[value]="searchTxt" type="text" 
-				[placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + typename | translate }" 
+				[placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + placeholderTypeName + '.singular' | translate }" 
 				(keyup)="onKeydown($event)" 
 				(input)="search(inp.control.value)">
 	</form-field-app>

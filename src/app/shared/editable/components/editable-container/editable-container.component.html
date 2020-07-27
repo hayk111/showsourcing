@@ -2,7 +2,8 @@
 <div
 	*ngIf="this.editableValueVisible()"
 	class="displayValue flex"
-	[ngClass]="{ 'pointer': !readonly }">
+	[ngClass]="{ 'pointer': !readonly }"
+	[ngStyle]="{ 'width' : hasDisplayValuePadding ? 'calc(100% - 4px)' : '100%'}">
 	<ng-content select="editable-value-app"></ng-content>
 </div>
 
