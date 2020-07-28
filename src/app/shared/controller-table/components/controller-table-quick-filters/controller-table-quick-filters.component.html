@@ -5,7 +5,7 @@
 	*ngIf="quickFilters.includes('archived')"
 	class="light mg-left-ms"
 	toolTip
-	[toolTipMessage]="'tooltip.also-show-archived' | translate"
+	[toolTipMessage]="'tooltip.show-archived-entity' | translate: { entityName: typename }"
 	(click)="toggleArchived()">
 	<checkbox-app
 		class="mg-right-xs"
@@ -22,7 +22,7 @@
 	*ngIf="quickFilters.includes('assignee')"
 	class="light mg-left-ms"
 	toolTip
-	[toolTipMessage]="'tooltip.show-only-assigned-to-me' | translate"
+	[toolTipMessage]="'tooltip.show-assigned-to-me-entity' | translate: { entityName: typename }"
 	(click)="toggleAssignedToMe()">
 	<checkbox-app
 		class="mg-right-xs"

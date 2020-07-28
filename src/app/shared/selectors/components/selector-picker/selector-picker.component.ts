@@ -106,7 +106,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-		console.log('SelectorPickerComponent -> ngOnInit -> this.typename', this.typename, this.customType);
 		if (this.typename === 'PropertyOption') {
 			this.filterSrv.setup([], ['value']);
 			this.propertyOptionSrv.setup(this.customType);
@@ -152,6 +151,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$.pipe(map((items) => this.filterValues(items)));
 		}
+	}
+
+	get placeholderTypeName(): string {
+		return this.typename === 'PropertyOption' ? this.customType.toUpperCase() : this.typename.toUpperCase();
 	}
 
 	/**
@@ -279,17 +282,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (value && this.typename) {
 			added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
 			createObs$ = this.typename === 'PropertyOption' 																 ?
-				this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
-				this.selectorSrv.create(this.typename as any, added);
+			this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
+			this.selectorSrv.create(this.typename as any, added);
 
 			// we add it directly to the value
-			if (this.multiple && added) {
+			if (this.multiple) {
 				if (this.value && this.value.length) {
 					this.value.push(added);
 				} else {
 					this.value = [];
 				}
-			} else if (!this.multiple) {
+			} else {
 				this.value = added;
 			}
 

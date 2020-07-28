@@ -68,4 +68,8 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		this.openSupplier.emit(supplier);
 	}
 
+	getCount(count: number, str: string) {
+		return count === 1 ? count + ' ' + str : count + ' ' + str + 's';
+	}
+
 }

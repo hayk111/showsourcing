@@ -7,6 +7,7 @@
 	border-radius: var(--border-radius);
 	margin-left: -8px;
 	overflow: hidden;
+	max-width: 520px;
 
   .description-text {
     font-family: var(--font-normal);
@@ -39,8 +40,13 @@ editable-value-app {
 }
 
 .description {
+	width: 100%;
 	overflow-wrap: break-word;
 	white-space: pre-wrap;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
 }
 
 textarea {

@@ -3,13 +3,13 @@
 	[title]="'title.products' | translate"
 	logoTypename="Product"
 	info="The product database"
-	[buttonName]="'button.create-product' | translate"
+	[buttonName]="'button.add-product' | translate"
 	(buttonClick)="listHelper.openCreationDialog()">
 </header-list-app>
 
 <controller-table-app>
 	<!-- filters -->
-	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-filters-app typename="Product"></controller-table-quick-filters-app>
 	<!-- actions -->
 	<controller-table-quick-actions-app
 		typename="Product"

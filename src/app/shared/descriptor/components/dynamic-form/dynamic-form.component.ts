@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
 	Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ReplaySubject, Subject, from } from 'rxjs';
-import { map, switchMap, takeUntil, tap, debounce, debounceTime, first } from 'rxjs/operators';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { ReplaySubject, Subject, from, Subscription } from 'rxjs';
+import { map, switchMap, takeUntil, tap, debounce, debounceTime, first, last } from 'rxjs/operators';
 import { Descriptor, PropertyDescriptor } from '~core/erm3/models';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
 import { log } from '~utils/log';
 import _ from 'lodash';
-import { FormBuilder } from '@angular/forms';
+import { Typename, api } from 'showsourcing-api-lib';
+
+const	toUpdate = false;
 
 @Component({
 	selector: 'dynamic-form2-app',
@@ -17,6 +19,8 @@ import { FormBuilder } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
+	@Input() typename: Typename;
+	@Input() entityId: string;
 	@Input() section: SectionWithColumns;
 	@Input() style: 'form' | 'editable' = 'form';
 	@Input() columnAmount = 1;
@@ -31,11 +35,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	/** form group for the form */
 	formGroup: FormGroup = this.fb.group({name: ''});
 	/** when a new formgroup is created */
-	private formGroup$ = new ReplaySubject<FormGroup>(1);
+	private currentFormGroupSub = [];
 	private _destroy$ = new Subject<void>();
-
-	updated = false;
-	formBuilt = false;
 
 	get valid() {
 		return this.formGroup.valid;
@@ -47,7 +48,52 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		private cd: ChangeDetectorRef) {}
 
 	ngOnInit() {
-		from(this.formGroup.valueChanges).pipe(
+		this.currentFormGroupSub.push(this.subscribeOnValueChanges(this.formGroup));
+
+		api.Product.get(this.entityId)
+			.subscribe(product => {
+			this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
+			this.formGroupUnsubscribe();
+			this.cd.markForCheck();
+			this.formGroup.patchValue({
+				...product.propertiesMap,
+				name: product.name,
+				supplierId: product.supplierId,
+				categoryId: product.categoryId,
+			}, { emitEvent: false });
+			this.currentFormGroupSub.push(this.subscribeOnValueChanges(this.formGroup));
+		});
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		const colChanged = changes.columnAmount &&
+			changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
+		const updateOnChanged = changes.updateOn &&
+			changes.updateOn.previousValue !== changes.updateOn.currentValue;
+		const sectionChanged = changes.section &&
+			changes.section.previousValue !== changes.section.currentValue;
+		const styleChanged = changes.style && changes.style.previousValue !== changes.style.currentValue;
+
+		if (changes.section && (colChanged || sectionChanged)) {
+			this.makeColumns();
+		}
+
+		if (changes.section && (sectionChanged || updateOnChanged)) {
+			this.buildFormGroup();
+		}
+
+		// if (propertiesChanged) {
+		// 	this.formGroup.patchValue({...this.properties });
+		// 	this.cd.markForCheck();
+		// }
+
+		if (styleChanged) {
+			this.cd.markForCheck();
+		}
+	}
+
+	subscribeOnValueChanges(formGroup: FormGroup): Subscription {
+		return from(formGroup.valueChanges).pipe(
 			// switchMap(group => group.valueChanges),
 			// removing properties with "falsy" values
 			map(properties => _.pickBy(properties, (val, key) => !!properties[key])),
@@ -68,42 +114,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			debounceTime(400),
 			takeUntil(this._destroy$),
 		).subscribe(properties => {
-			console.log('Calllled-----', properties);
 			this.update.emit(properties);
 		});
-	}
-
-	ngOnChanges(changes: SimpleChanges) {
-		console.log('DynamicFormComponent -> ngOnChanges -> changes', changes);
-		// console.log('this.rootProperties', this.rootProperties);
-		const colChanged = changes.columnAmount &&
-			changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
-		const updateOnChanged = changes.updateOn &&
-			changes.updateOn.previousValue !== changes.updateOn.currentValue;
-		const sectionChanged = changes.section &&
-			changes.section.previousValue !== changes.section.currentValue;
-		const propertiesChanged = changes.properties &&
-			!(_.isEqual(changes.properties.previousValue, changes.properties.currentValue));
-		const styleChanged = changes.style && changes.style.previousValue !== changes.style.currentValue;
-		console.log('DynamicFormComponent -> ngOnChanges -> changes.properties.previousValue, changes.properties.currentValue',
-				 changes.properties.previousValue, changes.properties.currentValue, 'changed::::', propertiesChanged);
-
-		if (changes.section && (colChanged || sectionChanged)) {
-			this.makeColumns();
-		}
-
-		if (changes.section && (sectionChanged || updateOnChanged)) {
-			this.buildFormGroup();
-		}
-
-		// if (propertiesChanged) {
-		// 	this.formGroup.patchValue({...this.properties });
-		// 	this.cd.markForCheck();
-		// }
-
-		if (styleChanged) {
-			this.cd.markForCheck();
-		}
 	}
 
 	reset() {
@@ -137,19 +149,21 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		return _.isEqual(val1, val2);
 	}
 
-	private debouncedFormGroup = _.debounce(this.buildFormGroup.bind(this), 10);
-
 	private buildFormGroup() {
-		console.log('build form.....');
 		this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
-		this.formGroup.patchValue({...this.properties});
-		this.formGroup$.next(this.formGroup);
+		this.formGroup.patchValue({...this.properties}, { emitEvent: false });
 		log.debug('built form group', this.formGroup);
+	}
+
+	private formGroupUnsubscribe() {
+		[...this.currentFormGroupSub].forEach(subscription => subscription.unsubscribe());
+		this.currentFormGroupSub = [];
 	}
 
 	ngOnDestroy() {
 		this._destroy$.next();
 		this._destroy$.complete();
+		this.formGroupUnsubscribe();
 	}
 
 }

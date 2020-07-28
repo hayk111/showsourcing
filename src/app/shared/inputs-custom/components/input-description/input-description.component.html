@@ -4,6 +4,7 @@
 		[isModal]="asModal"
 		[readonly]="!asModal"
 		[hasOverflow]="false"
+		[hasDisplayValuePadding]="true"
 		(closed)="updateDescription($event, inpDescription.value)"
 		(clickOutside)="adaptSize()"
 		(opened)="inpDescription.select()"

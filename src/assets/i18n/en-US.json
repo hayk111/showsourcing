@@ -132,12 +132,20 @@
     "INCO_TERM": {
       "plural": "inco terms",
       "singular": "inco term"
+		},
+		"INCOTERM": {
+      "plural": "inco terms",
+      "singular": "inco term"
     },
     "INVITATION": {
       "plural": "invitations",
       "singular": "invitation"
     },
     "LENGTH_UNIT": {
+      "plural": "length units",
+      "singular": "length unit"
+		},
+		"LENGTHUNIT": {
       "plural": "length units",
       "singular": "length unit"
     },
@@ -252,12 +260,20 @@
     "TEAM_USER": {
       "plural": "team users",
       "singular": "team user"
+		},
+		"TEAMUSER": {
+      "plural": "team users",
+      "singular": "team user"
     },
     "USER": {
       "plural": "users",
       "singular": "user"
     },
     "WEIGHT_UNIT": {
+      "plural": "weight units",
+      "singular": "weight unit"
+		},
+		"WEIGHTUNIT": {
       "plural": "weight units",
       "singular": "weight unit"
     }
@@ -1104,7 +1120,7 @@
     "settings": "Settings",
     "share-info-text": "Share product information you arleady have with the supplier such as price, moq, etc.",
     "share-product-info": "Share my product information",
-    "shipping": "Shipping",
+		"shipping": "Shipping",
     "show-archived": "Show archived",
     "show-archived-products": "Show Archived Products",
     "show-completed": "Show completed",
@@ -1319,8 +1335,10 @@
 		"export-all": "export all",
     "only-created-by-me": "only show created by me",
     "open": "open",
-    "share-sample": "share a sample",
-    "show-only-assigned-to-me": "show only the ones assigned to me",
+		"share-sample": "share a sample",
+		"show-archived-entity": "Show archived {{ entityName }}s",
+		"show-assigned-to-me-entity": "Show assigned to me {{ entityName }}s",
+		"show-only-assigned-to-me": "show only the ones assigned to me",
     "sort": "sort",
     "table-view": "table view"
   }

@@ -11,6 +11,7 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
+import { ToastType } from '~shared/toast';
 
 @Component({
 	selector: 'carousel-app',
@@ -61,6 +62,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.images$.subscribe(imgs => {
+			console.log('CarouselComponent -> ngOnInit -> imgs ---', imgs);
 			this.images = imgs;
 			this.cdr.markForCheck();
 		});
@@ -108,17 +110,26 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
-		this.pending = true;
 		this.uploaderSrv.uploadImages(files, this.nodeId)
 			.onTempImages(temp => {
 				this.selectedIndex = this.images.length;
 				this.images = [...this.images, ...temp];
+				console.log('this.images90909090:', this.images);
 				this.cdr.markForCheck();
 			})
 			.subscribe(() => {
-				this.pending = false;
 				this.cdr.markForCheck();
 				this.uploaded.emit();
+				console.log('CarouselComponent -> add -> this.images', this.images);
+				if (!this.images.some(img => img.type && img.type === 'pending')) {
+					this.uploaderSrv.showToast(`Uploaded ${files.length} image(s)`);
+				}
+			}, error => {
+				this.images = this.images.filter(img => img.type !== 'pending');
+				this.selectedIndex = this.images.length - 1;
+				console.error('Error:::::', files, this.images);
+				this.cdr.markForCheck();
+				this.uploaderSrv.showToast(error.message, 'upload failed', ToastType.ERROR);
 			});
 	}
 
