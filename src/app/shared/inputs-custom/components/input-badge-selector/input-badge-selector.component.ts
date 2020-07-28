@@ -12,8 +12,12 @@ import { Typename } from '~core/erm3/typename.type';
 })
 export class InputBadgeSelectorComponent extends AbstractInput {
 
+	@Input() entityId: string;
+	@Input() type: Typename;
+
 	private _value;
 	@Input() set value(items: Tag[] | Project[]) {
+		console.log('InputBadgeSelectorComponent -> @Input -> items', items);
 		this._value = items;
 	}
 	get value() {

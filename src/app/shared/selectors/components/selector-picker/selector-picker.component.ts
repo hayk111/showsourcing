@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject, Subscription, of } from 'rxjs';
-import { map, switchMap, tap, debounce, debounceTime } from 'rxjs/operators';
+import { map, switchMap, tap, debounce, debounceTime, first } from 'rxjs/operators';
 import { ERM } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
@@ -16,7 +16,7 @@ import { AbstractInput, InputDirective } from '~shared/inputs';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
-import { ID } from '~utils';
+import { ID, uuid } from '~utils';
 import { Typename, api } from 'showsourcing-api-lib';
 
 @Component({
@@ -37,6 +37,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() filterList = new FilterList([]);
+	// this is for entities with tags
+	@Input() entityId: string;
 	/**
 	 * this is used when we have a selector that uses Selector Elements, so we can know which selectors elements
 	 * we need to query
@@ -277,13 +279,30 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	create() {
 		let createObs$: Observable<any>;
-		let added;
+		let added: any;
 		const value = this.searchTxt;
 		if (value && this.typename) {
-			added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
-			createObs$ = this.typename === 'PropertyOption' 																 ?
-			this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
-			this.selectorSrv.create(this.typename as any, added);
+			if (this.typename.toLowerCase().includes('tag')) {
+				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
+				added = {
+					[entityType + 'Id']: this.entityId,
+				};
+				this.propertyOptionSrv.createPropertyOptions([{type: 'TAG', value}])
+					.pipe(
+						switchMap((createdTags: any[]) => {
+							added.tagId = createdTags[0] ? createdTags[0].id : undefined;
+							console.log('SelectorPickerComponent -> create -> createdTags', createdTags, added);
+							return this.selectorSrv.create(this.typename as any, added);
+						}),
+						first()
+					)
+					.subscribe(() => console.log('created all'));
+			} else {
+				added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
+				createObs$ = this.typename === 'PropertyOption' 															 ?
+				this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
+				this.selectorSrv.create(this.typename as any, added);
+			}
 
 			// we add it directly to the value
 			if (this.multiple) {
