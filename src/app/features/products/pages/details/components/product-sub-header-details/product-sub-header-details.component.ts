@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { api, Product, Supplier } from 'lib';
+import { api, Product, Supplier, ProductTag } from 'lib';
 import { Price } from '~core/erm3';
 import { updateProductPriceMOQ } from '~utils/price.utils';
 import { first } from 'rxjs/operators';
@@ -20,6 +20,8 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 
 	price: Price;
 
+	productTags$: Observable<ProductTag[]>;
+
 	samplesCount$: Observable<number>;
 	tasksCount$: Observable<number>;
 	commentsCount$: Observable<number>;
@@ -34,6 +36,20 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
 			console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> data', data);
 		});
+
+		const ids = this.product.tags.map((tag: ProductTag) => tag.tagId);
+		console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> ids[0]', ids[0]);
+
+		setTimeout(() => {
+			api.ProductTag.find({
+			 filter: {
+				 property: 'id',
+				 isString: ids[0]
+			 }
+		 }).data$.subscribe(tags => {
+			 console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> tags', tags);
+		 });
+		}, 3000);
 
 		console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> this.product', this.product);
 
