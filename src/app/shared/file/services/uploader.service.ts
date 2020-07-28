@@ -25,7 +25,7 @@ export class UploaderService {
 				files.forEach((file: any) => {
 					toCreate.push({ fileName: `${this.userSrv.identityId}/${file.key}`, nodeId });
 				});
-				return api.Attachment.create(toCreate);
+				return api.Attachment.create(toCreate).local$;
 			}),
 		) as ObservableFileUpload;		// casting to add the temp function
 
@@ -47,7 +47,7 @@ export class UploaderService {
 				images.forEach((img: any) => {
 					toCreate.push({ fileName: `${this.userSrv.identityId}/${img.key}`, nodeId });
 				});
-				return api.Image.create(toCreate);
+				return api.Image.create(toCreate).local$;
 			}),
 			// switchMap(() => Auth.currentUserCredentials()),
 		) as ObservableImageUpload;		// casting to add the temp function

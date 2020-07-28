@@ -46,7 +46,7 @@ export class CommentComponent implements OnInit {
 
 	onSave(message: string) {
 		if (message) {
-			api.Comment.update([{ id: this.comment.id, message } as any]).subscribe();
+			api.Comment.update([{ id: this.comment.id, message } as any]);
 		}
 		this.isEditing = false;
 	}
@@ -56,7 +56,7 @@ export class CommentComponent implements OnInit {
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
 				tap(_ => this.deleted.emit(this.comment)),
-				switchMap(_ => api.Comment.delete([{ id: this.comment.id }]))
+				switchMap(_ => api.Comment.delete([{ id: this.comment.id }]).local$)
 			).subscribe();
 	}
 

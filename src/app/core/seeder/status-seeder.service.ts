@@ -47,7 +47,7 @@ export class StatusSeederService {
 	/** delete all WorkflowStatus in current team */
 	async deleteAllStatusesByType(type: any): Promise<any> {
 		const allStatuses: any = await this.listStatuses(type);
-		return await api['WorkflowStatus'].delete(allStatuses).pipe(first()).toPromise();
+		return await api['WorkflowStatus'].delete(allStatuses).local;
 	}
 
 	async createAllStatus(): Promise<any> {
@@ -72,7 +72,7 @@ export class StatusSeederService {
 				// the last name is "Refused"
 				if (i === stepNames.length - 1) newStatus.category = this._categoryTypes.REFUSED;
 				// TODO: to be implemented
-				// return api['WorkflowStatus'].create([newStatus]).pipe(first()).toPromise();
+				// return api['WorkflowStatus'].create([newStatus]).local;
 			});
 			return [...accPromises, ...promises];
 		}, allPromises);

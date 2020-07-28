@@ -98,7 +98,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 					return api['Invitation'].create([{
 						...entity,
 						teamRole: 'TEAMMEMBER'
-					}]);
+					}]).local$;
 				}),
 		)
 		.subscribe();
@@ -131,6 +131,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	}
 
 	deleteItem(item: TeamUser | Invitation) {
-		// this.apiSrv.delete(item.__typename, item).pipe(first()).subscribe();
+		// this.apiSrv.delete(item.__typename, item);
 	}
 }

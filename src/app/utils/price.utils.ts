@@ -51,7 +51,7 @@ export function updateProductPriceMOQ(
 			propertiesMap: {
 				price
 			}
-		}]);
+		}]).local$;
 	}
 
 	return of([]);

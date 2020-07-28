@@ -89,7 +89,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		api.Product.update([{
 			id: this.product.id,
 			...propertiesToUpdate
-		}]).subscribe();
+		}]);
 	}
 
 	get rootProperties() {

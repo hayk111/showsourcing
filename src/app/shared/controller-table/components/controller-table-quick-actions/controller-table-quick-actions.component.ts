@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ColumnConfig } from '~common/tables/entity-table.component';
 import { SortService } from '~shared/table/services/sort.service';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Typename } from '~core/erm3/typename.type';
+import { Typename } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'controller-table-quick-actions-app',

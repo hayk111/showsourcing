@@ -35,7 +35,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return api.Company.create(company).pipe(
+		return api.Company.create(company).online$.pipe(
 			tap(_company => this._company$.next(_company)),
 		);
 	}

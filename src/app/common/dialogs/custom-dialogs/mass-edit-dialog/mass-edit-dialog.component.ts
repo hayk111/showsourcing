@@ -11,7 +11,7 @@ import { UserService } from '~core/auth';
 import { Typename } from '~core/erm3/typename.type';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
-import { cache } from 'showsourcing-api-lib';
+import { loki } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'mass-edit-dialog-app',
@@ -90,10 +90,10 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		this.toUpdate = { callback: property.type.toLowerCase() + 'Update', property, value: value };
 		switch (property.property) {
 			case 'supplierId':
-				this.toUpdate.value = cache.get('Supplier', value.supplierId);
+				this.toUpdate.value = loki.db.getCollection('PropertyOption').get('id', value.supplierId);
 				break;
 			case 'categoryId':
-				this.toUpdate.value = cache.get('PropertyOption', value.categoryId);
+				this.toUpdate.value = loki.db.getCollection('PropertyOption').get('id', value.categoryId);
 				break;
 				// TODO add productTag, assignee
 		}
