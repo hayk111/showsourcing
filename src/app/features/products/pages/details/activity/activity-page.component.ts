@@ -37,7 +37,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		api.Comment.create([comment]).subscribe(created => {
+		api.Comment.create([comment]).local$.subscribe(created => {
 			console.log('ActivityPageComponent -> sendComment -> created', created);
 		});
 	}

@@ -55,8 +55,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	update(supplier: Supplier) {
-		api.col('Supplier').update([{ id: this.supplierId, ...supplier } as any])
-			.subscribe();
+		api.Supplier.update([{ id: this.supplierId, ...supplier } as any]);
 	}
 
 	sendComment(message: string) {
@@ -64,7 +63,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		api['Comment'].create([comment])
+		api['Comment'].create([comment]).local$
 		.subscribe(_ => this.commentListRef.refetch());
 	}
 

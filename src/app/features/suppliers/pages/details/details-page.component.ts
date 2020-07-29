@@ -44,7 +44,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplier$ = id$.pipe(
-			switchMap(id => api.col('Supplier').get(id)),
+			switchMap(id => api.Supplier.get(id)),
 		) as any;
 
 		this.supplier$.subscribe(
@@ -55,7 +55,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	update(supplier: Supplier) {
-		api.col('Supplier').update([supplier as any]).subscribe();
+		api.Supplier.update([supplier as any]);
 	}
 
 	delete(supplier: Supplier) {
@@ -63,7 +63,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			text: this.translate.instant('message.confirm-delete-supplier')
 		}).data$
 		.pipe(
-			switchMap(_ => api.col('Supplier').delete([{ id: supplier.id }]))
+			switchMap(_ => api.Supplier.delete([{ id: supplier.id }]).local$)
 		).subscribe(_ => this.router.navigate(['suppliers']));
 	}
 
@@ -79,7 +79,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	onArchive(supplier: Supplier | Supplier[]) {
 		if (Array.isArray(supplier)) {
 			const updated = supplier.map((s: Supplier) => ({ id: s.id, archived: true }));
-			api.col('Supplier').update([updated as any])
+			api.Supplier.update([updated as any]).local$
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
@@ -89,7 +89,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				});
 		} else {
 			const { id } = supplier;
-			api.col('Supplier').update([{ id, archived: true }])
+			api.Supplier.update([{ id, archived: true }]).local$
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,

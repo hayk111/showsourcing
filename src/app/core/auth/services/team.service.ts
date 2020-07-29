@@ -73,14 +73,14 @@ export class TeamService {
 	/** creates a team and waits for it to be valid */
 	create(teamName: string): Observable<any> {
 		const companyId = this.companySrv.companySync.id;
-		return api.Team.create(companyId, teamName, 'BUYER').pipe(
+		return api.Team.create(companyId, teamName, 'BUYER').online$.pipe(
 			tap(team => this._teams$.next([team])),
 			switchMap(team => this.pickTeam(team))
 		);
 	}
 
 	update(team: Team): Observable<any> {
-		// return api.Team.update([{ companyId: this.companySrv.companySync.id, ...team } as any]);
+		// return api.Team.update([{ companyId: this.companySrv.companySync.id, ...team } as any]).local$;
 		throw Error('not implemented');
 	}
 

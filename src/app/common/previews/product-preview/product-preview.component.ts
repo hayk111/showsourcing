@@ -156,7 +156,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(tap((_) => api.col('Product').delete([product as any])))
+			.data$.pipe(tap((_) => api.Product.delete([product as any])))
 			.subscribe((prod) => {
 				this.close.emit();
 			});

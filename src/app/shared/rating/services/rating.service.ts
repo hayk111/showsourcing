@@ -205,7 +205,7 @@ export class RatingService {
 
  		return api['Vote'].update([{
 			...ratingInfo
-		} as any]);
+		} as any]).local$;
 	}
 
 	private createVote(nodeId: string, rating: number): Observable<any> {
@@ -217,7 +217,7 @@ export class RatingService {
 
 		return api['Vote'].create([{
 			...voteInfo
-		} as any]);
+		} as any]).local$;
 	}
 
 	applyRatings(items: any[], ratings: Vote[]) {

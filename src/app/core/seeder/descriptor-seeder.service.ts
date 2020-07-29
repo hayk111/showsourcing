@@ -97,7 +97,7 @@ export class DescriptorSeederService {
 		// .subscribe((definitions: any) => {
 		// const definitions = resp.data.listPropertyDefinitions.items;
 		definitions.map(item =>
-			api['PropertyDefinition'].delete([{ id: item.id }]).pipe(first()).toPromise()
+			api['PropertyDefinition'].delete([{ id: item.id }]).local
 		);
 		return await Promise.all(definitions);
 		// });
@@ -141,13 +141,13 @@ export class DescriptorSeederService {
 			hint,
 		};
 		return api['PropertyDefinition']
-			.create([propertyDefinition])
+			.create([propertyDefinition]).local$
 			.pipe(first())
 			.toPromise();
 	}
 
 	private _createDescriptor(sections: any[], type, name): Promise<any> {
 		const productDescriptor = { sections, type, name };
-		return api['Descriptor'].create([productDescriptor]).pipe(first()).toPromise();
+		return api['Descriptor'].create([productDescriptor]).local;
 	}
 }

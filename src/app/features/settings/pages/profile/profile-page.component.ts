@@ -34,8 +34,7 @@ export class ProfilePageComponent implements OnInit {
 
 	updateUser(user: User) {
 		user.id = this.userId;
-		// this.apiSrv.update('User', user)
-		// 	.subscribe();
+		// this.apiSrv.update('User', user);
 	}
 
 	addFile(files: Array<File>) {

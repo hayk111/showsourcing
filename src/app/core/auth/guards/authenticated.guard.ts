@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { IAuthState, state } from 'showsourcing-api-lib';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { log, LogColor } from '~utils';
+import { log } from '~utils';
 
 @Injectable({
 	providedIn: 'root'
