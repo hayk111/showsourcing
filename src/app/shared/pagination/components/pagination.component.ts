@@ -39,7 +39,20 @@ export class PaginationComponent extends TrackingComponent implements OnInit {
 		).subscribe(([page, range]) => {
 			this.currentPage = page;
 			this.range = range;
+			console.log('PaginationComponent -> ngOnInit -> this.range', this.range);
 			this.cdr.markForCheck();
 		});
+	}
+
+	get toNumber() {
+		if (this.paginationSrv.total < 25) {
+			return this.paginationSrv.total;
+		}
+
+		if (this.paginationSrv.total - this.range[this.paginationSrv.currentPage] * 25 > 25) {
+			return 25;
+		} else {
+			return this.paginationSrv.total - this.range[this.paginationSrv.currentPage] * 25;
+		}
 	}
 }

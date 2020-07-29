@@ -6,56 +6,58 @@ total pages: {{ totalPages }} <br>
 index: {{ currentPage }}
  -->
 
-<!-- <ng-container *ngIf="currentPage > 0"> -->
-	<div class="pagination-ctrl">
-		<ng-container *ngIf="range.length > 1">
-			<button
-				class="arrow-btn icon primary-light"
-				(click)="paginationSrv.goToFirstPage()"
-				[ngClass]="{ 'secondary-light': currentPage === 0 }"
-				[disabled]="currentPage === 0">
-				<icon-app name="double-fat-angle-left" size="xs"></icon-app>
-			</button>
-		
-			<button
-				class="arrow-btn icon primary-light"
-				(click)="paginationSrv.goToPreviousPage()"
-				[ngClass]="{ 'secondary-light': currentPage === 0 }"
-				[disabled]="currentPage === 0">
-				<icon-app name="fat-angle-left" size="xs"></icon-app>
-			</button>
-		
-			<button
-				*ngFor="let page of range; trackBy: trackByFn"
-				class="icon"
-				[ngClass]="{ primary: page === currentPage }"
-				(click)="paginationSrv.goToPage(page)">
-				{{ page + 1 }}
-			</button>
-		
-			<button
-				class="arrow-btn icon primary-light"
-				[ngClass]="{ 'secondary-light': currentPage === range.length - 1 }"
-				(click)="paginationSrv.goToNextPage()"
-				[disabled]="currentPage === range.length - 1">
-				<icon-app name="fat-angle-right" size="xs"></icon-app>
-			</button>
-		
-			<button
-				class="arrow-btn icon primary-light"
-				[ngClass]="{ 'secondary-light': currentPage === range.length - 1 }"
-				(click)="paginationSrv.goToLastPage()"
-				[disabled]="currentPage === range.length - 1">
-				<icon-app name="double-fat-angle-right" size="xs"></icon-app>
-			</button>
-		</ng-container>
+<div class="pagination-ctrl">
+	<ng-container *ngIf="range.length > 1">
+		<button
+			class="arrow-btn icon primary-light"
+			(click)="paginationSrv.goToFirstPage()"
+			[ngClass]="{ 'secondary-light': currentPage === 0 }"
+			[disabled]="currentPage === 0">
+			<icon-app name="double-fat-angle-left" size="xs"></icon-app>
+		</button>
 	
-		<div *ngIf="hasPageItemsCount" class="right">
-			<select class="custom-select" 
-				(change)="paginationSrv.setLimit($event.target.value)">
-				<option *ngFor="let i of perPageItemCount">{{i}}</option>
-			</select>
-		</div>
+		<button
+			class="arrow-btn icon primary-light"
+			(click)="paginationSrv.goToPreviousPage()"
+			[ngClass]="{ 'secondary-light': currentPage === 0 }"
+			[disabled]="currentPage === 0">
+			<icon-app name="fat-angle-left" size="xs"></icon-app>
+		</button>
 	
+		<button
+			*ngFor="let page of range; trackBy: trackByFn"
+			class="icon"
+			[ngClass]="{ primary: page === currentPage }"
+			(click)="paginationSrv.goToPage(page)">
+			{{ page + 1 }}
+		</button>
+	
+		<button
+			class="arrow-btn icon primary-light"
+			[ngClass]="{ 'secondary-light': currentPage === range.length - 1 }"
+			(click)="paginationSrv.goToNextPage()"
+			[disabled]="currentPage === range.length - 1">
+			<icon-app name="fat-angle-right" size="xs"></icon-app>
+		</button>
+	
+		<button
+			class="arrow-btn icon primary-light"
+			[ngClass]="{ 'secondary-light': currentPage === range.length - 1 }"
+			(click)="paginationSrv.goToLastPage()"
+			[disabled]="currentPage === range.length - 1">
+			<icon-app name="double-fat-angle-right" size="xs"></icon-app>
+		</button>
+	</ng-container>
+
+	<div *ngIf="hasPageItemsCount" class="right">
+		<select class="custom-select" 
+			(change)="paginationSrv.setLimit($event.target.value)">
+			<option *ngFor="let i of perPageItemCount">{{i}}</option>
+		</select>
+
+		<span class="flexVAlign color-txt-primary mg-left-ms">
+			{{ ('OBJ.show-pagination' | translate: {count: paginationSrv.total, fromNumber: range[paginationSrv.currentPage] * 25, toNumber: toNumber}) + '--' + paginationSrv.currentPage }}
+		</span>
 	</div>
-<!-- </ng-container> -->
+
+</div>

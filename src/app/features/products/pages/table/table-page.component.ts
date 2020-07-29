@@ -29,12 +29,12 @@ export class TablePageComponent implements OnInit {
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
-		FilterType.PROJECTS,
+		FilterType.CATEGORY,
+		FilterType.PROJECT,
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
-		FilterType.CATEGORY,
-		FilterType.STATUS,
 		FilterType.TAGS,
+		FilterType.STATUS,
 		FilterType.ARCHIVED,
 		FilterType.FAVORITE
 	];

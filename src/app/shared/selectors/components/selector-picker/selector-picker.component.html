@@ -11,7 +11,30 @@
 	</form-field-app>
 </form>
 
+<!-- if multiple, display badges -->
+<div *ngIf="multiple" class="flexWrap current-values-container">
+	<ng-container *ngIf="value?.length; else empty">
 
+		<ng-container [ngSwitch]="typename">
+
+			<ng-container *ngSwitchCase="erm.EMAIL">
+				<info-badge-app *ngFor="let item of value" [type]="typename" [hasDelete]="true" (delete)="delete(item)">
+					{{ item }}
+				</info-badge-app>
+			</ng-container>
+
+			<ng-container *ngSwitchDefault>
+				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="typename" [hasDelete]="true" (delete)="delete(item)">
+					{{ item.name || item.value }}
+				</info-badge-app>
+			</ng-container>
+
+		</ng-container>
+	</ng-container>
+	<ng-template #empty>
+		<span class="empty-message">{{ 'OBJ.no-item-add-one' | translate: { field: 'ERM.' + typename | translate } }}</span>
+	</ng-template>
+</div>
 
 <div class="top-divider">
 	<divider-app></divider-app>
