@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { tap, map, switchMap, filter, first } from 'rxjs/operators';
 import { TeamService } from '~core/auth/services/team.service';
 import { log, LogColor } from '~utils';
+import { state } from 'showsourcing-api-lib';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HasTeamSelectedGuard implements CanActivate, CanActivateChild {
+	libState = state;
 
 	constructor(private teamSrv: TeamService, private router: Router) { }
 
@@ -27,7 +29,10 @@ export class HasTeamSelectedGuard implements CanActivate, CanActivateChild {
 		log.debug(`has team selected guard -> ${hasTeamSelected}`);
 		if (!hasTeamSelected) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
-			this.router.navigate(['auth', 'user', 'pick-a-team'], { queryParams: { returnUrl } });
+			this.libState.isUsable$.pipe(filter((usable) => usable), first()).subscribe(() => {
+				this.router.navigate(['auth', 'user', 'pick-a-team'], { queryParams: { returnUrl } });
+			});
+
 		}
 	}
 

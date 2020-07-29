@@ -90,10 +90,10 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		this.toUpdate = { callback: property.type.toLowerCase() + 'Update', property, value: value };
 		switch (property.property) {
 			case 'supplierId':
-				this.toUpdate.value = loki.db.getCollection('PropertyOption').get('id', value.supplierId);
+				this.toUpdate.value = loki.db.getCollection('PropertyOption').by('id', value.supplierId);
 				break;
 			case 'categoryId':
-				this.toUpdate.value = loki.db.getCollection('PropertyOption').get('id', value.categoryId);
+				this.toUpdate.value = loki.db.getCollection('PropertyOption').by('id', value.categoryId);
 				break;
 				// TODO add productTag, assignee
 		}
