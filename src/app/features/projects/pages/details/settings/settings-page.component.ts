@@ -49,7 +49,7 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		this.project$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			tap(id => this.id = id),
-			switchMap(id => api.col('Project').get(id)),
+			switchMap(id => api.Project.get(id)),
 		) as any;
 
 		// this.project$.pipe(

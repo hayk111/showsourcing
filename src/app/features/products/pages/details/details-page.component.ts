@@ -119,19 +119,19 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		api.col('Product')
+		api.Product
 			.update([{ id: this.product.id, status: { id: statusId } } as any]);
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		api.col('Product')
+		api.Product
 			.update([{ id: this.product.id, favorite: true } as any]);
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		api.col('Product')
+		api.Product
 			.update([{ id: this.product.id, favorite: false } as any]);
 	}
 

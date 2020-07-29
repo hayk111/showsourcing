@@ -65,7 +65,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.dlgSrv.close({ component: DefaultCreationDialogComponent, type: 'Product'  })
 			.data$
 			.pipe(
-				switchMap(product => api.col('Product').create([product]).local$),
+				switchMap(product => api.Product.create([product]).local$),
 				switchMap((createdProducts: models.Product[])  => {
 					const product = createdProducts[0];
 					return api['ProjectProduct'].create([{
