@@ -3,7 +3,7 @@
 	class="price"
 	[ngClass]="{'empty': !price || !price?.value}"
 	[hideOnOpen]="true"
-	[hasAction]="false"
+	[hasAction]="true"
 	(closed)="updateProductField($event, inpPrice?.value, 'price')"
 	(opened)="inpPrice?.focus()"
 	(saved)="updateProductField(false, inpPrice?.value, 'price')">

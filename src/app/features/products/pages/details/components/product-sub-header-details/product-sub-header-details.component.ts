@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { api, Product, Supplier, ProductTag } from 'lib';
 import { Price } from '~core/erm3';
 import { updateProductPriceMOQ } from '~utils/price.utils';
-import { first } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -19,8 +19,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	@Output() openSupplier = new EventEmitter<Supplier>();
 
 	price: Price;
-
-	productTags$: Observable<ProductTag[]>;
+	productTags: ProductTag[];
 
 	samplesCount$: Observable<number>;
 	tasksCount$: Observable<number>;
@@ -33,25 +32,24 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
-			console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> data', data);
-		});
-
-		const ids = this.product.tags.map((tag: ProductTag) => tag.tagId);
-		console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> ids[0]', ids[0]);
-
-		setTimeout(() => {
-			api.ProductTag.find({
-			 filter: {
-				 property: 'id',
-				 isString: ids[0]
-			 }
-		 }).data$.subscribe(tags => {
-			 console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> tags', tags);
-		 });
-		}, 3000);
-
-		console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> this.product', this.product);
+		api.Product.get(this.product.id)
+			.pipe(
+				switchMap((updatedProduct: Product) => {
+					const tagIds = updatedProduct.tags.map((tag: ProductTag) => tag.tagId);
+					return api.PropertyOption.findByType(
+						'TAG',
+						{
+							filter: {
+								property: 'id',
+								inStrings: tagIds
+							}
+						}
+					).data$;
+				})
+			)
+			.subscribe((tags) => {
+				this.productTags = [...tags];
+			});
 
 		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
 		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
@@ -64,18 +62,14 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		updateProductPriceMOQ(this.price, newVal as any, type, this.product.id)
 			.pipe(first())
 			.subscribe((updatedProducts: Product[]) => {
-				this.price = updatedProducts.length && updatedProducts[0].propertiesMap
-					? updatedProducts[0].propertiesMap.price
-					: undefined;
+				if (updatedProducts.length && updatedProducts[0].propertiesMap) {
+					this.price = updatedProducts[0].propertiesMap.price;
+				}
 			});
 	}
 
 	update(value: any, prop: string) {
-		if (prop === 'name') {
-			this.updated.emit({ id: this.product.id, [prop]: value });
-		} else {
-			this.updated.emit({ id: this.product.id, [prop]: value });
-		}
+		this.updated.emit({ ...this.product, [prop]: value });
 	}
 
 	onOpenSupplier(supplier: Supplier, event: MouseEvent) {

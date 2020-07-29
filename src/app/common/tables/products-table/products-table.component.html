@@ -78,7 +78,7 @@
 					#editable
 					class="full-width"
 					[hideOnOpen]="true"
-					[hasAction]="false"
+					[hasAction]="true"
 					(opened)="inp.focus()"
 					(closed)="updatePriceMoq(row?.propertiesMap?.price, inp?.value, 'price', row?.id)">
 					<editable-value-app #price>

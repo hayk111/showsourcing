@@ -15,7 +15,7 @@
 				<ng-container *ngIf="!value?.length; else hasItems"><span class="capitalize" translate="text.none"></span></ng-container>
 				<ng-template #hasItems>
 					<div class="flexWrap info-badges-container">
-						<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.id }}</info-badge-app>
+						<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.value }}</info-badge-app>
 					</div>
 				</ng-template>
 		</selector-app>

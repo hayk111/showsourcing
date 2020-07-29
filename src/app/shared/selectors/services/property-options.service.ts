@@ -18,7 +18,7 @@ export class PropertyOptionsService {
 	private _data$ = new BehaviorSubject([]);
 	data$ = this._data$.asObservable();
 
-	private typename: Typename;
+	private typename: Typename | 'TAG';
 
 	constructor(
 		private teamSrv: TeamService,
@@ -26,7 +26,7 @@ export class PropertyOptionsService {
 		private sortSrv: SortService,
 	) {}
 
-	setup(typename: Typename) {
+	setup(typename: Typename | 'TAG') {
 		this.typename = typename;
 
 		combineLatest(
