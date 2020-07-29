@@ -67,7 +67,8 @@
     "ng2-charts": "^2.3.0",
     "npm": "^6.4.1",
     "realm-graphql-client": "^1.4.0",
-    "rxjs": "^6.6.0",
+		"rxjs": "^6.6.0",
+		"showsourcing-api-lib": "0.1.5",
     "subscriptions-transport-ws": "^0.9.14",
     "uuid": "^3.2.1",
     "zone.js": "^0.10.3"
