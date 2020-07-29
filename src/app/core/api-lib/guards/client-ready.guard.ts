@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, CanActivateChild } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'showsourcing-api-lib/node_modules/rxjs';
 import { state } from 'showsourcing-api-lib';
-import { tap, last, skip, shareReplay, filter } from 'rxjs/operators';
+import { tap, shareReplay, filter } from 'rxjs/operators';
 import { log } from '~utils/log';
 
 @Injectable({
