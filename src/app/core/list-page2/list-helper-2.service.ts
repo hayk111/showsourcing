@@ -54,7 +54,7 @@ export class ListHelper2Service<G = any> {
 		findFn?: (options: ISearchOptions) => IApiResponse,
 	) {
 		componentDestroy$ = componentDestroy$ || new Subject();
-		findFn = findFn || ((options: ISearchOptions) => api[typename].find(options));
+		findFn = findFn || ((options: ISearchOptions) => api[typename].find$(options));
 		this.typename = typename;
 
 		const reactiveFind = combineLatest(

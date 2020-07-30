@@ -33,26 +33,6 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
-			console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> data', data);
-		});
-
-		const ids = this.product.tags.map((tag: ProductTag) => tag.tagId);
-		console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> ids[0]', ids[0]);
-
-		setTimeout(() => {
-			api.ProductTag.find({
-			 filter: {
-				 property: 'id',
-				 isString: ids[0]
-			 }
-		 }).data$.subscribe(tags => {
-			 console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> tags', tags);
-		 });
-		}, 3000);
-
-		console.log('ProductSubHeaderDetailsComponent -> ngOnInit -> this.product', this.product);
-
 		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
 		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
 		this.tasksCount$ = api.Task.findByProduct(this.product.id).count$;
