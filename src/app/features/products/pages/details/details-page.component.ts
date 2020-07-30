@@ -55,7 +55,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.product$ = id$.pipe(
-			switchMap(id => api.Product.get(id)),
+			switchMap(id => api.Product.get$(id)),
 			takeUntil(this._destroy$),
 		);
 

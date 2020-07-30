@@ -41,7 +41,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		});
 		console.log('InfoPageComponent -> ngOnInit -> this.route.parent.snapshot.params', this.route.parent.snapshot.params.id);
 
-		this.product$ = api.Product.get(this.route.parent.snapshot.params.id)
+		this.product$ = api.Product.get$(this.route.parent.snapshot.params.id)
 			.pipe(
 				takeUntil(this._destroy$),
 				tap(product => {

@@ -50,7 +50,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	ngOnInit() {
 		this.currentFormGroupSub.push(this.subscribeOnValueChanges(this.formGroup));
 
-		api.Product.get(this.entityId)
+		api.Product.get$(this.entityId)
 			.subscribe(product => {
 			this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
 			this.formGroupUnsubscribe();
