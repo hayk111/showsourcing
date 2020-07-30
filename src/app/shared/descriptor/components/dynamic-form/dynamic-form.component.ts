@@ -48,8 +48,17 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		private cd: ChangeDetectorRef) {}
 
 	ngOnInit() {
+		/**
+		 * The first subscription to the dynamic form group, this for any dynamic form updates.
+		 * As formGroup periodically updates when the product is changed by parent components
+		 * we keep track of all the subscriptions to it's changes and unsubscribe before new subscription is created
+		 */
 		this.currentFormGroupSub.push(this.subscribeOnValueChanges(this.formGroup));
 
+		/**
+		 * Subscription to any Product changes, like when parent component updates the product, in order to not
+		 * have memory leak errors we're keeping track of all subscriptions to the @formGroup changes
+		 */
 		api.Product.get(this.entityId)
 			.subscribe(product => {
 			this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
@@ -74,28 +83,33 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			changes.section.previousValue !== changes.section.currentValue;
 		const styleChanged = changes.style && changes.style.previousValue !== changes.style.currentValue;
 
+		/**
+		 * Creating form columns based on @section input provided
+		 */
 		if (changes.section && (colChanged || sectionChanged)) {
 			this.makeColumns();
 		}
 
+		/**
+		 * Building real form group based on @section input provided and
+		 * filling the form with data provided via @properties input
+		 */
 		if (changes.section && (sectionChanged || updateOnChanged)) {
 			this.buildFormGroup();
 		}
-
-		// if (propertiesChanged) {
-		// 	this.formGroup.patchValue({...this.properties });
-		// 	this.cd.markForCheck();
-		// }
 
 		if (styleChanged) {
 			this.cd.markForCheck();
 		}
 	}
-
+	/**
+	 * Function to subscribe to the current form group changes, which will return a Subscrption
+	 * so we're able to keep it in @subscribeOnValueChanges array
+	 * @param  {FormGroup} formGroup
+	 * @returns Subscription
+	 */
 	subscribeOnValueChanges(formGroup: FormGroup): Subscription {
 		return from(formGroup.valueChanges).pipe(
-			// switchMap(group => group.valueChanges),
-			// removing properties with "falsy" values
 			map(properties => _.pickBy(properties, (val, key) => !!properties[key])),
 			map(properties => {
 				const returnObj: any = {};
@@ -123,7 +137,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		this.formGroup.reset(value);
 	}
 
-	/** put the custom fields into columns
+	/**
+	 * Put the custom fields into columns
 	 * If we have only one column then we will have one column with all the fields
 	 * If we have two columns we will have 2 columns with each half the field, etc..
 	 */
@@ -142,19 +157,18 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		return sectionWithColumn;
 	}
 
-	isEqual(val1, val2) {
-		if ((!val1 || !Object.keys(val1).length) && (!val2 || !Object.keys(val2).length)) {
-			return true;
-		}
-		return _.isEqual(val1, val2);
-	}
-
+	/**
+	 * Function that builds form group based on descriptor @section input
+	 */
 	private buildFormGroup() {
 		this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
 		this.formGroup.patchValue({...this.properties}, { emitEvent: false });
 		log.debug('built form group', this.formGroup);
 	}
 
+	/**
+	 * Function that unsubscribes from all the form group subscriptions
+	 */
 	private formGroupUnsubscribe() {
 		[...this.currentFormGroupSub].forEach(subscription => subscription.unsubscribe());
 		this.currentFormGroupSub = [];

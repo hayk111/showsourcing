@@ -11,8 +11,8 @@ export class PaginationService {
 	limit$ = this._limit$.asObservable();
 	limitChoices = [25, 50, 100, 200];
 	/** from which page */
-	private currentPage = 0;
-	private _page$ = new BehaviorSubject<number>(this.currentPage);
+	private _currentPage = 0;
+	private _page$ = new BehaviorSubject<number>(this._currentPage);
 	page$ = this._page$.asObservable();
 
 	pagination$ = combineLatest(this.limit$, this.page$).pipe(map(([limit, page]) => ({ limit, page })));
@@ -22,7 +22,7 @@ export class PaginationService {
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20], if 3 we display [1, 2, 3 ] */
 	private width = 5;
 	private _total$ = new BehaviorSubject(0);
-	private total: number;
+	private _total: number;
 	private totalPages: number;
 
 	constructor() {
@@ -31,12 +31,13 @@ export class PaginationService {
 			this.limit$,
 			this.page$
 		).subscribe(([total, limit, page]) => {
-			this.total = total;
+			this._total = total;
 			this.totalPages = this.getTotalPages(total, limit);
 			// page = index so +1 to get number of pages
 			if (page + 1 > this.totalPages)
 				return this.goToPreviousPage();
 			const range = this.buildPagingRange(page);
+			console.log('PaginationService -> constructor -> range', range);
 			this._range$.next(range);
 		});
 	}
@@ -47,38 +48,38 @@ export class PaginationService {
 	}
 
 	goToPage(page: number) {
-		if (page !== this.currentPage) {
+		if (page !== this._currentPage) {
 			this._page$.next(page);
-			this.currentPage = page;
+			this._currentPage = page;
 		}
 	}
 
 	goToNextPage() {
-		if (this.currentPage < this.totalPages - 1) {
-			this._page$.next(this.currentPage + 1);
-			this.currentPage++;
+		if (this._currentPage < this.totalPages - 1) {
+			this._page$.next(this._currentPage + 1);
+			this._currentPage++;
 		}
 	}
 
 	goToPreviousPage() {
-		if (this.currentPage > 0) {
-			this._page$.next(this.currentPage - 1);
-			this.currentPage--;
+		if (this._currentPage > 0) {
+			this._page$.next(this._currentPage - 1);
+			this._currentPage--;
 		}
 	}
 
 	goToFirstPage() {
-		if (this.currentPage > 0) {
+		if (this._currentPage > 0) {
 			this._page$.next(0);
-			this.currentPage = 0;
+			this._currentPage = 0;
 		}
 	}
 
 	goToLastPage() {
-		if (this.currentPage !== this.total - 1) {
-			const lastPage = Math.ceil(this.total / this.currentLimit) - 1;
+		if (this._currentPage !== this._total - 1) {
+			const lastPage = Math.ceil(this._total / this.currentLimit) - 1;
 			this._page$.next(lastPage);
-			this.currentPage = lastPage;
+			this._currentPage = lastPage;
 		}
 	}
 
@@ -86,6 +87,14 @@ export class PaginationService {
 		this._limit$.next(limit);
 		this.currentLimit = limit;
 		this.goToFirstPage();
+	}
+
+	get total() {
+		return this._total;
+	}
+
+	get currentPage() {
+		return this._currentPage;
 	}
 
 	private getTotalPages(count: number, itemsPerPage: number) {

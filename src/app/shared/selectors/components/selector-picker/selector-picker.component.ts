@@ -108,9 +108,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-		if (this.typename === 'PropertyOption') {
+		if (this.typename === 'PropertyOption' || this.typename.toLowerCase().includes('tag')) {
 			this.filterSrv.setup([], ['value']);
-			this.propertyOptionSrv.setup(this.customType);
+			this.propertyOptionSrv.setup(this.typename === 'PropertyOption' ? this.customType : 'TAG');
 			this.choices$ = this.propertyOptionSrv.data$
 				.pipe(
 					tap(choices => {
@@ -193,6 +193,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * this is called when we want to update the value
 	 */
 	onChange() {
+		console.log('onCHange called!!');
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
 			this.updateSingle();
@@ -206,6 +207,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateMultiple() {
 		let trimValues;
+		console.log('SelectorPickerComponent -> updateMultiple -> this.typename', this.typename, this.value);
 		switch (this.typename) {
 			case 'Product':
 				trimValues = this.value.map(v => (
@@ -218,11 +220,32 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					}
 					));
 					break;
+			case 'ProductTag':
+				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
+				console.log('this.value!!!', this.value);
+				trimValues = this.value.map(value => {
+					return {
+						id: this.entityId + ':' + value.id,
+						tagId: value.id,
+						[entityType + 'Id']: this.entityId,
+					};
+				});
+				break;
 			default:
 				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
 				break;
 		}
-		this.update.emit(trimValues);
+
+		if (this.typename.toLowerCase().includes('tag')) {
+			console.log('trimValues:::', trimValues);
+			this.selectorSrv.create(this.typename as any, trimValues[trimValues.length - 1])
+				.pipe(first())
+				.subscribe(created => {
+					console.log('SelectorPickerComponent -> updateMultiple -> created', created);
+				});
+		} else {
+			this.update.emit(trimValues);
+		}
 	}
 
 	/**
@@ -254,8 +277,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				itemToReturn = item;
 				break;
 		}
+		console.log('this.value---', this.value);
 
-		if (this.multiple && !this.isStored(itemToReturn)) { // if its multiple and its not already on our sotred values we add it
+		if (this.multiple && !this.isStored(itemToReturn)) {
 			this.value.push(itemToReturn);
 			this.onChange();
 		} else if (!this.multiple) { // if not multiple we update and close
@@ -304,6 +328,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.selectorSrv.create(this.typename as any, added);
 			}
 
+			console.log('SelectorPickerComponent -> create -> this.multiple', this.multiple);
 			// we add it directly to the value
 			if (this.multiple) {
 				if (this.value && this.value.length) {
@@ -314,6 +339,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			} else {
 				this.value = added;
 			}
+			console.log('SelectorPickerComponent -> create -> this.value', this.value);
 
 			if (createObs$ === undefined) {
 				return;
@@ -409,7 +435,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			return hasName;
 		}
 		if (this.value && this.value.length) {
-			hasName = !!this.value.find(value => value.name.toLowerCase() === name);
+			hasName = !!this.value.find(value => value.name && value.name.toLowerCase() === name);
 		}
 		return hasName;
 	}

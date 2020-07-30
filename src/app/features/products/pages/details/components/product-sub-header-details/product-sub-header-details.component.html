@@ -139,7 +139,7 @@
 		<h3 class="section-title">tags</h3>
 		<input-badge-selector-app
 			[entityId]="product?.id"
-			[value]="product?.tags"
+			[value]="productTags"
 			typename="ProductTag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>

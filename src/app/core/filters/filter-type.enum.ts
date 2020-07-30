@@ -12,7 +12,7 @@ export enum FilterType {
 	ASSIGNEE = 'assignee',
 	CATEGORIES = 'categories',
 	CATEGORY = 'category',
-	CREATED_BY = 'createdBy',
+	CREATED_BY = 'creator',
 	CUSTOM = 'custom',
 	DELETED = 'deleted',
 	DONE = 'done',

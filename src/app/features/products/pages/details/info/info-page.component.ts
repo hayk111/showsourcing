@@ -37,7 +37,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
-			console.log('InfoPageComponent -> ngOnInit -> data DDD', data);
+			console.log('Desctriptor data:', data); // this log is needed to stay for a little while
 		});
 		console.log('InfoPageComponent -> ngOnInit -> this.route.parent.snapshot.params', this.route.parent.snapshot.params.id);
 
@@ -65,7 +65,6 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	update(property: Partial<Product>) {
-		console.log('InfoPageComponent -> update -> property---', property);
 		const propertiesToUpdate: any = {
 			propertiesMap: {}
 		};

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { tap, map, switchMap } from 'rxjs/operators';
 import { api, Typename } from 'showsourcing-api-lib';
 import { PropertyDescriptor, PropertyType } from '~core/erm3';
+import _ from 'lodash';
 
 @Component({
 	selector: 'dynamic-editable-field-app',
@@ -73,7 +74,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 	get typename(): string {
 		if (this.descriptor.definition.selectorSettings) {
 			const type = this.descriptor.definition.selectorSettings.type.toLowerCase();
-			return type === 'custom' ? 'PropertyOption' : this.capitalize(type);
+			return type === 'custom' ? 'PropertyOption' : _.capitalize(type);
 		}
 
 		return '';
@@ -85,9 +86,5 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 		}
 
 		return '';
-	}
-
-	private capitalize(str: string): string {
-		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 }

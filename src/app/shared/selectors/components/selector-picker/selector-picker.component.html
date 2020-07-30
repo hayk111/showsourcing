@@ -5,7 +5,7 @@
 				inputApp 
 				formControlName="name" 
 				[value]="searchTxt" type="text" 
-				[placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + placeholderTypeName + '.singular' | translate }" 
+				[placeholder]="'ERM.' + placeholderTypeName + '.singular' | translate | capitalize" 
 				(keyup)="onKeydown($event)" 
 				(input)="search(inp.control.value)">
 	</form-field-app>
@@ -25,7 +25,7 @@
 
 			<ng-container *ngSwitchDefault>
 				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="typename" [hasDelete]="true" (delete)="delete(item)">
-					{{ item.name }}
+					{{ item.name || item.value }}
 				</info-badge-app>
 			</ng-container>
 

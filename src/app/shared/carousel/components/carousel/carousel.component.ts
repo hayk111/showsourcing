@@ -62,7 +62,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.images$.subscribe(imgs => {
-			console.log('CarouselComponent -> ngOnInit -> imgs ---', imgs);
 			this.images = imgs;
 			this.cdr.markForCheck();
 		});
@@ -114,20 +113,17 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 			.onTempImages(temp => {
 				this.selectedIndex = this.images.length;
 				this.images = [...this.images, ...temp];
-				console.log('this.images90909090:', this.images);
 				this.cdr.markForCheck();
 			})
 			.subscribe(() => {
 				this.cdr.markForCheck();
 				this.uploaded.emit();
-				console.log('CarouselComponent -> add -> this.images', this.images);
 				if (!this.images.some(img => img.type && img.type === 'pending')) {
 					this.uploaderSrv.showToast(`Uploaded ${files.length} image(s)`);
 				}
 			}, error => {
 				this.images = this.images.filter(img => img.type !== 'pending');
 				this.selectedIndex = this.images.length - 1;
-				console.error('Error:::::', files, this.images);
 				this.cdr.markForCheck();
 				this.uploaderSrv.showToast(error.message, 'upload failed', ToastType.ERROR);
 			});

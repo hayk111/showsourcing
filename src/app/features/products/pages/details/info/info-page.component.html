@@ -26,20 +26,6 @@
 			</accordion-app>
 		</ng-container>
 	</ng-container>
-
-	<!-- <accordion-app>
-		<accordion-title-app>Shipping & Packaging</accordion-title-app>
-		<accordion-content-app *ngIf="product$ | async as product; else loader">
-			<dynamic-form2-app
-				#form
-				[style]="'editable'"
-				[descriptor]="descriptor$ | async"
-				[properties]="product?.propertiesMap"
-				[columnAmount]="2">
-			</dynamic-form2-app>
-		</accordion-content-app>
-	</accordion-app> -->
-
 </div>
 
 <ng-template #loader>
