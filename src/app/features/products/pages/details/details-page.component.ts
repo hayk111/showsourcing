@@ -3,13 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { api, Product, Sample, Project, Task, Supplier, ProjectProduct } from 'showsourcing-api-lib';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { TeamService } from '~core/auth';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
+import _ from 'lodash';
 
 /**
  *
@@ -33,7 +34,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	productId: string;
 	product$: Observable<Product>;
-	productProjects$: Observable<ProjectProduct[]>;
+	productProjects: Project[];
 
 	// sample & task used for the preview
 	sample: Sample;
@@ -70,19 +71,20 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			err => this.onError(err)
 		);
 
-		this.productProjects$ = api.ProjectProduct.find$({
+		api.ProjectProduct.find$({
 			filter: {
 				property: 'id',
 				contains: this.productId
 			}
 		}).data$
 			.pipe(
+				map((productProjects: ProjectProduct[]) => {
+					return productProjects.map((projectProduct: ProjectProduct) => projectProduct.project);
+				}),
+				tap(projects => this.productProjects = projects),
 				takeUntil(this._destroy$),
-			);
+			).subscribe();
 
-		this.productProjects$.subscribe(productProjs => {
-			console.log('productProjssssss', productProjs);
-		});
 	}
 
 	private onProduct(product) {
@@ -169,14 +171,27 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateProductProjects(projects: Project[]) {
-		console.log('projects----', projects);
-		const productProjects: any[] = projects.map((project: any) => {
-			project.productId = this.productId;
-			project.projectId = project.id;
-			project.teamId = TeamService.teamSelected.id;
+		if (projects.length < this.productProjects.length) {
+			const deletedIds = _.difference(this.productProjects.map(p => p.id), projects.map(p => p.id));
+			console.log('DetailsPageComponent -> updateProductProjects -> deletedIds', deletedIds);
+			// TODO: implement delete
+			// api.ProjectProduct.delete(deletedIds);
+			return;
+		}
+		const toPass = [];
+
+		projects.forEach(project => {
+			console.log('project 9999::', project);
+			const { teamId, id } = project;
+ 			toPass.push({
+				teamId,
+				projectId: id,
+				productId: this.productId
+			});
 		});
-		console.log('DetailsPageComponent -> updateProductProjects -> productProjects', productProjects);
-		api.ProjectProduct.create(productProjects);
+
+		console.log('DetailsPageComponent -> updateProductProjects -> toPass', toPass);
+		api.ProjectProduct.create(toPass);
 	}
 
 	/** when deleting this product */
@@ -256,8 +271,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	dissociateProject(productProjects: Project[], projectToDelete: Project) {
-		// const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
-		// this.updateProduct({ projects });
+		const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
+		console.log('DetailsPageComponent -> dissociateProject -> projects', projects);
 	}
 
 }

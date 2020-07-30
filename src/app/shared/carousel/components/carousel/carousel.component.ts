@@ -72,7 +72,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 			}).data$
 				.pipe(
 					filter((images: Image[]) => {
-						return images.length && images[images.length - 1] && !!images[images.length - 1].url;
+						return images.length && !!images[images.length - 1].url;
 					}),
 					tap((images: any[]) => {
 						this.images$.next(images);

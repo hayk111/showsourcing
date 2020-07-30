@@ -41,7 +41,7 @@
 
 			<!-- Project card -->
 			<project-list-card-app
-				[projects]="productProjects$ | async"
+				[projects]="productProjects || []"
 				(update)="updateProductProjects($event)"
 				(openProject)="openProjectDetails($event)"
 				(deleteProject)="dissociateProject([], $event)">

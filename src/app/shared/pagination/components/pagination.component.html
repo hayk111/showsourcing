@@ -56,7 +56,7 @@ index: {{ currentPage }}
 		</select>
 
 		<span class="flexVAlign color-txt-primary mg-left-ms">
-			{{ ('OBJ.show-pagination' | translate: {count: paginationSrv.total, fromNumber: range[paginationSrv.currentPage] * 25, toNumber: toNumber}) + '--' + paginationSrv.currentPage }}
+			{{ ('OBJ.show-pagination' | translate: {count: paginationSrv.total, fromNumber: fromNumber, toNumber: toNumber}) }}
 		</span>
 	</div>
 

@@ -288,7 +288,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.onChange();
 		}
 		this.resetInput();
-		api.ProjectProduct;
 	}
 
 	/**

@@ -6,8 +6,8 @@ import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class PaginationService {
 	/** number of items taken at once */
-	private currentLimit = 25;
-	private _limit$ = new BehaviorSubject<number>(this.currentLimit);
+	private _currentLimit = 25;
+	private _limit$ = new BehaviorSubject<number>(this._currentLimit);
 	limit$ = this._limit$.asObservable();
 	limitChoices = [25, 50, 100, 200];
 	/** from which page */
@@ -47,6 +47,18 @@ export class PaginationService {
 		this._total$.next(total);
 	}
 
+	get total() {
+		return this._total;
+	}
+
+	get currentPage() {
+		return this._currentPage;
+	}
+
+	get currentLimit() {
+		return this._currentLimit;
+	}
+
 	goToPage(page: number) {
 		if (page !== this._currentPage) {
 			this._page$.next(page);
@@ -77,7 +89,7 @@ export class PaginationService {
 
 	goToLastPage() {
 		if (this._currentPage !== this._total - 1) {
-			const lastPage = Math.ceil(this._total / this.currentLimit) - 1;
+			const lastPage = Math.ceil(this._total / this._currentLimit) - 1;
 			this._page$.next(lastPage);
 			this._currentPage = lastPage;
 		}
@@ -85,16 +97,8 @@ export class PaginationService {
 
 	setLimit(limit: number) {
 		this._limit$.next(limit);
-		this.currentLimit = limit;
+		this._currentLimit = limit;
 		this.goToFirstPage();
-	}
-
-	get total() {
-		return this._total;
-	}
-
-	get currentPage() {
-		return this._currentPage;
 	}
 
 	private getTotalPages(count: number, itemsPerPage: number) {
