@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'showsourcing-api-lib/node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { TeamService } from '~core/auth/services/team.service';
 import { log } from '~utils';

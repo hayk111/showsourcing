@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {  Observable, ReplaySubject } from 'showsourcing-api-lib/node_modules/rxjs';
+import {  Observable, ReplaySubject } from 'rxjs';
 import { filter, first, map, shareReplay, tap, switchMap } from 'rxjs/operators';
 import { api, Team, client } from 'showsourcing-api-lib';
 import { LocalStorageService } from '~core/local-storage';

@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { from, Observable, of } from 'showsourcing-api-lib/node_modules/rxjs';
+import { from, Observable, of } from 'rxjs';
 import { first, concatMap } from 'rxjs/operators';
 
 /**
