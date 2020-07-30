@@ -44,7 +44,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplier$ = id$.pipe(
-			switchMap(id => api.Supplier.get(id)),
+			switchMap(id => api.Supplier.get$(id)),
 		) as any;
 
 		this.supplier$.subscribe(

@@ -1,8 +1,8 @@
-import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, Input } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 
 import { HeaderNavComponent } from './components/nav/header-nav.component';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'header-details-app',
@@ -20,13 +20,18 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	@ContentChild(HeaderNavComponent, { static: false }) headerNav: HeaderNavComponent;
 
 	constructor(
-		private location: Location
+		private router: Router,
 	) {
 		super();
 	}
 
+	/**
+	 * Redirects to table page
+	 */
 	goBack() {
-		this.location.back();
+		const secondSlashIndex = this.router.url.slice(1).indexOf('/');
+		const pathToBack = this.router.url.slice(1, secondSlashIndex + 1);
+		this.router.navigate([pathToBack]);
 	}
 
 	toDisplayString(nav: string) {

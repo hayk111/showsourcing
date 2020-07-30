@@ -21,7 +21,7 @@ export class SelectorsService {
 
 	getChoices(entityType: Typename, listBy: 'Team' | 'Owner' = 'Team', sortBy = 'name'): Observable<any[]> { // sortBy shall be added to query
 		// this.queryListRef = this.apiSrv.listBy(entityType, listBy);
-		this.queryListRef = api[entityType].find();
+		this.queryListRef = api[entityType].find$();
 		return this.queryListRef.data$;
 	}
 

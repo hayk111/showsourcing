@@ -70,7 +70,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 		if (!statuses || !this.entity || !this.entity.status) {
 			return true;
 		}
-		const lastStep = statuses[statuses.length - 1].step;
+		const lastStep = statuses[statuses.length - 1] && statuses[statuses.length - 1].step;
 		return this.entity.status.step < lastStep ? false : true;
 	}
 

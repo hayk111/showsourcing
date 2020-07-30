@@ -110,6 +110,10 @@ export class ModalCarouselComponent {
 	}
 
 	open(index?: number) {
+		// Do not open preview if there's no image
+		if (!this.images.length) {
+			return;
+		}
 		this.direction = 'open';
 		this.slideAnimationState = 'active';
 		if (Number.isInteger(index)) {

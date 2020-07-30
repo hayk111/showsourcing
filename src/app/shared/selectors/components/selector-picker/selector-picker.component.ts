@@ -108,7 +108,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-		if (this.typename === 'PropertyOption' || this.typename.toLowerCase().includes('tag')) {
+		if (this.typename === 'PropertyOption' || this.isTagElement()) {
 			this.filterSrv.setup([], ['value']);
 			this.propertyOptionSrv.setup(this.typename === 'PropertyOption' ? this.customType : 'TAG');
 			this.choices$ = this.propertyOptionSrv.data$
@@ -236,7 +236,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 		}
 
-		if (this.typename.toLowerCase().includes('tag')) {
+		if (this.isTagElement()) {
 			console.log('trimValues:::', trimValues);
 			this.selectorSrv.create(this.typename as any, trimValues[trimValues.length - 1])
 				.pipe(first())
@@ -256,6 +256,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		const updateData = {
 			[type.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
 		};
+		console.log('SelectorPickerComponent -> updateSingle -> updateData', type, updateData);
 
 		this.update.emit(updateData);
 		this.close.emit();
@@ -287,6 +288,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.onChange();
 		}
 		this.resetInput();
+		api.ProjectProduct;
 	}
 
 	/**
@@ -306,7 +308,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let added: any;
 		const value = this.searchTxt;
 		if (value && this.typename) {
-			if (this.typename.toLowerCase().includes('tag')) {
+			if (this.isTagElement()) {
 				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
 				added = {
 					[entityType + 'Id']: this.entityId,
@@ -449,6 +451,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	delete(item) {
 		this.value = this.value.filter(value => value.id !== item.id);
 		this.onChange();
+	}
+
+	private isTagElement() {
+		return this.typename.toLowerCase().includes('tag');
 	}
 
 }

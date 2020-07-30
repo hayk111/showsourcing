@@ -1,7 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { api, Product, Sample, Project, Task, Supplier } from 'lib';
-import { Observable } from 'rxjs';
+import { api, Product, Sample, Project, Task, Supplier, ProjectProduct } from 'showsourcing-api-lib';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { TeamService } from '~core/auth';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
@@ -30,7 +31,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	@ViewChild('rating', { read: ElementRef, static: false }) rating: ElementRef;
 
 	product: Product;
+	productId: string;
 	product$: Observable<Product>;
+	productProjects$: Observable<ProjectProduct[]>;
 
 	// sample & task used for the preview
 	sample: Sample;
@@ -51,11 +54,12 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(
 			map(params => params.id),
+			tap(id => this.productId = id),
 			takeUntil(this._destroy$)
 		);
 
 		this.product$ = id$.pipe(
-			switchMap(id => api.Product.get(id)),
+			switchMap(id => api.Product.get$(id)),
 			takeUntil(this._destroy$),
 		);
 
@@ -66,6 +70,19 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			err => this.onError(err)
 		);
 
+		this.productProjects$ = api.ProjectProduct.find$({
+			filter: {
+				property: 'id',
+				contains: this.productId
+			}
+		}).data$
+			.pipe(
+				takeUntil(this._destroy$),
+			);
+
+		this.productProjects$.subscribe(productProjs => {
+			console.log('productProjssssss', productProjs);
+		});
 	}
 
 	private onProduct(product) {
@@ -147,9 +164,19 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(product: Product) {
-		console.log('DetailsPageComponent -> updateProduct -> productkkkkkk', product);
-		api.Product
-			.update([{ id: this.product.id, ...product } as any]);
+		console.log('DetailsPageComponent -> updateProduct -> productkkkkkk', product, this.product.id);
+		api.Product.update([{ id: this.product.id, name: product.name } as any]);
+	}
+
+	updateProductProjects(projects: Project[]) {
+		console.log('projects----', projects);
+		const productProjects: any[] = projects.map((project: any) => {
+			project.productId = this.productId;
+			project.projectId = project.id;
+			project.teamId = TeamService.teamSelected.id;
+		});
+		console.log('DetailsPageComponent -> updateProductProjects -> productProjects', productProjects);
+		api.ProjectProduct.create(productProjects);
 	}
 
 	/** when deleting this product */

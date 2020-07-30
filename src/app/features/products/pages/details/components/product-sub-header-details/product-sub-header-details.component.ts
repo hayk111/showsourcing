@@ -32,10 +32,10 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		api.Product.get(this.product.id)
+		api.Product.get$(this.product.id)
 			.pipe(
 				switchMap((updatedProduct: Product) => {
-					const tagIds = updatedProduct.tags.map((tag: ProductTag) => tag.tagId);
+					const tagIds = updatedProduct.tags ? updatedProduct.tags.map((tag: ProductTag) => tag.tagId) : [];
 					return api.PropertyOption.findByType(
 						'TAG',
 						{
