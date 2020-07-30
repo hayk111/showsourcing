@@ -1,5 +1,6 @@
 <div class="flex container flexWrap">
 	<carousel-app
+		[nodeId]="'Product:' + product?.id"
 		[hasPreview]="true">
 	</carousel-app>
 
@@ -34,9 +35,9 @@
 					[hasNumber]="true" 
 					(click)="ratingClicked.emit()">
 				</rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ samplesCount$ | async }} Samples</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ tasksCount$ | async }} Tasks</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ commentsCount$ | async }} Comments</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ getCount(samplesCount$ | async, 'Sample') }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ getCount(tasksCount$ | async, 'Task') }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ getCount(commentsCount$ | async, 'Comment') }}</div>
 			</div>
 		</div>
 
@@ -51,55 +52,62 @@
 		<!-- supplier -->
 		<section>
 			<h3 class="section-title">supplier</h3>
-			<editable-container-app
-				#edtSupplier
-				class="action-hover-container-0 sub-header-container"
-				[hasAction]="false"
-				[isFullWidth]="false"
-				[isOpen]="supplierSelector?.menuOpen"
-				(click)="supplierSelector?.openMenu($event, true)">
-				<editable-value-app>
-					<!-- Put this inside a component has a unique style tho -->
-					<selector-app
-						#supplierSelector
-						typename="Supplier"
-						[canCreate]="true"
-						[extraOffset]="{ offsetX: 0, offsetY: 35 }"
-						[leftSideOrientation]="true"
-						[width]="370"
-						(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">
-						<editable-value-app>
-							<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
-								<logo-app
-									class="mg-right-s pointer"
-									typename="Supplier"
-									[logo]="supplier?.logoImage">
-								</logo-app>
-								<div class="supplier-info mg-right-xxl">
-									<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
-									<div class="flex dot-separator">
-										<div *ngIf="supplier?.propertiesMap?.supplierType">
-											{{ supplier?.propertiesMap?.supplierType }}
+			<div 
+				class="flexVAlign supplier-section"
+				(mouseenter) ="supplierSelectorHovered = true"
+				(mouseleave) ="supplierSelectorHovered = false">
+				<editable-container-app
+					#edtSupplier
+					class="supplier-editable hover-with-padding"
+					[hasAction]="false"
+					[isFullWidth]="false"
+					[isOpen]="supplierSelector?.menuOpen"
+					(click)="supplierSelector?.openMenu($event, true)">
+					<editable-value-app>
+						<!-- Put this inside a component has a unique style tho -->
+						<selector-app
+							#supplierSelector
+							typename="Supplier"
+							[canCreate]="true"
+							[extraOffset]="{ offsetX: 0, offsetY: 35 }"
+							[leftSideOrientation]="true"
+							[width]="370"
+							(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">
+							<editable-value-app>
+								<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
+									<logo-app
+										class="mg-right-s pointer"
+										typename="Supplier"
+										[logo]="supplier?.logoImage">
+									</logo-app>
+									<div class="supplier-info mg-right-xxl">
+										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
+										<div class="flex dot-separator">
+											<div *ngIf="supplier?.propertiesMap?.supplierType">
+												{{ supplier?.propertiesMap?.supplierType }}
+											</div>
+											<div *ngIf="supplier?.propertiesMap?.country">
+												{{ supplier?.propertiesMap?.country | const: 'country' }}
+											</div>
+											<rating-badge-app	[score]="supplier?.score" [activeColor]="'primary'"></rating-badge-app>
 										</div>
-										<div *ngIf="supplier?.propertiesMap?.country">
-											{{ supplier?.propertiesMap?.country | const: 'country' }}
-										</div>
-										<rating-badge-app	[score]="supplier?.score" [activeColor]="'primary'"></rating-badge-app>
 									</div>
 								</div>
-								<button class="eye-icon icon light action-hover-item-0">
-									<icon-app
-										size="20"
-										name="eye"
-										toolTip [toolTipMessage]="'text.open-supplier' | translate" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
-										(click)="onOpenSupplier(supplier, $event)">
-									</icon-app>
-								</button>
-							</div>
-						</editable-value-app>
-					</selector-app>
-				</editable-value-app>
-			</editable-container-app>
+							</editable-value-app>
+						</selector-app>
+					</editable-value-app>
+				</editable-container-app>
+				<div *ngIf="product?.supplier && supplierSelectorHovered" class="eye-container">
+					<button class="eye-icon icon light">
+						<icon-app
+							size="20"
+							name="eye"
+							toolTip [toolTipMessage]="'text.open-supplier' | translate" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+							(click)="onOpenSupplier(product?.supplier, $event)">
+						</icon-app>
+					</button>
+				</div>
+			</div>
 		</section>
 
 		<!-- category -->
@@ -130,8 +138,9 @@
 	<section>
 		<h3 class="section-title">tags</h3>
 		<input-badge-selector-app
+			[entityId]="product?.id"
 			[value]="product?.tags"
-			typename="Tag"
+			typename="ProductTag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</section>

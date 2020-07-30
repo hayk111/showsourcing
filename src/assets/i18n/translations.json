@@ -140,7 +140,7 @@
     "LENGTH_UNIT": {
       "plural": "length units",
       "singular": "length unit"
-    },
+		},
     "LOCATION": {
       "plural": "locations",
       "singular": "location"
@@ -542,7 +542,7 @@
     "title": "Title",
     "update": "Update",
     "update-products": "Update products",
-    "upload-picture": "Upload picture",
+    "upload-picture": "Upload Picture",
     "view": "View",
     "view-all": "View all",
     "view-all-pictures": "View all pictures",
@@ -1256,7 +1256,7 @@
     "product-owner": "product owner",
     "product-status": "product status",
     "product-type": "product type",
-    "products": "products",
+    "products": "Products",
     "products-archived": "Products archived",
     "profile": "Profile",
     "project": "Project",

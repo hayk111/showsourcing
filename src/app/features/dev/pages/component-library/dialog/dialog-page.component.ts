@@ -3,8 +3,7 @@ import { tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Product, Project } from '~core/erm3/models';
 import { DialogService } from '~shared/dialog';
-import { api } from 'showsourcing-api-lib';
-import { Typename } from '~core/erm3/typename.type';
+import { api, Typename } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'app-dialog-page',
@@ -57,6 +56,6 @@ export class DialogPageComponent {
 	private _creationHelper(typename: Typename) {
 		this.dlgCommonSrv
 			.openCreationDlg(typename)
-			.data$.subscribe((entity) => api[typename].create([entity]).subscribe());
+			.data$.subscribe((entity) => api[typename].create([entity]));
 	}
 }

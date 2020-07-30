@@ -9,7 +9,7 @@ editable-container-app {
 	
 	&.empty:not(.open) {
 		&:hover {
-			background: rgb(249, 250, 252);
+			background: var(--color-bg-secondary);
 		}
 	
 		height: var(--spacing-xl);
@@ -19,6 +19,11 @@ editable-container-app {
 	&.price {
 		display: flex;
 		height: var(--spacing-xl);
+	}
+	&.price, &.moq {
+		&:hover {
+			background: var(--color-bg-secondary);
+		}
 	}
 }
 

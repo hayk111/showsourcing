@@ -14,7 +14,20 @@
 
 	carousel-app {
 		margin-right: var(--spacing-l);
-		height: 482px;
+	}
+
+	.supplier-section {
+		max-width: 170px;
+	}
+
+	.supplier-editable {
+		width: 135px;
+		display: inline-block;
+	}
+
+	.eye-container {
+		display: inline-flex;
+		height: 100%;
 	}
 
 	.product-info {
@@ -22,11 +35,21 @@
 		
 		.product-name {
 			height: var(--spacing-xl);
+			margin-bottom: var(--spacing-xxs);
 		}
+	}
+
+	.hover-with-padding:hover {
+		background: var(--color-bg-secondary);
+		padding: 4px 8px;
 	}
 
 	.sub-header-container:hover {
 		background: var(--color-bg-secondary);
+	}
+
+	.sub-header-container-no-hover:hover {
+		background: transparent;
 	}
 }
 
@@ -59,16 +82,24 @@
 .supplier-container {
 	position: relative;
 	.supplier-name {
+		display: block;
+		width: 80px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 		line-height: 1;
 	}
+}
 
+.eye-container {
 	button.eye-icon {
-		position: absolute;
-		right: 0;
-		top: 0;
 		icon-app {
 			transition: 0.3s;
 			color: var(--color-vibrant);
+		}
+
+		&:hover {
+			background: transparent;
 		}
 
 		&:hover icon-app {

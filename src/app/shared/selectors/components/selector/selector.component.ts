@@ -50,6 +50,10 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	 * we need to query
 	 */
 	@Input() definitionReference: ID;
+	/**
+	 * this is used e.g in the tags selectors, where to create a tag we need to provide entity ID
+	 */
+	@Input() entityId: string;
 
 	@Output() menuClosed = new EventEmitter<any>();
 	@Output() menuOpened = new EventEmitter<any>();
@@ -71,7 +75,6 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			this.tab.typing.pipe(
 				tap(key => {
 					word += key;
-					console.log('SelectorComponent -> ngOnInit -> word', word);
 				}),
 				debounceTime(300),
 			).subscribe(_ => {

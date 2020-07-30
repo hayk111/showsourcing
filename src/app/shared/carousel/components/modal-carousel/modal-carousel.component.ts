@@ -1,5 +1,5 @@
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, ChangeDetectorRef } from '@angular/core';
 import { AppImage } from '~core/erm';
 import { slideAnimation } from '~shared/carousel/components/animations/slide.animations';
 
@@ -21,6 +21,9 @@ export class ModalCarouselComponent {
 	isOpen = false;
 	slideAnimationState = 'inactive';
 	direction = 'none';
+
+	constructor(private cdr: ChangeDetectorRef) {}
+
 	@HostListener('document:keydown', ['$event'])
 	onKeydownHandler(event: KeyboardEvent) {
 		switch (event.keyCode) {
@@ -39,31 +42,37 @@ export class ModalCarouselComponent {
 	back(event) {
 		this.direction = 'back';
 		this.toggleSlideAnimationState();
+		this.slideAnimationDone();
 		event.stopPropagation();
 	}
 
 	next(event) {
 		this.direction = 'next';
 		this.toggleSlideAnimationState();
+		this.slideAnimationDone();
 		event.stopPropagation();
 	}
 
 	showPreviousImage() {
 		if (this.slideAnimationState === 'active') return;
-		if (this.selectedIndex > 0)
+		if (this.selectedIndex > 0) {
 			this.selectedIndex--;
-		else
+		} else {
 			this.selectedIndex = this.images.length - 1;
+		}
+		this.cdr.detectChanges();
 		this.indexChange.emit(this.selectedIndex);
 		this.toggleSlideAnimationState();
 	}
 
 	showNextImage() {
 		if (this.slideAnimationState === 'active') return;
-		if (this.selectedIndex < this.images.length - 1)
+		if (this.selectedIndex < this.images.length - 1) {
 			this.selectedIndex++;
-		else
+		} else {
 			this.selectedIndex = 0;
+		}
+		this.cdr.detectChanges();
 		this.indexChange.emit(this.selectedIndex);
 		this.toggleSlideAnimationState();
 	}
@@ -103,14 +112,18 @@ export class ModalCarouselComponent {
 	open(index?: number) {
 		this.direction = 'open';
 		this.slideAnimationState = 'active';
-		if (Number.isInteger(index))
+		if (Number.isInteger(index)) {
 			this.selectedIndex = index;
+		}
 		this.isOpen = true;
+		this.cdr.markForCheck();
 	}
 
 	close() {
+		this.isOpen = false;
 		this.direction = 'close';
 		this.slideAnimationState = 'inactive';
+		this.cdr.markForCheck();
 	}
 
 }

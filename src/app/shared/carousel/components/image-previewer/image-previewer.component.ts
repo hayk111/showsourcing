@@ -15,8 +15,10 @@ export class ImagePreviewerComponent extends TrackingComponent {
 	/** array of images displayed */
 	private _images: Array<AppImage> = [];
 	@Input() set images(images: Array<AppImage>) {
-		this._images = images;
+		console.log('ImagePreviewerComponent -> @Input -> images', images);
+		this._images = images.filter((img: any) => !!img.url && !img.pending);
 		this.imagesWithIndices = [];
+		console.log('ImagePreviewerComponent -> @Input -> this.imagesWithIndices', this.imagesWithIndices);
 
 		this.images.forEach((image: AppImage, i) => {
 			this.imagesWithIndices.push({
@@ -29,7 +31,7 @@ export class ImagePreviewerComponent extends TrackingComponent {
 		return this._images;
 	}
 	/** size in px of the images */
-	@Input() size = 48;
+	@Input() size = 44;
 	/** whether previews can be deleted */
 	@Input() isDeletable = false;
 	// index of currently displaying img

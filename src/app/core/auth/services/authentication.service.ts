@@ -63,7 +63,7 @@ export class AuthenticationService {
 		this.signIn$.pipe(first()).subscribe(_ => {
 			log.debug('client init');
 			client.init({
-				offlineConfig: {storage: localforage},
+				offlineConfigAWS: {storage: localforage},
 				shouldSync: true,
 			});
 		});

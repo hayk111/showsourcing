@@ -7,7 +7,7 @@ import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { tap, first, switchMap} from 'rxjs/operators';
-import { api } from 'showsourcing-api-lib';
+import { api, models } from 'showsourcing-api-lib';
 import { TeamService } from '~core/auth';
 import { ProjectProductService } from '~features/projects/services/project-product.service';
 
@@ -65,14 +65,14 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.dlgSrv.close({ component: DefaultCreationDialogComponent, type: 'Product'  })
 			.data$
 			.pipe(
-				switchMap(product => api.col('Product').create([product])),
-				switchMap((createdProducts: any[])  => {
+				switchMap(product => api.Product.create([product]).local$),
+				switchMap((createdProducts: models.Product[])  => {
 					const product = createdProducts[0];
 					return api['ProjectProduct'].create([{
 						teamId: TeamService.teamSelected.id,
 						productId: product.id,
 						projectId: this.projectId
-					}]);
+					}]).local$;
 				}),
 				tap(_ => this.projectProductSrv.refetch()),
 				first()

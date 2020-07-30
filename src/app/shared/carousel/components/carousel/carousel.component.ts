@@ -3,20 +3,21 @@ import {
 	ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild
 } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { BehaviorSubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { takeUntil, tap, filter } from 'rxjs/operators';
 import { api, Image } from 'showsourcing-api-lib';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
+import { ToastType } from '~shared/toast';
 
 @Component({
 	selector: 'carousel-app',
 	templateUrl: './carousel.component.html',
 	styleUrls: ['./carousel.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.Default,
 	providers: [],
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
@@ -48,26 +49,38 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	defaultImg = DEFAULT_IMG;
 	private images$ = new BehaviorSubject<Image[]>([]);
 
+	pending = false;
 
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private uploaderSrv: UploaderService,
-		private cd: ChangeDetectorRef,
+		private cdr: ChangeDetectorRef,
 		private renderer: Renderer2
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.images$.pipe(
-		).subscribe(imgs => this.images = imgs);
+		this.images$.subscribe(imgs => {
+			console.log('CarouselComponent -> ngOnInit -> imgs ---', imgs);
+			this.images = imgs;
+			this.cdr.markForCheck();
+		});
 
-		if (this.nodeId)
-			this.fetchImages(this.nodeId);
-	}
-
-	fetchImages(nodeId: string) {
-		api.Image.findByNodeId(nodeId);
+		if (this.nodeId) {
+			api.Image.findByNodeId(this.nodeId, {
+				sort: { direction: 'ASC', property: 'createdAt' }
+			}).data$
+				.pipe(
+					filter((images: Image[]) => {
+						return images.length && images[images.length - 1] && !!images[images.length - 1].url;
+					}),
+					tap((images: any[]) => {
+						this.images$.next(images);
+					})
+				)
+				.subscribe();
+		}
 	}
 
 	back(event) {
@@ -77,8 +90,11 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	next(event) {
-		if (this.selectedIndex < this.images.length - 1) this.selectedIndex++;
-		else this.selectedIndex = 0;
+		if (this.selectedIndex < this.images.length - 1) {
+			this.selectedIndex++;
+		} else {
+			this.selectedIndex = 0;
+		}
 		event.stopPropagation();
 	}
 
@@ -86,23 +102,35 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	rotate() {
 		const img = this.getImg();
 		img.orientation = (img.orientation + 1) % 4;
-		api.Image
-			.update([{
-				...img,
-				orientation: img.orientation,
-			}])
-			.subscribe();
+		api.Image.update([{
+			id: img.id,
+			orientation: img.orientation,
+		}]);
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
 	add(files: Array<File>) {
 		this.uploaderSrv.uploadImages(files, this.nodeId)
 			.onTempImages(temp => {
-				this.images.push(...temp);
-				// index at the end for instant feedback
-				this.selectedIndex = this.images.length - 1;
+				this.selectedIndex = this.images.length;
+				this.images = [...this.images, ...temp];
+				console.log('this.images90909090:', this.images);
+				this.cdr.markForCheck();
 			})
-			.subscribe(_ => this.uploaded.emit());
+			.subscribe(() => {
+				this.cdr.markForCheck();
+				this.uploaded.emit();
+				console.log('CarouselComponent -> add -> this.images', this.images);
+				if (!this.images.some(img => img.type && img.type === 'pending')) {
+					this.uploaderSrv.showToast(`Uploaded ${files.length} image(s)`);
+				}
+			}, error => {
+				this.images = this.images.filter(img => img.type !== 'pending');
+				this.selectedIndex = this.images.length - 1;
+				console.error('Error:::::', files, this.images);
+				this.cdr.markForCheck();
+				this.uploaderSrv.showToast(error.message, 'upload failed', ToastType.ERROR);
+			});
 	}
 
 	/** deletes the image */
@@ -138,6 +166,10 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		saveAs(img.url, img.fileName);
 	}
 
+	open(comp) {
+		comp.open();
+	}
+
 	getImg() {
 		return this.images ? this.images[this.selectedIndex] : null;
 	}
@@ -152,14 +184,17 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** opens the file browser window so the user can select a file he wants to upload */
-	openFileBrowser() {
-		if (!this.static) this.inpFile.nativeElement.click();
+	openFileBrowser(ev) {
+		ev.stopPropagation();
+		if (!this.static) {
+			this.inpFile.nativeElement.click();
+		}
 	}
 
 	setSelectedIndex(value: number) {
 		this.selectedIndex = value;
 		// change coming from above
-		this.cd.markForCheck();
+		this.cdr.markForCheck();
 	}
 
 	/** Trackby function for ngFor */

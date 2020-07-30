@@ -26,6 +26,7 @@ export class SelectorsService {
 	}
 
 	create(entityType: Typename, entity: any) {
-		return api[entityType].create([entity]);
+		console.log('SelectorsService -> create -> entityType', entityType, entity);
+		return api[entityType].create([entity]).local$;
 	}
 }

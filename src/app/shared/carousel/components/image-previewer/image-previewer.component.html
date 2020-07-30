@@ -1,7 +1,7 @@
 <!-- move next -->
 <button
 	*ngIf="images?.length > 1"
-	class="icon big move-btn move-btn-next pointer"
+	class="icon move-btn move-btn-next pointer"
 	(mousedown)="next.emit($event)">
 	<icon-app name="fat-angle-right"></icon-app>
 </button>
@@ -9,7 +9,7 @@
 <!-- move previous -->
 <button
 	*ngIf="images?.length > 1"
-	class="icon big move-btn move-btn-previous next pointer"
+	class="icon move-btn move-btn-previous next pointer"
 	(mousedown)="previous.emit($event)">
 	<icon-app name="fat-angle-left"></icon-app>
 </button>
@@ -26,6 +26,8 @@
 	<div *ngIf=" (i === selectedIndex) || (selectedIndex > 4 && i > 3)" class="selected"></div>
 	<img-app
 		[image]="img.image"
-		size="xl">
+		[height]="'calc(100% - 4px)'"
+		[width]="'calc(100% - 4px)'"
+		size="s">
 	</img-app>
 </div>

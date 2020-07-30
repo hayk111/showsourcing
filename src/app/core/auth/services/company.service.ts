@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { api, client, Company } from 'showsourcing-api-lib';
-import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
 import { log } from '~utils/log';
-
 
 @Injectable({
 	providedIn: 'root'
@@ -15,9 +13,7 @@ export class CompanyService {
 	company$ = this._company$.asObservable();
 	companySync: Company;
 
-	constructor(
-		protected authSrv: AuthenticationService,
-	) {}
+	constructor(protected authSrv: AuthenticationService) {}
 
 	init() {
 		// when signing in we want to load the current company of the user
@@ -35,7 +31,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return api.Company.create(company).pipe(
+		return api.Company.create(company).online$.pipe(
 			tap(_company => this._company$.next(_company)),
 		);
 	}

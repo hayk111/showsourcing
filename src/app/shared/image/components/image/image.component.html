@@ -1,5 +1,6 @@
-<spinner-app *ngIf="image?.type === 'pending'"></spinner-app>
+<spinner-app *ngIf="image?.type === 'pending' || pending"></spinner-app>
 <img 
-	[ngClass]="{ 'pending': image?.type === 'pending' }" 
+	[ngClass]="{ 'pending': image?.type === 'pending' }"
+	[ngStyle]="{'width': width, 'height': height}"
 	[attr.src]="image | image : size : type" 
 	[style.object-fit]="objectFit" />

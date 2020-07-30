@@ -1,28 +1,33 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, from, Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import { api, authStatus, Image, Storage } from 'showsourcing-api-lib';
+import { forkJoin, from, Observable, zip } from 'rxjs';
+import { switchMap, tap, concatMap } from 'rxjs/operators';
+import { api, authStatus, Image, Storage, Auth } from 'showsourcing-api-lib';
 import { ToastService, ToastType } from '~shared/toast';
+import { UserService } from '~core/auth';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
+import { uuid } from '~utils';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
 
+	private uploadingImgName: string;
+
 	constructor(
-		private toastSrv: ToastService
+		private toastSrv: ToastService,
+		private userSrv: UserService
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): ObservableFileUpload {
-		const cognitoId = authStatus.cognitoId;
-		const obsArray = files.map(file => this.s3upload(file).pipe(
-			switchMap(_ => api.Attachment.create([{
-				fileName: `${cognitoId}/${file.name}`,
-				nodeId
-			}])),
-		));
+		const obsArray = files.map(file => this.s3upload(file));
 		const obsResponses = forkJoin(obsArray).pipe(
-			tap(_ => this.showToast(`Uploaded ${files.length} file(s)`))
-		) as ObservableFileUpload;
+			switchMap((files) => {
+				const toCreate = [];
+				files.forEach((file: any) => {
+					toCreate.push({ fileName: `${this.userSrv.identityId}/${file.key}`, nodeId });
+				});
+				return api.Attachment.create(toCreate).local$;
+			}),
+		) as ObservableFileUpload;		// casting to add the temp function
 
 		obsResponses.onTempFiles = (fn) => {
 			fn(files.map(file => ({ fileName: file.name, type: 'pending' })));
@@ -34,17 +39,17 @@ export class UploaderService {
 	}
 
 	uploadImages(files: File[], nodeId): ObservableImageUpload {
-		const cognitoId = authStatus.cognitoId;
-
-		const obsArray = files.map(file => this.s3upload(file).pipe(
-			switchMap(_ => api.Image.create([{
-				fileName: `${cognitoId}/${file.name}`,
-				nodeId
-			}])),
-		));
+		const obsArray = files.map(file => this.s3upload(file));
 
 		const obsResponses = forkJoin(obsArray).pipe(
-			tap(_ => this.showToast(`Uploaded ${files.length} image(s)`))
+			switchMap((images) => { // images are returned from s3upload function with corresponding names in S3
+				const toCreate = [];
+				images.forEach((img: any) => {
+					toCreate.push({ fileName: `${this.userSrv.identityId}/${img.key}`, nodeId });
+				});
+				return api.Image.create(toCreate).local$;
+			}),
+			// switchMap(() => Auth.currentUserCredentials()),
 		) as ObservableImageUpload;		// casting to add the temp function
 
 		obsResponses.onTempImages = (fn) => {
@@ -57,9 +62,18 @@ export class UploaderService {
 
 	}
 
+	showToast(message: string, title = 'upload successful', type = ToastType.SUCCESS) {
+		this.toastSrv.add({
+			type,
+			title,
+			message
+		});
+	}
+
 	private s3upload(file: File): Observable<string> {
+		const extension = file.name.slice(file.name.lastIndexOf('.'));
 		return from(Storage.put(
-			file.name,
+			uuid() + extension,
 			file,
 			{
 				level: 'private',
@@ -86,14 +100,6 @@ export class UploaderService {
 				resolve((e.target as any).result);
 			};
 			reader.readAsDataURL(file);
-		});
-	}
-
-	private showToast(message: string) {
-		this.toastSrv.add({
-			type: ToastType.SUCCESS,
-			title: 'upload successful',
-			message
 		});
 	}
 

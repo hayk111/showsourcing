@@ -1,14 +1,11 @@
 <form #formElem [formGroup]="formGroup">
 
-	<ng-container
-		*ngFor="let section of sections">
-		<h3 *ngIf="section?.name" class="mg-v-m">{{ section.name }}</h3>
+	<ng-container>
 		<div class="flex">
 			<div 
 				*ngFor="let propertyDescriptors of section.columns; let isLast = last"
 				[ngClass]="{ 'mg-right-m': !isLast }"
 				[ngStyle]="{ 'flex-basis': 100 / section.columns.length + '%' }">
-				
 				<ng-container *ngIf="style === 'form'; else editable">
 					<dynamic-field-app
 						*ngFor="let descriptor of propertyDescriptors" 

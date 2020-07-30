@@ -62,10 +62,7 @@ export class ListHelper2Service<G = any> {
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			map(([filter, pagination, sort]) => {
-				console.log('ListHelper2Service<G -> sort22', sort);
-				return findFn({ filter, sort, pagination });
-			}),
+			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination }))
 		);
 
 		// data
@@ -91,26 +88,25 @@ export class ListHelper2Service<G = any> {
 			})
 			.data$.pipe(
 				switchMap((entity) => {
-					return api[typename].create([{...entity, ...addedProperties}]);
+					return api[typename].create([{...entity, ...addedProperties}]).local$;
 				}),
 			).subscribe();
 	}
 
 	update(entity: any, typename?: Typename) {
-		api[typename || this.typename].update([entity]).subscribe();
+		api[typename || this.typename].update([entity]);
 	}
 
 	delete(entity: any, typename?: Typename) {
 		const { id, teamId } = entity;
-		api[typename || this.typename].delete([{ id }])
-			.subscribe();
+		api[typename || this.typename].delete([{ id }]);
 	}
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
 		return api[this.typename].update(
 			selected.map(ent => ({ id: ent.id, ...entity}))
-		);
+		).local$;
 	}
 
 	deleteSelected() {
@@ -125,7 +121,7 @@ export class ListHelper2Service<G = any> {
 				}),
 				switchMap((selectedIds) => {
 					console.log('deleteSelected -> selectedIds2', selectedIds);
-					return api[this.typename].delete(selectedIds);
+					return api[this.typename].delete(selectedIds).local$;
 				})
 			)
 			.subscribe((_) => {

@@ -191,7 +191,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 							teamId: TeamService.teamSelected.id,
 							productId,
 							projectId: this.projectId
-						}]).subscribe();
+						}]);
 					});
 					this.cdr.detectChanges();
 				}

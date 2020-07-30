@@ -42,6 +42,13 @@ carousel-app {
 	margin: var(--spacing-xs);
 }
 
+.empty {
+	icon-app {
+		color: var(--color-txt-third);
+		margin-bottom: var(--spacing-s);
+	}
+}
+
 .menu {
 	position: absolute;
 	top: var(--spacing-m);
@@ -104,7 +111,7 @@ carousel-app {
 	}
 }
 
-.add {
+.add, .add-no-menu {
 	position: absolute;
 	padding: 0 var(--spacing-m);
 	color: white;
@@ -112,6 +119,10 @@ carousel-app {
 	align-items: center;
 	left: var(--spacing-xxxl);
 	top: var(--spacing-m);
+}
+
+.add-no-menu {
+	left: var(--spacing-m);
 }
 
 spinner-app {

@@ -41,6 +41,24 @@
 		</editable-field-app>
 	</ng-container>
 
+	<!-- TEXT -->
+	<ng-container *ngSwitchCase="type.TEXT">
+		<editable-field-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
+			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				[readonly]="descriptor.readonly"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field-app>
+	</ng-container>
+
 	<!-- TEL -->
 	<ng-container *ngSwitchCase="type.TEL">
 		<editable-field-app 
@@ -236,14 +254,16 @@
 				{{ descriptor?.definition?.label }}
 			</editable-label-app>
 			<editable-value-app>
-				<selector-app 
+				<selector-app
 					#sel
-					[typename]="descriptor?.definition?.selectorSettings.type"
-					[customType]="descriptor?.definition?.selectorSettings.propertyOptionType"
+					[typename]="typename"
+					[customType]="customType"
+					[canCreate]="true"
 					[readonly]="descriptor.readonly"
 					[required]="descriptor.required"
-					[formControl]="control">
-					<span>{{ control.value }}</span>
+					[formControl]="control"
+					(update)="selectorUpdate($event)">
+					<span>{{ selectorValue$ | async }}</span>
 				</selector-app>
 			</editable-value-app>		
 		</editable-field-app>
