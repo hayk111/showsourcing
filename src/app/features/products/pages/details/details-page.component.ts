@@ -119,23 +119,20 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		api.col('Product')
-			.update([{ id: this.product.id, status: { id: statusId } } as any])
-			.subscribe();
+		api.Product
+			.update([{ id: this.product.id, status: { id: statusId } } as any]);
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		api.col('Product')
-			.update([{ id: this.product.id, favorite: true } as any])
-			.subscribe();
+		api.Product
+			.update([{ id: this.product.id, favorite: true } as any]);
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		api.col('Product')
-			.update([{ id: this.product.id, favorite: false } as any])
-			.subscribe();
+		api.Product
+			.update([{ id: this.product.id, favorite: false } as any]);
 	}
 
 	onThumbUp() {
@@ -152,8 +149,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	updateProduct(product: Product) {
 		console.log('DetailsPageComponent -> updateProduct -> productkkkkkk', product);
 		api.Product
-			.update([{ id: this.product.id, ...product } as any])
-			.subscribe();
+			.update([{ id: this.product.id, ...product } as any]);
 	}
 
 	/** when deleting this product */

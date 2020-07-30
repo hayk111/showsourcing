@@ -50,13 +50,13 @@ export class PropertyOptionsService {
 	createPropertyOptions(
 		propertyOptions: [{ type: string, value: any }]
 	): Observable<any> {
-		return api.PropertyOption.create(propertyOptions);
+		return api.PropertyOption.create(propertyOptions).local$;
 	}
 
 	deletePropertyOption(
 		entity: any,
 		apiOptions = {}) {
 		const options = apiOptions as MutationOptions;
-		return api.PropertyOption.delete([entity]);
+		return api.PropertyOption.delete([entity]).local$;
 	}
 }

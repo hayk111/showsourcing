@@ -104,7 +104,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		api.Image.update([{
 			id: img.id,
 			orientation: img.orientation,
-		}]).subscribe();
+		}]);
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */

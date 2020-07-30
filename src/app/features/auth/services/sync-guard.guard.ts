@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { from, Observable, of } from 'rxjs';
-import { first, mergeMap, tap, concatMap } from 'rxjs/operators';
+import { from, Observable, of } from 'showsourcing-api-lib/node_modules/rxjs';
+import { first, concatMap } from 'rxjs/operators';
 
 /**
  * helper to run multiple guards in sequence order instead of
