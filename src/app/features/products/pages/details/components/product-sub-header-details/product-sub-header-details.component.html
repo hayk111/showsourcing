@@ -80,7 +80,7 @@
 										[logo]="supplier?.logoImage">
 									</logo-app>
 									<div class="supplier-info">
-										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ 'barbabarbabrbabrabrbrabr' }}</span>
+										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
 										<div class="flex dot-separator">
 											<div *ngIf="supplier?.propertiesMap?.supplierType">
 												{{ supplier?.propertiesMap?.supplierType }}
