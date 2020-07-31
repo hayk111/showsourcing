@@ -99,8 +99,8 @@ export class FilterConverter {
 			case FilterType.SUPPLIER:
 			case FilterType.CATEGORY:
 				return {
-					property: type + 'Id',
-					contains: value
+					property: type,
+					isString: value
 				};
 			default:
 				return {

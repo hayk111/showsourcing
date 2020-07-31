@@ -47,17 +47,14 @@ export class EditableContainerComponent {
 
 	constructor(private cd: ChangeDetectorRef) { }
 
-	@HostListener('document:keydown', ['$event'])
-	onKeydownHandler(event: KeyboardEvent) {
-		event.stopPropagation();
+	@HostListener('keydown.enter', ['$event'])
+	onKeydownEnter() {
+		this.save();
+	}
 
-		if (event.keyCode === ESCAPE) {
-			this.close();
-		}
-
-		if (event.keyCode === ENTER) {
-			this.save();
-		}
+	@HostListener('keydown.escape', ['$event'])
+	onKeydownEsc() {
+		this.close();
 	}
 
 	close(isOutsideClick?: boolean) {

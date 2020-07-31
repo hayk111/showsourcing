@@ -5,6 +5,18 @@
 		&.disabled {
 			cursor: default;
 		}
+
+		&:not(.primary):not(.arrow-btn) {
+			color: var(--color-txt-secondary);
+		}
+
+		&.arrow-btn:hover {
+			color: var(--color-primary);
+		}
+
+		&.primary:hover {
+			color: var(--color-bg);
+		}
 	}
 }
 
