@@ -8,7 +8,7 @@
 	[toolTipMessage]="'tooltip.show-archived-entity' | translate: { entityName: typename }"
 	(click)="toggleArchived()">
 	<checkbox-app
-		class="mg-right-xs"
+		class="mg-right-s"
 		[autoFocus]="true"
 		[value]="isArchivedChecked"
 		(update)="btn.click()">
@@ -25,7 +25,7 @@
 	[toolTipMessage]="'tooltip.show-assigned-to-me-entity' | translate: { entityName: typename }"
 	(click)="toggleAssignedToMe()">
 	<checkbox-app
-		class="mg-right-xs"
+		class="mg-right-s"
 		[autoFocus]="true"
 		[value]="isAssignedToMeChecked"
 		(update)="btn.click()">
@@ -41,7 +41,7 @@
 	[toolTipMessage]="'tooltip.also-show-completed' | translate"
 	(click)="toggleCompleted()">
 	<checkbox-app
-		class="mg-right-xs"
+		class="mg-right-s"
 		[value]="isCompletedChecked">
 	</checkbox-app>
 	{{ 'text.show-completed' | translate }}
@@ -55,7 +55,7 @@
 	[toolTipMessage]="'tooltip.only-created-by-me' | translate"
 	(click)="toggleCreatedByMe()">
 	<checkbox-app
-		class="mg-right-xs"
+		class="mg-right-s"
 		[value]="isCreatedByMeChecked">
 	</checkbox-app>
 	{{ 'text.show-created-by-me' | translate }}

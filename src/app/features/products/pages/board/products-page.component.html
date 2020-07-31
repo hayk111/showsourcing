@@ -33,18 +33,13 @@
 		(selectAll)="selectionSrv.selectAll($event)"
 		(unselect)="selectionSrv.unselectOne($event)">
 	</products-table-app>
-<!--
-	<products-board-app
-		*ngIf="viewSrv.view === 'board'"
-		(preview) = "viewSrv.openPreview($event)">
-	</products-board-app>
 
 	<products-grid-app
 		cdk-scrollable
 		*ngIf="viewSrv.view === 'card'"
 		class="card-view will-change-scroll"
 		infiniScroll
-		[rows]="listSrv.items$ | async"
+		[rows]="listHelper.paginedItems$ | async"
 		[selection]="selectionSrv.selection$ | async"
 		(addToProject)="onProjectDlgOpen()"
 		(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
@@ -56,7 +51,14 @@
 		(update)="listSrv.update($event)"
 		(bottomReached)="listSrv.loadMore()">
 	</products-grid-app>
--->
+
+	<!-- <products-board-app
+		*ngIf="viewSrv.view === 'board'"
+		(preview) = "viewSrv.openPreview($event)">
+	</products-board-app> -->
+
+
+
 	<!-- <product-selection-bar-app
 	</product-selection-bar-app> -->
 

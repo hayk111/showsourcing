@@ -60,7 +60,6 @@
 					#edtSupplier
 					class="supplier-editable hover-with-padding"
 					[hasAction]="false"
-					[isFullWidth]="false"
 					[isOpen]="supplierSelector?.menuOpen"
 					(click)="supplierSelector?.openMenu($event, true)">
 					<editable-value-app>
@@ -80,8 +79,8 @@
 										typename="Supplier"
 										[logo]="supplier?.logoImage">
 									</logo-app>
-									<div class="supplier-info mg-right-xxl">
-										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
+									<div class="supplier-info">
+										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ 'barbabarbabrbabrabrbrabr' }}</span>
 										<div class="flex dot-separator">
 											<div *ngIf="supplier?.propertiesMap?.supplierType">
 												{{ supplier?.propertiesMap?.supplierType }}

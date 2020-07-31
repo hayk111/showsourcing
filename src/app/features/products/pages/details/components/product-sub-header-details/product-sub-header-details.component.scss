@@ -16,12 +16,8 @@
 		margin-right: var(--spacing-l);
 	}
 
-	.supplier-section {
-		max-width: 170px;
-	}
-
 	.supplier-editable {
-		width: 135px;
+		width: fit-content;
 		display: inline-block;
 	}
 
@@ -83,10 +79,6 @@
 	position: relative;
 	.supplier-name {
 		display: block;
-		width: 80px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
 		line-height: 1;
 	}
 }

@@ -5,7 +5,7 @@
 	[toolTipMessage]="'tooltip.table-view' | translate"
 	(mousedown)="changeView('table')">
 	<icon-app
-		class="{{ view === 'table' ? 'color-primary' : 'color-third' }}"
+		[ngStyle]="{color: view === 'table' ? 'var(--color-primary)' : 'inherit'}"
 		name="list-menu"
 		size="m">
 	</icon-app>
@@ -18,21 +18,8 @@
 	[toolTipMessage]="'tooltip.card-view' | translate"
 	(mousedown)="changeView('card')">
 	<icon-app
-		class="{{ view === 'card' ? 'color-primary' : 'color-third' }}"
+		[ngStyle]="{color: view === 'card' ? 'var(--color-primary)' : 'inherit'}"
 		name="cards"
-		size="m">
-	</icon-app>
-</button>
-
-<button
-	*ngIf="hasBoard"
-	class="flexCenter icon"
-	toolTip
-	[toolTipMessage]="'tooltip.board-view' | translate"
-	(mousedown)="changeView('board')">
-	<icon-app
-	class="{{ view === 'board' ? 'color-primary' : 'color-third' }}"
-		name="kanban"
 		size="m">
 	</icon-app>
 </button>
