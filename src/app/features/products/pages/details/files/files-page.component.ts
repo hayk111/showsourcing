@@ -51,7 +51,6 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	addFile(files: Array<File>) {
-		console.log('FilesPageComponent -> addFile -> files', files);
 		this.uploaderSrv.uploadFiles(files, `product:${this.productId}`)
 			.subscribe(done => {
 				console.log('FilesPageComponent -> addFile -> done', done);

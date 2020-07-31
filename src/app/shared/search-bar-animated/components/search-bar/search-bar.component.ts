@@ -66,7 +66,6 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	}
 
 	onChange(value: string) {
-		console.log('SearchBarComponent -> onChange -> value0000', value);
 		this.onChangeFn(value);
 		this._searchSubject$.next(value);
 	}

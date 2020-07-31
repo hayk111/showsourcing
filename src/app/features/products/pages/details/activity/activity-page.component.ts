@@ -27,9 +27,6 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		const id = this.route.snapshot.parent.params.id;
 		this.nodeId = 'product:' + id;
 		this.listHelper.setup('Comment', this._destroy$, (options) => api.Comment.findByNodeId(this.nodeId));
-		this.listHelper.data$.subscribe(comments => {
-			console.log('ActivityPageComponent -> ngOnInit -> comments', comments);
-		});
 	}
 
 	sendComment(message: string) {
@@ -37,9 +34,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		api.Comment.create([comment]).local$.subscribe(created => {
-			console.log('ActivityPageComponent -> sendComment -> created', created);
-		});
+		api.Comment.create([comment]).local$.subscribe();
 	}
 
 }

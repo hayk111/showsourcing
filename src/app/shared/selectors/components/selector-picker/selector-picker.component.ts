@@ -193,7 +193,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * this is called when we want to update the value
 	 */
 	onChange() {
-		console.log('onCHange called!!');
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
 			this.updateSingle();
@@ -207,7 +206,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateMultiple() {
 		let trimValues;
-		console.log('SelectorPickerComponent -> updateMultiple -> this.typename', this.typename, this.value);
 		switch (this.typename) {
 			case 'Product':
 				trimValues = this.value.map(v => (
@@ -222,7 +220,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					break;
 			case 'ProductTag':
 				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
-				console.log('this.value!!!', this.value);
 				trimValues = this.value.map(value => {
 					return {
 						id: this.entityId + ':' + value.id,
@@ -237,12 +234,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 
 		if (this.isTagElement()) {
-			console.log('trimValues:::', trimValues);
 			this.selectorSrv.create(this.typename as any, trimValues[trimValues.length - 1])
 				.pipe(first())
-				.subscribe(created => {
-					console.log('SelectorPickerComponent -> updateMultiple -> created', created);
-				});
+				.subscribe();
 		} else {
 			this.update.emit(trimValues);
 		}
@@ -256,7 +250,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		const updateData = {
 			[type.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
 		};
-		console.log('SelectorPickerComponent -> updateSingle -> updateData', type, updateData);
 
 		this.update.emit(updateData);
 		this.close.emit();
@@ -278,7 +271,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				itemToReturn = item;
 				break;
 		}
-		console.log('this.value---', this.value);
 
 		if (this.multiple && !this.isStored(itemToReturn)) {
 			this.value.push(itemToReturn);
@@ -316,12 +308,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					.pipe(
 						switchMap((createdTags: any[]) => {
 							added.tagId = createdTags[0] ? createdTags[0].id : undefined;
-							console.log('SelectorPickerComponent -> create -> createdTags', createdTags, added);
 							return this.selectorSrv.create(this.typename as any, added);
 						}),
 						first()
 					)
-					.subscribe(() => console.log('created all'));
+					.subscribe();
 			} else {
 				added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
 				createObs$ = this.typename === 'PropertyOption' 															 ?
@@ -329,7 +320,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.selectorSrv.create(this.typename as any, added);
 			}
 
-			console.log('SelectorPickerComponent -> create -> this.multiple', this.multiple);
 			// we add it directly to the value
 			if (this.multiple) {
 				if (this.value && this.value.length) {
@@ -340,7 +330,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			} else {
 				this.value = added;
 			}
-			console.log('SelectorPickerComponent -> create -> this.value', this.value);
 
 			if (createObs$ === undefined) {
 				return;

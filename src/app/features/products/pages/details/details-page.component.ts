@@ -173,7 +173,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	updateProductProjects(projects: Project[]) {
 		if (projects.length < this.productProjects.length) {
 			const deletedIds = _.difference(this.productProjects.map(p => p.id), projects.map(p => p.id));
-			console.log('DetailsPageComponent -> updateProductProjects -> deletedIds', deletedIds);
 			// TODO: implement delete
 			// api.ProjectProduct.delete(deletedIds);
 			return;
@@ -181,7 +180,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		const toPass = [];
 
 		projects.forEach(project => {
-			console.log('project 9999::', project);
 			const { teamId, id } = project;
  			toPass.push({
 				teamId,
@@ -189,8 +187,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				productId: this.productId
 			});
 		});
-
-		console.log('DetailsPageComponent -> updateProductProjects -> toPass', toPass);
 		api.ProjectProduct.create(toPass);
 	}
 
@@ -272,7 +268,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	dissociateProject(productProjects: Project[], projectToDelete: Project) {
 		const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
-		console.log('DetailsPageComponent -> dissociateProject -> projects', projects);
 	}
 
 }

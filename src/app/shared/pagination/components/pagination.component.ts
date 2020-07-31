@@ -33,14 +33,12 @@ export class PaginationComponent extends TrackingComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log('PaginationComponent -> ngOnInit -> this.paginationSrv.currentLimit', this.paginationSrv.currentLimit);
 		combineLatest(
 			this.paginationSrv.page$,
 			this.paginationSrv.range$
 		).subscribe(([page, range]) => {
 			this.currentPage = page;
 			this.range = range;
-			console.log('PaginationComponent -> ngOnInit -> this.range', this.range);
 			this.cdr.markForCheck();
 		});
 	}

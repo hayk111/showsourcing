@@ -17,7 +17,6 @@ export class InputBadgeSelectorComponent extends AbstractInput {
 
 	private _value;
 	@Input() set value(items: Tag[] | Project[]) {
-		console.log('InputBadgeSelectorComponent -> @Input -> items', items);
 		this._value = items;
 	}
 	get value() {

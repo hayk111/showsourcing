@@ -70,9 +70,6 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		if (this.typename === 'PropertyOption') {
 			this.propertyOptionSrv.setup(this.type as any);
 			this.choices$ = this.propertyOptionSrv.data$;
-			this.choices$.subscribe(data => {
-				console.log('FilterSelectionEntityPanelComponent -> ngOnInit -> data', data);
-			});
 		} else {
 			this.listHelper.setup(this.typename);
 			this.choices$ = this.listHelper.data$;
