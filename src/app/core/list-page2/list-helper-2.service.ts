@@ -62,7 +62,10 @@ export class ListHelper2Service<G = any> {
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination }))
+			map(([filter, pagination, sort]) => {
+				console.log('ListHelper2Service<G -> filter0000----', filter);
+				return findFn({ filter, sort, pagination });
+			})
 		);
 
 		// data

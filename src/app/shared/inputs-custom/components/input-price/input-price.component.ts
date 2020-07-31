@@ -25,6 +25,7 @@ export class InputPriceComponent extends AbstractInput {
 		// we want to return a value only if the amount (value.value)
 		// is not null or undefined
 		if (this.valueTemp.value != null) {
+			this.valueTemp.value = this.processValue(this.valueTemp.value.toString());
 			return this.valueTemp;
 		} else {
 			return null;
@@ -44,6 +45,16 @@ export class InputPriceComponent extends AbstractInput {
 
 	focus() {
 		this.amountInp.select();
+	}
+
+	/**
+	 * removes extra dots if they exist in price value
+	 * @param value: value to be processed
+	 */
+	private processValue(value: string): number {
+		return Number(value.replace( /^([^.]*\.)(.*)$/, function ( a, b, c ) {
+				return b + c.replace( /\./g, '' );
+		}));
 	}
 
 }

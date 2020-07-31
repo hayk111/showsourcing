@@ -9,40 +9,40 @@ index: {{ currentPage }}
 <div class="pagination-ctrl">
 	<ng-container *ngIf="range.length > 1">
 		<button
-			class="arrow-btn icon primary-light"
-			(click)="paginationSrv.goToFirstPage()"
-			[ngClass]="{ 'secondary-light': currentPage === 0 }"
-			[disabled]="currentPage === 0">
+			class="arrow-btn icon primary-light mg-right-s"
+			[ngClass]="{ 'secondary-light': currentPage === 0, 'no-hover': currentPage === 0}"
+			[disabled]="currentPage === 0"
+			(click)="paginationSrv.goToFirstPage()">
 			<icon-app name="double-fat-angle-left" size="xs"></icon-app>
 		</button>
 	
 		<button
-			class="arrow-btn icon primary-light"
+			class="arrow-btn icon primary-light mg-right-s"
+			[ngClass]="{ 'secondary-light': currentPage === 0, 'no-hover': currentPage === 0 }"
 			(click)="paginationSrv.goToPreviousPage()"
-			[ngClass]="{ 'secondary-light': currentPage === 0 }"
 			[disabled]="currentPage === 0">
 			<icon-app name="fat-angle-left" size="xs"></icon-app>
 		</button>
 	
 		<button
 			*ngFor="let page of range; trackBy: trackByFn"
-			class="icon"
+			class="icon mg-right-s"
 			[ngClass]="{ primary: page === currentPage }"
 			(click)="paginationSrv.goToPage(page)">
 			{{ page + 1 }}
 		</button>
 	
 		<button
-			class="arrow-btn icon primary-light"
-			[ngClass]="{ 'secondary-light': currentPage === range.length - 1 }"
+			class="arrow-btn icon primary-light mg-right-s"
+			[ngClass]="{ 'secondary-light': currentPage === range.length - 1, 'no-hover': currentPage === range.length - 1 }"
 			(click)="paginationSrv.goToNextPage()"
 			[disabled]="currentPage === range.length - 1">
 			<icon-app name="fat-angle-right" size="xs"></icon-app>
 		</button>
 	
 		<button
-			class="arrow-btn icon primary-light"
-			[ngClass]="{ 'secondary-light': currentPage === range.length - 1 }"
+			class="arrow-btn icon primary-light mg-right-s"
+			[ngClass]="{ 'secondary-light': currentPage === range.length - 1, 'no-hover': currentPage === range.length - 1 }"
 			(click)="paginationSrv.goToLastPage()"
 			[disabled]="currentPage === range.length - 1">
 			<icon-app name="double-fat-angle-right" size="xs"></icon-app>

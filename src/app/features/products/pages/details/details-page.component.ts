@@ -166,8 +166,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(product: Product) {
-		console.log('DetailsPageComponent -> updateProduct -> productkkkkkk', product, this.product.id);
-		api.Product.update([{ id: this.product.id, name: product.name } as any]);
+		api.Product.update([{ id: this.product.id, ...product } as any]);
 	}
 
 	updateProductProjects(projects: Project[]) {

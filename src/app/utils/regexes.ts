@@ -14,7 +14,7 @@ export enum RegexpApp {
 	// [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b
 	DECIMAL = '[0-9\\.\\,]+',
 	// PASSWORD_INPUT: '^[a-zA-Z0-9!@#$%^&*-.,?+]$',
-	POSITIVE_NUMBER = '^(0|.|0*[1-9][0-9]*(.[0-9]+)?|0+.[0-9]*[1-9][0-9]*)$',
+	POSITIVE_NUMBER = '^[0-9]*\\.?[0-9]*$',
 	/* Pattern Validators */
 	// Password musn't have a space
 	PASSWORD_SPACE = '^[^\ ]{1,}$',

@@ -1,3 +1,14 @@
 button {
 	font-weight: normal;
+	color: var(--color-txt-secondary);
+
+	&:hover {
+		background: var(--color-secondary);
+	}
+}
+
+checkbox-app {
+	background: var(--color-bg);
+	width: 18px;
+	border-radius: 3px
 }

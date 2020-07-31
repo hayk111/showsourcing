@@ -16,15 +16,15 @@
 		(click)="viewSrv.openFilterPanel()"
 		translate="button.show-filters">
 		<icon-app
-			[ngClass]="viewSrv.filterPanelOpen? 'color-primary' : 'color-third'" 
+			[ngStyle]="{color: viewSrv.filterPanelOpen? 'var(--color-primary)' : 'inherit'}" 
 			name="filter" 
-			size="s">
+			size="m">
 		</icon-app>
 	</button>
 
 	<button
 		*ngIf="filterSrv.getFilterAmount() > 0"
-		class="light"
+		class="light clear-filters"
 		(click)="reset()">
 		Clear filters ({{ filterSrv.getFilterAmount() }})
 	</button>

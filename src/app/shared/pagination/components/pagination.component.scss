@@ -15,6 +15,10 @@
 	}
 }
 
+.no-hover {
+	pointer-events: none;
+}
+
 .custom-select {
 	padding-left: var(--spacing-ms);
 	font-size: var(--font-size-m);
@@ -31,7 +35,7 @@
 	background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
 	background-size: 20px;
 	background-repeat: no-repeat;
-  background-position-x: 29px;
+  background-position-x: 32px;
   background-position-y: 4px;
 	cursor: pointer;
 }
