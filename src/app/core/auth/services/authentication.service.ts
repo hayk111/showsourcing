@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, map, mapTo, first } from 'rxjs/operators';
-import { authStatus, state, Auth, client } from 'showsourcing-api-lib';
-import { showsourcing } from '~utils/debug-object.utils';
+import { state, Auth, client } from 'showsourcing-api-lib';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
 import { log } from '~utils/log';
-import * as localforage from 'localforage';
 
 /**
  * Authentication service responsible for authentication.
@@ -63,7 +61,7 @@ export class AuthenticationService {
 		this.signIn$.pipe(first()).subscribe(_ => {
 			log.debug('client init');
 			client.init({
-				offlineConfigAWS: {storage: localforage},
+				offlineConfigAWS: {storage: undefined, storeCacheRootMutation: false},
 				shouldSync: true,
 			});
 		});

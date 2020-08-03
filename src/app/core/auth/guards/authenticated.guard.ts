@@ -3,14 +3,13 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { IAuthState, state } from 'showsourcing-api-lib';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log } from '~utils';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthenticatedGuard implements CanActivate, CanActivateChild {
-	constructor(private authSrv: AuthenticationService, private router: Router) { }
+	constructor(private router: Router) { }
 
 	canActivate(
 		route: ActivatedRouteSnapshot,

@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { api, ISearchOptions, Typename, IApiResponse } from 'showsourcing-api-lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil, tap, map, share, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, share, distinctUntilChanged, shareReplay } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -62,10 +62,8 @@ export class ListHelper2Service<G = any> {
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			map(([filter, pagination, sort]) => {
-				console.log('ListHelper2Service<G -> filter0000----', filter);
-				return findFn({ filter, sort, pagination });
-			})
+			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination })),
+			shareReplay()
 		);
 
 		// data

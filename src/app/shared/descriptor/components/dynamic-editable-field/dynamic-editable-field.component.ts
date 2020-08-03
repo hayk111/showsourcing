@@ -28,7 +28,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 
 		this.selectorEntityId$
 			.pipe(
-				switchMap((id) => this.getSelectorValue(id)),
+				map((id) => this.getSelectorValue(id)),
 				map(entity => entity.value || entity.name),
 				tap(value => {
 					this.selectorValue$.next(value);
@@ -57,7 +57,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 		}
 	}
 
-	getSelectorValue(id: string): Observable<any> {
+	getSelectorValue(id: string): any {
 		if (id && api[this.typename]) {
 			return api[this.typename].get(id);
 		}
