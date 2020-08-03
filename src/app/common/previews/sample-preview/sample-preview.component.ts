@@ -20,7 +20,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	private _sampleSubscription$: Subscription;
 	@Input() set sample(value: any) {
 		this._sampleSubscription$?.unsubscribe();
-		this._sampleSubscription$ = api.Sample.get(value?.id).subscribe(sample => {
+		this._sampleSubscription$ = api.Sample.get$(value?.id).subscribe(sample => {
 			this._sample = sample;
 			this.cd.markForCheck();
 		});

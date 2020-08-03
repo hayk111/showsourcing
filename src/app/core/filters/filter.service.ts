@@ -5,6 +5,7 @@ import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
 import { FilterConverter } from './_filter-converter.class';
 import { ValuesByType, FiltersByType } from './filter-by.type';
+import { distinct, distinctUntilChanged } from 'rxjs/operators';
 
 /**
  * This class basically contains a Array<Filter> and then the same array of filters under different data structure.
@@ -26,7 +27,11 @@ export class FilterService {
 	private converter: FilterConverter = new FilterConverter();
 	/** to know when filters are changing, using replay subject here because in the constructor we set the starting ones */
 	private _valueChanges$ = new BehaviorSubject<any>(this);
-	valueChanges$ = this._valueChanges$.asObservable();
+	valueChanges$ = this._valueChanges$.asObservable().pipe(
+		distinctUntilChanged((x, y) => {
+			return JSON.stringify(x) === JSON.stringify(y);
+		})
+	);
 	/** default state */
 	startFilters: Filter[] = [{ type: FilterType.DELETED, value: false }];
 	/** the filters currently in the filter-list */

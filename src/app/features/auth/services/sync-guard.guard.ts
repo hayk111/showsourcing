@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { from, Observable, of } from 'showsourcing-api-lib/node_modules/rxjs';
+import { from, Observable, of } from 'rxjs';
 import { first, concatMap } from 'rxjs/operators';
 
 /**
@@ -14,8 +14,7 @@ export class SyncGuardHelper implements CanActivate {
 	public constructor(public injector: Injector) {
 	}
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
-
-		return from(route.data.syncGuards).pipe(
+		const canActivate = from(route.data.syncGuards).pipe(
 			concatMap((value) => {
 				const guard = this.injector.get(value);
 				const result = guard.canActivate(route, state);
@@ -29,5 +28,6 @@ export class SyncGuardHelper implements CanActivate {
 			}),
 			first((x) => x === false || x instanceof UrlTree, true),
 		);
+		return canActivate;
 	}
 }
