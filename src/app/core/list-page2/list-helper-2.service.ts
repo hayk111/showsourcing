@@ -62,8 +62,7 @@ export class ListHelper2Service<G = any> {
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination })),
-			shareReplay()
+			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination }))
 		);
 
 		// data

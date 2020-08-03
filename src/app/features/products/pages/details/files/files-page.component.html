@@ -1,4 +1,4 @@
-<input #inpFile type="file" hidden="true" (fileSelect)="addFile($event)"/>
+<input #inpFile type="file" [multiple]="true" hidden="true" (fileSelect)="addFile($event)"/>
 
 <h2 class="l flexStart">Files</h2>
 

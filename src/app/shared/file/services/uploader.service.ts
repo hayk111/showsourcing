@@ -18,7 +18,7 @@ export class UploaderService {
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): ObservableFileUpload {
-		const obsArray = files.map(file => this.s3upload(file));
+		const obsArray = files.map(file => this.s3upload(file, true));
 		const obsResponses = forkJoin(obsArray).pipe(
 			switchMap((files) => {
 				const toCreate = [];
@@ -70,10 +70,11 @@ export class UploaderService {
 		});
 	}
 
-	private s3upload(file: File): Observable<string> {
+	private s3upload(file: File, byName = false): Observable<string> {
 		const extension = file.name.slice(file.name.lastIndexOf('.'));
 		return from(Storage.put(
-			uuid() + extension,
+			// for file attachments we use file name and replace spaces with dashes
+			byName ? file.name.replace(/\s+/g, '-') : uuid() + extension,
 			file,
 			{
 				level: 'private',

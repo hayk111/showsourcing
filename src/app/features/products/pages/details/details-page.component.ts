@@ -165,8 +165,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** update the product */
-	updateProduct(product: Product) {
-		api.Product.update([{ id: this.product.id, ...product } as any]);
+	updateProduct(propValue: any) {
+		api.Product.update([{ id: this.product.id, ...propValue } as any]);
 	}
 
 	updateProductProjects(projects: Project[]) {

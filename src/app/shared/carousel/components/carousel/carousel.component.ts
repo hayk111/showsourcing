@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { takeUntil, tap, filter } from 'rxjs/operators';
+import { takeUntil, tap, filter, first, switchMap } from 'rxjs/operators';
 import { api, Image } from 'showsourcing-api-lib';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UploaderService } from '~shared/file/services/uploader.service';
@@ -12,6 +12,7 @@ import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { ToastType } from '~shared/toast';
+import _ from 'lodash';
 
 @Component({
 	selector: 'carousel-app',
@@ -100,11 +101,24 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** rotates the image by 90 degrees */
 	rotate() {
 		const img = this.getImg();
+		const imgIndex = _.findIndex(this.images, {id: img.id});
 		img.orientation = (img.orientation + 1) % 4;
+		const updatedImages = [...this.images];
+		updatedImages[imgIndex] = {...img, orientation: img.orientation};
+
 		api.Image.update([{
 			id: img.id,
 			orientation: img.orientation,
-		}]);
+		}])
+			.local$
+			.pipe(
+				first(),
+				takeUntil(this._destroy$),
+			)
+			.subscribe(() => {
+				this.images = updatedImages;
+				this.cdr.markForCheck();
+			});
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
@@ -137,9 +151,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 				text: 'Are you sure you want to remove this image ?',
 			}).data$
 			.pipe(
-				// switchMap(_ => this.onDeleteAccepted(img)),
-				takeUntil(this._destroy$),
-			).subscribe(_ => this.deleted.emit(img));
+				switchMap(_ => api.Image.delete([{id: img.id}]).local$),
+				takeUntil(this._destroy$)
+			).subscribe();
 		} else {
 			this.deleted.emit(img);
 		}

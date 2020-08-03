@@ -111,7 +111,7 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 		const productIds = this.selectionSrv.getSelectedIds();
 		const entries = productIds.map(productId => ({ entityId: productId, statusId: value.id }));
 		const updates = api.WorkflowStatus.updatesForType('PRODUCT', entries);
-		updates.pipe(first()).subscribe(resp => {
+		updates.local$.pipe(first()).subscribe(resp => {
 			this.notificationSrv.add(this.massUpdateToast);
 		});
 	}

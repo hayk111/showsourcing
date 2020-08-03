@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { api } from 'showsourcing-api-lib';
 import { FilterList } from '~shared/filters/models/filter-list.class';
@@ -26,7 +26,10 @@ export class SelectorsService {
 	}
 
 	create(entityType: Typename, entity: any) {
-		console.log('SelectorsService -> create -> entityType', entityType, entity);
-		return api[entityType].create([entity]).local$;
+		if (entity) {
+			return api[entityType].create([entity]).local$;
+		}
+
+		return of(null);
 	}
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import { Attachment } from '~core/erm';
+import { Attachment } from 'showsourcing-api-lib';
 
 import { AbstractListItemComponent } from '../abstract-list-item.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,4 +15,9 @@ export class AttachmentListItemComponent extends AbstractListItemComponent<Attac
 	@Output() download = new EventEmitter<Attachment>();
 
 	constructor(public translate: TranslateService) { super(); }
+
+	get fileName() {
+		const fileName = this.attachment.fileName;
+		return fileName.slice(fileName.lastIndexOf('/') + 1);
+	}
 }

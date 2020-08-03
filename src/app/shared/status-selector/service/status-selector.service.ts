@@ -38,6 +38,6 @@ export class StatusSelectorService {
 				entityId: entity.id,
 				statusId: status.id,
 			},
-		]);
+		]).local$;
 	}
 }

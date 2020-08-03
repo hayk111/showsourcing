@@ -12,6 +12,7 @@ export class InfoBadgeComponent {
 
 	@Input() type: EntityName.CATEGORY | EntityName.TAG | EntityName.PROJECT;
 	@Input() hasDelete = false;
+	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
 	@Output() delete = new EventEmitter<null>();
 
 	iconsUtils = IconUtils;

@@ -6,7 +6,7 @@ import {
 	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subject, Subscription, of } from 'rxjs';
+import { Observable, Subject, Subscription, of, BehaviorSubject } from 'rxjs';
 import { map, switchMap, tap, debounce, debounceTime, first } from 'rxjs/operators';
 import { ERM } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
@@ -87,7 +87,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	searched$: Subject<string> = new Subject();
 
 	/** whether the search has a exact match or not to display the create button */
-	nameExists$: Observable<boolean>;
+	nameExists$ = new BehaviorSubject(false);
 
 	// this helps the condition of fast typing only apply when typing and pressing Enter (OnKeyDown function)
 	movedArrow = false;
@@ -126,13 +126,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 
 		if (this.canCreate) {
-			this.nameExists$ = this.searched$.pipe(
+			this.searched$.pipe(
 				debounceTime(400),
 				map(_ => this.checkExist(this.choices)),
 				map(items => {
 					return (!!items.length || !this.searchTxt || this.hasName(this.searchTxt));
 				}),
-			);
+				tap((exists: boolean) => this.nameExists$.next(exists))
+			).subscribe();
 		}
 
 		// this.initializeChoices();
@@ -304,15 +305,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				added = {
 					[entityType + 'Id']: this.entityId,
 				};
-				this.propertyOptionSrv.createPropertyOptions([{type: 'TAG', value}])
+				createObs$ = this.propertyOptionSrv.createPropertyOptions([{type: 'TAG', value}])
 					.pipe(
 						switchMap((createdTags: any[]) => {
 							added.tagId = createdTags[0] ? createdTags[0].id : undefined;
 							return this.selectorSrv.create(this.typename as any, added);
 						}),
 						first()
-					)
-					.subscribe();
+					);
 			} else {
 				added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
 				createObs$ = this.typename === 'PropertyOption' 															 ?
@@ -325,7 +325,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				if (this.value && this.value.length) {
 					this.value.push(added);
 				} else {
-					this.value = [];
+					this.value = [added];
 				}
 			} else {
 				this.value = added;
@@ -337,9 +337,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 			// we are using take 1 in srv, no need for fancy destroying
 			createObs$.subscribe((created) => {
-				this.value.id = created[0].id;
-				// we changed the value directly so we have to notify the formControl
-				this.onChange();
+				this.nameExists$.next(true);
+				if (this.isTagElement()) {
+					added.id = created[0].tag;
+				} else {
+					this.value.id = created[0].id;
+					// we changed the value directly so we have to notify the formControl
+					this.onChange();
+				}
 				this.resetInput();
 			});
 		}

@@ -69,7 +69,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	}
 
 	update(value: any, prop: string) {
-		this.updated.emit({ ...this.product, [prop]: value });
+		this.updated.emit({ [prop]: value });
 	}
 
 	onOpenSupplier(supplier: Supplier, event: MouseEvent) {
