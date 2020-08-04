@@ -14,8 +14,8 @@
 					typename="TeamUser"
 					[width]="320"
 					[offsetX]="4"
-					(update)="update.emit({ assignee: $event })">
-					<div *ngIf="product?.assignee; else none" class="flex">
+					(update)="update.emit({ assigneeId: $event?.teamuserId })">
+					<div *ngIf="product?.assignee && (product?.assignee | json) != '{}'; else none" class="flex">
 						<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
 					</div>
 					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>

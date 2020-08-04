@@ -22,9 +22,9 @@
 				<divider-app *ngIf="(selectionSrv.selection$ | async)?.size" [vertical]="true" [height]="24"></divider-app>
 			</div>
 			<button
-				*ngIf="(selectionSrv.selection$ | async)?.size"
-				class="warn-light capitalize"
-				(click)="listHelper.deleteSelected(true)"
+				*ngIf="(selectionSrv.selection$ | async)?.size as size"
+				class="warn capitalize"
+				(click)="listHelper.deleteSelected(size === 1 ? 'message.confirm-delete-file' : 'message.confirm-delete-files')"
 				translate="button.delete">
 			</button>
 		</div>

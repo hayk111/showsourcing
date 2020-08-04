@@ -20,37 +20,35 @@
 	<controller-table-view-switcher-app></controller-table-view-switcher-app>
 </controller-table-app>
 
-<!-- views: either one will be displayed when the correct view is selected -->
-<!-- <ng-container *ngIf="listSrv.isListening"> -->
-	<products-table-app
-		*ngIf="viewSrv.view === 'table'"
-		[rows]="listHelper.paginedItems$ | async"
-		[pending]="listHelper.pending$ | async"
-		[selection]="selectionSrv.selection$ | async"
-		(open)="viewSrv.goToDetails($event)"
-		(previewClick)="viewSrv.openPreview($event)"
-		(select)="selectionSrv.selectOne($event)"
-		(selectAll)="selectionSrv.selectAll($event)"
-		(unselect)="selectionSrv.unselectOne($event)">
-	</products-table-app>
+<!-- <products-table-app
+	*ngIf="viewSrv.view === 'table'"
+	[rows]="listHelper.data$ | async"
+	[pending]="listHelper.pending$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event)"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselect)="selectionSrv.unselectOne($event)">
+</products-table-app>
 
-	<products-grid-app
-		cdk-scrollable
-		*ngIf="viewSrv.view === 'card'"
-		class="card-view will-change-scroll"
-		infiniScroll
-		[rows]="listHelper.paginedItems$ | async"
-		[selection]="selectionSrv.selection$ | async"
-		(addToProject)="onProjectDlgOpen()"
-		(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
-		(liked)="ratingSrv.onThumbUp($event)"
-		(open)="viewSrv.goToDetails($event)"
-		(previewClick)="viewSrv.openPreview($event)"
-		(select)="selectionSrv.selectOne($event, true)"
-		(unselect)="selectionSrv.unselectOne($event, true)"
-		(update)="listSrv.update($event)"
-		(bottomReached)="listSrv.loadMore()">
-	</products-grid-app>
+<products-grid-app
+	cdk-scrollable
+	*ngIf="viewSrv.view === 'card'"
+	class="card-view will-change-scroll"
+	infiniScroll
+	[rows]="listHelper.data$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	(addToProject)="onProjectDlgOpen()"
+	(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
+	(liked)="ratingSrv.onThumbUp($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(update)="listSrv.update($event)"
+	(bottomReached)="listSrv.loadMore()">
+</products-grid-app> -->
 
 	<!-- <products-board-app
 		*ngIf="viewSrv.view === 'board'"

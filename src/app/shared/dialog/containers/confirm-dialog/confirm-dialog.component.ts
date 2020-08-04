@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog/services/dialog.service';
 export class ConfirmDialogComponent {
 	@Input() title: string;
 	@Input() text: string;
+	@Input() elementsCount: number;
 	@Input() subtext: string;
 	@Input() action: string;
 

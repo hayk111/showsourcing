@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
-import { Product } from '~core/erm';
 import { translate } from '~utils';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from '~core/list-page2';
+import { Product } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'products-grid-app',
@@ -12,6 +12,7 @@ import { SelectionService } from '~core/list-page2';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsGridComponent extends EntityTableComponent<Product> implements OnInit {
+	@Input() rows: Product[];
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
 	@Output() update = new EventEmitter<Product>();
@@ -20,7 +21,9 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 			super();
 		}
 
-	ngOnInit() {}
+	ngOnInit() {
+		console.log('ProductsGridComponent -> ngOnInit -> this.rows', this.rows);
+	}
 
 	getGroupedProducts() {
 		const fieldSortyBy = this.sortSrv.currentSort.property;
@@ -33,6 +36,7 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 
 		let groupedObj = {};
 
+		console.log('this.sortSrv.currentSort.property', this.sortSrv.currentSort.property);
 		switch (this.sortSrv.currentSort.property) {
 			case 'category.name':
 			case 'supplier.name':
@@ -52,7 +56,8 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 				groupedObj[this.sortSrv.currentSort.property] = this.rows;
 				break;
 		}
-		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
+		const val = Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
+		return val;
 	}
 
 	getGroupedValue(group) {

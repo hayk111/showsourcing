@@ -71,24 +71,24 @@
 							[extraOffset]="{ offsetX: 0, offsetY: 35 }"
 							[leftSideOrientation]="true"
 							[width]="370"
-							(update)="update($event.supplierId, 'supplier'); edtSupplier.close()">
+							(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">
 							<editable-value-app>
-								<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
+								<div *ngIf="product?.supplier && (product?.supplier | json) != '{}'" class="supplier-container flex">
 									<logo-app
 										class="mg-right-s pointer"
 										typename="Supplier"
-										[logo]="supplier?.logoImage">
+										[logo]="product?.supplier?.logoImage">
 									</logo-app>
 									<div class="supplier-info">
-										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
+										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ product?.supplier?.name }}</span>
 										<div class="flex dot-separator">
-											<div *ngIf="supplier?.propertiesMap?.supplierType">
-												{{ supplier?.propertiesMap?.supplierType }}
+											<div *ngIf="product?.supplier?.propertiesMap?.supplierType">
+												{{ product?.supplier?.propertiesMap?.supplierType }}
 											</div>
-											<div *ngIf="supplier?.propertiesMap?.country">
-												{{ supplier?.propertiesMap?.country | const: 'country' }}
+											<div *ngIf="product?.supplier?.propertiesMap?.country">
+												{{ product?.supplier?.propertiesMap?.country | const: 'country' }}
 											</div>
-											<rating-badge-app	[score]="supplier?.score" [activeColor]="'primary'"></rating-badge-app>
+											<rating-badge-app	[score]="product?.supplier?.score" [activeColor]="'primary'"></rating-badge-app>
 										</div>
 									</div>
 								</div>
@@ -96,7 +96,7 @@
 						</selector-app>
 					</editable-value-app>
 				</editable-container-app>
-				<div *ngIf="product?.supplier && supplierSelectorHovered" class="eye-container">
+				<div *ngIf="product?.supplier && (product?.supplier | json) != '{}' && supplierSelectorHovered" class="eye-container">
 					<button class="eye-icon icon light">
 						<icon-app
 							size="20"
@@ -119,7 +119,7 @@
 				[hoverLight]="true"
 				[value]="product?.category"
 				[leftSideOrientation]="true"
-				(update)="update($event.categoryId, 'category')">
+				(update)="update($event.categoryId, 'categoryId')">
 			</badge-selector-app>
 		</section>
 

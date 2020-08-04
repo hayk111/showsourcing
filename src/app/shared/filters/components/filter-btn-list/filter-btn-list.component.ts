@@ -38,26 +38,19 @@ export class FilterBtnListComponent extends TrackingComponent {
 		return this.filterSrv.hasFilterValue(FilterType.DONE, true);
 	}
 
+	hasOthersSection() {
+		return this.filterTypes.includes(FilterType.ARCHIVED) ||
+					 this.filterTypes.includes(FilterType.FAVORITE) ||
+					 this.filterTypes.includes(FilterType.DONE);
+	}
+
+	hasFilter(filterType: FilterType) {
+		return this.filterTypes.includes(filterType);
+	}
+
 	updateFilter(type, value) {
 		this.filterSrv.filterByProp(type, value);
 		this.otherFiltersLabelShown = false; // reinitializing otherFiltersLabelShown value
-	}
-
-	/**
-	 * Whether to show or not "Others" label
-	 * @param  {FilterType} type
-	 * @returns boolean
-	 */
-	otherFiltersLabel(type: FilterType): boolean {
-		if ((type === FilterType.ARCHIVED ||
-				 type === FilterType.FAVORITE ||
-				 type === FilterType.DONE)    &&
-				 !this.otherFiltersLabelShown) {
-			this.otherFiltersLabelShown = true;
-			return true;
-		}
-
-		return false;
 	}
 
 }

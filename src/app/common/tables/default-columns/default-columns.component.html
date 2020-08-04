@@ -125,12 +125,12 @@
 					(update)="update.emit({ id: row?.id, assigneeId: $event?.teamuserId })">
 					<div class="flex pointer">
 						<user-picture-app
-							*ngIf="row?.assignee"
+							*ngIf="row?.assignee && (row?.assignee | json) != '{}'"
 							class="mg-right-s"
 							[user]="row?.assignee">
 						</user-picture-app>
 						<div class="flexVAlign ellipsis pointer">
-							{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
+							{{ row?.assignee && (row?.assignee | json) != '{}' ? (row?.assignee | formatUserName: true) : '-' }}
 						</div>
 					</div>
 				</selector-app>

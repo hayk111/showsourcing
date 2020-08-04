@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { api, ISearchOptions, Typename, IApiResponse } from 'showsourcing-api-lib';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap, map, share, distinctUntilChanged, shareReplay } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -35,6 +36,7 @@ export class ListHelper2Service<G = any> {
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
 		private sortSrv: SortService,
+		private translate: TranslateService
 	) {
 		// When the total change, we setup pagination
 		this.total$.pipe().subscribe((total) => {
@@ -109,10 +111,10 @@ export class ListHelper2Service<G = any> {
 		).local$;
 	}
 
-	deleteSelected() {
+	deleteSelected(text?: string) {
 		const selectedIds = this.selectionSrv.getSelectedValues().map(selected => selected.id);
 		this.dlgSrv
-			.open(ConfirmDialogComponent)
+			.open(ConfirmDialogComponent, { text: text || 'message.confirm-action', elementsCount: selectedIds.length })
 			.data$
 			.pipe(
 				map(_ => {

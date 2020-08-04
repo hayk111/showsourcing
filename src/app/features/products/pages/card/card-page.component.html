@@ -23,7 +23,7 @@
 	cdk-scrollable
 	class="card-view will-change-scroll"
 	infiniScroll
-	[rows]="listHelper.filteredItems$ | async"
+	[rows]="listHelper.data$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	(addToProject)="addToProject($event)"
 	(disliked)="ratingSrv.onThumbDown($event)"

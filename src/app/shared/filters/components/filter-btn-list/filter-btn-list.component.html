@@ -1,83 +1,77 @@
 <div class="filter-btn">
 	<ng-container *ngFor="let type of filterTypes; trackBy: trackByFn">
+		<ng-container *ngIf="!filterSrv.hasFilterType(type); else list">
+			<label>
+				{{ type }}
+			</label>
 
-		<ng-container [ngSwitch]="type">
+			<button class="secondary-light full-width flexCenter"
+				(click)="editClicked.emit(type)">
+				{{ 'filters.filter-by-' + type | translate }}
+			</button>
+		</ng-container>
 
-			<ng-container *ngIf="otherFiltersLabel(type)">
-				<label>Others</label>
-			</ng-container>
-			
-			<ng-container *ngSwitchCase="allFilterTypes.ARCHIVED">
+		<!-- if there is a filter the button doesn't appear and we display a list of filters -->
+		<ng-template #list>
+			<div class="flexBetween">
+				<label>
+					{{ type }}
+				</label>
+				<div>
+					<span class="edit pointer capitalize"
+						(click)="editClicked.emit(type)"
+						translate="button.edit">
+					</span>
+					<span class="clear pointer capitalize"
+						(click)="filterSrv.removeFilterType(type)"
+						translate="button.clear">
+					</span>
+				</div>
+			</div>
+
+			<div class="flexColumn">
 				<checkbox-app
-					[value]="isArchived()"
-					(check)="updateFilter(allFilterTypes.ARCHIVED, true)"
-					(uncheck)="updateFilter(allFilterTypes.ARCHIVED, false)">
-					<icon-app class="mg-h-s" name="archive"></icon-app>
-					<span translate="text.show-archived-products"></span>
+					*ngFor="let filter of filterSrv.getFiltersForType(type); trackBy: trackByFn"
+					[value]="true"
+					(uncheck)="filterSrv.removeFilter(filter)">
+					<span class="mg-left-s">{{ filter.displayValue }}</span>
 				</checkbox-app>
-			</ng-container>
+			</div>
 
-			<ng-container *ngSwitchCase="allFilterTypes.FAVORITE">
-				<checkbox-app
-					[value]="isFavorite()"
-					(check)="updateFilter(allFilterTypes.FAVORITE, true)"
-					(uncheck)="updateFilter(allFilterTypes.FAVORITE, false)">
-					<icon-app class="color-warn mg-h-s" name="heart"></icon-app>
-					<span translate="button.only-show-favorites"></span>
-				</checkbox-app>
-			</ng-container>
+		</ng-template>
 
-			<ng-container *ngSwitchCase="allFilterTypes.DONE">
-				<checkbox-app
-					[value]="isDone()"
-					(check)="updateFilter(allFilterTypes.DONE, true)"
-					(uncheck)="updateFilter(allFilterTypes.FAVORITE,  false)">
-					<span translate="text.show-completed-tasks"></span>
-				</checkbox-app>
-			</ng-container>
+	</ng-container>
 
-			<ng-container *ngSwitchDefault>
-				<ng-container *ngIf="!filterSrv.hasFilterType(type); else list">
-					<label>
-						{{ type }}
-					</label>
+	<ng-container *ngIf="hasOthersSection()">
+		<label>Others</label>
 
-					<button class="secondary-light full-width flexCenter"
-						(click)="editClicked.emit(type)">
-						{{ 'filters.filter-by-' + type | translate }}
-					</button>
-				</ng-container>
+		<ng-container *ngIf="hasFilter(allFilterTypes.ARCHIVED)">
+			<checkbox-app
+				[value]="isArchived()"
+				(check)="updateFilter(allFilterTypes.ARCHIVED, true)"
+				(uncheck)="updateFilter(allFilterTypes.ARCHIVED, false)">
+				<icon-app class="mg-left-xs mg-right-s" name="archive"></icon-app>
+				<span translate="text.show-archived-products"></span>
+			</checkbox-app>
+		</ng-container>
 
-				<!-- if there is a filter the button doesn't appear and we display a list of filters -->
-				<ng-template #list>
-					<div class="flexBetween">
-						<label>
-							{{ type }}
-						</label>
-						<div>
-							<span class="edit pointer capitalize"
-								(click)="editClicked.emit(type)"
-								translate="button.edit">
-							</span>
-							<span class="clear pointer capitalize"
-								(click)="filterSrv.removeFilterType(type)"
-								translate="button.clear">
-							</span>
-						</div>
-					</div>
+		<ng-container *ngIf="hasFilter(allFilterTypes.FAVORITE)">
+			<checkbox-app
+				[value]="isFavorite()"
+				(check)="updateFilter(allFilterTypes.FAVORITE, true)"
+				(uncheck)="updateFilter(allFilterTypes.FAVORITE, false)">
+				<icon-app class="color-warn mg-left-xs mg-right-s" name="heart"></icon-app>
+				<span translate="button.only-show-favorites"></span>
+			</checkbox-app>
+		</ng-container>
 
-					<div class="flexColumn">
-						<checkbox-app
-							*ngFor="let filter of filterSrv.getFiltersForType(type); trackBy: trackByFn"
-							[value]="true"
-							(uncheck)="filterSrv.removeFilter(filter)">
-							<span class="mg-left-s">{{ filter.displayValue }}</span>
-						</checkbox-app>
-					</div>
-
-				</ng-template>
-
-			</ng-container>
+		<ng-container *ngIf="hasFilter(allFilterTypes.DONE)">
+			<checkbox-app
+				[value]="isDone()"
+				(check)="updateFilter(allFilterTypes.DONE, true)"
+				(uncheck)="updateFilter(allFilterTypes.FAVORITE,  false)">
+				<span translate="text.show-completed-tasks"></span>
+			</checkbox-app>
 		</ng-container>
 	</ng-container>
 

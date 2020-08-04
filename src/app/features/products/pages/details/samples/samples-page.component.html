@@ -22,12 +22,16 @@
 			<div class="flexCenter">
 				<divider-app *ngIf="(selectionSrv.selection$ | async).size > 0" [vertical]="true" [height]="24"></divider-app>
 			</div>
-			<button
-				*ngIf="(selectionSrv.selection$ | async).size > 0"
-				class="warn-light capitalize"
-				(click)="listHelper.deleteSelected(true)"
-				translate="button.delete">
+			<ng-container *ngIf="(selectionSrv.selection$ | async).size as size">
+				<button
+					*ngIf="size > 0"
+					class="warn capitalize"
+					(click)="listHelper.deleteSelected(size === 1 ? 'message.confirm-delete-sample' : 'message.confirm-delete-samples')"
+					translate="button.delete">
 			</button>
+
+			</ng-container>
+	
 		</div>
 	</ng-container>
 </ng-container>
