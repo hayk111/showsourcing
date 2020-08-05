@@ -17,12 +17,9 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 	@Output() addToProject = new EventEmitter<string>();
 	@Output() update = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
-	constructor(private sortSrv: SortService, public selectionSrv: SelectionService) {
-			super();
-		}
 
-	ngOnInit() {
-		console.log('ProductsGridComponent -> ngOnInit -> this.rows', this.rows);
+	constructor(private sortSrv: SortService, public selectionSrv: SelectionService) {
+		super();
 	}
 
 	getGroupedProducts() {
@@ -36,9 +33,8 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 
 		let groupedObj = {};
 
-		console.log('this.sortSrv.currentSort.property', this.sortSrv.currentSort.property);
 		switch (this.sortSrv.currentSort.property) {
-			case 'category.name':
+			case 'category.value':
 			case 'supplier.name':
 			case 'favorite':
 				groupedObj = this.rows.reduce((prev, cur) => {
@@ -77,7 +73,8 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 						value = group.value[0][field] ? group.value[0][field].name : null;
 						break;
 					default:
-						value = '';
+						// category value is picked by default title
+						value = group.value[0]['category'].value || '';
 						break;
 				}
 			}

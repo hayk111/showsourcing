@@ -6,14 +6,23 @@
 		'selected-card': selected
 	}"
 >
-	<!-- picture -->
-	<img-app
-		[ngClass]="{ 'small-img': size === 's' }"
-		[image]="product?.images"
-		objectFit="cover"
-		size="xl"
-	>
-	</img-app>
+
+	<ng-container *ngIf="product?.images as images; else noImg">
+		<!-- picture -->
+		<img-app
+			[ngClass]="{ 'small-img': size === 's' }"
+			[image]="product?.images | firstImage"
+			objectFit="cover"
+			size="xl"
+		>
+		</img-app>
+	</ng-container>
+
+	<ng-template #noImg>
+		<div class="flexColumn flexCenter no-img">
+			<icon-app name="camera" [size]="32"></icon-app>
+		</div>
+	</ng-template>
 
 	<!-- price floating -->
 	<div
@@ -98,7 +107,7 @@
 	</button>
 
 	<!-- info content -->
-	<div class="info-container flex">
+	<div class="info-container flex flexVAlign">
 		<badge-app
 			class="badge mg-h-s"
 			[ngStyle]="{
@@ -107,11 +116,9 @@
 			[circle]="true"
 		></badge-app>
 		<!-- if we don't explicitly set the min-width, ellipsis wont work -->
-		<div style="min-width: 0;">
-			<div class="flexVAlign">
-				<div class="bold-s color-txt-primary ellipsis" [ngClass]="{ 'title-s': size === 's' }">
-					{{ product?.name || ('message.unnamed-product' | translate) }}
-				</div>
+		<div class="product-info-content">
+			<div class="flex flexVAlign bold-s color-txt-primary ellipsis" [ngClass]="{ 'title-s': size === 's' }">
+				{{ product?.name || ('message.unnamed-product' | translate) }}
 			</div>
 			<div
 				class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator"

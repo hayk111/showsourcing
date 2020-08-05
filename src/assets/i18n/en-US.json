@@ -499,7 +499,7 @@
     "no-create-account": "No - Create an account",
     "no-no-join-team": "No - I don't wish to join this team",
     "ok": "Ok",
-    "only-show-favorites": "Only show favorites",
+    "only-show-favorites": "Favorites only",
     "open": "Open",
     "open-exports": "Open exports",
     "open-product": "Open product",
@@ -625,7 +625,7 @@
     "filter-by-supplier": "Filter by Supplier",
     "filter-by-suppliers": "Filter by Supplier",
     "filter-by-tag": "Filter by Tag",
-    "filter-by-tags": "Filter by Tag",
+    "filter-by-tags": "Filter by Tags",
     "Others": "Others"
   },
   "header": {

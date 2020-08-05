@@ -1,7 +1,7 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	padding: 48px 118px 0 110px;
+	padding: 0 110px;
 	height: 100%;
 }
 
@@ -13,24 +13,20 @@
 
 .products-section {
 	width: 100%;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	display: grid;
+	column-gap: var(--spacing-xl);
+	grid-template-columns: repeat(auto-fit, 200px);
+	justify-content: space-between;
 }
 
 .section-title {
 	font-weight: bold;
 	margin: var(--spacing-l) 0px;
-	font-size: 20px;
+	font-size: var(--font-size-xxxl);
 	text-transform: capitalize;
 	color: var(--color-txt-primary);
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 }
 
 product-grid-card-app {
-	margin-left: 0;
-	margin-right: var(--spacing-ms);
 	margin-bottom: var(--spacing-l);
 }

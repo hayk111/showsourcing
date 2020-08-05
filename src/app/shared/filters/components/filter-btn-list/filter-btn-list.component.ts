@@ -38,6 +38,10 @@ export class FilterBtnListComponent extends TrackingComponent {
 		return this.filterSrv.hasFilterValue(FilterType.DONE, true);
 	}
 
+	isFilterWithButton(filterType: FilterType) {
+		return !([FilterType.ARCHIVED, FilterType.FAVORITE, FilterType.DONE].includes(filterType));
+	}
+
 	hasOthersSection() {
 		return this.filterTypes.includes(FilterType.ARCHIVED) ||
 					 this.filterTypes.includes(FilterType.FAVORITE) ||

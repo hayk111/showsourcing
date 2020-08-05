@@ -5,10 +5,10 @@
 <nav>
 	<sidebar-item-app 
 		[icon]="'product'" 
-		[link]="['/products']" 
+		[link]="['/products/table']" 
 		[subItems]="sideNavItems.get('product')">
 	</sidebar-item-app>
-	<sidebar-item-app [icon]="'supplier'" [link]="['/suppliers']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'supplier'" [link]="['/suppliers/table']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'project'" [link]="['/projects']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'check-circle'" [link]="['/tasks']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'envelope'" [link]="['/requests']" [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></sidebar-item-app>

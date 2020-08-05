@@ -1,10 +1,10 @@
-$image-height: 184px;
+$image-height: 200px;
 $image-height-s: 147px;
 
 :host {
 	display: block;
-	height: 257px;
-	width: 184px;
+	height: 281px;
+	width: 200px;
 	position: relative;
 	background-color: var(--color-bg);
 	border-radius: var(--border-radius);
@@ -24,6 +24,15 @@ $image-height-s: 147px;
 	cursor: default;
 	& > * {
 		cursor: default;
+	}
+}
+
+.no-img {
+	background: var(--color-bg-secondary);
+	height: $image-height;
+
+	icon-app {
+		color: var(--color-txt-third);
 	}
 }
 
@@ -138,10 +147,17 @@ img-app {
 	background-color: rgba(0, 0, 0, 0.72);
 }
 
+.product-info-content {
+	min-width: 0;
+	height: 18px;
+}
+
 .info-container {
+	height: 13px;
+	margin-top: var(--spacing-s);
+
 	.badge {
 		height: 8px;
 		min-width: 8px;
-		margin-top: 6px
 	}
 }

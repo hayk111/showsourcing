@@ -203,7 +203,7 @@ export class RatingService {
 			rating: value,
 		};
 
- 		return api['Vote'].update([{
+ 		return api.Vote.update([{
 			...ratingInfo
 		} as any]).local$;
 	}
@@ -215,7 +215,7 @@ export class RatingService {
 			voteCreatedById: this.userSrv.userId
 		};
 
-		return api['Vote'].create([{
+		return api.Vote.create([{
 			...voteInfo
 		} as any]).local$;
 	}

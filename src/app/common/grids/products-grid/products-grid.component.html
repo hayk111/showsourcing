@@ -1,8 +1,11 @@
 
 <div *ngFor="let category of getGroupedProducts(); first as first; index as i; trackBy: trackByFn"
 	class="category-section">
-	<div *ngIf="getGroupedValue(category)" class="section-title" >
-		{{ getGroupedValue(category) }}
+	<div *ngIf="getGroupedValue(category)" class="section-title">
+		<div class="mg-bottom-ms">
+			{{ getGroupedValue(category) }}
+		</div>
+		<divider-app></divider-app>
 	</div>
 	<div class="products-section">
 		<ng-container *ngFor="let product of category.value; index as i; trackBy: trackById">
