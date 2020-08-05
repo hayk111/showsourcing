@@ -20,6 +20,17 @@ $image-height-s: 147px;
 	height: $image-height-s !important;
 }
 
+.select-checkbox:not(.full-opacity) {
+	background: var(--color-bg);
+	border-radius: var(--border-radius-s);
+	width: 19px;
+}
+
+.select-checkbox.full-opacity {
+	background: transparent;
+	border-radius: var(--border-radius-s);
+}
+
 .disable-pointers > * {
 	cursor: default;
 	& > * {

@@ -24,11 +24,15 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		this.initialValue = this.control.value;
+		console.log('DynamicEditableFieldComponent -> ngOnInit -> this.initialValue', this.initialValue);
 		this.selectorEntityId$.next(this.initialValue);
 
 		this.selectorEntityId$
 			.pipe(
 				map((id) => this.getSelectorValue(id)),
+				tap((selectorValue) => {
+					console.log('DynamicEditableFieldComponent -> ngOnInit -> selectorValue', selectorValue);
+				}),
 				map(entity => entity.value || entity.name),
 				tap(value => {
 					this.selectorValue$.next(value);
@@ -59,7 +63,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 
 	getSelectorValue(id: string): any {
 		if (id && api[this.typename]) {
-			return api[this.typename].get(id);
+			return api[this.typename].get$(id);
 		}
 
 		return of('');

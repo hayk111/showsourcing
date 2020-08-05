@@ -50,8 +50,8 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 					const props = {
 						...product.propertiesMap,
 						name: product.name,
-						supplierId: product.supplierId,
-						categoryId: product.categoryId,
+						supplier: product.supplierId,
+						category: product.categoryId,
 					};
 
 					if (!_.isEqual(this.properties, props)) {
@@ -90,16 +90,13 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		}]);
 	}
 
-	get rootProperties() {
-		const { supplierId, categoryId } = this.product;
-		return { name: this.product.name, supplierId, categoryId };
-	}
-
 	private isRoot(propertyName: string) {
 		switch (propertyName) {
-			case 'name':
+			case 'name'			 :
 			case 'supplierId':
 			case 'categoryId':
+			case 'suppier'   :
+			case 'category'  :
 				return true;
 			default:
 				return false;

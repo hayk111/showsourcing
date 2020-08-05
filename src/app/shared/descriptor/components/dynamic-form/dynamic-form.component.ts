@@ -67,8 +67,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			this.formGroup.patchValue({
 				...product.propertiesMap,
 				name: product.name,
-				supplierId: product.supplierId,
-				categoryId: product.categoryId,
+				supplierId: product.supplier,
+				categoryId: product.category,
 			}, { emitEvent: false });
 			this.currentFormGroupSub.push(this.subscribeOnValueChanges(this.formGroup));
 		});

@@ -8,8 +8,11 @@
 	(canceled)="onCancel('length')">
 	<editable-label-app>Length</editable-label-app>
 	<editable-value-app>
-		{{ value?.length }} 
-		{{ value?.lengthUnit }}
+		<ng-container *ngIf="value?.length || value?.lengthUnit; else noVal">
+			{{ value?.length }} 
+			{{ value?.lengthUnit }}
+		</ng-container>
+		<ng-template #noVal><span>-</span></ng-template>
 	</editable-value-app>
 	<input 
 		inputApp
@@ -32,8 +35,11 @@
 	(canceled)="onCancel('width')">
 	<editable-label-app>Width</editable-label-app>
 	<editable-value-app>
-		{{ value?.width }} 
-		{{ value?.lengthUnit }}
+		<ng-container *ngIf="value?.width || value?.lengthUnit; else noVal">
+			{{ value?.width }} 
+			{{ value?.lengthUnit }}
+		</ng-container>
+		<ng-template #noVal><span>-</span></ng-template>
 	</editable-value-app>
 	<input 
 		inputApp
@@ -56,8 +62,11 @@
 	(canceled)="onCancel('height')">
 	<editable-label-app>Height</editable-label-app>
 	<editable-value-app>
-		{{ value?.height }} 
-		{{ value?.lengthUnit }}
+		<ng-container *ngIf="value?.height || value?.lengthUnit; else noVal">
+			{{ value?.height }} 
+			{{ value?.lengthUnit }}
+		</ng-container>
+		<ng-template #noVal><span>-</span></ng-template>
 	</editable-value-app>
 	<input 
 		inputApp
@@ -92,7 +101,7 @@
 			[(ngModel)]="value.lengthUnit"
 			(input)="onChangeFn(value)"
 			(blur)="onTouchedFn()">
-			{{ value?.lengthUnit }}
+			{{ value?.lengthUnit || '-' }}
 		</selector-app>
 	</editable-value-app>
 </editable-field-app>
@@ -106,7 +115,7 @@
 	(canceled)="onCancel('quantity')">
 	<editable-label-app>Quantity</editable-label-app>
 	<editable-value-app>
-		{{ value?.quantity }}
+		{{ value?.quantity || '-' }}
 	</editable-value-app>
 	<input 
 		inputApp
@@ -128,8 +137,11 @@
 	(canceled)="onCancel('weight')">
 	<editable-label-app>Weight</editable-label-app>
 	<editable-value-app>
-		{{ value?.weight }} 
-		{{ value?.weightUnit }}
+		<ng-container *ngIf="value?.weight || value?.weightUnit; else noVal">
+			{{ value?.weight }} 
+			{{ value?.weightUnit }}
+		</ng-container>
+		<ng-template #noVal><span>-</span></ng-template>
 	</editable-value-app>
 	<input 
 		inputApp
@@ -164,7 +176,7 @@
 			[(ngModel)]="value.weightUnit"
 			(input)="onChangeFn(value)"
 			(blur)="onTouchedFn()">
-			{{ value?.weightUnit }}
+			{{ value?.weightUnit || '-' }}
 		</selector-app>
 	</editable-value-app>
 </editable-field-app>

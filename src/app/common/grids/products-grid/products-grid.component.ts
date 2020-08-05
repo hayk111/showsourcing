@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { translate } from '~utils';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from '~core/list-page2';
 import { Product } from 'showsourcing-api-lib';
+import _ from 'lodash';
 
 @Component({
 	selector: 'products-grid-app',
@@ -18,67 +19,83 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 	@Output() update = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
 
-	constructor(private sortSrv: SortService, public selectionSrv: SelectionService) {
+	grouppedProducts: Array<{string: Product}>;
+	currentSortProperty: string;
+
+	lodash = _;
+
+	constructor(
+		private sortSrv: SortService,
+		private cdr: ChangeDetectorRef,
+		public selectionSrv: SelectionService
+	) {
 		super();
 	}
 
 	getGroupedProducts() {
-		const fieldSortyBy = this.sortSrv.currentSort.property;
-		const fieldSortByTokens = fieldSortyBy.split('.');
+		this.currentSortProperty = this.sortSrv.currentSort.property;
+		const fieldSortByTokens = this.currentSortProperty.split('.');
 		const field = fieldSortByTokens[0];
 
 		if (!this.rows) {
 			return this.rows;
 		}
 
-		let groupedObj = {};
+		const groupedObj = {};
 
-		switch (this.sortSrv.currentSort.property) {
-			case 'category.value':
-			case 'supplier.name':
-			case 'favorite':
-				groupedObj = this.rows.reduce((prev, cur) => {
-					const id = (cur[field] && cur[field].id) ? cur[field].id : cur[field];
-					if (!prev[id]) {
-						prev[id] = [cur];
-					} else {
-						prev[id].push(cur);
-					}
-					return prev;
-				}, {});
-				break;
-			default:
-				groupedObj = {};
-				groupedObj[this.sortSrv.currentSort.property] = this.rows;
-				break;
-		}
-		const val = Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
-		return val;
+		const categories: any = {
+			productsWithoutCategory: []
+		};
+
+		this.rows.forEach((product: Product) => {
+			if (!product.category) {
+				categories.productsWithoutCategory.push(product);
+				return;
+			}
+
+			if (product.category.value in categories) {
+				categories[product.category.value].push(product);
+			} else {
+				categories[product.category.value] = [product];
+			}
+		});
+
+		groupedObj[this.sortSrv.currentSort.property] = categories;
+
+		this.grouppedProducts = groupedObj[this.currentSortProperty];
+
+		const keys = _.keys(this.grouppedProducts);
+		const indexOfNoCategory = keys.indexOf('productsWithoutCategory');
+
+		const lastCategory = keys[keys.length - 1];
+		keys[keys.length - 1] = keys[indexOfNoCategory];
+		keys[indexOfNoCategory] = lastCategory;
+
+		return keys;
 	}
 
 	getGroupedValue(group) {
-		const fieldSortyBy = this.sortSrv.currentSort.property;
-		const fieldSortByTokens = fieldSortyBy.split('.');
-		const field = fieldSortByTokens[0];
-		let value = null;
-		if (group && group.value.length > 0) {
-			if (group.value[0]) {
-				switch (field) {
-					case 'favorite':
-						value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
-						value = translate(value);
-						break;
-					case 'category':
-					case 'supplier':
-						value = group.value[0][field] ? group.value[0][field].name : null;
-						break;
-					default:
-						// category value is picked by default title
-						value = group.value[0]['category'].value || '';
-						break;
-				}
-			}
-		}
-		return value;
+		// const fieldSortyBy = this.sortSrv.currentSort.property;
+		// const fieldSortByTokens = fieldSortyBy.split('.');
+		// const field = fieldSortByTokens[0];
+		// let value = null;
+		// if (group && group.value.length > 0) {
+		// 	if (group.value[0]) {
+		// 		switch (field) {
+		// 			case 'favorite':
+		// 				value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
+		// 				value = translate(value);
+		// 				break;
+		// 			case 'category':
+		// 			case 'supplier':
+		// 				value = group.value[0][field] ? group.value[0][field].value : null;
+		// 				break;
+		// 			default:
+		// 				// category value is picked by default title
+		// 				value = group.value[0]['category'] ? group.value[0]['category'].value : '';
+		// 				break;
+		// 		}
+		// 	}
+		// }
 	}
 }

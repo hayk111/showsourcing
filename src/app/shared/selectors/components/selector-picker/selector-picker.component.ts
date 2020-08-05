@@ -274,7 +274,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 
 		if (this.multiple && !this.isStored(itemToReturn)) {
-			this.value.push(itemToReturn);
+			if (this.value && Array.isArray(this.value)) {
+				this.value.push(itemToReturn);
+			} else {
+				this.value = [itemToReturn];
+			}
 			this.onChange();
 		} else if (!this.multiple) { // if not multiple we update and close
 			this.value = itemToReturn;

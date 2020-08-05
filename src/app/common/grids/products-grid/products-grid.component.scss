@@ -16,12 +16,11 @@
 	display: grid;
 	column-gap: var(--spacing-xl);
 	grid-template-columns: repeat(auto-fit, 200px);
-	justify-content: space-between;
 }
 
 .section-title {
 	font-weight: bold;
-	margin: var(--spacing-l) 0px;
+	margin: var(--spacing-ms) 0 var(--spacing-l) 0;
 	font-size: var(--font-size-xxxl);
 	text-transform: capitalize;
 	color: var(--color-txt-primary);

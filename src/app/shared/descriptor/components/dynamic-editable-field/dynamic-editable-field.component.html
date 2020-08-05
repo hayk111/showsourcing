@@ -9,7 +9,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				inputApp
 				#inp
@@ -29,7 +29,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -49,7 +49,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -67,7 +67,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -86,7 +86,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -131,7 +131,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -150,7 +150,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-'}}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -172,7 +172,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<textarea 
 				#inp
 				inputApp
@@ -212,8 +212,11 @@
 				{{ descriptor?.definition?.label }}
 			</editable-label-app>
 			<editable-value-app>
-				{{ control?.value?.value }} 
-				{{ control?.value?.currency }}
+				<ng-container *ngIf="control?.value?.value || control?.value?.currency; else noVal">
+					{{ control?.value?.value }} 
+					{{ control?.value?.currency }}
+				</ng-container>
+				<ng-template #noVal><span>-</span></ng-template>
 			</editable-value-app>
 			<input-price-app
 				#priceInput 
@@ -263,7 +266,7 @@
 					[required]="descriptor.required"
 					[formControl]="control"
 					(update)="selectorUpdate($event)">
-					<span>{{ selectorValue$ | async }}</span>
+					<span>{{ (selectorValue$ | async) || '-'}}</span>
 				</selector-app>
 			</editable-value-app>		
 		</editable-field-app>

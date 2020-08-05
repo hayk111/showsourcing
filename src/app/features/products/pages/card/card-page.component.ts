@@ -36,6 +36,7 @@ export class CardPageComponent implements OnInit {
 	];
 
 	constructor(
+		public filterSrv: FilterService,
 		public listHelper: ListHelper2Service<Product>,
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
@@ -44,6 +45,7 @@ export class CardPageComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'card' });
 	}
