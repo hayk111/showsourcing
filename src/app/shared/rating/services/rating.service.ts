@@ -196,28 +196,31 @@ export class RatingService {
 
 	// Component functions
 	private updateVote(vote: Vote, value: number): Observable<any> {
-		const { id } = vote;
+		// const { id } = vote;
 
-		const ratingInfo = {
-			id,
-			rating: value,
-		};
+		// const ratingInfo = {
+		// 	id,
+		// 	rating: value,
+		// };
 
- 		return api.Vote.update([{
-			...ratingInfo
-		} as any]).local$;
+ 		// return api.Vote.update([{
+		// 	...ratingInfo
+		// } as any]).local$;
+		return of();
 	}
 
 	private createVote(nodeId: string, rating: number): Observable<any> {
-		const voteInfo = {
-			rating,
-			nodeId,
-			voteCreatedById: this.userSrv.userId
-		};
+		// const voteInfo = {
+		// 	rating,
+		// 	nodeId,
+		// 	voteCreatedById: this.userSrv.userId
+		// };
 
-		return api.Vote.create([{
-			...voteInfo
-		} as any]).local$;
+		// return api.Vote.create([{
+		// 	...voteInfo
+		// } as any]).local$;
+
+		return of();
 	}
 
 	applyRatings(items: any[], ratings: Vote[]) {
