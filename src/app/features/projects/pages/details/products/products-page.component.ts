@@ -189,8 +189,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 					productIds.forEach(productId => {
 						api['ProjectProduct'].create([{
 							teamId: TeamService.teamSelected.id,
-							productId,
-							projectId: this.projectId
+							product: productId,
+							project: this.projectId
 						}]);
 					});
 					this.cdr.detectChanges();

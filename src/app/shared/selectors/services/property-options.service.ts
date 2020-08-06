@@ -34,7 +34,7 @@ export class PropertyOptionsService {
 			this.sortSrv.sort$
 		).pipe(
 			switchMap(([filter, sort]) => {
-				return api.PropertyOption.findByType(this.typename, { filter, sort }).data$;
+				return api.PropertyOption.findByType$(this.typename, { filter, sort }).data$;
 			}),
 			tap((data: any[]) => this._data$.next(data))
 		).subscribe();
@@ -44,7 +44,7 @@ export class PropertyOptionsService {
 		type: string,
 		options?: any
 	): Observable<any[]> {
-		return api.PropertyOption.findByType(type, options).data$;
+		return api.PropertyOption.findByType$(type, options).data$;
 	}
 
 	createPropertyOptions(

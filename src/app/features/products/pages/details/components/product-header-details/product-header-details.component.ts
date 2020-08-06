@@ -27,7 +27,7 @@ export class ProductHeaderDetailsComponent {
 	}
 
 	onUserChanged(user: User) {
-		this.update.emit({ id: this.product.id, assigneeId: user.id });
+		this.update.emit({ id: this.product.id, assignee: user.id });
 	}
 
 	updateProductName(isCancel: boolean, value: any, prop: string) {

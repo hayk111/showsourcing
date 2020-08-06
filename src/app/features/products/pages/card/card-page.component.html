@@ -3,9 +3,8 @@
 	[title]="'title.my-products' | translate"
 	logoTypename="Product"
 	info="The product database"
-	[buttonName]="'button.create-product' | translate"
-	(buttonClick)="dlgCommonSrv.openCreationDlg('Product')"
->
+	[buttonName]="'button.add-product' | translate"
+	(buttonClick)="listHelper.openCreationDialog()">
 </header-list-app>
 
 <controller-table-app>

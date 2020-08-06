@@ -34,7 +34,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	productId: string;
 	product$: Observable<Product>;
-	productProjects: Project[];
+	productProjects: (Project | string)[];
 
 	// sample & task used for the preview
 	sample: Sample;
@@ -171,7 +171,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	updateProductProjects(projects: Project[]) {
 		if (projects.length < this.productProjects.length) {
-			const deletedIds = _.difference(this.productProjects.map(p => p.id), projects.map(p => p.id));
+			// const deletedIds = _.difference(this.productProjects.map(p => p.id), projects.map(p => p.id));
 			// TODO: implement delete
 			// api.ProjectProduct.delete(deletedIds);
 			return;

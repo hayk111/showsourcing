@@ -7,7 +7,7 @@
 		</button>
 	</div>
 
-	<ng-container *ngIf="(descriptor$ | async)?.sections as sections">
+	<ng-container *ngIf="descriptor.sections as sections">
 		<ng-container *ngFor="let section of sections">
 			<accordion-app>
 				<accordion-title-app>{{section?.name}}</accordion-title-app>

@@ -53,10 +53,11 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 				return;
 			}
 
-			if (product.category.value in categories) {
+			if ((typeof product.category === 'object') && product.category.value in categories) {
 				categories[product.category.value].push(product);
 			} else {
-				categories[product.category.value] = [product];
+				const category = typeof product.category === 'object' ? product.category.value : product.category;
+				categories[category] = [product];
 			}
 		});
 

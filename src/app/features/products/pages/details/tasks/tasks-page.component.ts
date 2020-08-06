@@ -40,7 +40,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.setup(
 			'Task',
 			this._destroy$,
-			(options) => api.Task.findByProduct(this.productId)
+			(options) => api.Task.findByProduct$(this.productId)
 		);
 	}
 }

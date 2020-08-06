@@ -72,8 +72,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.userVote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id);
-		this.teamVotes$ = this.ratingSrv.getTeamVotes('supplier:' + this._supplier.id);
+		this.userVote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id) as any;
+		this.teamVotes$ = this.ratingSrv.getTeamVotes('supplier:' + this._supplier.id) as any;
 	}
 
 	updateVote(vote$: Observable<Vote>) {

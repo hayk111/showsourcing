@@ -41,7 +41,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.setup(
 			'Sample',
 			this._destroy$,
-			(options) => api.Sample.findByProduct(this.productId)
+			(options) => api.Sample.findByProduct$(this.productId)
 		);
 	}
 }

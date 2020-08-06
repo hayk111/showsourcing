@@ -20,12 +20,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	properties: any;
 
-	descriptor$ = api.Descriptor.findByType('PRODUCT')
-		.data$
-		.pipe(
-			map(descriptors => descriptors.length && descriptors[0]),
-			first(),
-		);
+	descriptor: Descriptor = api.Descriptor.getByType('PRODUCT');
 
 	constructor(
 		private route: ActivatedRoute,
@@ -36,10 +31,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
-			console.log('Desctriptor data:', data); // this log is needed to stay for a little while
-		});
-
+		console.log('InfoPageComponent -> ngOnInit -> this.descriptor', this.descriptor);
 		this.product$ = api.Product.get$(this.route.parent.snapshot.params.id)
 			.pipe(
 				takeUntil(this._destroy$),
@@ -50,8 +42,8 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 					const props = {
 						...product.propertiesMap,
 						name: product.name,
-						supplier: product.supplierId,
-						category: product.categoryId,
+						supplier: product.supplier,
+						category: product.category,
 					};
 
 					if (!_.isEqual(this.properties, props)) {
@@ -95,7 +87,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 			case 'name'			 :
 			case 'supplierId':
 			case 'categoryId':
-			case 'suppier'   :
+			case 'supplier'   :
 			case 'category'  :
 				return true;
 			default:

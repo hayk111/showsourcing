@@ -220,6 +220,7 @@
 			</editable-value-app>
 			<input-price-app
 				#priceInput 
+				[dynamicInput]="true"
 				[inline]="true"
 				[readonly]="descriptor.readonly"
 				[formControl]="control">
@@ -266,7 +267,7 @@
 					[required]="descriptor.required"
 					[formControl]="control"
 					(update)="selectorUpdate($event)">
-					<span>{{ (selectorValue$ | async) || '-'}}</span>
+					<span>{{ control?.value?.name || control?.value?.value || '-'}}</span>
 				</selector-app>
 			</editable-value-app>		
 		</editable-field-app>

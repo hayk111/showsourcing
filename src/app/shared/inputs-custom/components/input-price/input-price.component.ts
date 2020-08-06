@@ -36,6 +36,7 @@ export class InputPriceComponent extends AbstractInput {
 	@Input() hasLabel = false;
 	/** whether the input has borders */
 	@Input() inline = false;
+	@Input() dynamicInput = false;
 	@ViewChild(InputDirective) amountInp: InputDirective;
 	focussed = false;
 

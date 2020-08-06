@@ -117,7 +117,11 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 				// - like supplierId, categoryId, etc
 				Object.keys(properties).forEach(key => {
 					if (key.toLowerCase().includes('id')) {
-						returnObj[key] = properties[key][key];
+						if (properties[key][key]) {
+							returnObj[key.slice(0, key.toLowerCase().indexOf('id'))] = properties[key][key];
+						} else {
+							return;
+						}
 					} else {
 						returnObj[key] = properties[key];
 					}

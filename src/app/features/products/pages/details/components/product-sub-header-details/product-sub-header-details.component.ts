@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { api, Product, Supplier, ProductTag } from 'lib';
+import { api, Product, Supplier, ProductTag } from 'showsourcing-api-lib';
 import { Price } from '~core/erm3';
 import { updateProductPriceMOQ } from '~utils/price.utils';
 import { first, switchMap } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 			.pipe(
 				switchMap((updatedProduct: Product) => {
 					const tagIds = updatedProduct.tags ? updatedProduct.tags.map((tag: ProductTag) => tag.tagId) : [];
-					return api.PropertyOption.findByType(
+					return api.PropertyOption.findByType$(
 						'TAG',
 						{
 							filter: {
@@ -52,8 +52,8 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 			});
 
 		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
-		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
-		this.tasksCount$ = api.Task.findByProduct(this.product.id).count$;
+		this.samplesCount$ = api.Sample.findByProduct$(this.product.id).count$;
+		this.tasksCount$ = api.Task.findByProduct$(this.product.id).count$;
 		this.commentsCount$ = api.Comment.findByNodeId('product:' + this.product.id).count$;
 	}
 

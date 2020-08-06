@@ -58,13 +58,6 @@ export class AuthenticationService {
 		private router: Router
 	) {
 		state.auth$.subscribe(state => log.debug(`auth state: ${state}`));
-		this.signIn$.pipe(first()).subscribe(_ => {
-			log.debug('client init');
-			client.init({
-				offlineConfigAWS: {storage: undefined, storeCacheRootMutation: false},
-				shouldSync: true,
-			});
-		});
 	}
 
 	// SIGN IN FLOWS

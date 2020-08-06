@@ -70,8 +70,8 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 					const product = createdProducts[0];
 					return api['ProjectProduct'].create([{
 						teamId: TeamService.teamSelected.id,
-						productId: product.id,
-						projectId: this.projectId
+						product: product.id,
+						project: this.projectId
 					}]).local$;
 				}),
 				tap(_ => this.projectProductSrv.refetch()),

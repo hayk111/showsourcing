@@ -41,7 +41,7 @@ export class StatusSeederService {
 	constructor() {}
 
 	async listStatuses(type: any): Promise<any> {
-		return api.WorkflowStatus.findByType(type).data$.pipe(first()).toPromise();
+		return api.WorkflowStatus.findByType$(type).data$.pipe(first()).toPromise();
 	}
 
 	/** delete all WorkflowStatus in current team */
