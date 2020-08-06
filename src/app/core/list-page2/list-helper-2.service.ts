@@ -82,7 +82,6 @@ export class ListHelper2Service<G = any> {
 	}
 
 	openCreationDialog(addedProperties: any = {}, typename: Typename = this.typename) {
-		console.log('ListHelper2Service<G -> openCreationDialog -> typename', typename);
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
 				typename,
@@ -118,11 +117,9 @@ export class ListHelper2Service<G = any> {
 			.data$
 			.pipe(
 				map(_ => {
-					console.log('deleteSelected -> selectedIds1', selectedIds);
 					return selectedIds.map(selected => ({ id: selected }));
 				}),
 				switchMap((selectedIds) => {
-					console.log('deleteSelected -> selectedIds2', selectedIds);
 					return api[this.typename].delete(selectedIds).local$;
 				})
 			)
