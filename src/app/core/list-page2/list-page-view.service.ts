@@ -65,6 +65,6 @@ export class ListPageViewService<T> {
 	*/
 	changeView(view: View) {
 		this.view = view;
-		this.router.navigate([this.destUrl, view]);
+		// this.router.navigate([this.destUrl, view]);
 	}
 }

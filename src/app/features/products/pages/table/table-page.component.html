@@ -21,6 +21,7 @@
 </controller-table-app>
 
 <products-table-app
+	*ngIf="viewSrv.view === 'table'"
 	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
@@ -32,8 +33,27 @@
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(delete)="listHelper.delete($event)">
+	(delete)="listHelper.openDeletionDialog($event?.id)">
 </products-table-app>
+
+<products-grid-app
+	*ngIf="viewSrv.view === 'card'"
+	cdk-scrollable
+	class="card-view will-change-scroll"
+	infiniScroll
+	[rows]="listHelper.data$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	(addToProject)="addToProject($event)"
+	(disliked)="ratingSrv.onThumbDown($event)"
+	(liked)="ratingSrv.onThumbUp($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(update)="listHelper.update($event)"
+	(bottomReached)="listHelper.loadMore()"
+>
+</products-grid-app>
 
 <product-selection-bar-app></product-selection-bar-app>
 

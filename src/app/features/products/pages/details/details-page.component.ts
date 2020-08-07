@@ -6,10 +6,12 @@ import { TeamService } from '~core/auth';
 import { map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { AutoUnsub, log } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
+import { TranslateService } from '@ngx-translate/core';
 import _ from 'lodash';
 
 /**
@@ -46,6 +48,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
+		private translate: TranslateService,
 		public listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
 	) {
@@ -189,13 +192,16 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		api.ProjectProduct.create(toPass);
 	}
 
-	/** when deleting this product */
-	deleteProduct(product: Product) {
-		// const text = this.translate.instant('message.confirm-delete-product');
-		// this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-		// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-		// 	switchMap(_ => this.productSrv.delete(product.id))
-		// ).subscribe(_ => this.router.navigate(['products']));
+	deleteProduct(id: string) {
+		this.dlgSrv
+			.open(ConfirmDialogComponent, {
+				text: 'message.confirm-delete-product'
+			})
+			.data$.pipe(
+				switchMap(() => {
+					return api.Product.delete([{id}]).local$;
+				}),
+			).subscribe(_ => this.router.navigate(['products', 'table']));
 	}
 
 	openSupplierRequest(product: Product) {

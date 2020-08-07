@@ -102,6 +102,11 @@ export class FilterConverter {
 					property: type,
 					isString: value
 				};
+			case FilterType.CREATED_BY:
+				return {
+					property: 'teamUser',
+					isString: value
+				};
 			default:
 				return {
 					property: type,

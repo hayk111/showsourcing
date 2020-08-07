@@ -64,7 +64,9 @@ export class ListHelper2Service<G = any> {
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination }))
+			map(([filter, pagination, sort]) => {
+				return findFn({ filter, sort, pagination });
+			})
 		);
 
 		// data
@@ -90,6 +92,18 @@ export class ListHelper2Service<G = any> {
 			.data$.pipe(
 				switchMap((entity) => {
 					return api[typename].create([{...entity, ...addedProperties}]).local$;
+				}),
+			).subscribe();
+	}
+
+	openDeletionDialog(id: string, typename: Typename = this.typename) {
+		this.dlgSrv
+			.open(ConfirmDialogComponent, {
+				text: 'message.confirm-delete-' + typename.toLowerCase()
+			})
+			.data$.pipe(
+				switchMap(() => {
+					return api[typename].delete([{id}]).local$;
 				}),
 			).subscribe();
 	}

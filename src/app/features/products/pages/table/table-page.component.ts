@@ -6,6 +6,7 @@ import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -47,6 +48,7 @@ export class TablePageComponent implements OnInit {
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
+		public ratingSrv: RatingService,
 		protected dlgSrv: DialogService,
 	) { }
 
@@ -59,6 +61,11 @@ export class TablePageComponent implements OnInit {
 	addProject() {
 		// this.dialogCommonSrv.openSelectionDlg('Project', this.selectionSrv.getSelectedValues());
 		// TODO add the correct logic for submit
+	}
+
+	addToProject(event) {
+		// this.dlgCommonSrv.openSelectionDlg('Project', [event]);
+		// TODO add the logic after closing dialog
 	}
 
 }

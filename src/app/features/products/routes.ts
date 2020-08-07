@@ -9,7 +9,6 @@ export const routes: Array<Route> = [
 		redirectTo: 'table'
 	},
 	{ path: 'table', component: Pages.TablePageComponent },
-	{ path: 'card', component: Pages.CardPageComponent },
 	{
 		path: ':id',
 		component: Pages.DetailsPageComponent,

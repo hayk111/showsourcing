@@ -36,7 +36,6 @@ import * as Pages from './pages';
 	],
 	declarations: [
 		Pages.TablePageComponent,
-		Pages.CardPageComponent,
 		Pages.DetailsPageComponent,
 		DetailsPage.ActivityPageComponent,
 		DetailsPage.SamplesPageComponent,
