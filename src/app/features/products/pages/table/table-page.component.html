@@ -22,7 +22,7 @@
 
 <products-table-app
 	*ngIf="viewSrv.view === 'table'"
-	[rows]="listHelper.data$ | async"
+	[rows]="productsWithImages"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"
@@ -41,7 +41,7 @@
 	cdk-scrollable
 	class="card-view will-change-scroll"
 	infiniScroll
-	[rows]="listHelper.data$ | async"
+	[rows]="productsWithImages"
 	[selection]="selectionSrv.selection$ | async"
 	(addToProject)="addToProject($event)"
 	(disliked)="ratingSrv.onThumbDown($event)"

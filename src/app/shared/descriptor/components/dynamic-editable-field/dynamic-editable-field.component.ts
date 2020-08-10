@@ -23,7 +23,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 	initialValue;
 
 	ngOnInit() {
-		this.initialValue = this.control.value;
+		this.initialValue = this.control ? this.control.value : '';
 		this.selectorEntityId$.next(this.initialValue);
 
 		this.selectorEntityId$
@@ -38,7 +38,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges) {
 		const { control } = changes;
-		if (this.descriptor.definition.type === this.type.SELECTOR) {
+		if (this.descriptor.definition && this.descriptor.definition.type === this.type.SELECTOR) {
 			this.selectorEntityId$.next(control.currentValue.value);
 		}
 	}

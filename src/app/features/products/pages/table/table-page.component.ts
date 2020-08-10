@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { Product } from '~core/erm';
@@ -7,6 +9,7 @@ import { ListHelper2Service, ListPageViewService, SelectionService } from '~core
 import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { RatingService } from '~shared/rating/services/rating.service';
+import { api } from 'showsourcing-api-lib';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -26,7 +29,7 @@ import { RatingService } from '~shared/rating/services/rating.service';
 		class: 'table-page'
 	}
 })
-export class TablePageComponent implements OnInit {
+export class TablePageComponent implements OnInit, OnDestroy {
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -41,6 +44,10 @@ export class TablePageComponent implements OnInit {
 	];
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
+	productsWithImages: any [];
+	productsSub: Subscription;
+
+	@ViewChild(ProductsTableComponent, { static: false }) productsTable: ProductsTableComponent;
 
 	constructor(
 		public filterSrv: FilterService,
@@ -49,6 +56,7 @@ export class TablePageComponent implements OnInit {
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
 		public ratingSrv: RatingService,
+		private cdr: ChangeDetectorRef,
 		protected dlgSrv: DialogService,
 	) { }
 
@@ -56,6 +64,25 @@ export class TablePageComponent implements OnInit {
 		this.filterSrv.setup([], ['name']);
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
 		this.listHelper.setup('Product');
+
+		this.productsSub = this.listHelper.data$
+			.pipe(
+				map((products: Product[]) => {
+					return products.map((product: any) => {
+						product.images = api.Image.findLocal({
+							filter: {
+								property: 'nodeId',
+								isString: 'Product:' + product.id
+							}
+						});
+						return product;
+					});
+				})
+			)
+			.subscribe(data => {
+				this.productsWithImages = data;
+				this.cdr.markForCheck();
+			});
 	}
 
 	addProject() {
@@ -66,6 +93,10 @@ export class TablePageComponent implements OnInit {
 	addToProject(event) {
 		// this.dlgCommonSrv.openSelectionDlg('Project', [event]);
 		// TODO add the logic after closing dialog
+	}
+
+	ngOnDestroy() {
+		this.productsSub.unsubscribe();
 	}
 
 }

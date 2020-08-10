@@ -92,10 +92,10 @@ export class FilterConverter {
 					isTrue: value
 				};
 			case FilterType.SEARCH:
-				return {
-					property: this.searchedFields[0], // TODO: implement multiple filters pass
+				return {or: this.searchedFields.map((searchField) => ({
+					property: searchField, // TODO: implement multiple filters pass
 					contains: value
-				};
+				}))};
 			case FilterType.SUPPLIER:
 			case FilterType.CATEGORY:
 				return {

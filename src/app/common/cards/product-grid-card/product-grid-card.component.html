@@ -7,11 +7,11 @@
 	}"
 >
 
-	<ng-container *ngIf="product?.images as images; else noImg">
+	<ng-container *ngIf="product?.images | firstImage as image; else noImg">
 		<!-- picture -->
 		<img-app
 			[ngClass]="{ 'small-img': size === 's' }"
-			[image]="product?.images | firstImage"
+			[image]="image"
 			objectFit="cover"
 			size="xl"
 		>

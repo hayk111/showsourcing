@@ -45,6 +45,7 @@ export class UploaderService {
 			switchMap((images) => { // images are returned from s3upload function with corresponding names in S3
 				const toCreate = [];
 				images.forEach((img: any) => {
+					console.log('image name::::', this.userSrv.identityId, img.key);
 					toCreate.push({ fileName: `${this.userSrv.identityId}/${img.key}`, nodeId });
 				});
 				return api.Image.create(toCreate).local$;
