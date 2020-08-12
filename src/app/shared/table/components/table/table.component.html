@@ -4,10 +4,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 <div
 	class="ctnr will-change-scroll"
-	[ngClass]="{ 'with-border': hasBorder, 'with-pagination': hasPagination }"
-	infiniScroll
-	cdk-scrollable
-	(bottomReached)="bottomReached.emit()">
+	[ngClass]="{ 'with-border': hasBorder, 'with-pagination': hasPagination }">
 
 	<div class="contentCtnr">
 
@@ -20,9 +17,8 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			<div
 				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				class="cell"
-				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-				[style.height]="rowHeight + 'px'"
-				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+				[ngClass]="{ selected: isSelected(row, i) }"
+				[style.height]="rowHeight + 'px'">
 			</div>
 		</div>
 
@@ -45,9 +41,8 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 					class="cell"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-					[style.height]="rowHeight + 'px'"
-					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+					[ngClass]="{ selected: isSelected(row, i) }"
+					[style.height]="rowHeight + 'px'">
 					<checkbox-app
 						*ngIf="isSelectable(row)"
 						[value]="selected.has(row[idName])"
@@ -60,7 +55,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 
 		<!-- content columns -->
-		<div *ngFor="let column of columns; let i = index; trackBy: columnTrackByFn"
+		<div *ngFor="let column of columns; let i = index; trackBy: columnTrackByFn()"
 			class="col {{ column.grows ? 'grows' : '' }}"
 			[ngClass]="{'primary-col': listView && i == 0}"
 			[style.width]="column.width + 'px'">
@@ -82,16 +77,17 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			<!-- cells -->
 			<ng-container *ngIf="!pending">
 				<div
-					*ngFor="let row of rows; index as i; trackBy: trackById"
+					*ngFor="let row of rows; index as i; trackBy: cellTrackByFn(column.type)"
 					class="cell"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
-					[style.height]="rowHeight + 'px'"
-					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+					[class.selected]="isSelected(row, i)"
+					[ngClass]="'cell--' + i"
+					[style.height]="rowHeight + 'px'">
 					<!-- Render the column template when specified -->
 					<ng-container *ngIf="!column.showOnHover || i === hoverIndex">
 						<ng-container
 							*ngTemplateOutlet="column.template; context: { column: column, row: row, index: i }">
 						</ng-container>
+						<!-- {{getRowDisplayCount()}} -->
 						<!-- <icon-app name="eye"></icon-app> -->
 					</ng-container>
 				</div>
@@ -111,10 +107,8 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 					class="menuCell cell flexCenter"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-					[style.height]="rowHeight + 'px'"
-					(mouseenter)="hoverRow(i)"
-					(mouseleave)="hoverRow(-1)">
+					[ngClass]="{ selected: isSelected(row, i) }"
+					[style.height]="rowHeight + 'px'">
 					<context-menu-app
 						*ngIf="isSelectable(row)"
 						[ngClass]="{ hover: (i === hoverIndex) }"
