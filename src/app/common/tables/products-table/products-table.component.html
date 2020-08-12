@@ -31,6 +31,7 @@
 		[sortable]="column.sortable !== false"
     [width]="column.width"
 		[sortBy]="column.sortProperty"
+		[type]="column.name"
 		[grows]="!column.fixedWidth">
     <ng-container [ngSwitch]="column.name">
 

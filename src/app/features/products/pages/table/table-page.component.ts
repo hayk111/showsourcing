@@ -9,6 +9,7 @@ import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { api, Product } from 'showsourcing-api-lib';
+import { AutoUnsub } from '~utils';
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
@@ -27,7 +28,7 @@ import { api, Product } from 'showsourcing-api-lib';
 		class: 'table-page'
 	}
 })
-export class TablePageComponent implements OnInit, OnDestroy {
+export class TablePageComponent extends AutoUnsub implements OnInit, OnDestroy {
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -57,12 +58,14 @@ export class TablePageComponent implements OnInit, OnDestroy {
 		private cdr: ChangeDetectorRef,
 		protected dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
-	) { }
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
-		this.listHelper.setup('Product');
+		this.listHelper.setup('Product', this._destroy$);
 
 		// this.paginationSrv.pagination$
 		// 	.pipe(
@@ -93,9 +96,4 @@ export class TablePageComponent implements OnInit, OnDestroy {
 		// this.dlgCommonSrv.openSelectionDlg('Project', [event]);
 		// TODO add the logic after closing dialog
 	}
-
-	ngOnDestroy() {
-		this.productsSub.unsubscribe();
-	}
-
 }
