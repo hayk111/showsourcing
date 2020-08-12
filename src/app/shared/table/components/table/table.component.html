@@ -17,9 +17,8 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			<div
 				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				class="cell"
-				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-				[style.height]="rowHeight + 'px'"
-				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+				[ngClass]="{ selected: isSelected(row, i) }"
+				[style.height]="rowHeight + 'px'">
 			</div>
 		</div>
 
@@ -42,9 +41,8 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 					class="cell"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-					[style.height]="rowHeight + 'px'"
-					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+					[ngClass]="{ selected: isSelected(row, i) }"
+					[style.height]="rowHeight + 'px'">
 					<checkbox-app
 						*ngIf="isSelectable(row)"
 						[value]="selected.has(row[idName])"
@@ -109,10 +107,8 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 					class="menuCell cell flexCenter"
-					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-					[style.height]="rowHeight + 'px'"
-					(mouseenter)="hoverRow(i)"
-					(mouseleave)="hoverRow(-1)">
+					[ngClass]="{ selected: isSelected(row, i) }"
+					[style.height]="rowHeight + 'px'">
 					<context-menu-app
 						*ngIf="isSelectable(row)"
 						[ngClass]="{ hover: (i === hoverIndex) }"
