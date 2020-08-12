@@ -59,7 +59,7 @@ export class DynamicEditableFieldComponent implements OnInit, OnChanges {
 
 	getSelectorValue(id: string): any {
 		if (id && api[this.typename]) {
-			return api[this.typename].get$(id);
+			return api[this.typename].get$(id).data$;
 		}
 
 		return of('');

@@ -59,7 +59,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		 * Subscription to any Product changes, like when parent component updates the product, in order to not
 		 * have memory leak errors we're keeping track of all subscriptions to the @formGroup changes
 		 */
-		api.Product.get$(this.entityId)
+		api.Product.get$(this.entityId).data$
 			.subscribe(product => {
 			this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
 			this.formGroupUnsubscribe();

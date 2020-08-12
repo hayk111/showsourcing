@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, first } from 'rxjs/operators';
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,13 @@ export class PaginationService {
 	private _page$ = new BehaviorSubject<number>(this._currentPage);
 	page$ = this._page$.asObservable();
 
-	pagination$ = combineLatest(this.limit$, this.page$).pipe(map(([limit, page]) => ({ limit, page })));
+	pagination$ = combineLatest(this.limit$, this.page$)
+		.pipe(
+			tap(pagination => {
+				console.log('PaginationService -> pagination', pagination);
+			}),
+			map(([limit, page]) => ({ limit, page })
+		));
 	/** the range of pages displayed, to display page buttons */
 	private _range$ = new ReplaySubject<number[]>(1);
 	range$ = this._range$.asObservable();

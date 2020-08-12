@@ -30,7 +30,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@Input()
 	set product(value: any) {
 		this._productSubscription$?.unsubscribe();
-		this._productSubscription$ = api.Product.get$(value?.id).subscribe(product => {
+		this._productSubscription$ = api.Product.get$(value?.id).data$.subscribe(product => {
 			this._product = product;
 			this.cd.markForCheck();
 		});

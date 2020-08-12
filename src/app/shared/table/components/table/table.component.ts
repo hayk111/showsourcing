@@ -91,6 +91,10 @@ export class TableComponent extends TrackingComponent {
 		super();
 	}
 
+	ngOnChanges() {
+		console.log('TableComponent -> ngOnChanges -> this.rows', this.rows);
+	}
+
 	getSelectionState(): SelectionState {
 		if (!this.rows || this.rows.length === 0)
 			return 'unchecked';

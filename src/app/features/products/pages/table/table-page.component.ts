@@ -1,16 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subscription, combineLatest } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import { Product } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { RatingService } from '~shared/rating/services/rating.service';
-import { api } from 'showsourcing-api-lib';
-
+import { api, Product } from 'showsourcing-api-lib';
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
@@ -58,6 +56,7 @@ export class TablePageComponent implements OnInit, OnDestroy {
 		public ratingSrv: RatingService,
 		private cdr: ChangeDetectorRef,
 		protected dlgSrv: DialogService,
+		private paginationSrv: PaginationService,
 	) { }
 
 	ngOnInit() {
@@ -65,24 +64,24 @@ export class TablePageComponent implements OnInit, OnDestroy {
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
 		this.listHelper.setup('Product');
 
-		this.productsSub = this.listHelper.data$
-			.pipe(
-				map((products: Product[]) => {
-					return products.map((product: any) => {
-						product.images = api.Image.findLocal({
-							filter: {
-								property: 'nodeId',
-								isString: 'Product:' + product.id
-							}
-						});
-						return product;
-					});
-				})
-			)
-			.subscribe(data => {
-				this.productsWithImages = data;
-				this.cdr.markForCheck();
-			});
+		// this.paginationSrv.pagination$
+		// 	.pipe(
+		// 		switchMap((pagination) => api.Product.find$({ pagination }).data$),
+		// 		// map((products: Product[]) => {
+		// 		// 	return products.map((product: any) => {
+		// 		// 		product.images = api.Image.findLocal({
+		// 		// 			filter: {
+		// 		// 				property: 'nodeId',
+		// 		// 				isString: 'Product:' + product.id
+		// 		// 			}
+		// 		// 		});
+		// 		// 		return product;
+		// 		// 	});
+		// 		// })
+		// 	).subscribe(data => {
+		// 		this.productsWithImages = data;
+		// 		this.cdr.markForCheck();
+		// 	});
 	}
 
 	addProject() {

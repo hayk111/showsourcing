@@ -25,7 +25,7 @@
 
   <!-- dynamic columns -->
   <ng-template
-    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    *ngFor="let column of columnsConfig; trackBy: trackById"
     let-row="row"
 		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 		[sortable]="column.sortable !== false"
