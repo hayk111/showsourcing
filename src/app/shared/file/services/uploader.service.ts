@@ -6,6 +6,7 @@ import { ToastService, ToastType } from '~shared/toast';
 import { UserService } from '~core/auth';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
 import { uuid } from '~utils';
+import * as _ from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -75,7 +76,7 @@ export class UploaderService {
 		const extension = file.name.slice(file.name.lastIndexOf('.'));
 		return from(Storage.put(
 			// for file attachments we use file name and replace spaces with dashes
-			byName ? file.name.replace(/\s+/g, '-') : uuid() + extension,
+			byName ? _.deburr(file.name).replace(/[^a-z0-9\._]/gi, '-') : uuid() + extension,
 			file,
 			{
 				level: 'private',
