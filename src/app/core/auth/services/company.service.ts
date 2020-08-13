@@ -4,9 +4,10 @@ import { switchMap, tap } from 'rxjs/operators';
 import { api, client, Company } from 'showsourcing-api-lib';
 import { AuthenticationService } from './authentication.service';
 import { log } from '~utils/log';
+import { initializedClient$ } from '../../../../client';
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class CompanyService {
 	private _company$ = new ReplaySubject<Company>(1);
@@ -17,10 +18,9 @@ export class CompanyService {
 
 	init() {
 		// when signing in we want to load the current company of the user
-		this.authSrv.signIn$
-			.pipe(
-				switchMap(id => api.Company.getFirst()),
-			).subscribe(company => this._company$.next(company));
+		initializedClient$
+			.pipe(switchMap(id => api.Company.getFirst()))
+			.subscribe(company => this._company$.next(company));
 		this.company$.subscribe(company => {
 			this.companySync = company;
 			if (company) {
@@ -31,8 +31,6 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return api.Company.create(company).online$.pipe(
-			tap(_company => this._company$.next(_company)),
-		);
+		return api.Company.create(company).online$.pipe(tap(_company => this._company$.next(_company)));
 	}
 }
