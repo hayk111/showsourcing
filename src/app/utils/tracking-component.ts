@@ -14,7 +14,6 @@ export abstract class TrackingComponent implements OnDestroy {
 	}
 
 	public trackById = (index, item) => {
-		console.log('trackBy:', item);
 		return item.id;
 	}
 }
