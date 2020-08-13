@@ -73,7 +73,7 @@
     "npm": "^6.4.1",
     "realm-graphql-client": "^1.4.0",
     "rxjs": "^6.6.2",
-    "showsourcing-api-lib": "0.2.2",
+    "showsourcing-api-lib": "0.2.3",
     "subscriptions-transport-ws": "^0.9.14",
     "uuid": "^3.2.1",
     "zone.js": "^0.10.3"
