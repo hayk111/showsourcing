@@ -4,7 +4,7 @@ import { translate } from '~utils';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from '~core/list-page2';
 import { Product } from 'showsourcing-api-lib';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'products-grid-app',
@@ -21,8 +21,6 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 
 	grouppedProducts: Array<{string: Product}>;
 	currentSortProperty: string;
-
-	lodash = _;
 
 	constructor(
 		private sortSrv: SortService,

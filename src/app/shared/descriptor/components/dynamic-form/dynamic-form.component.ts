@@ -7,7 +7,7 @@ import { Descriptor, PropertyDescriptor } from '~core/erm3/models';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
 import { log } from '~utils/log';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import { Typename, api } from 'showsourcing-api-lib';
 
 const	toUpdate = false;

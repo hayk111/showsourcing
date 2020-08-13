@@ -12,7 +12,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { AutoUnsub, log } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
 import { TranslateService } from '@ngx-translate/core';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 /**
  *

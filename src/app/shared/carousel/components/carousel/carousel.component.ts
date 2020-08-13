@@ -12,7 +12,7 @@ import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { ToastType } from '~shared/toast';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'carousel-app',

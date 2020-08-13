@@ -1,6 +1,6 @@
 import { Image } from 'showsourcing-api-lib';
 import { Pipe, PipeTransform } from '@angular/core';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Pipe({ name: 'firstImage' })
 export class FirstImage implements PipeTransform {

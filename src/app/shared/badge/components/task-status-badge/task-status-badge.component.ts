@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '~core/erm3/models';
 import { TaskStatus } from '~core/erm3/enums';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'task-status-badge-app',

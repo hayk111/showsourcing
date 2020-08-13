@@ -23,7 +23,7 @@ import { AutoUnsub } from '~utils';
 import { FilterService } from '~core/filters';
 import { ListPageViewService, SelectionService, ExcludedService, ListHelper2Service } from '~core/list-page2';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import { TeamService } from '~core/auth';
 import { api } from 'showsourcing-api-lib';
 import { customQueries } from '~core/erm3/queries/custom-queries';
