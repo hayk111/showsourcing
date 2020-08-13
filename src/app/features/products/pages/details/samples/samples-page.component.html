@@ -16,7 +16,7 @@
 		<div class="flex buttons-container">
 			<button
 				class="capitalize"
-				(click)="listHelper.openCreationDialog({ productId: product.id })"
+				(click)="listHelper.openCreationDialog({ product: product.id })"
 				translate="button.create-sample">
 			</button>
 			<div class="flexCenter">
@@ -42,7 +42,7 @@
 		[title]="'No samples on this product'"
 		[subtitle]="'Create & Track your samples'">
 		<button class="capitalize" 
-		(click)="listHelper.openCreationDialog({ productId: product.id })" 
+		(click)="listHelper.openCreationDialog({ product: product.id })" 
 		translate="button.create-sample"></button>
 	</entity-placeholder-app>
 </ng-template>

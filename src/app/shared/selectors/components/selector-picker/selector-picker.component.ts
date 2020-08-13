@@ -3,10 +3,10 @@ import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
 	AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener,
-	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren
+	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren, OnDestroy
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subject, Subscription, of, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, Subscription, of, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, switchMap, tap, debounce, debounceTime, first } from 'rxjs/operators';
 import { ERM } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
@@ -31,7 +31,7 @@ import { Typename, api } from 'showsourcing-api-lib';
 		FilterService
 	]
 })
-export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
+export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 	@Input() typename: Typename;
 	@Input() customType: Typename;
 	@Input() multiple = false;
@@ -60,8 +60,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** choices to iterate */
 	choices$: Observable<any[]>;
 	choices: any[];
+	_choicesSub: Subscription;
 
-	choicesSubscription: Subscription;
+	_valueUpdated$ = new BehaviorSubject(null);
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -78,12 +79,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 	group: FormGroup;
 
-
 	/** key manager that controlls the selection with arrowkeys  */
 	keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
-
 	searched$: Subject<string> = new Subject();
 
 	/** whether the search has a exact match or not to display the create button */
@@ -93,6 +92,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	movedArrow = false;
 
 	erm = ERM;
+
+	// subject to call when the component is destroyed
+	_destroy$ = new Subject<void>();
 
 	constructor(
 		public selectorSrv: SelectorsService,
@@ -110,20 +112,26 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 		if (this.typename === 'PropertyOption' || this.isTagElement()) {
 			this.filterSrv.setup([], ['value']);
-			this.propertyOptionSrv.setup(this.typename === 'PropertyOption' ? this.customType : 'TAG');
+			this.propertyOptionSrv.setup(
+				this.typename === 'PropertyOption' ? this.customType : 'TAG',
+				this._destroy$
+			);
 			this.choices$ = this.propertyOptionSrv.data$
 				.pipe(
 					tap(choices => {
-						this.choices = choices;
-					})
+						this.choices = this.filterChoices(choices);
+					}),
 				);
-			this.cd.markForCheck();
 		} else {
 			this.filterSrv.setup([], ['name']);
-			this.listHelper.setup(this.typename);
-			this.choices$ = this.listHelper.data$.pipe(tap(choices => this.choices = choices));
-			this.cd.markForCheck();
+			this.listHelper.setup(this.typename, this._destroy$);
+			this.choices$ = combineLatest(this.listHelper.data$, this._valueUpdated$)
+				.pipe(tap(([choices, _]) => {
+					this.choices = this.filterChoices(choices);
+				}));
 		}
+
+		this._choicesSub = this.choices$.subscribe();
 
 		if (this.canCreate) {
 			this.searched$.pipe(
@@ -251,7 +259,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		const updateData = {
 			[type.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
 		};
-
 		this.update.emit(updateData);
 		this.close.emit();
 	}
@@ -284,6 +291,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.value = itemToReturn;
 			this.onChange();
 		}
+		this._valueUpdated$.next(null);
 		this.resetInput();
 	}
 
@@ -318,13 +326,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 						first()
 					);
 			} else {
-				added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
+				added = this.typename === 'PropertyOption' ?
+									{ value, type: this.customType } :
+									{ name: value, __typename: this.typename };
 				createObs$ = this.typename === 'PropertyOption' 															 ?
 				this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
 				this.selectorSrv.create(this.typename as any, added);
 			}
 
-			// we add it directly to the value
 			if (this.multiple) {
 				if (this.value && this.value.length) {
 					this.value.push(added);
@@ -335,6 +344,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.value = added;
 			}
 
+			// debugger; // to check value - if it has added item id and typename
+
 			if (createObs$ === undefined) {
 				return;
 			}
@@ -342,13 +353,16 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// we are using take 1 in srv, no need for fancy destroying
 			createObs$.subscribe((created) => {
 				this.nameExists$.next(true);
-				if (this.isTagElement()) {
-					added.id = created[0].tag;
+				// we add it directly to the value
+				if (this.multiple) {
+					// take the last element that we pushed into this.value and set it's id
+					this.value[this.value.length - 1].id = created[0].id;
 				} else {
 					this.value.id = created[0].id;
-					// we changed the value directly so we have to notify the formControl
-					this.onChange();
 				}
+
+				this._valueUpdated$.next(null);
+				this.onChange();
 				this.resetInput();
 			});
 		}
@@ -454,4 +468,31 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		return this.typename.toLowerCase().includes('tag');
 	}
 
+
+	/**
+	 * filters choices so they're not in the current "value"
+	 * @param  {any[]} choices
+	 */
+	filterChoices(choices: any[]): any[] {
+		const result =  choices.filter(choice => {
+
+			if (Array.isArray(this.value)) {
+				if (this.value && this.value.length && this.value.some(val => val?.id === choice?.id)) {
+					return false;
+				}
+			} else if (typeof this.value === 'object') {
+				return choice?.id !== this.value?.id;
+			}
+
+			return true;
+		});
+
+		return result;
+	}
+
+	ngOnDestroy() {
+		this._destroy$.next();
+		this._destroy$.complete();
+		this._choicesSub.unsubscribe();
+	}
 }

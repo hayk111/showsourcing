@@ -17,7 +17,7 @@
 		<div class="flex buttons-container">
 			<button
 				class="flexVAlign capitalize"
-				(click)="listHelper.openCreationDialog({ productId: productId })"
+				(click)="listHelper.openCreationDialog({ product: productId })"
 				translate="button.create-task">
 			</button>
 		</div>
@@ -31,7 +31,7 @@
 		[subtitle]="'Create & Track your tasks'">
 		<button class="capitalize" 
 			translate="button.create-task"
-			(click)="listHelper.openCreationDialog({ productId: productId })">
+			(click)="listHelper.openCreationDialog({ product: productId })">
 		</button>
 	</entity-placeholder-app>
 </ng-template>

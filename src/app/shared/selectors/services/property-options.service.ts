@@ -3,13 +3,10 @@ import {
 	MutationOptions,
 	WatchQueryOptions
 } from 'apollo-client';
-import { api, Typename } from 'showsourcing-api-lib';
+import { api, Typename, IApiResponse, PropertyOption } from 'showsourcing-api-lib';
 import { Observable, of, BehaviorSubject, combineLatest } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
 import { TeamService } from '~core/auth';
-import { Entity } from '~core/erm3/models/_entity.model';
-import { QueryPool } from '~core/erm3/queries/query-pool.class';
-import { QueryType } from '~core/erm3/queries/query-type.enum';
 import { FilterService } from '~core/filters';
 import { SortService } from '~shared/table/services/sort.service';
 
@@ -19,6 +16,7 @@ export class PropertyOptionsService {
 	data$ = this._data$.asObservable();
 
 	private typename: Typename | 'TAG';
+	private _lastSub: IApiResponse<PropertyOption> | undefined;
 
 	constructor(
 		private teamSrv: TeamService,
@@ -26,15 +24,22 @@ export class PropertyOptionsService {
 		private sortSrv: SortService,
 	) {}
 
-	setup(typename: Typename | 'TAG') {
+	setup(
+		typename: Typename | 'TAG',
+		componentDestroy$?: Observable<any>,
+	) {
 		this.typename = typename;
+		componentDestroy$?.subscribe(() => {
+			this._lastSub.unsubscribe();
+		});
 
 		combineLatest(
 			this.filterSrv.valueChanges$,
 			this.sortSrv.sort$
 		).pipe(
 			switchMap(([filter, sort]) => {
-				return api.PropertyOption.findByType$(this.typename, { filter, sort }).data$;
+				this._lastSub = api.PropertyOption.findByType$(this.typename, { filter, sort });
+				return this._lastSub.data$;
 			}),
 			tap((data: any[]) => this._data$.next(data))
 		).subscribe();

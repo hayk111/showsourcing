@@ -63,6 +63,7 @@
 						#sel
 						typename="Supplier"
 						[width]="350"
+						[value]="row?.supplier"
 						[canCreate]="true"
 						[leftSideOrientation]="true"
 						[offsetX]="4"
@@ -154,7 +155,7 @@
 					[width]="350"
 					[leftSideOrientation]="true"
 					(menuClosed)="eca.close()"
-					(update)="update.emit({ id: row?.id, productId: $event?.productId})">
+					(update)="update.emit({ id: row?.id, product: $event?.productId})">
 					<span>{{ row?.product?.name || '-'}}</span>
 				</selector-app>
 			</editable-value-app>
