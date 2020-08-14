@@ -12,7 +12,7 @@
 			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="download($event)"
 			(download)="download($event)"
-			(select)="selectionSrv.selectOne($event, true)"
+			(selectOne)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)">
 		</attachment-list-item-app>
 		<!-- buttons -->

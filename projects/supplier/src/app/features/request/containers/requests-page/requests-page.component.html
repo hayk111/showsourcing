@@ -14,7 +14,7 @@
 <request-table-sup
 	class="no-padding"
 	(goToPage)="listSrv.loadPage($event)"
-	(select)="selectionSrv.selectOne($event)"
+	(selectOne)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(sort)="listSrv.sort($event)"
 	(unselect)="selectionSrv.unselectOne($event)"

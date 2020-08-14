@@ -9,7 +9,7 @@
 			[sample]="sample"
 			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="viewSrv.openPreview($event)"
-			(select)="selectionSrv.selectOne($event, true)"
+			(selectOne)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)">
 		</sample-list-item-app>
 		<!-- buttons -->
@@ -31,7 +31,7 @@
 			</button>
 
 			</ng-container>
-	
+
 		</div>
 	</ng-container>
 </ng-container>
@@ -41,8 +41,8 @@
 		typename="Sample"
 		[title]="'No samples on this product'"
 		[subtitle]="'Create & Track your samples'">
-		<button class="capitalize" 
-		(click)="listHelper.openCreationDialog({ product: product.id })" 
+		<button class="capitalize"
+		(click)="listHelper.openCreationDialog({ product: product.id })"
 		translate="button.create-sample"></button>
 	</entity-placeholder-app>
 </ng-template>

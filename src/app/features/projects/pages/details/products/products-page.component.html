@@ -19,7 +19,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	createEntityBtnName="Add Product"
 	(previewClick)="viewSrv.openPreview($event)"
-	(select)="selectionSrv.selectOne($event, true)"
+	(selectOne)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(unselectAll)="selectionSrv.unselectAll()"
@@ -42,7 +42,7 @@
 		(liked)="ratingSrv.onThumbUp($event)"
 		(open)="viewSrv.goToDetails($event)"
 		(previewClick)="viewSrv.openPreview($event)"
-		(select)="selectionSrv.selectOne($event, true)"
+		(selectOne)="selectionSrv.selectOne($event, true)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="selectionSrv.unselectOne($event, true)"
 		(update)="listSrv.update($event)">
@@ -55,7 +55,7 @@
 		(preview) = "viewSrv.openPreview($event)">
 	</products-board-app> -->
 
-	<product-selection-bar-app 
+	<product-selection-bar-app
 		[projectProductSelection]="true"
 		(removeProjectProducts)="deassociateSelectedProducts($event)">
 	</product-selection-bar-app>

@@ -19,7 +19,7 @@
 	[pending]="listSrv.pending"
 	[selection]="selectionSrv.selection$ | async"
 	(cancelRequest)="cancelRequest($event)"
-	(select)="selectionSrv.selectOne($event)"
+	(selectOne)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
 	(unselectAll)="selectionSrv.unselectAll()">
