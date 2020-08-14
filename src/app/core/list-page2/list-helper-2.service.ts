@@ -60,7 +60,6 @@ export class ListHelper2Service<G = any> {
 		findFn = findFn || ((options: ISearchOptions) => api[typename].find$(options));
 		this.typename = typename;
 		componentDestroy$?.subscribe(() => {
-			console.log('We Destroy a listHelper');
 			this._lastSub.unsubscribe();
 		});
 
