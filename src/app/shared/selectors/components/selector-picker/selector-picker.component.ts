@@ -188,6 +188,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	private resetInput() {
 		this.inp.control.reset();
 		this.inp.focus();
+		this.filterSrv.reset();
 	}
 
 	/**
@@ -232,16 +233,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					break;
 			case 'ProductTag':
 				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
-				trimValues = this.value.map(value => {
-					return {
-						id: this.entityId + ':' + value.id,
-						tagId: value.id,
-						[entityType + 'Id']: this.entityId,
-					};
-				});
+				trimValues = this.value.map(value => ({
+					id: this.entityId + ':' + value.id,
+					tag: value.id,
+					[entityType]: this.entityId,
+				}));
 				break;
 			default:
-				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
+				trimValues = this.value.map(v => ({ id: v.id, name: v.name }));
 				break;
 		}
 
@@ -465,6 +464,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	delete(item) {
 		this.value = this.value.filter(value => value.id !== item.id);
 		this.onChange();
+		this._valueUpdated$.next(null);
 	}
 
 	private isTagElement() {

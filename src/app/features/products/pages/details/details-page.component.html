@@ -41,7 +41,7 @@
 
 			<!-- Project card -->
 			<project-list-card-app
-				[projects]="productProjects || []"
+				[projects]="projects || []"
 				(update)="updateProductProjects($event)"
 				(openProject)="openProjectDetails($event)"
 				(deleteProject)="dissociateProject([], $event)">
