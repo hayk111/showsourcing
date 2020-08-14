@@ -56,7 +56,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
 		this.samplesCount$ = api.Sample.findByProduct$(this.product.id).count$;
 		this.tasksCount$ = api.Task.findByProduct$(this.product.id).count$;
-		this.commentsCount$ = api.Comment.findByNodeId('product:' + this.product.id).count$;
+		this.commentsCount$ = api.Comment.findByNodeId$('product:' + this.product.id).count$;
 	}
 
 	updatePriceMoq(priceVal: Partial<Price>, type: 'price' | 'moq') {
