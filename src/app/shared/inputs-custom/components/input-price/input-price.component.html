@@ -13,7 +13,7 @@
 	(input)="onChangeFn(value)"/>
 
 <div class="currency-price" [ngStyle]="{'justify-content': dynamicInput ? 'flex-end' : 'space-between'}">
-	<selector-app 
+	<selector-app
 		typename="PropertyOption"
 		customType="currency"
 		[readonly]="readonly"
@@ -26,7 +26,7 @@
 		</div>
 	</selector-app>
 
-	<input 
+	<input
 		#amountInp
 		inputApp
 		class="amount inline"
@@ -37,6 +37,6 @@
 		[required]="required"
 		[(ngModel)]="valueTemp.value"
 		(focus)="focussed = true"
-		(blur)="focussed = false; onTouchedFn()"		
+		(blur)="focussed = false; onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 </div>

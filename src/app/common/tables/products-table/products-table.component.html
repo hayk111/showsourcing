@@ -6,7 +6,6 @@
   [pending]="pending"
 	[isSeaching]="isFiltering"
 	[createEntityBtnName]="createEntityBtnName"
-	[selected]="selection"
 	[listView]="listView"
 	[hasMenu]="hasMenu"
   [hasHeader]="hasHeader"
@@ -107,14 +106,13 @@
 					(closed)="updatePriceMoq(row?.propertiesMap?.price, { minimumOrderQuantity: inp?.value }, 'moq', row?.id)">
           <editable-value-app>
             <moq-app
-							*ngIf="row | property:'price':'minimumOrderQuantity'"
-							[moq]="row | property:'price':'minimumOrderQuantity'"
+							[moq]="row.propertiesMap.price?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
-						<div *ngIf="!(row | property:'price':'minimumOrderQuantity')">-</div>
           </editable-value-app>
-					<input #inp inputApp type="number"
-						[value]="row | property:'price':'minimumOrderQuantity'" (keyup.enter)="editable.close()"/>
+					<input #inp type="number"
+						(focus)="$event.target.select();"
+						[value]="row.propertiesMap.price?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>
       </ng-container>
 
