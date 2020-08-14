@@ -43,7 +43,7 @@
 <!-- dropdown items -->
 <div class="container-items" infiniScroll (bottomReached)="selectorSrv.loadMore()">
 
-	<ng-container *ngIf="(choices$ | async) as choices; else spinner">
+	<ng-container *ngIf="!!choices; else spinner">
 		
 		<ng-container [ngSwitch]="typename">
 			<ng-container *ngSwitchDefault>

@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
+import { debug } from 'console';
 
 /** this service is about managing the tables of non searchable entities like category, tag, ...
  * It must be setup before use (see setup method)

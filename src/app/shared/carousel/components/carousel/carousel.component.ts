@@ -70,7 +70,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		});
 
 		if (this.nodeId) {
-			api.Image.findByNodeId(this.nodeId, {
+			api.Image.findByNodeId$(this.nodeId, {
 				sort: { direction: 'ASC', property: 'createdAt' }
 			}).data$
 				.pipe(

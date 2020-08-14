@@ -21,8 +21,8 @@
 			<product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
-				(addTask)="listHelper.openCreationDialog({ productId: product.id }, 'Task')"
-				(addSample)="listHelper.openCreationDialog({ productId: product.id }, 'Sample')"
+				(addTask)="listHelper.openCreationDialog({ product: product.id }, 'Task')"
+				(addSample)="listHelper.openCreationDialog({ product: product.id }, 'Sample')"
 				(previewSample)="openSamplePreview($event)"
 				(previewTask)="openTaskPreview($event)"
 				(goToSamples)="goToTable('samples')"
@@ -41,7 +41,7 @@
 
 			<!-- Project card -->
 			<project-list-card-app
-				[projects]="productProjects || []"
+				[projects]="projects || []"
 				(update)="updateProductProjects($event)"
 				(openProject)="openProjectDetails($event)"
 				(deleteProject)="dissociateProject([], $event)">

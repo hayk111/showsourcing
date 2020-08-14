@@ -1,5 +1,5 @@
 <div class="sidebar-item-content" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
-	<a [routerLink]="link" routerLinkActive="selected">
+	<a routerLinkActive="selected" (click)="navigate(link)">
 		<icon-app [size]="'l'" [name]="icon"></icon-app>
 
 		<ng-container *ngIf="badge && badge > 0">
@@ -12,7 +12,7 @@
 
 	<div *ngIf="hovered && subItems?.length" class="child-content">
 		<ng-container *ngFor="let subItem of subItems; trackBy: trackByFn">
-			<a class="first-uppercase" [routerLink]="subItem.link">
+			<a class="first-uppercase" (click)="navigate(link)">
 				<icon-app [size]="'m'" [name]="subItem.icon"></icon-app>
 				{{ 'text.' + subItem.translationKey | translate }}
 			</a>

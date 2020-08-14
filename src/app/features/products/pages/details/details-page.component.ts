@@ -36,7 +36,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	productId: string;
 	product$: Observable<Product>;
-	productProjects: (Project | string)[];
+	productProjects: (ProjectProduct | string)[];
+	projects: Project[] | undefined;
 
 	// sample & task used for the preview
 	sample: Sample;
@@ -91,12 +92,13 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		}).data$
 			.pipe(
 				map((productProjects: ProjectProduct[]) => {
+					this.productProjects = productProjects;
+					console.log('DetailsPageComponent -> ngOnInit -> this.productProjects', this.productProjects);
 					return productProjects.map((projectProduct: ProjectProduct) => projectProduct.project);
 				}),
-				tap(projects => this.productProjects = projects),
+				tap((projects: Project[]) => this.projects = projects),
 				takeUntil(this._destroy$),
 			).subscribe();
-
 	}
 
 	private onProduct(product) {
@@ -182,23 +184,31 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateProductProjects(projects: Project[]) {
+		console.time('updateProductProjects');
 		if (projects.length < this.productProjects.length) {
-			// const deletedIds = _.difference(this.productProjects.map(p => p.id), projects.map(p => p.id));
-			// TODO: implement delete
-			// api.ProjectProduct.delete(deletedIds);
+			const projectIds = _.difference(
+				this.productProjects.map((p: ProjectProduct) => (p.project as Project).id),
+				projects.map(p => p.id)
+			);
+			const idsToDelete = this.productProjects
+				.filter(
+					(productProject: ProjectProduct) => projectIds.includes((productProject.project as Project).id)
+				).map((productProject: ProjectProduct) => ({ id: productProject.id}));
+
+			api.ProjectProduct.delete(idsToDelete);
 			return;
 		}
 		const toPass = [];
 
 		projects.forEach(project => {
-			const { teamId, id } = project;
+			const { id } = project;
  			toPass.push({
-				teamId,
-				projectId: id,
-				productId: this.productId
+				project: id,
+				product: this.productId
 			});
 		});
 		api.ProjectProduct.create(toPass);
+		console.timeEnd('updateProductProjects');
 	}
 
 	deleteProduct(id: string) {

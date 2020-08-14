@@ -26,6 +26,7 @@ export class SelectorsService {
 	}
 
 	create(entityType: Typename, entity: any) {
+		console.log('SelectorsService -> create -> entityType', entityType, entity);
 		if (entity) {
 			return api[entityType].create([entity]).local$;
 		}
