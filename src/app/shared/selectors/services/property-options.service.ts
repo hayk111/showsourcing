@@ -37,6 +37,11 @@ export class PropertyOptionsService {
 			this.filterSrv.valueChanges$,
 			this.sortSrv.sort$
 		).pipe(
+			tap(_ => {
+				if (this._lastSub) {
+					this._lastSub.unsubscribe();
+				}
+			}),
 			switchMap(([filter, sort]) => {
 				this._lastSub = api.PropertyOption.findByType$(this.typename, { filter, sort });
 				return this._lastSub.data$;

@@ -183,19 +183,23 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	updateProductProjects(projects: Project[]) {
 		if (projects.length < this.productProjects.length) {
-			// const deletedIds = _.difference(this.productProjects.map(p => p.id), projects.map(p => p.id));
-			// TODO: implement delete
-			// api.ProjectProduct.delete(deletedIds);
+			const deletedIds = _.difference(this.productProjects.map((p: ProjectProduct) => p.id), projects.map(p => p.id));
+
+			const productProjectsToDelete = deletedIds.map((id: string) => ({
+				product: this.productId,
+				project: id
+			}));
+
+			api.ProjectProduct.delete(productProjectsToDelete);
 			return;
 		}
 		const toPass = [];
 
 		projects.forEach(project => {
-			const { teamId, id } = project;
+			const { id } = project;
  			toPass.push({
-				teamId,
-				projectId: id,
-				productId: this.productId
+				project: id,
+				product: this.productId
 			});
 		});
 		api.ProjectProduct.create(toPass);

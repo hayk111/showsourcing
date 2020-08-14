@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject, Subscription, of, BehaviorSubject, combineLatest } from 'rxjs';
-import { map, switchMap, tap, debounce, debounceTime, first } from 'rxjs/operators';
+import { map, switchMap, tap, debounce, debounceTime, first, takeUntil } from 'rxjs/operators';
 import { ERM } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
@@ -116,9 +116,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.typename === 'PropertyOption' ? this.customType : 'TAG',
 				this._destroy$
 			);
-			this.choices$ = this.propertyOptionSrv.data$
+			this.choices$ = combineLatest(this.propertyOptionSrv.data$, this._valueUpdated$)
 				.pipe(
-					tap(choices => {
+					takeUntil(this._destroy$),
+					tap(([choices, _]) => {
 						this.choices = this.filterChoices(choices);
 					}),
 				);
@@ -126,9 +127,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.filterSrv.setup([], ['name']);
 			this.listHelper.setup(this.typename, this._destroy$);
 			this.choices$ = combineLatest(this.listHelper.data$, this._valueUpdated$)
-				.pipe(tap(([choices, _]) => {
-					this.choices = this.filterChoices(choices);
-				}));
+				.pipe(
+					takeUntil(this._destroy$),
+					tap(([choices, _]) => {
+						this.choices = this.filterChoices(choices);
+					}));
 		}
 
 		this._choicesSub = this.choices$.subscribe();
