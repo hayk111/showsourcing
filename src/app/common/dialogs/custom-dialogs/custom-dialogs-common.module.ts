@@ -10,7 +10,7 @@ import { CompareColumnComponent } from './compare-product/compare-column/compare
 import { CompareLabelsComponent } from './compare-product/compare-labels/compare-labels.component';
 import { CompareProductComponent } from './compare-product/compare-product.component';
 import { CompareSpacerComponent } from './compare-product/compare-spacer/compare-spacer.component';
-import { DescriptionDlgComponent } from './description-dlg/description-dlg.component';
+import { DescriptionDlgComponent } from './description-dialog/description-dialog.component';
 import { EditionDialogComponent } from './edition-dialog/edition-dialog.component';
 import { ExportDialogComponent } from './export-dialog/export-dialog.component';
 import { ExportSelectionViewComponent } from './export-dialog/export-selection-view/export-selection-view.component';
