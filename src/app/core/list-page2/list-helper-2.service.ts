@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { api, IApiResponse, ISearchOptions, Typename } from 'showsourcing-api-lib';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
@@ -10,7 +10,6 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
-import { debug } from 'console';
 
 /** this service is about managing the tables of non searchable entities like category, tag, ...
  * It must be setup before use (see setup method)
@@ -61,6 +60,7 @@ export class ListHelper2Service<G = any> {
 		findFn = findFn || ((options: ISearchOptions) => api[typename].find$(options));
 		this.typename = typename;
 		componentDestroy$?.subscribe(() => {
+			console.log('We Destroy a listHelper');
 			this._lastSub.unsubscribe();
 		});
 
@@ -69,6 +69,7 @@ export class ListHelper2Service<G = any> {
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
+			takeUntil(componentDestroy$),
 			map(([filter, pagination, sort]) => {
 				this._lastSub?.unsubscribe();
 				this._lastSub = findFn({ filter, sort, pagination }) as IApiResponse<G>;
@@ -81,7 +82,6 @@ export class ListHelper2Service<G = any> {
 		reactiveFind
 			.pipe(
 				switchMap(result => result.data$),
-				tap(() => {}),
 				tap(_ => this._pending$.next(false))
 			)
 			.subscribe(data => this._data$.next(data));

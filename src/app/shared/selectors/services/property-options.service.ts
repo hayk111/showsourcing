@@ -5,7 +5,7 @@ import {
 } from 'apollo-client';
 import { api, Typename, IApiResponse, PropertyOption } from 'showsourcing-api-lib';
 import { Observable, of, BehaviorSubject, combineLatest } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap, switchMap, takeUntil } from 'rxjs/operators';
 import { TeamService } from '~core/auth';
 import { FilterService } from '~core/filters';
 import { SortService } from '~shared/table/services/sort.service';
@@ -37,6 +37,7 @@ export class PropertyOptionsService {
 			this.filterSrv.valueChanges$,
 			this.sortSrv.sort$
 		).pipe(
+			takeUntil(componentDestroy$),
 			tap(_ => {
 				if (this._lastSub) {
 					this._lastSub.unsubscribe();
