@@ -68,7 +68,7 @@
 						[leftSideOrientation]="true"
 						[offsetX]="4"
 						(menuClosed)="eca.close()"
-						(update)="update.emit({ id: row?.id, supplierId: $event?.supplierId})">
+						(update)="update.emit({ id: row?.id, supplier: $event?.supplierId})">
 						<span>{{ row?.supplier?.name || '-'}}</span>
 					</selector-app>
 				</editable-value-app>
@@ -80,7 +80,7 @@
 				[routerLink]="['/suppliers', row.supplier.id]">
 			</icon-app>
 		</div>
-	</ng-container> 
+	</ng-container>
 
 	<ng-container *ngSwitchCase="'status'">
 		<status-selector-app
@@ -123,7 +123,7 @@
 					[width]="320"
 					[offsetX]="4"
 					(menuClosed)="eca.close()"
-					(update)="update.emit({ id: row?.id, assigneeId: $event?.teamuserId })">
+					(update)="update.emit({ id: row?.id, assignee: $event?.teamuserId })">
 					<div class="flex pointer">
 						<user-picture-app
 							*ngIf="row?.assignee && (row?.assignee | json) != '{}'"

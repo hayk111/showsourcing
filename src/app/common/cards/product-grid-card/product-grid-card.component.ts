@@ -45,11 +45,9 @@ export class ProductGridCardComponent {
 		const toPass = [];
 
 		projects.forEach(project => {
-			const { teamId, id } = project;
  			toPass.push({
-				teamId,
-				projectId: id,
-				productId: this.product.id
+				project: project.id,
+				product: this.product.id
 			});
 		});
 
