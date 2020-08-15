@@ -24,7 +24,7 @@
 
   <!-- dynamic columns -->
   <ng-template
-    *ngFor="let column of columnsConfig; trackBy: trackById"
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
 		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 		[sortable]="column.sortable !== false"
@@ -119,7 +119,7 @@
       <!-- projects -->
       <ng-container *ngSwitchCase="'projects'">
         <div class="flexCenter">
-          <span *ngFor="let project of row.projects; trackBy: trackByFn">
+          <span *ngFor="let project of row.projects; trackBy: trackById">
             {{ project.name || '-' }}
           </span>
         </div>
