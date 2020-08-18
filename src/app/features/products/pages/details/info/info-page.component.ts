@@ -6,7 +6,7 @@ import { productDetailsDescriptorMock, shippingPackagingDescriptorMock } from '.
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
 import { api, Product, Descriptor } from 'showsourcing-api-lib';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'info-page-app',

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { tap, map, switchMap } from 'rxjs/operators';
 import { api, Typename } from 'showsourcing-api-lib';
 import { PropertyDescriptor, PropertyType } from '~core/erm3';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'dynamic-editable-field-app',

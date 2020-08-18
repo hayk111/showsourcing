@@ -4,9 +4,9 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 
 @Component({
-	selector: 'description-dlg-app',
-	templateUrl: './description-dlg.component.html',
-	styleUrls: ['./description-dlg.component.scss'],
+	selector: 'description-dialog-app',
+	templateUrl: './description-dialog.component.html',
+	styleUrls: ['./description-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DescriptionDlgComponent {
@@ -14,6 +14,10 @@ export class DescriptionDlgComponent {
 	private _description: string;
 	@Input() set description(description: string) {
 		this._description = description;
+		// assert value instead in case we don't update txtAreaDesc
+		if (this.txtAreaDesc === undefined) {
+			this.txtAreaDesc = description;
+		}
 		// we set it to edit
 		this.toggleEdition(true);
 	}

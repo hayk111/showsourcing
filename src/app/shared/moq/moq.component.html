@@ -1,4 +1,8 @@
-<ng-container *ngIf="moq">
+<ng-container *ngIf="moq; else noMoq">
 	<div class="capitalize" translate="min"></div>
 	<div>{{ moq }} {{ moqDescription }}</div>
 </ng-container>
+
+<ng-template #noMoq>
+	<div>-</div>
+</ng-template>

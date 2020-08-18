@@ -81,14 +81,8 @@ export class TableComponent extends TrackingComponent {
 	/** whether specific rows are selectable or not */
 	@Input() isSelectable = (item) => true;
 
-	/** function used by the ng for, using an arrow to not lose this context */
-	trackByIdentify = (index, item) => this.identify(index, item);
-
-	/** function used by the ng for, using an arrow to not lose this context */
-	columnTrackByFn = (index: any) => index;
-
 	cellTrackByFn = (columnName: string) => (index, cell) => {
-		return columnName + '-' + cell.id ;
+		return columnName + '-' + index ;
 	}
 
 	constructor(
@@ -136,10 +130,6 @@ export class TableComponent extends TrackingComponent {
 		if (!this.rows || this.rows.length === 0)
 			return false;
 		return this.selected.size === this.rows.length;
-	}
-
-	identify(index, item) {
-		return item[this.idName];
 	}
 
 	hoverRow(index: number) {

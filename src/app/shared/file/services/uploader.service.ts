@@ -6,6 +6,7 @@ import { ToastService, ToastType } from '~shared/toast';
 import { UserService } from '~core/auth';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
 import { uuid } from '~utils';
+import * as _ from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -48,7 +49,7 @@ export class UploaderService {
 					console.log('image name::::', this.userSrv.identityId, img.key);
 					toCreate.push({ fileName: `${this.userSrv.identityId}/${img.key}`, nodeId });
 				});
-				return api.Image.create(toCreate).local$;
+				return api.Image.create(toCreate).online$;
 			}),
 			// switchMap(() => Auth.currentUserCredentials()),
 		) as ObservableImageUpload;		// casting to add the temp function
@@ -75,7 +76,7 @@ export class UploaderService {
 		const extension = file.name.slice(file.name.lastIndexOf('.'));
 		return from(Storage.put(
 			// for file attachments we use file name and replace spaces with dashes
-			byName ? file.name.replace(/\s+/g, '-') : uuid() + extension,
+			byName ? _.deburr(file.name).replace(/[^a-z0-9\._]/gi, '-') : uuid() + extension,
 			file,
 			{
 				level: 'private',

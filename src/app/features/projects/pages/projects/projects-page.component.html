@@ -19,7 +19,7 @@
 	[rows]="listHelper.paginedItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
-	(select)="selectionSrv.selectOne($event, true)"
+	(selectOne)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(unselectAll)="selectionSrv.unselectAll()"

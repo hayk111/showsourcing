@@ -15,7 +15,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				[style.height]="rowHeight + 'px'">
 			</div>
 			<div
-				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+				*ngFor="let row of rows; index as i; trackBy: trackByFn"
 				class="cell"
 				[ngClass]="{ selected: isSelected(row, i) }"
 				[style.height]="rowHeight + 'px'">
@@ -39,7 +39,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			</div>
 			<ng-container *ngIf="!pending">
 				<div
-					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					*ngFor="let row of rows; index as i; trackBy: trackByFn"
 					class="cell"
 					[ngClass]="{ selected: isSelected(row, i) }"
 					[style.height]="rowHeight + 'px'">
@@ -55,7 +55,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 
 		<!-- content columns -->
-		<div *ngFor="let column of columns; let i = index; trackBy: columnTrackByFn()"
+		<div *ngFor="let column of columns; let i = index; trackBy: trackByFn"
 			class="col {{ column.grows ? 'grows' : '' }}"
 			[ngClass]="{'primary-col': listView && i == 0}"
 			[style.width]="column.width + 'px'">
@@ -105,7 +105,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			</div>
 			<ng-container *ngIf="!pending">
 				<div
-					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					*ngFor="let row of rows; index as i; trackBy: trackByFn"
 					class="menuCell cell flexCenter"
 					[ngClass]="{ selected: isSelected(row, i) }"
 					[style.height]="rowHeight + 'px'">

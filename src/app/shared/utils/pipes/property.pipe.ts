@@ -3,9 +3,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
 	name: 'property'
 })
+/** @deprecated */
 export class PropertyPipe implements PipeTransform {
 
 	transform(row: any, ...args: unknown[]): any {
+		console.warn('old properties: Deprecated');
 		const propertyName = args[0];
 		const propertyField: any = args[1];
 

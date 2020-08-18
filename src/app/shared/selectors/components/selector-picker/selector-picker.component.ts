@@ -18,6 +18,7 @@ import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ID, uuid } from '~utils';
 import { Typename, api } from 'showsourcing-api-lib';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -28,7 +29,8 @@ import { Typename, api } from 'showsourcing-api-lib';
 		ListHelper2Service,
 		PropertyOptionsService,
 		SelectorsService,
-		FilterService
+		FilterService,
+		PaginationService
 	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {

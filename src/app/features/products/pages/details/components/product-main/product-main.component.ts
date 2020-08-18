@@ -19,6 +19,6 @@ export class ProductMainComponent implements OnInit {
 	ngOnInit() {
 		this.sampleCount$ = api.Sample.findByProduct$(this.product.id).count$;
 		this.taskCount$ = api.Task.findByProduct$(this.product.id).count$;
-		this.commentCount$ =  api.Comment.findByNodeId$('product:' + this.product.id).count$;
+		this.commentCount$ =  api.Comment.findByNodeId$('Product:' + this.product.id).count$;
 	}
 }

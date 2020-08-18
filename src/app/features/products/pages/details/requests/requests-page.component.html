@@ -10,7 +10,7 @@
 			[request]="request"
 			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="goToRequest($event)"
-			(select)="selectionSrv.selectOne($event, true)"
+			(selectOne)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)">
 		</request-list-item-app>
 		<!-- buttons -->

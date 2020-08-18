@@ -1,7 +1,7 @@
 import { Filter } from './filter.class';
 import { FilterType } from './filter-type.enum';
 import { ValuesByType, FiltersByType } from './filter-by.type';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 /**
  * Helper class to help with filter convertion

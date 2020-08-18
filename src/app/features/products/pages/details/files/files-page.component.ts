@@ -46,12 +46,12 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.setup(
 			'Attachment',
 			this._destroy$,
-			(options) => api.Attachment.findByNodeId$(`product:${this.productId}`)
+			(options) => api.Attachment.findByNodeId$(`Product:${this.productId}`)
 		);
 	}
 
 	addFile(files: Array<File>) {
-		this.uploaderSrv.uploadFiles(files, `product:${this.productId}`).subscribe();
+		this.uploaderSrv.uploadFiles(files, `Product:${this.productId}`).subscribe();
 	}
 
 	download(attachment: Attachment) {
