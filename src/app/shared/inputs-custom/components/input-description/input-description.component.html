@@ -14,7 +14,7 @@
 			[hasOverflow]="true"
 			class="fs-m">
 			<!-- we need an ng-container, so editable-value knows when its empty to place the default placeholder -->
-			<div *ngIf="description?.length" class="description">{{ description }}</div>
+			<div *ngIf="description?.length" class="description color-txt-primary">{{ description }}</div>
 		</editable-value-app>
 		<textarea 
 			inputApp #inpDescription autofocus="true"

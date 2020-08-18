@@ -205,19 +205,19 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/**
 	 * this is called when we want to update the value
 	 */
-	onChange() {
+	onChange(deleted = false, deletedIds?: string[]) {
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
-			this.updateSingle();
+			this.updateSingle(deleted, deletedIds);
 		} else {
-			this.updateMultiple();
+			this.updateMultiple(deleted, deletedIds);
 		}
 	}
 
 	/**
 	 * Emits an array of new values so they can be updated and refetch the selector
 	 */
-	private updateMultiple() {
+	private updateMultiple(deleted?: boolean, deletedIds?: string[]) {
 		let trimValues;
 		switch (this.typename) {
 			case 'Product':
@@ -244,10 +244,21 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 		}
 
+		// TODO: Updates for the tag element is implemented with different logic, combine this logic with the other entities
 		if (this.isTagElement()) {
-			this.selectorSrv.create(this.typename as any, trimValues[trimValues.length - 1])
-				.pipe(first())
-				.subscribe();
+			if (deleted) {
+				const idsToDelete = deletedIds?.map(id => ({ id }));
+				api.ProductTag.delete(idsToDelete)
+					.local$
+					.pipe(
+						takeUntil(this._destroy$)
+					).subscribe();
+			} else {
+				this.selectorSrv.create(this.typename as any, trimValues[trimValues.length - 1])
+					.pipe(
+						takeUntil(this._destroy$)
+					).subscribe();
+			}
 		} else {
 			this.update.emit(trimValues);
 		}
@@ -256,7 +267,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/**
 	 * Emits the new single value so it can be updated
 	 */
-	private updateSingle() {
+	private updateSingle(deleted?: boolean, deletedIds?: string[]) {
 		const type = this.typename === 'PropertyOption' ? this.value.type : this.value.__typename;
 		const updateData = {
 			[type.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
@@ -317,14 +328,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			if (this.isTagElement()) {
 				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
 				added = {
-					[entityType + 'Id']: this.entityId,
+					[entityType]: this.entityId,
 				};
 				createObs$ = this.propertyOptionSrv.createPropertyOptions([{type: 'TAG', value}])
 					.pipe(
-						switchMap((createdTags: any[]) => {
-							added.tagId = createdTags[0] ? createdTags[0].id : undefined;
-							return this.selectorSrv.create(this.typename as any, added);
-						}),
 						first()
 					);
 			} else {
@@ -345,8 +352,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			} else {
 				this.value = added;
 			}
-
-			// debugger; // to check value - if it has added item id and typename
 
 			if (createObs$ === undefined) {
 				return;
@@ -463,7 +468,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	delete(item) {
 		this.value = this.value.filter(value => value.id !== item.id);
-		this.onChange();
+		// TODO: to be implemented for many items
+		this.onChange(true, [this.entityId + ':' + item.id]);
 		this._valueUpdated$.next(null);
 	}
 

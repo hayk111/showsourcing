@@ -31,12 +31,12 @@
 	(opened)="inputMOQ.select()"
 	(saved)="updateProductField(false, inputMOQ.value, 'moq')">
 	<editable-value-app>
-		<div *ngIf="price && price?.minimumOrderQuantity; else moqHolder" class="moq flexCenter">
+		<div *ngIf="price && price?.minimumOrderQuantity; else moqHolder" class="flexCenter color-txt-primary">
 			{{ 'OBJ.min-pcs' | translate: { count : (price?.minimumOrderQuantity || 0)} }}
 			{{ price?.moqDescription ? ' ' + price?.moqDescription : ''}}
 		</div>
 		<ng-template #moqHolder>
-			<div class="capitalize pd-top-s pd-bottom-s">set MOQ</div>
+			<div class="capitalize pd-top-s pd-bottom-s color-txt-secondary">set MOQ</div>
 		</ng-template>
 	</editable-value-app>
 	<input inputApp
