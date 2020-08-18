@@ -11,7 +11,7 @@
 		<price-app
 			*ngIf="price && price?.value; else priceHolder"
 			size="xxxl" 
-			[primary]="false"
+			txtColor="primary"
 			[price]="price">
 		</price-app>
 		<ng-template #priceHolder>

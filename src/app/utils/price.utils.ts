@@ -9,17 +9,12 @@ export function updateProductPriceMOQ(
 	productId: string
 	): Observable<Product[]> {
 	let price: Price;
-	let shallUpdate = false;
 
 	if (type === 'price') {
-		const currency = priceVal && priceVal.currency ? priceVal.currency : 'USD';
-		const value = priceVal && priceVal.value ? priceVal.value : undefined;
-		const previousValue = prevPrice && prevPrice.value ? prevPrice.value : undefined;
+		const currency = priceVal?.currency?.code || priceVal?.currency || 'USD';
+		const value = priceVal?.value || undefined;
 
-		// TODO: when currency is ready to add a currency condition also
-		shallUpdate = previousValue !== value;
-
-		price =  {
+		price = {
 			...prevPrice,
 			value,
 			currency
@@ -31,9 +26,6 @@ export function updateProductPriceMOQ(
 		}
 	} else {
 		const moq = priceVal && priceVal.minimumOrderQuantity ? priceVal.minimumOrderQuantity : undefined;
-		const previousMoq = prevPrice && prevPrice.minimumOrderQuantity ? prevPrice.minimumOrderQuantity : undefined;
-
-		shallUpdate = previousMoq ? previousMoq !== moq : true;
 
 		price = {
 			...prevPrice,
@@ -45,14 +37,10 @@ export function updateProductPriceMOQ(
 		}
 	}
 
-	if (shallUpdate) {
-		return api.Product.update([{
-			id: productId,
-			propertiesMap: {
-				price
-			}
-		}]).local$;
-	}
-
-	return of([]);
+	return api.Product.update([{
+		id: productId,
+		propertiesMap: {
+			price
+		}
+	}]).local$;
 }

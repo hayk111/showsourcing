@@ -1,7 +1,7 @@
 
 export interface Price {
 	value?: number;
-	currency?: string;
+	currency?: any;
 	minimumOrderQuantity?: number;
 	moqDescription?: string;
 }

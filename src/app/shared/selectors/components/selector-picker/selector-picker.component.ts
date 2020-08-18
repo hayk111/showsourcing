@@ -35,7 +35,7 @@ import { PaginationService } from '~shared/pagination/services/pagination.servic
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 	@Input() typename: Typename;
-	@Input() customType: Typename;
+	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() filterList = new FilterList([]);
@@ -115,7 +115,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (this.typename === 'PropertyOption' || this.isTagElement()) {
 			this.filterSrv.setup([], ['value']);
 			this.propertyOptionSrv.setup(
-				this.typename === 'PropertyOption' ? this.customType : 'TAG',
+				this.typename === 'PropertyOption' ? (this.customType as Typename) : 'TAG',
 				this._destroy$
 			);
 			this.choices$ = combineLatest(this.propertyOptionSrv.data$, this._valueUpdated$)
@@ -271,9 +271,23 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateSingle(deleted?: boolean, deletedIds?: string[]) {
 		const type = this.typename === 'PropertyOption' ? this.value.type : this.value.__typename;
-		const updateData = {
-			[type.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
-		};
+		let updateData: any = {};
+
+		switch (this.typename) {
+			case 'TeamUser':
+				updateData = { [type.toLowerCase() + 'Id']: this.value.user.id};
+				break;
+			case 'PropertyOption':
+				if (this.customType === 'CURRENCY') {
+					updateData = { [type.toLowerCase() + 'Id']: this.value.id, code: this.value.code};
+				} else {
+					updateData = { [type.toLowerCase() + 'Id']: this.value.id};
+				}
+				break;
+			default:
+				updateData = { [type.toLowerCase() + 'Id']: this.value.id};
+		}
+
 		this.update.emit(updateData);
 		this.close.emit();
 	}

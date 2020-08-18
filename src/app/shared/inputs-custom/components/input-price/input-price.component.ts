@@ -32,6 +32,10 @@ export class InputPriceComponent extends AbstractInput {
 		}
 	}
 
+	get currency() {
+		return typeof this.valueTemp?.currency === 'object' ? this.valueTemp.currency?.code : this.valueTemp.currency;
+	}
+
 	valueTemp: Price = {};
 	@Input() hasLabel = false;
 	/** whether the input has borders */
@@ -56,6 +60,10 @@ export class InputPriceComponent extends AbstractInput {
 		return Number(value.replace( /^([^.]*\.)(.*)$/, function ( a, b, c ) {
 				return b + c.replace( /\./g, '' );
 		}));
+	}
+
+	update(ev) {
+		console.log('InputPriceComponent -> update -> ev', ev);
 	}
 
 }

@@ -15,14 +15,14 @@
 <div class="currency-price" [ngStyle]="{'justify-content': dynamicInput ? 'flex-end' : 'space-between'}">
 	<selector-app
 		typename="PropertyOption"
-		customType="currency"
+		customType="CURRENCY"
 		[readonly]="readonly"
 		[required]="required"
 		[(ngModel)]="valueTemp.currency"
 		(menuOpened)="focussed = true"
 		(menuClosed)="focussed = false; onTouchedFn()">
 		<div class="currency pointer">
-			<span class="mg-right-s color-primary">{{ value?.currency || 'USD'}}</span>
+			<span class="mg-right-s color-primary">{{ currency || 'USD'}}</span>
 		</div>
 	</selector-app>
 

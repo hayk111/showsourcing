@@ -9,14 +9,13 @@
 
 	<header-details-info-app>
 		<div class="flex flexVAlign color-txt-secondary">
-			<logo-app typename="Product" name="product" size="xs"></logo-app>
 			<div class="flex flexVAlign info-container dot-separator">
 				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
 				</span>
 				<span *ngIf="product && product.propertiesMap.price && product.propertiesMap.price.value">
-					<price-app 
-						class="color-txt-secondary" 
+					<price-app
+						txtColor="txt-secondary"
 						[price]="{
 							value: product?.propertiesMap?.price?.value,
 							currency: product?.propertiesMap?.price?.currency
@@ -36,10 +35,6 @@
 
 		<button class="icon medium txt-secondary" (click)="export.emit(product)">
 			<icon-app name="export" size="m"></icon-app>
-		</button>
-
-		<button class="light big icon-with-text flexVAlign flexAround">
-			<icon-app name="share" size="m"></icon-app><div class="capitalize" translate="button.share"></div>
 		</button>
 
 		<button class="vibrant big icon-with-text flexVAlign" (click)="supplierRequest.emit(product)">
