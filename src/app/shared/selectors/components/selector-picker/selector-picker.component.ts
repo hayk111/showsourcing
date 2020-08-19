@@ -210,7 +210,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	onChange(deleted = false, deletedIds?: string[]) {
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
-			this.updateSingle(deleted, deletedIds);
+			this.updateSingle();
 		} else {
 			this.updateMultiple(deleted, deletedIds);
 		}
