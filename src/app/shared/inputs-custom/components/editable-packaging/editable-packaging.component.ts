@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { Packaging } from '~core/erm3';
 
@@ -13,11 +13,19 @@ import { Packaging } from '~core/erm3';
 
 })
 export class EditablePackagingComponent extends AbstractInput {
+
+	@Output() saved = new EventEmitter<undefined>();
+
 	value: Packaging = {};
 	resetValues = {};
 
 	storeValue(property: string, value: any) {
 		this.resetValues[property] = value;
+	}
+
+	onSave(value) {
+		this.onChangeFn(value);
+		this.saved.emit();
 	}
 
 	onCancel(property: string) {

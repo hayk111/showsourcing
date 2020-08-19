@@ -189,6 +189,7 @@
 			#edt
 			[readonly]="true"
 			[clickableReadonly]="!descriptor.readonly"
+			(saved)="onSave()"
 			(click)="toggleValue()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
 			<editable-value-app>
@@ -234,7 +235,8 @@
 		<editable-price-matrix-app
 			[readonly]="descriptor.readonly"
 			[formControl]="control"
-			[required]="descriptor.required">
+			[required]="descriptor.required"
+			(saved)="onSave()">
 		</editable-price-matrix-app>
 	</ng-container>
 
@@ -244,7 +246,8 @@
 		<editable-packaging-app
 			[readonly]="descriptor.readonly"
 			[formControl]="control"
-			[required]="descriptor.required">
+			[required]="descriptor.required"
+			(saved)="onSave()">
 		</editable-packaging-app>
 	</ng-container>
 
@@ -262,7 +265,7 @@
 					#sel
 					[typename]="typename"
 					[customType]="customType"
-					[canCreate]="true"
+					[canCreate]="canCreate()"
 					[readonly]="descriptor.readonly"
 					[required]="descriptor.required"
 					[formControl]="control"

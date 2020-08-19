@@ -40,17 +40,16 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 				}),
 				tap(product => {
 					const props = {
-						...product.propertiesMap,
-						name: product.name,
-						supplier: product.supplier,
-						category: product.category,
+						...product?.propertiesMap,
+						name: product?.name,
+						supplier: product?.supplier,
+						category: product?.category,
 					};
 
 					if (!_.isEqual(this.properties, props)) {
 						this.properties = props;
 					}
 				}),
-				// tap(_ => this.properties = { ...this.product.propertiesMap }),
 				tap(_ => this.cd.markForCheck()),
 			);
 	}

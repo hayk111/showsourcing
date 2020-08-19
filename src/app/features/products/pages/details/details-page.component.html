@@ -1,7 +1,8 @@
-<ng-container *ngIf="product$ | async as product; else spinner">
+<ng-container *ngIf="product; else spinner">
 	<product-header-details-app
 		[product]="product"
 		(update)="updateProduct($event)"
+		(export)="onExport()"
 		(delete)="deleteProduct($event?.id)"
 		(archive)="onArchive($event)"
 		(supplierRequest)="openSupplierRequest($event)">
@@ -33,7 +34,7 @@
 			<card-app #rating class="mg-top-l">
 				<card-title-app size="s">Team Rating</card-title-app>
 				<rating-dashboard-app
-					[teamVotes]="product?.votes"
+					[teamVotes]="teamVotes$ | async"
 					(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
 					(update)="updateProduct({ id: product?.id, votes: $event })">
 				</rating-dashboard-app>
@@ -44,7 +45,7 @@
 				[projects]="projects || []"
 				(update)="updateProductProjects($event)"
 				(openProject)="openProjectDetails($event)"
-				(deleteProject)="dissociateProject([], $event)">
+				(deleteProject)="dissociateProject($event)">
 			</project-list-card-app>
 
 		</div>

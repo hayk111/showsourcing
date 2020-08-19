@@ -3,7 +3,7 @@
 <editable-field-app 
 	#edtLength
 	[readonly]="readonly"
-	(saved)="onChangeFn(value)"
+	(saved)="onSave(value)"
 	(opened)="storeValue('length', value.length)"
 	(canceled)="onCancel('length')">
 	<editable-label-app>Length</editable-label-app>
@@ -30,7 +30,7 @@
 <editable-field-app 
 	#edtWidth
 	[readonly]="readonly"
-	(saved)="onChangeFn(value)"
+	(saved)="onSave(value)"
 	(opened)="storeValue('width', value.width)"
 	(canceled)="onCancel('width')">
 	<editable-label-app>Width</editable-label-app>
@@ -57,7 +57,7 @@
 <editable-field-app 
 	#edtHeight
 	[readonly]="readonly"
-	(saved)="onChangeFn(value)"
+	(saved)="onSave(value)"
 	(opened)="storeValue('height', value.height)"
 	(canceled)="onCancel('height')">
 	<editable-label-app>Height</editable-label-app>
@@ -87,7 +87,7 @@
 	[readonly]="true"
 	[clickableReadonly]="!readonly"
 	(click)="lengthUnitSelector.openMenu($event)"
-	(saved)="onChangeFn(value)"
+	(saved)="onSave(value)"
 	(opened)="storeValue('lengthUnit', value.lengthUnit)"
 	(canceled)="onCancel('lengthUnit')">
 	<editable-label-app>Length Unit</editable-label-app>
@@ -110,7 +110,7 @@
 <editable-field-app 
 	#edtQuantity
 	[readonly]="readonly"
-	(saved)="onChangeFn(value)"
+	(saved)="onSave(value)"
 	(opened)="storeValue('quantity', value.quantity)"
 	(canceled)="onCancel('quantity')">
 	<editable-label-app>Quantity</editable-label-app>
@@ -132,7 +132,7 @@
 <editable-field-app 
 	#edtWeight
 	[readonly]="readonly"
-	(saved)="onChangeFn(value)"
+	(saved)="onSave(value)"
 	(opened)="storeValue('weight', value.weight)"
 	(canceled)="onCancel('weight')">
 	<editable-label-app>Weight</editable-label-app>
@@ -162,7 +162,7 @@
 	[readonly]="true"
 	[clickableReadonly]="!readonly"
 	(click)="weightUnitSelector.openMenu($event)"
-	(saved)="onChangeFn(value)"
+	(saved)="onSave(value)"
 	(opened)="storeValue('weightUnit', value.weightUnit)"
 	(canceled)="onCancel('weightUnit')">
 	<editable-label-app>Weight Unit</editable-label-app>

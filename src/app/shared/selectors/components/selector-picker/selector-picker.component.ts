@@ -115,7 +115,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (this.typename === 'PropertyOption' || this.isTagElement()) {
 			this.filterSrv.setup([], ['value']);
 			this.propertyOptionSrv.setup(
-				this.typename === 'PropertyOption' ? (this.customType as Typename) : 'TAG',
+				this.typename === 'PropertyOption' ? (this.customType.toUpperCase() as Typename) : 'TAG',
 				this._destroy$
 			);
 			this.choices$ = combineLatest(this.propertyOptionSrv.data$, this._valueUpdated$)
@@ -269,7 +269,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/**
 	 * Emits the new single value so it can be updated
 	 */
-	private updateSingle(deleted?: boolean, deletedIds?: string[]) {
+	private updateSingle() {
 		const type = this.typename === 'PropertyOption' ? this.value.type : this.value.__typename;
 		let updateData: any = {};
 
@@ -281,7 +281,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				if (this.customType === 'CURRENCY') {
 					updateData = { [type.toLowerCase() + 'Id']: this.value.id, code: this.value.code};
 				} else {
-					updateData = { [type.toLowerCase() + 'Id']: this.value.id};
+					updateData = {
+						[type.toLowerCase() + 'Id']: this.value.id,
+						...(this.value?.value && {value: this.value?.value})
+					};
 				}
 				break;
 			default:
@@ -355,7 +358,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 									{ value, type: this.customType } :
 									{ name: value, __typename: this.typename };
 				createObs$ = this.typename === 'PropertyOption' 															 ?
-				this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
+				this.propertyOptionSrv.createPropertyOptions([{type: this.customType.toUpperCase(), value}]) :
 				this.selectorSrv.create(this.typename as any, added);
 			}
 

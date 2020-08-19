@@ -53,7 +53,10 @@ export class ProductSubHeaderDetailsComponent extends AutoUnsub implements OnIni
 	updatePriceMoq(priceVal: Partial<Price>, type: 'price' | 'moq') {
 		const newVal = type === 'moq' ? { minimumOrderQuantity: priceVal } : priceVal;
 		updateProductPriceMOQ(this.price, newVal as any, type, this.product.id)
-			.pipe(first())
+			.pipe(
+				first(),
+				takeUntil(this._destroy$)
+			)
 			.subscribe((updatedProducts: Product[]) => {
 				if (updatedProducts.length && updatedProducts[0].propertiesMap) {
 					this.price = updatedProducts[0].propertiesMap.price;
