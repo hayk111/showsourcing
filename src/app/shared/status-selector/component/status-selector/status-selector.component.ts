@@ -9,7 +9,7 @@ import {
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
-import { Typename } from 'showsourcing-api-lib';
+import { Typename, api } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'status-selector-app',

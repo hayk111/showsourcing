@@ -55,7 +55,6 @@ export class InputDirective extends FocusableDirective implements OnChanges {
 
 	/** Whether the input is on focus */
 	set focussed(value: boolean) {
-		this._focussed = value;
 		this.stateChanges.next();
 	}
 	get focussed() {

@@ -113,7 +113,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		});
 
 		if (this.typename === 'PropertyOption' || this.isTagElement()) {
-			this.filterSrv.setup([], ['value']);
+			this.filterSrv.setup([], ['value', 'code']);
 			this.propertyOptionSrv.setup(
 				this.typename === 'PropertyOption' ? (this.customType.toUpperCase() as Typename) : 'TAG',
 				this._destroy$
@@ -278,7 +278,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				updateData = { [type.toLowerCase() + 'Id']: this.value.user.id};
 				break;
 			case 'PropertyOption':
-				if (this.customType === 'CURRENCY') {
+				if (['CURRENCY', 'INCOTERM'].includes(this.customType)) {
 					updateData = { [type.toLowerCase() + 'Id']: this.value.id, code: this.value.code};
 				} else {
 					updateData = {

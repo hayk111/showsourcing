@@ -48,10 +48,6 @@ export class DynamicEditableFieldComponent implements OnInit {
 		return of('');
 	}
 
-	selectorUpdate() {
-		this.save.emit();
-	}
-
 	canCreate(): boolean {
 		return ['category', 'supplier'].includes(this.descriptor.definition.label.toLowerCase());
 	}

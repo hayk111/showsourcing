@@ -4,9 +4,7 @@
 	[ngClass]="{'empty': !price || !price?.value}"
 	[hideOnOpen]="true"
 	[hasAction]="true"
-	(closed)="updateProductField($event, inpPrice?.value, 'price')"
-	(opened)="inpPrice?.focus()"
-	(saved)="updateProductField(false, inpPrice?.value, 'price')">
+	(opened)="inpPrice?.focus()">
 	<editable-value-app>
 		<price-app
 			*ngIf="price && price?.value; else priceHolder"
@@ -18,7 +16,11 @@
 			<div class="capitalize pd-top-s pd-bottom-s">set price</div>
 		</ng-template>
 	</editable-value-app>
-	<input-price-app #inpPrice [value]="price" (keyup.enter)="editablePrice.close()"></input-price-app>
+	<input-price-app 
+		#inpPrice 
+		[value]="price" 
+		(keyup.enter)="editablePrice.close()" 
+		(saved)="updateProductField(false, inpPrice?.value, 'price')"></input-price-app>
 </editable-container-app>
 
 <editable-container-app

@@ -17,7 +17,7 @@
 				(closed)="update(inpName.value, 'name')">
 				<editable-value-app 
 					class="ellipsis bold-s color-txt-primary fs-xxxl" 
-					txtColor="txt-primary">
+					[primary]="true">
 					{{ product?.name || '-' }}
 				</editable-value-app>
 				<input

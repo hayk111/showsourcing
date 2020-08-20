@@ -1,13 +1,14 @@
 <!-- input -->
 <form [formGroup]="group">
-	<form-field-app class="search-input" [ngClass]="{ 'field-focused': inp.focussed || !!inp.control.value }">
-			<input 
-				inputApp 
-				formControlName="name" 
-				[value]="searchTxt" type="text" 
-				[placeholder]="'ERM.' + placeholderTypeName + '.singular' | translate | capitalize" 
-				(keyup)="onKeydown($event)" 
-				(input)="search(inp.control.value)">
+	<form-field-app class="search-input">
+		<input
+			inputApp
+			formControlName="name" 
+			type="text" 
+			[value]="searchTxt" 
+			[placeholder]="'ERM.' + placeholderTypeName + '.singular' | translate | capitalize" 
+			(keyup)="onKeydown($event)" 
+			(input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
@@ -47,13 +48,15 @@
 		
 		<ng-container [ngSwitch]="typename">
 			<ng-container *ngSwitchDefault>
-				<selector-option-name-app 
+				<selector-option-app 
 					#abstract 
 					*ngFor="let item of choices; trackBy: trackById" 
 					class="selector-row" 
+					[typename]="typename"
+					[customType]="customType"
 					[item]="item" 
 					(click)="onSelect(item)">
-				</selector-option-name-app>
+				</selector-option-app>
 			</ng-container>
 			<ng-container *ngSwitchCase="'TeamUser'">
 				<selector-option-user-app 

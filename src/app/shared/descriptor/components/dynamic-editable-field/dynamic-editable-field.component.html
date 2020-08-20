@@ -206,7 +206,6 @@
 		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
-			(saved)="onSave()"
 			(canceled)="reset()"
 			(opened)="priceInput.focus()">
 			<editable-label-app>
@@ -224,7 +223,8 @@
 				[dynamicInput]="true"
 				[inline]="true"
 				[readonly]="descriptor.readonly"
-				[formControl]="control">
+				[formControl]="control"
+				(saved)="save.emit()">
 			</input-price-app>
 		</editable-field-app>
 	</ng-container>
@@ -264,13 +264,13 @@
 				<selector-app
 					#sel
 					[typename]="typename"
-					[customType]="customType"
+					[customType]="customType.toUpperCase()"
 					[canCreate]="canCreate()"
 					[readonly]="descriptor.readonly"
 					[required]="descriptor.required"
 					[formControl]="control"
-					(update)="selectorUpdate($event)">
-					<span>{{ control?.value?.name || control?.value?.value || '-'}}</span>
+					(update)="save.emit()">
+					<span>{{ control?.value?.name || control?.value?.value || control?.value?.code || '-'}}</span>
 				</selector-app>
 			</editable-value-app>		
 		</editable-field-app>

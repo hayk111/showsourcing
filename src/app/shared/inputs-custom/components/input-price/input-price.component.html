@@ -9,8 +9,7 @@
 	[readonly]="readonly"
 	[(ngModel)]="valueTemp.label"
 	(focus)="focussed = true"
-	(blur)="focussed = false; onTouchedFn()"
-	(input)="onChangeFn(value)"/>
+	(blur)="onSave()"/>
 
 <div class="currency-price" [ngStyle]="{'justify-content': dynamicInput ? 'flex-end' : 'space-between'}">
 	<selector-app
@@ -20,7 +19,8 @@
 		[required]="required"
 		[(ngModel)]="valueTemp.currency"
 		(menuOpened)="focussed = true"
-		(menuClosed)="focussed = false; onTouchedFn()">
+		(menuClosed)="focussed = false; onTouchedFn()"
+		(update)="onSave($event)">
 		<div class="currency pointer">
 			<span class="mg-right-s color-primary">{{ currency || 'USD'}}</span>
 		</div>
@@ -36,7 +36,6 @@
 		[readonly]="readonly"
 		[required]="required"
 		[(ngModel)]="valueTemp.value"
-		(focus)="focussed = true"
-		(blur)="focussed = false; onTouchedFn()"
-		(input)="onChangeFn(value)"/>
+		(focusin)="onFocus()"
+		(focusout)="onSave(value)"/>
 </div>

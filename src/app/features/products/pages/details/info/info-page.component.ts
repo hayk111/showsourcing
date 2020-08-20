@@ -67,8 +67,9 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 					propertiesToUpdate.propertiesMap[key] = property[key];
 					if (key === 'price') { // temporary solutionn for price with default currenct "USD"
 						propertiesToUpdate.propertiesMap[key] = {
-							...propertiesToUpdate.propertiesMap[key],
-							currency: 'USD'
+							...this.product?.propertiesMap?.price,
+							...((property as any).price.value && {value: (property as any).price.value} ),
+							...((property as any).price.code && {currency: (property as any).price.code} )
 						};
 					}
 				}
