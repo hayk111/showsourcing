@@ -2,13 +2,14 @@
 <form [formGroup]="group">
 	<form-field-app class="search-input">
 		<input
+			#searchInput
 			inputApp
 			formControlName="name" 
 			type="text" 
 			[value]="searchTxt" 
-			[placeholder]="'ERM.' + placeholderTypeName + '.singular' | translate | capitalize" 
-			(keyup)="onKeydown($event)" 
-			(input)="search(inp.control.value)">
+			[placeholder]="'ERM.' + placeholderTypeName + '.singular' | translate | capitalize"  
+			(input)="search(inp.control.value)"
+			(keyup)="onKeydown($event)">
 	</form-field-app>
 </form>
 

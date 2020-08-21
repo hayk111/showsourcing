@@ -9,7 +9,6 @@ import { Typename } from '~core/erm3/typename.type';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionComponent extends AbstractSelectorHighlightableComponent {
-
 	@Input() typename: Typename;
 	@Input() item: any;
 	@Input() customType: string;

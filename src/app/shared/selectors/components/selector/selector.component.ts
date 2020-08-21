@@ -8,7 +8,8 @@ import {
 	Input,
 	OnInit,
 	Output,
-	ViewChild
+	ViewChild,
+	HostListener
 } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
 import { FilterList } from '~shared/filters/models/filter-list.class';

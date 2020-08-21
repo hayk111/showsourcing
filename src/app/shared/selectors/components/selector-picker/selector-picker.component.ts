@@ -3,7 +3,7 @@ import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
 	AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener,
-	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren, OnDestroy
+	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren, OnDestroy, Renderer2
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject, Subscription, of, BehaviorSubject, combineLatest } from 'rxjs';
@@ -52,13 +52,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
 
-	// this closes the selector without closing dialogs, etc
-	@HostListener('keydown.escape', ['$event'])
-	onKeydownEsc(event) {
-		event.stopPropagation();
-		this.close.emit();
-	}
-
 	/** choices to iterate */
 	choices$: Observable<any[]>;
 	choices: any[];
@@ -78,7 +71,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
 	@ViewChild(CdkVirtualScrollViewport, { static: false }) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
-	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
+	@ViewChild('searchInput') input;
+
+	@ViewChild(InputDirective, { static: false }) inp: InputDirective;
 	group: FormGroup;
 
 	/** key manager that controlls the selection with arrowkeys  */
@@ -103,6 +98,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		private listHelper: ListHelper2Service,
 		private propertyOptionSrv: PropertyOptionsService,
 		private filterSrv: FilterService,
+		private renderer: Renderer2,
 		protected cd: ChangeDetectorRef,
 		private fb: FormBuilder
 	) { super(cd); }
@@ -145,7 +141,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				map(items => {
 					return (!!items.length || !this.searchTxt || this.hasName(this.searchTxt));
 				}),
-				tap((exists: boolean) => this.nameExists$.next(exists))
+				tap((exists: boolean) => this.nameExists$.next(exists)),
+				tap(_ => this.keyManager.setFirstItemActive())
 			).subscribe();
 		}
 
@@ -158,8 +155,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
-		this.inp.focus();
+		this.keyManager.setFirstItemActive();
 		this.search(this.searchTxt);
+		this.inp.focus();
 	}
 
 	ngOnChanges() {
@@ -416,6 +414,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			}
 
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			event.stopPropagation();
 			// we use this number to know between how many rows navigated we have to scroll Into view
 			// we set it to 5 since its the number of elements we see on the selector.
 			const numberRows = 5;
