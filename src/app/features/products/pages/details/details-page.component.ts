@@ -201,7 +201,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				tap(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: 'title.error',
+						title: 'title.success',
 						message: 'message.product-deleted',
 						timeout: 3500
 					});

@@ -9,7 +9,7 @@
 			[sample]="sample"
 			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="viewSrv.openPreview($event)"
-			(selectOne)="selectionSrv.selectOne($event, true)"
+			(select)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)">
 		</sample-list-item-app>
 		<!-- buttons -->
@@ -28,10 +28,8 @@
 					class="warn capitalize"
 					(click)="listHelper.deleteSelected(size === 1 ? 'message.confirm-delete-sample' : 'message.confirm-delete-samples')"
 					translate="button.delete">
-			</button>
-
+				</button>
 			</ng-container>
-
 		</div>
 	</ng-container>
 </ng-container>

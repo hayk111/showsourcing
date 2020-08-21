@@ -5,8 +5,6 @@
 		[readonly]="!asModal"
 		[hasOverflow]="false"
 		[hasDisplayValuePadding]="true"
-		(closed)="updateDescription($event, inpDescription.value)"
-		(clickOutside)="adaptSize()"
 		(opened)="inpDescription.select()"
 		(click)="asModal ? openDescModal() : null">
 		<label-app class="capitalize" translate="text.description"></label-app>
@@ -26,6 +24,7 @@
 </div>
 <!-- show more text -->
 <span
+	*ngIf="showMore"
 	tabFocusAction
 	class="txt-btn color-primary pointer"
 	(click)="showAll()"

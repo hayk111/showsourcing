@@ -6,6 +6,7 @@ import { ToastService, ToastType } from '~shared/toast';
 import { UserService } from '~core/auth';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
 import { uuid } from '~utils';
+import { AuthenticationService } from '~core/auth';
 import * as _ from 'lodash';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +16,7 @@ export class UploaderService {
 
 	constructor(
 		private toastSrv: ToastService,
-		private userSrv: UserService
+		private authSrv: AuthenticationService,
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): ObservableFileUpload {
@@ -24,7 +25,7 @@ export class UploaderService {
 			switchMap((files) => {
 				const toCreate = [];
 				files.forEach((file: any) => {
-					toCreate.push({ fileName: `${this.userSrv.identityId}/${file.key}`, nodeId });
+					toCreate.push({ fileName: `${this.authSrv.identityId}/${file.key}`, nodeId });
 				});
 				return api.Attachment.create(toCreate).local$;
 			}),
@@ -46,8 +47,7 @@ export class UploaderService {
 			switchMap((images) => { // images are returned from s3upload function with corresponding names in S3
 				const toCreate = [];
 				images.forEach((img: any) => {
-					console.log('image name::::', this.userSrv.identityId, img.key);
-					toCreate.push({ fileName: `${this.userSrv.identityId}/${img.key}`, nodeId });
+					toCreate.push({ fileName: `${this.authSrv.identityId}/${img.key}`, nodeId });
 				});
 				return api.Image.create(toCreate).online$;
 			}),

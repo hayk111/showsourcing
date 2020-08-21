@@ -44,8 +44,8 @@ export class ExportDialogComponent implements OnInit {
 	fileReady = false;
 	exportReq: Export;
 	count$ = new BehaviorSubject(0);
-	canExportPdf = false;
-	canExportImages = false;
+	canExportPdf = true;
+	canExportImages = true;
 
 	constructor(
 		public dlgSrv: DialogService,

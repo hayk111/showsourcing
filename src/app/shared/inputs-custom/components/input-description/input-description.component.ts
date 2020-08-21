@@ -23,7 +23,6 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 	private _description = '';
 	@Input() set description(description: string) {
 		this._description = description;
-		this.adaptSize();
 	}
 	get description() {
 		return this._description;
@@ -45,47 +44,46 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 	) {}
 
 	ngOnInit() {
-		this.adaptSize();
+		this.adaptSize(this.countLines(this._description));
 	}
 
 	ngOnChanges() {
-		this.adaptSize();
+		this.adaptSize(this.countLines(this._description));
 	}
 
 	updateDescription(isCancel: boolean = true, newDescription: string) {
 		if (!isCancel) {
 			this.update.emit(newDescription);
 		}
-		this.adaptSize();
 	}
 
 	showAll() {
-		this.render.setStyle(this.container.nativeElement, 'height', '100%');
-		this.showMore = false;
+		this.openDescModal(false);
 	}
 
-	adaptSize() {
-		// we set the height the the limit
-		this.showAll();
-		// if the height is bigger than 85 and it has a description, we limit the height
-		if (
-			this.container.nativeElement.clientHeight > 80 &&
-			this.description &&
-			this.description.length
-		) {
+	adaptSize(linesCount?: number) {
+		// if the line count is hgher than 4 and it has a description, we limit the height
+		if (linesCount > 4) {
 			this.render.setStyle(this.container.nativeElement, 'height', '77px');
-			this.render.setStyle(this.container.nativeElement, 'margin-left', '0');
+			this.render.setStyle(this.container.nativeElement, 'margin-left', '-8px');
 			this.showMore = true;
+		} else {
+			this.render.setStyle(this.container.nativeElement, 'height', '100%');
+			this.showMore = false;
 		}
 		this.cd.detectChanges();
 	}
 
-	openDescModal() {
+	openDescModal(editingMode = true) {
 		if (this.asModal)
 			this.dlgCommonSrv
-				.openDescriptionDlg({ description: this.description })
+				.openDescriptionDlg({ description: this.description, editingMode })
 				.data$.subscribe((data) => {
 					this.update.emit(data.description);
 				});
+	}
+
+	private countLines(str): number {
+		return str.split('\n').length;
 	}
 }

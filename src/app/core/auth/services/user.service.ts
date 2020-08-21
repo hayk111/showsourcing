@@ -5,7 +5,7 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm3';
 import { authStatus, Auth } from 'showsourcing-api-lib';
 import { AuthenticationService } from './authentication.service';
-
+import { initializedClient$ } from '../../../../client';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,7 +19,6 @@ export class UserService {
 	static user: User;
 	userId: string;
 	static userId: string;
-	identityId: string;
 
 	constructor(
 		protected authSrv: AuthenticationService,
@@ -41,12 +40,6 @@ export class UserService {
 		).subscribe(user => {
 			// this.analyticsSrv.setupUser(user);
 		});
-
-		Auth
-			.currentUserCredentials()
-			.then(credentials => {
-				this.identityId = credentials.identityId;
-			});
 	}
 
 	selectUser() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { api, client, Company } from 'showsourcing-api-lib';
+import { api, client, Company, Auth } from 'showsourcing-api-lib';
 import { AuthenticationService } from './authentication.service';
 import { log } from '~utils/log';
 import { initializedClient$ } from '../../../../client';
@@ -19,8 +19,14 @@ export class CompanyService {
 	init() {
 		// when signing in we want to load the current company of the user
 		initializedClient$
-			.pipe(switchMap(id => api.Company.getFirst()))
-			.subscribe(company => this._company$.next(company));
+			.pipe(
+				switchMap(() => Auth.currentUserCredentials()),
+				tap(credentials => this.authSrv.setIdentityId(credentials.identityId)),
+				switchMap(id => api.Company.getFirst())
+			)
+			.subscribe(company => {
+				this._company$.next(company);
+			});
 		this.company$.subscribe(company => {
 			this.companySync = company;
 			if (company) {

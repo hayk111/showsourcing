@@ -141,8 +141,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				map(items => {
 					return (!!items.length || !this.searchTxt || this.hasName(this.searchTxt));
 				}),
+				tap(_ => this.keyManager.setFirstItemActive()),
 				tap((exists: boolean) => this.nameExists$.next(exists)),
-				tap(_ => this.keyManager.setFirstItemActive())
 			).subscribe();
 		}
 
