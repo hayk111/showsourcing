@@ -35,15 +35,26 @@
 
 		<button
 			class="icon medium txt-secondary"
-			(click)="export.emit(product)">
+			(click)="export.emit(product)"
+			toolTip [toolTipMessage]="'text.export-product' | translate">
 			<icon-app name="export" size="m"></icon-app>
 		</button>
 
-		<button class="vibrant big icon-with-text flexVAlign" (click)="supplierRequest.emit(product)">
+		<button 
+			class="vibrant big icon-with-text flexVAlign" 
+			(click)="supplierRequest.emit(product)"
+			toolTip [toolTipMessage]="'text.contact-supplier' | translate">
 			<icon-app name="envelope"></icon-app><div class="capitalize" translate="button.contact-supplier"></div>
 		</button>
 
-		<status-selector-app typename="Product" [entity]="product" selectSize="l" type="button"></status-selector-app>
+		<status-selector-app 
+			typename="Product" 
+			[entity]="product" 
+			toolTip 
+			[toolTipMessage]="'text.change-product-status' | translate"
+			selectSize="l" 
+			type="button">
+		</status-selector-app>
 
 		<context-menu-app>
 

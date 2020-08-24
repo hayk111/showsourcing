@@ -10,7 +10,7 @@ import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RatingService } from '~shared/rating/services/rating.service';
-import { AutoUnsub, log } from '~utils';
+import { AutoUnsub, log, weightUnits } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
@@ -63,6 +63,24 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		// api.PropertyOption.findByType$('WEIGHTUNIT')
+		// 	.data$
+		// 	.subscribe(weightUnits => {
+		// 		console.log('DetailsPageComponent -> ngOnInit -> weightUnits', weightUnits);
+		// 	});
+
+		// api.PropertyOption.findByType$('WEIGHT_UNIT')
+		// 	.data$
+		// 	.subscribe(weightUnits => {
+		// 		console.log('DetailsPageComponent -> ngOnInit -> weightUnits', weightUnits);
+		// 	});
+
+		// api.PropertyOption.findByType$('WEIGHT')
+		// 	.data$
+		// 	.subscribe(weightUnits => {
+		// 		console.log('DetailsPageComponent -> ngOnInit -> weightUnits', weightUnits);
+		// 	});
+
 		this.route.params.pipe(
 			map(params => params.id),
 			tap(id => this.productId = id),

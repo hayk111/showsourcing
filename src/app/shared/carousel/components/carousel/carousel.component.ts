@@ -64,8 +64,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.images$.subscribe(imgs => {
 			this.images = imgs;
-			console.log('CarouselComponent -> ngOnInit -> this.images444', this.images);
-
 			this.cdr.markForCheck();
 		});
 
@@ -78,9 +76,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 						return images.length && !!images[images.length - 1].url;
 					}),
 					tap((images: any[]) => {
-						console.log('images===========', images);
 						this.images$.next(images);
-						this.selectedIndex = images.length - 1;
 					})
 				)
 				.subscribe();

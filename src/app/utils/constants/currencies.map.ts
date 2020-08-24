@@ -931,7 +931,7 @@ export const currencyMap = {
 			en: {
 				id: 'EUR',
 				name: 'Euro',
-				symbol: 'EUR'
+				symbol: '€'
 			}
 		}
 	},
@@ -1439,12 +1439,12 @@ export const currencyMap = {
 			}
 		}
 	},
-	'CNY': {
+	'RMB': {
 		locales: {
 			en: {
-				id: 'CNY',
+				id: 'RMB',
 				name: 'Chinese Yuan',
-				symbol: 'CNY'
+				symbol: '¥'
 			}
 		}
 	},
