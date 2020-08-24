@@ -14,6 +14,7 @@ export class ProductHeaderDetailsComponent {
 	@Output() export = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();
 	@Output() archive = new EventEmitter<Product>();
+	@Output() back = new EventEmitter<void>();
 	@Output() supplierRequest = new EventEmitter<Product>();
 
 	constructor() { }

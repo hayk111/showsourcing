@@ -10,4 +10,5 @@ export * from './preview-section/preview-section-action/preview-section-action.c
 export * from './preview-section/preview-section.component';
 export * from './preview-static/preview-static.component';
 export * from './preview-tab/preview-tab.component';
+export * from './preview-screen/preview-screen.component';
 export * from './preview-top-bar/preview-top-bar.component';

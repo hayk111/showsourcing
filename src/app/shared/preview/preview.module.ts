@@ -15,6 +15,7 @@ import { LogoModule } from '~shared/logo';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { UtilsModule } from '~shared/utils';
+import { HeaderListModule } from '~shared/header/header.module';
 
 import {
 	PreviewActionsComponent,
@@ -27,6 +28,7 @@ import {
 	PreviewPanelComponent,
 	PreviewSectionActionComponent,
 	PreviewSectionComponent,
+	PreviewScreenComponent,
 	PreviewStaticComponent,
 	PreviewTabComponent,
 	PreviewTopBarComponent,
@@ -35,6 +37,7 @@ import {
 
 @NgModule({
 	imports: [
+		HeaderListModule,
 		BadgeModule,
 		CarouselModule,
 		CommonModule,
@@ -67,6 +70,7 @@ import {
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
+		PreviewScreenComponent,
 	],
 	exports: [
 		PreviewActionsComponent,
@@ -82,6 +86,7 @@ import {
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
+		PreviewScreenComponent,
 	]
 })
 export class PreviewModule { }

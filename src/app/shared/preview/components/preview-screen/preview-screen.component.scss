@@ -1,0 +1,19 @@
+.preview-screen {
+	display: block;
+	background: white;
+	width: 90%;
+	height: 100%;
+	z-index: 1000;
+	top: 0;
+	right: 0;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+}

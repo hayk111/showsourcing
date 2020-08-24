@@ -44,8 +44,8 @@ export class DefaultColumnsComponent {
 	}
 
 	routerPath(row) {
-		if (this.redirectOnNameClick)
-			return (['/', this._getTypenameUrl(this.typename), row.id]);
+		// if (this.redirectOnNameClick)
+		// 	return (['/', this._getTypenameUrl(this.typename), row.id]);
 	}
 
 	_getTypenameUrl(typename) {
@@ -56,8 +56,8 @@ export class DefaultColumnsComponent {
 	}
 
 	nameClicked(row) {
-		if (this.redirectOnNameClick)
-			return;
+		// if (this.redirectOnNameClick)
+		// 	return;
 
 		this.nameClick.emit(row);
 	}

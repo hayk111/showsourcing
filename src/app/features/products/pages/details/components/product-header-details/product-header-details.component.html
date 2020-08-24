@@ -1,9 +1,8 @@
-<header-details-app [headerType]="'details'">
+<header-details-app [headerType]="'details'" (back)="back.emit()">
 
 	<header-details-title-app *ngIf="product">
 		{{ product?.name }}
 	</header-details-title-app>
-
 
 	<logo-app [logo]="product?.images | firstImage" size="l" typename="Product"></logo-app>
 

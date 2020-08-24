@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Input, Output, EventEmitter } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 
 import { HeaderNavComponent } from './components/nav/header-nav.component';
@@ -17,6 +17,8 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	@Input() hasBackArrow = true;
 	@Input() hasLogo = true;
 	@Input() headerType: 'details' | 'settings' | 'table';
+
+	@Output() back = new EventEmitter<void>();
 	@ContentChild(HeaderNavComponent, { static: false }) headerNav: HeaderNavComponent;
 
 	constructor(
@@ -29,9 +31,10 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	 * Redirects to table page
 	 */
 	goBack() {
-		const secondSlashIndex = this.router.url.slice(1).indexOf('/');
-		const pathToBack = this.router.url.slice(1, secondSlashIndex + 1);
-		this.router.navigate([pathToBack]);
+		// const secondSlashIndex = this.router.url.slice(1).indexOf('/');
+		// const pathToBack = this.router.url.slice(1, secondSlashIndex + 1);
+		// this.router.navigate([pathToBack]);
+		this.back.emit();
 	}
 
 	toDisplayString(nav: string) {

@@ -30,11 +30,12 @@ import * as _ from 'lodash';
 	host: { class: 'details-page' }
 })
 export class DetailsPageComponent extends AutoUnsub implements OnInit {
+	@Input() product: Product;
 	@Input() requestCount: number;
+
 	@ViewChild('main', { read: ElementRef, static: false }) main: ElementRef;
 	@ViewChild('rating', { read: ElementRef, static: false }) rating: ElementRef;
 
-	product: Product;
 	productId: string;
 	product$: Observable<Product>;
 	productProjects: (ProjectProduct | string)[];
@@ -63,31 +64,33 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.route.params.pipe(
-			map(params => params.id),
-			tap(id => this.productId = id),
-			switchMap(() => api.Product.get$(this.productId).data$),
-			map((product: any) => {
-				if (product) {
-					product.images = api.Image.findLocal({
-						filter: {
-							property: 'nodeId',
-							isString: 'Product:' + product?.id
-						}
-					});
-				}
-				return product;
-			}),
-			takeUntil(this._destroy$),
-		).subscribe(
-			product => this.onProduct(product),
-			err => this.onError(err)
-		);
+		// this.route.params.pipe(
+		// 	map(params => params.id),
+		// 	tap(id => this.productId = id),
+		// 	switchMap(() => api.Product.get$(this.productId).data$),
+		// 	map((product: any) => {
+		// 		if (product) {
+		// 			product.images = api.Image.findLocal({
+		// 				filter: {
+		// 					property: 'nodeId',
+		// 					isString: 'Product:' + product?.id
+		// 				}
+		// 			});
+		// 		}
+		// 		return product;
+		// 	}),
+		// 	takeUntil(this._destroy$),
+		// ).subscribe(
+		// 	product => this.onProduct(product),
+		// 	err => this.onError(err)
+		// );
+
+		this.onProduct(this.product);
 
 		api.ProjectProduct.find$({
 			filter: {
 				property: 'id',
-				contains: this.productId
+				contains: this.product?.id
 			}
 		}).data$
 			.pipe(

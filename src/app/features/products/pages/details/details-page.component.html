@@ -1,13 +1,4 @@
 <ng-container *ngIf="product; else spinner">
-	<product-header-details-app
-		[product]="product"
-		(update)="updateProduct($event)"
-		(export)="onExport()"
-		(delete)="deleteProduct($event?.id)"
-		(archive)="onArchive($event)"
-		(supplierRequest)="openSupplierRequest($event)">
-	</product-header-details-app>
-
 	<product-sub-header-details-app
 		[product]="product"
 		(updated)="updateProduct($event)"

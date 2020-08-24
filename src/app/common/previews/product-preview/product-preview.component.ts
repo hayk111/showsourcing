@@ -19,6 +19,7 @@ import { RatingDashboardComponent } from '~shared/rating';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, PendingImage } from '~utils';
 
+/** @deprecated */
 @Component({
 	selector: 'product-preview-app',
 	templateUrl: './product-preview.component.html',

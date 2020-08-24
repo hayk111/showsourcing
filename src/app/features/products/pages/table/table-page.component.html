@@ -26,7 +26,7 @@
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"
-	(open)="viewSrv.goToDetails($event)"
+	(open)="viewSrv.openPreview($event)"
 	(createClick)="listHelper.openCreationDialog()"
 	(update)="listHelper.update($event, 'Product')"
 	(previewClick)="viewSrv.openPreview($event)"
@@ -57,11 +57,21 @@
 
 <product-selection-bar-app></product-selection-bar-app>
 
-<product-preview-app
+<preview-screen-app
+	*ngIf="viewSrv.previewOpen"
+	(close)="viewSrv.closePreview()">
+	<product-header-details-app 
+		[product]="viewSrv.previewed" 
+		(back)="viewSrv.closePreview()">
+	</product-header-details-app>
+	<details-page-app [product]="viewSrv.previewed"></details-page-app>
+</preview-screen-app>
+
+<!-- <product-preview-app
 	*ngIf="viewSrv.previewOpen"
 	[product]="viewSrv.previewed"
 	(close)="viewSrv.closePreview()">
-</product-preview-app>
+</product-preview-app> -->
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app

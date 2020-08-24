@@ -1,7 +1,6 @@
 // folders
 export * from './constants';
 export * from './logger';
-export * from './services';
 
 // files
 export * from './auto-unsub.component';
