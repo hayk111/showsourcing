@@ -6,6 +6,12 @@
 		<ng-container *ngSwitchCase="'INCOTERM'">
 			{{ item?.code }} - {{ item?.value}}
 		</ng-container>
+		<ng-container *ngSwitchCase="'weightUnit'">
+			{{ item?.name }}
+		</ng-container>
+		<ng-container *ngSwitchCase="'lengthUnit'">
+			{{ item?.name }}
+		</ng-container>
 		<ng-container *ngSwitchDefault>
 			{{ item?.value }}
 		</ng-container>

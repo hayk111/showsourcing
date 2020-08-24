@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { api, Product, Sample, Project, Task, Supplier, ProjectProduct, Vote } from 'showsourcing-api-lib';
 import { Observable, Subject, BehaviorSubject, interval } from 'rxjs';
 import { TeamService } from '~core/auth';
-import { map, switchMap, takeUntil, tap, throttle, shareReplay, throttleTime } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap, first, shareReplay, throttleTime } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
@@ -63,24 +63,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// api.PropertyOption.findByType$('WEIGHTUNIT')
-		// 	.data$
-		// 	.subscribe(weightUnits => {
-		// 		console.log('DetailsPageComponent -> ngOnInit -> weightUnits', weightUnits);
-		// 	});
-
-		// api.PropertyOption.findByType$('WEIGHT_UNIT')
-		// 	.data$
-		// 	.subscribe(weightUnits => {
-		// 		console.log('DetailsPageComponent -> ngOnInit -> weightUnits', weightUnits);
-		// 	});
-
-		// api.PropertyOption.findByType$('WEIGHT')
-		// 	.data$
-		// 	.subscribe(weightUnits => {
-		// 		console.log('DetailsPageComponent -> ngOnInit -> weightUnits', weightUnits);
-		// 	});
-
 		this.route.params.pipe(
 			map(params => params.id),
 			tap(id => this.productId = id),

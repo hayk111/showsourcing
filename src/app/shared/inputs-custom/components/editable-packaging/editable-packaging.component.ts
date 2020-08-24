@@ -25,7 +25,7 @@ export class EditablePackagingComponent extends AbstractInput {
 
 	onSave(value) {
 		this.onChangeFn(value);
-		this.saved.emit();
+		this.saved.emit(value);
 	}
 
 	onCancel(property: string) {

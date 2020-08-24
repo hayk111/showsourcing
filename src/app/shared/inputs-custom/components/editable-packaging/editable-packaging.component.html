@@ -87,7 +87,6 @@
 	[readonly]="true"
 	[clickableReadonly]="!readonly"
 	(click)="lengthUnitSelector.openMenu($event)"
-	(saved)="onSave(value)"
 	(opened)="storeValue('lengthUnit', value.lengthUnit)"
 	(canceled)="onCancel('lengthUnit')">
 	<editable-label-app>Length Unit</editable-label-app>
@@ -100,7 +99,8 @@
 			[required]="required"
 			[(ngModel)]="value.lengthUnit"
 			(input)="onChangeFn(value)"
-			(blur)="onTouchedFn()">
+			(blur)="onTouchedFn()"
+			(update)="onSave($event)">
 			{{ value?.lengthUnit || '-' }}
 		</selector-app>
 	</editable-value-app>

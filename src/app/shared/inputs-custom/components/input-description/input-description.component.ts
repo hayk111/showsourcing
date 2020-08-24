@@ -84,6 +84,6 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 	}
 
 	private countLines(str): number {
-		return str.split('\n').length;
+		return str?.split('\n').length;
 	}
 }
