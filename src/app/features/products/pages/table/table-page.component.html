@@ -26,7 +26,7 @@
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"
-	(open)="viewSrv.openPreview($event)"
+	(open)="viewSrv.goToDetails($event?.id)"
 	(createClick)="listHelper.openCreationDialog()"
 	(update)="listHelper.update($event, 'Product')"
 	(previewClick)="viewSrv.openPreview($event)"

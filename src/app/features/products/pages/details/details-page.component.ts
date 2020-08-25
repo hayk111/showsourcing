@@ -64,26 +64,26 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// this.route.params.pipe(
-		// 	map(params => params.id),
-		// 	tap(id => this.productId = id),
-		// 	switchMap(() => api.Product.get$(this.productId).data$),
-		// 	map((product: any) => {
-		// 		if (product) {
-		// 			product.images = api.Image.findLocal({
-		// 				filter: {
-		// 					property: 'nodeId',
-		// 					isString: 'Product:' + product?.id
-		// 				}
-		// 			});
-		// 		}
-		// 		return product;
-		// 	}),
-		// 	takeUntil(this._destroy$),
-		// ).subscribe(
-		// 	product => this.onProduct(product),
-		// 	err => this.onError(err)
-		// );
+		this.route.params.pipe(
+			map(params => params.id),
+			tap(id => this.productId = id),
+			switchMap(() => api.Product.get$(this.productId).data$),
+			map((product: any) => {
+				if (product) {
+					product.images = api.Image.findLocal({
+						filter: {
+							property: 'nodeId',
+							isString: 'Product:' + product?.id
+						}
+					});
+				}
+				return product;
+			}),
+			takeUntil(this._destroy$),
+		).subscribe(
+			product => this.onProduct(product),
+			err => this.onError(err)
+		);
 
 		this.onProduct(this.product);
 

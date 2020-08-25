@@ -81,7 +81,9 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 					class="cell"
 					[class.selected]="isSelected(row, i)"
 					[ngClass]="'cell--' + i"
-					[style.height]="rowHeight + 'px'">
+					[style.height]="rowHeight + 'px'"
+					(mouseenter)="hoverRow(i)"
+					(mouseleave)="hoverRow(-1)">
 					<!-- Render the column template when specified -->
 					<ng-container *ngIf="!column.showOnHover || i === hoverIndex">
 						<ng-container
@@ -108,7 +110,9 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 					*ngFor="let row of rows; index as i; trackBy: trackByFn"
 					class="menuCell cell flexCenter"
 					[ngClass]="{ selected: isSelected(row, i) }"
-					[style.height]="rowHeight + 'px'">
+					[style.height]="rowHeight + 'px'"
+					(mouseenter)="hoverRow(i)"
+					(mouseleave)="hoverRow(-1)">>
 					<context-menu-app
 						*ngIf="isSelectable(row)"
 						[ngClass]="{ hover: (i === hoverIndex) }"
