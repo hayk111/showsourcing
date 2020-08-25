@@ -36,7 +36,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const id$ = this.route.snapshot.params.pipe(
-			map(params => params.id),
+			map((params: any) => params.id),
 		);
 
 		id$.subscribe(id => {
@@ -44,7 +44,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		});
 
 		id$.pipe(
-			switchMap(id => this.productSrv.queryOne(id)),
+			switchMap((id: string) => this.productSrv.queryOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(product => this.product = product);
 	}
