@@ -10,6 +10,7 @@ import { api, Product } from 'showsourcing-api-lib';
 })
 export class ProductHeaderDetailsComponent {
 	@Input() product: Product;
+	@Input() backButtonIcon: 'arrow-left' | 'close' = 'arrow-left';
 	@Output() delete = new EventEmitter<Product>();
 	@Output() export = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();

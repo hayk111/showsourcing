@@ -35,7 +35,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
+		const id$ = this.route.snapshot.params.pipe(
 			map(params => params.id),
 		);
 

@@ -36,7 +36,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 	ngOnInit() {
-		this.productId = this.route.parent.snapshot.params.id;
+		this.productId = this.route.snapshot.params.id;
 		this.product = { id: this.productId };
 		this.listHelper.setup(
 			'Sample',

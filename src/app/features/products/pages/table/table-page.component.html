@@ -60,11 +60,10 @@
 <preview-screen-app
 	*ngIf="viewSrv.previewOpen"
 	(close)="viewSrv.closePreview()">
-	<product-header-details-app 
-		[product]="viewSrv.previewed" 
-		(back)="viewSrv.closePreview()">
-	</product-header-details-app>
-	<details-page-app [product]="viewSrv.previewed"></details-page-app>
+	<details-page-app
+		 [product]="viewSrv.previewed" 
+		 [previewMode]="true"
+		 (back)="viewSrv.closePreview()"></details-page-app>
 </preview-screen-app>
 
 <!-- <product-preview-app

@@ -1,4 +1,4 @@
-<header-details-app [headerType]="'details'" (back)="back.emit()">
+<header-details-app [headerType]="'details'" [backButtonIcon]="backButtonIcon" (back)="back.emit()">
 
 	<header-details-title-app *ngIf="product">
 		{{ product?.name }}

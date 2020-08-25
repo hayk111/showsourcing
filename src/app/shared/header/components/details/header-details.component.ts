@@ -17,6 +17,7 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	@Input() hasBackArrow = true;
 	@Input() hasLogo = true;
 	@Input() headerType: 'details' | 'settings' | 'table';
+	@Input() backButtonIcon: 'arrow-left' | 'close' = 'arrow-left';
 
 	@Output() back = new EventEmitter<void>();
 	@ContentChild(HeaderNavComponent, { static: false }) headerNav: HeaderNavComponent;
@@ -25,16 +26,6 @@ export class HeaderDetailsComponent extends TrackingComponent {
 		private router: Router,
 	) {
 		super();
-	}
-
-	/**
-	 * Redirects to table page
-	 */
-	goBack() {
-		// const secondSlashIndex = this.router.url.slice(1).indexOf('/');
-		// const pathToBack = this.router.url.slice(1, secondSlashIndex + 1);
-		// this.router.navigate([pathToBack]);
-		this.back.emit();
 	}
 
 	toDisplayString(nav: string) {

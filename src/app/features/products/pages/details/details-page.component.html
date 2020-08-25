@@ -1,4 +1,16 @@
 <ng-container *ngIf="product; else spinner">
+	<product-header-details-app
+		[product]="product"
+		[backButtonIcon]="previewMode ? 'close' : 'arrow-left'"
+		[ngStyle]="{ width: previewMode ? '90%' : 'calc(100% - 64px)'}"
+		(update)="updateProduct($event)"
+		(export)="onExport()"
+		(delete)="deleteProduct($event?.id)"
+		(archive)="onArchive($event)"
+		(back)="goBack()"
+		(supplierRequest)="openSupplierRequest($event)">
+	</product-header-details-app>
+
 	<product-sub-header-details-app
 		[product]="product"
 		(updated)="updateProduct($event)"
@@ -7,7 +19,7 @@
 		(openSupplier)="goToSupplier($event)">
 	</product-sub-header-details-app>
 
-	<div class="flex ctnr flexWrap">
+	<div class="flex ctnr flexWrap details-main">
 		<div class="left">
 			<!-- docket card -->
 			<product-docket-app

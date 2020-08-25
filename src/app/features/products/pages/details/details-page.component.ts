@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { api, Product, Sample, Project, Task, Supplier, ProjectProduct, Vote } from 'showsourcing-api-lib';
+import { api, Product, Sample, Project, Task, Supplier, ProjectProduct, Vote, Image } from 'showsourcing-api-lib';
 import { Observable, Subject, BehaviorSubject, interval } from 'rxjs';
 import { TeamService } from '~core/auth';
 import { map, switchMap, takeUntil, tap, first, shareReplay, throttleTime } from 'rxjs/operators';
@@ -32,6 +32,10 @@ import * as _ from 'lodash';
 export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	@Input() product: Product;
 	@Input() requestCount: number;
+	@Input() previewMode = false;
+
+	// this is used only on preview mode
+	@Output() back = new EventEmitter();
 
 	@ViewChild('main', { read: ElementRef, static: false }) main: ElementRef;
 	@ViewChild('rating', { read: ElementRef, static: false }) rating: ElementRef;
@@ -64,28 +68,37 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.route.params.pipe(
-			map(params => params.id),
-			tap(id => this.productId = id),
-			switchMap(() => api.Product.get$(this.productId).data$),
-			map((product: any) => {
-				if (product) {
-					product.images = api.Image.findLocal({
-						filter: {
-							property: 'nodeId',
-							isString: 'Product:' + product?.id
-						}
-					});
-				}
-				return product;
-			}),
-			takeUntil(this._destroy$),
-		).subscribe(
-			product => this.onProduct(product),
-			err => this.onError(err)
-		);
+		if (!!this.product) { // for the previews
+			this.onProduct(this.product);
 
-		this.onProduct(this.product);
+			api.Product
+				 .get$(this.product.id)
+				 .data$
+				 .pipe(
+					 takeUntil(this._destroy$),
+					 tap(product => this.productId = product?.id),
+					 map((product: any) => this.assignImagesToProduct(product)),
+				 )
+				 .subscribe(
+					product => this.onProduct(product),
+					err => this.onError(err)
+				);
+		} else {
+			this.route.params.pipe(
+				map(params => params.id),
+				tap(id => this.productId = id),
+				switchMap(() => api.Product.get$(this.productId).data$),
+				map((product: any) => {
+					if (product) {
+						return this.assignImagesToProduct(product);
+					}
+				}),
+				takeUntil(this._destroy$),
+			).subscribe(
+				product => this.onProduct(product),
+				err => this.onError(err)
+			);
+		}
 
 		api.ProjectProduct.find$({
 			filter: {
@@ -126,6 +139,31 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			timeout: 3500
 		});
 		this.router.navigate(['products']);
+	}
+
+	private assignImagesToProduct(product: any) {
+		const updatedProduct = {...product};
+		updatedProduct.images = this.getProductImgs(product.id);
+		return updatedProduct;
+	}
+
+	private getProductImgs(productId: string): Image[] {
+		return api.Image.findLocal({
+			filter: {
+				property: 'nodeId',
+				isString: 'Product:' + productId
+			}
+		});
+	}
+
+	goBack() { // back to list page
+		if (this.previewMode) {
+			this.back.emit();
+			return;
+		}
+		const secondSlashIndex = this.router.url.slice(1).indexOf('/');
+		const pathToBack = this.router.url.slice(1, secondSlashIndex + 1);
+		this.router.navigate([pathToBack]);
 	}
 
 	onArchive(product: Product | Product[]) {
@@ -188,6 +226,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				product: this.productId
 			});
 		});
+		debugger;
 		api.ProjectProduct.create(toPass);
 	}
 

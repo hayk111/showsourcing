@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { isUuid } from '~utils/uuid.utils';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, map, first } from 'rxjs/operators';
 import { productDetailsDescriptorMock, shippingPackagingDescriptorMock } from './descriptors';
@@ -24,6 +26,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
+		private location: Location,
 		private cd: ChangeDetectorRef,
 		public dlgCommonSrv: DialogCommonService
 	) {
@@ -31,8 +34,9 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log('InfoPageComponent -> ngOnInit -> this.descriptor', this.descriptor);
-		this.product$ = api.Product.get$(this.route.parent.snapshot.params.id).data$
+		const productId = this.route.snapshot?.params?.id ||
+			this.location.path().split('/').find((val: string) => isUuid(val));
+		this.product$ = api.Product.get$(productId).data$
 			.pipe(
 				takeUntil(this._destroy$),
 				tap(product => {

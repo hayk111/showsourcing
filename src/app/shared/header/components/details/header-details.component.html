@@ -1,7 +1,7 @@
 <div class="header-container" [ngClass]="getType('header-container')">
 	<div class="flex left container">
-		<button *ngIf="hasBackArrow" class="light icon medium" (click)="goBack()">
-			<icon-app class="back-arrow" name="arrow-right" size="m">
+		<button *ngIf="hasBackArrow" class="light icon medium" (click)="back.emit()">
+			<icon-app class="back-arrow" [name]="backButtonIcon" size="m">
 			</icon-app>
 		</button>
 

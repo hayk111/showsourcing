@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'nav-item-app',
@@ -6,18 +6,13 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 	styleUrls: ['./nav-item.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavItemComponent implements OnInit {
+export class NavItemComponent {
 	@Input() icon: string;
 	@Input() name: string;
 	@Input() link: string;
+	@Input() active = false;
 	@Input() badgeContent: number;
 
 	constructor() { }
-
-	ngOnInit() {
-		if (this.link === undefined) {
-			throw Error('Please define a link for the tab-component');
-		}
-	}
 
 }
