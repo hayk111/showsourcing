@@ -9,12 +9,12 @@
 				[isOpen]="isOpen"
 				[product]="entity"
 				[selectedIndex]="selectedIndex"
-				(delete)="onDelete()"
+				(delete)="onDelete($event)"
 				(openFileBrowser)="openFileBrowser.emit()"
-				(close)="close()">
+				(close)="close($event)">
 			</product-modal-header-list>
 		</ng-container>
-		<div class="carousel-body" (mousedown)="close()">
+		<div class="carousel-body" (mousedown)="close($event)">
 			<div class="img-ctnr" [ngStyle]="{ transform: getRotation(getImg()) }">
 				<img-app
 					class="loading"

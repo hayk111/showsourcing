@@ -12,8 +12,15 @@ import { api, Typename } from 'showsourcing-api-lib';
 })
 export class ProductMainComponent implements OnInit {
 	@Input() product: Product;
+	@Input() set section(fragment: string) {
+		this._section = fragment;
+	}
+	get section() {
+		return this._section;
+	}
 
-	section = 'info';
+	_section = 'info';
+
 	sampleCount$: Observable<number>;
 	taskCount$: Observable<number>;
 	commentCount$: Observable<number>;

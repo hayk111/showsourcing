@@ -5,7 +5,9 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { Attachment, ERM, UserService } from '~core/erm';
 import { ListHelper2Service, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
+import { Location } from '@angular/common';
 import { AutoUnsub } from '~utils';
+import { isUuid } from '~utils/uuid.utils';
 import { api } from 'lib';
 import { UploaderService } from '~shared/file/services/uploader.service';
 
@@ -36,13 +38,14 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		public dialogCommonSrv: DialogCommonService,
 		public listHelper: ListHelper2Service,
 		public selectionSrv: SelectionService,
-		public translate: TranslateService
+		public translate: TranslateService,
+		private location: Location,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.productId = this.route.snapshot.params.id;
+		this.productId = this.route.snapshot?.params?.id || this.location.path().split('/').find((val: string) => isUuid(val));
 		this.listHelper.setup(
 			'Attachment',
 			this._destroy$,

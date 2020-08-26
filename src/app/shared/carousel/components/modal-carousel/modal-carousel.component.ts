@@ -31,7 +31,7 @@ export class ModalCarouselComponent {
 				break;
 			case RIGHT_ARROW: this.next(event);
 				break;
-			case ESCAPE: this.close();
+			case ESCAPE: this.close(event);
 				break;
 		}
 	}
@@ -104,8 +104,8 @@ export class ModalCarouselComponent {
 		return this.images ? this.images[this.selectedIndex] : null;
 	}
 
-	onDelete() {
-		this.close();
+	onDelete(ev: Event) {
+		this.close(ev);
 		this.delete.emit();
 	}
 
@@ -123,7 +123,8 @@ export class ModalCarouselComponent {
 		this.cdr.markForCheck();
 	}
 
-	close() {
+	close(ev: Event) {
+		ev.stopPropagation();
 		this.isOpen = false;
 		this.direction = 'close';
 		this.slideAnimationState = 'inactive';

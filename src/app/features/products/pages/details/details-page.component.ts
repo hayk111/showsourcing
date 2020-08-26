@@ -48,6 +48,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	_productRemoved = false;
 
 	teamVotes$: Observable<Vote[]>;
+	productMainSectionFragment = 'info';
 
 	// sample & task used for the preview
 	sample: Sample;
@@ -304,10 +305,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** redirects to a page inside products and scroll into that view */
 	goToTable(page: string) {
-		// if we dont scroll after the navigate, the navigation will stop the scroll mid-way
-		this.router.navigate(['products', this.product.id, page]).then(_ => {
-			this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
-		});
+		this.productMainSectionFragment = page;
+		this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
 	}
 
 	goToSupplier(supplier: Supplier) {
