@@ -1,0 +1,11 @@
+.preview {
+	width: calc(100% - var(--side-bar-width));
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: var(--z-preview-section);
+	top: 0;
+	right: 0;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}

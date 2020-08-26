@@ -1,10 +1,13 @@
 <ng-container *ngIf="typename === 'PropertyOption'; else regularType">
 	<ng-container [ngSwitch]="customType">
 		<ng-container *ngSwitchCase="'CURRENCY'">
-			{{ item?.code }} - {{ item?.value }}
+			{{ item?.code }} - {{ item?.name }}
 		</ng-container>
 		<ng-container *ngSwitchCase="'INCOTERM'">
-			{{ item?.code }} - {{ item?.value}}
+			{{ item?.code }} - {{ item?.name}}
+		</ng-container>
+		<ng-container *ngSwitchCase="'HARBOUR'">
+			{{ item?.code }} - {{ item?.name}}
 		</ng-container>
 		<ng-container *ngSwitchCase="'weightUnit'">
 			{{ item?.name }}

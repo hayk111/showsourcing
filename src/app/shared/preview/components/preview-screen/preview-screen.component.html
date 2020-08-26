@@ -1,7 +1,9 @@
-<div class="preview-screen" (clickOutside)="onClose($event)">
-	<ng-content select="header-details"></ng-content>
-	
-	<ng-content></ng-content>
-
-	<ng-content select="header-details-actions"></ng-content>
+<div class="preview" *ngIf="opened || animationPending">
+	<div class="preview-screen"
+		*ngIf="opened"
+		[@opened]="opened"
+		[@opened.start]="animationStarted()"
+		(clickOutside)="onClose($event)">
+		<ng-content></ng-content>		
+	</div>
 </div>

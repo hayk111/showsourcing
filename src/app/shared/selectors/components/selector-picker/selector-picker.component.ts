@@ -20,6 +20,9 @@ import { ID, uuid } from '~utils';
 import { Typename, api } from 'showsourcing-api-lib';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { lengthUnits, weightUnits } from '~utils/constants/units.const';
+import { currencies } from '~utils/constants/currencies.const';
+import { incoTerms } from '~utils/constants/inco-terms.const';
+import { harbours } from '~utils/constants/harbour.const';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -114,8 +117,25 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (this.typename === 'PropertyOption' || this.isTagElement()) {
 			this.filterSrv.setup([], ['value', 'code']);
 
-			if (['weightUnit', 'lengthUnit'].includes(this.customType)) {
-				const choices = this.customType.includes('weight') ? weightUnits : lengthUnits;
+			if (['weightUnit', 'lengthUnit', 'CURRENCY', 'INCOTERM', 'HARBOUR'].includes(this.customType)) {
+				let choices: any[];
+
+				switch (this.customType) {
+					case 'weightUnit':
+						choices = weightUnits;
+						break;
+					case 'lengthUnit':
+						choices = lengthUnits;
+						break;
+					case 'CURRENCY':
+						choices = currencies;
+						break;
+					case 'INCOTERM':
+						choices = incoTerms;
+						break;
+					case 'HARBOUR':
+						choices = harbours;
+				}
 				this.choices = choices.filter((choice: any) => choice?.name !== this.value);
 			} else {
 				this.propertyOptionSrv.setup(
@@ -295,10 +315,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				updateData = { [type.toLowerCase() + 'Id']: this.value.user.id};
 				break;
 			case 'PropertyOption':
-				if (['CURRENCY', 'INCOTERM'].includes(this.customType)) {
-					updateData = { [type.toLowerCase() + 'Id']: this.value.id, code: this.value.code};
-				} else if (['weightUnit', 'lengthUnit'].includes(this.customType)) {
-					updateData = { [this.customType]: this.value?.name};
+				if (['weightUnit', 'lengthUnit', 'CURRENCY', 'INCOTERM', 'HARBOUR'].includes(this.customType)) {
+					updateData = {
+						[this.customType]: this.value?.name,
+						...(this.value.code && { code: this.value.code})
+					};
 				} else {
 					updateData = {
 						[type.toLowerCase() + 'Id']: this.value.id,
@@ -365,7 +386,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			return items;
 		}
 
-		return items.filter(it => it?.name?.includes(this.searchTxt) || it?.value?.includes(this.searchTxt));
+		return items.filter(it =>
+					 it?.name?.toLowerCase().includes(this.searchTxt.toLowerCase())  ||
+					 it?.value?.toLowerCase().includes(this.searchTxt.toLowerCase()) ||
+					 it?.id?.toLowerCase().includes(this.searchTxt.toLowerCase()));
 	}
 
 	/**

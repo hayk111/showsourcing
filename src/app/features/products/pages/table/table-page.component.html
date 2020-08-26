@@ -58,12 +58,13 @@
 <product-selection-bar-app></product-selection-bar-app>
 
 <preview-screen-app
-	*ngIf="viewSrv.previewOpen"
+	[opened]="viewSrv.previewOpen"
 	(close)="viewSrv.closePreview()">
 	<details-page-app
-		 [product]="viewSrv.previewed" 
-		 [previewMode]="true"
-		 (back)="viewSrv.closePreview()"></details-page-app>
+			*ngIf="viewSrv.previewOpen"
+			[product]="viewSrv.previewed" 
+			[previewMode]="true"
+			(back)="viewSrv.closePreview()"></details-page-app>
 </preview-screen-app>
 
 <!-- <product-preview-app

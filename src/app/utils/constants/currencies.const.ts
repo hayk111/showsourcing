@@ -1,1101 +1,1101 @@
 export const currencies = [
 	{
-		'id': 'PKR',
+		'code': 'PKR',
 		'name': 'Pakistani Rupee',
 		'symbol': 'PKR'
 	},
 	{
-		'id': 'TND',
+		'code': 'TND',
 		'name': 'Tunisian Dinar',
 		'symbol': 'TND'
 	},
 	{
-		'id': 'AYM',
+		'code': 'AYM',
 		'name': 'AYM',
 		'symbol': 'AYM'
 	},
 	{
-		'id': 'SDD',
+		'code': 'SDD',
 		'name': 'Sudanese Dinar (1992-2007)',
 		'symbol': 'SDD'
 	},
 	{
-		'id': 'DEM',
+		'code': 'DEM',
 		'name': 'German Mark',
 		'symbol': 'DEM'
 	},
 	{
-		'id': 'PEN',
+		'code': 'PEN',
 		'name': 'Peruvian Nuevo Sol',
 		'symbol': 'PEN'
 	},
 	{
-		'id': 'SRD',
+		'code': 'SRD',
 		'name': 'Surinamese Dollar',
 		'symbol': 'SRD'
 	},
 	{
-		'id': 'KES',
+		'code': 'KES',
 		'name': 'Kenyan Shilling',
 		'symbol': 'KES'
 	},
 	{
-		'id': 'USN',
+		'code': 'USN',
 		'name': 'US Dollar (Next day)',
 		'symbol': 'USN'
 	},
 	{
-		'id': 'RUR',
+		'code': 'RUR',
 		'name': 'Russian Ruble (1991-1998)',
 		'symbol': 'RUR'
 	},
 	{
-		'id': 'AWG',
+		'code': 'AWG',
 		'name': 'Aruban Florin',
 		'symbol': 'AWG'
 	},
 	{
-		'id': 'TRY',
+		'code': 'TRY',
 		'name': 'Turkish Lira',
 		'symbol': 'TRY'
 	},
 	{
-		'id': 'ALL',
+		'code': 'ALL',
 		'name': 'Albanian Lek',
 		'symbol': 'ALL'
 	},
 	{
-		'id': 'RUB',
+		'code': 'RUB',
 		'name': 'Russian Ruble',
 		'symbol': 'RUB'
 	},
 	{
-		'id': 'XAF',
+		'code': 'XAF',
 		'name': 'CFA Franc BEAC',
 		'symbol': 'XAF'
 	},
 	{
-		'id': 'SCR',
+		'code': 'SCR',
 		'name': 'Seychellois Rupee',
 		'symbol': 'SCR'
 	},
 	{
-		'id': 'PHP',
+		'code': 'PHP',
 		'name': 'Philippine Peso',
 		'symbol': 'PHP'
 	},
 	{
-		'id': 'RWF',
+		'code': 'RWF',
 		'name': 'Rwandan Franc',
 		'symbol': 'RWF'
 	},
 	{
-		'id': 'AFN',
+		'code': 'AFN',
 		'name': 'Afghan Afghani',
 		'symbol': 'AFN'
 	},
 	{
-		'id': 'AFA',
+		'code': 'AFA',
 		'name': 'Afghan Afghani (1927-2002)',
 		'symbol': 'AFA'
 	},
 	{
-		'id': 'SSP',
+		'code': 'SSP',
 		'name': 'South Sudanese Pound',
 		'symbol': 'SSP'
 	},
 	{
-		'id': 'PLN',
+		'code': 'PLN',
 		'name': 'Polish Zloty',
 		'symbol': 'PLN'
 	},
 	{
-		'id': 'XCD',
+		'code': 'XCD',
 		'name': 'East Caribbean Dollar',
 		'symbol': 'XCD'
 	},
 	{
-		'id': 'KZT',
+		'code': 'KZT',
 		'name': 'Kazakhstani Tenge',
 		'symbol': 'KZT'
 	},
 	{
-		'id': 'ZWD',
+		'code': 'ZWD',
 		'name': 'Zimbabwean Dollar (1980-2008)',
 		'symbol': 'ZWD'
 	},
 	{
-		'id': 'MVR',
+		'code': 'MVR',
 		'name': 'Maldivian Rufiyaa',
 		'symbol': 'MVR'
 	},
 	{
-		'id': 'MYR',
+		'code': 'MYR',
 		'name': 'Malaysian Ringgit',
 		'symbol': 'MYR'
 	},
 	{
-		'id': 'CLF',
+		'code': 'CLF',
 		'name': 'Chilean Unit of Account (UF)',
 		'symbol': 'CLF'
 	},
 	{
-		'id': 'JPY',
+		'code': 'JPY',
 		'name': 'Japanese Yen',
 		'symbol': 'JPY'
 	},
 	{
-		'id': 'TRL',
+		'code': 'TRL',
 		'name': 'Turkish Lira (1922-2005)',
 		'symbol': 'TRL'
 	},
 	{
-		'id': 'ADP',
+		'code': 'ADP',
 		'name': 'Andorran Peseta',
 		'symbol': 'ADP'
 	},
 	{
-		'id': 'BOB',
+		'code': 'BOB',
 		'name': 'Bolivian Boliviano',
 		'symbol': 'BOB'
 	},
 	{
-		'id': 'NOK',
+		'code': 'NOK',
 		'name': 'Norwegian Krone',
 		'symbol': 'NOK'
 	},
 	{
-		'id': 'ILS',
+		'code': 'ILS',
 		'name': 'Israeli New Sheqel',
 		'symbol': 'ILS'
 	},
 	{
-		'id': 'VEF',
+		'code': 'VEF',
 		'name': 'Venezuelan Bol\u00edvar',
 		'symbol': 'VEF'
 	},
 	{
-		'id': 'SLL',
+		'code': 'SLL',
 		'name': 'Sierra Leonean Leone',
 		'symbol': 'SLL'
 	},
 	{
-		'id': 'CZK',
+		'code': 'CZK',
 		'name': 'Czech Republic Koruna',
 		'symbol': 'CZK'
 	},
 	{
-		'id': 'HKD',
+		'code': 'HKD',
 		'name': 'Hong Kong Dollar',
 		'symbol': 'HKD'
 	},
 	{
-		'id': 'ISK',
+		'code': 'ISK',
 		'name': 'Icelandic Kr\u00f3na',
 		'symbol': 'ISK'
 	},
 	{
-		'id': 'SBD',
+		'code': 'SBD',
 		'name': 'Solomon Islands Dollar',
 		'symbol': 'SBD'
 	},
 	{
-		'id': 'HRK',
+		'code': 'HRK',
 		'name': 'Croatian Kuna',
 		'symbol': 'HRK'
 	},
 	{
-		'id': 'GNF',
+		'code': 'GNF',
 		'name': 'Guinean Franc',
 		'symbol': 'GNF'
 	},
 	{
-		'id': 'INR',
+		'code': 'INR',
 		'name': 'Indian Rupee',
 		'symbol': 'INR'
 	},
 	{
-		'id': 'NPR',
+		'code': 'NPR',
 		'name': 'Nepalese Rupee',
 		'symbol': 'NPR'
 	},
 	{
-		'id': 'BHD',
+		'code': 'BHD',
 		'name': 'Bahraini Dinar',
 		'symbol': 'BHD'
 	},
 	{
-		'id': 'MWK',
+		'code': 'MWK',
 		'name': 'Malawian Kwacha',
 		'symbol': 'MWK'
 	},
 	{
-		'id': 'TZS',
+		'code': 'TZS',
 		'name': 'Tanzanian Shilling',
 		'symbol': 'TZS'
 	},
 	{
-		'id': 'RSD',
+		'code': 'RSD',
 		'name': 'Serbian Dinar',
 		'symbol': 'RSD'
 	},
 	{
-		'id': 'KMF',
+		'code': 'KMF',
 		'name': 'Comorian Franc',
 		'symbol': 'KMF'
 	},
 	{
-		'id': 'PTE',
+		'code': 'PTE',
 		'name': 'Portuguese Escudo',
 		'symbol': 'PTE'
 	},
 	{
-		'id': 'NAD',
+		'code': 'NAD',
 		'name': 'Namibian Dollar',
 		'symbol': 'NAD'
 	},
 	{
-		'id': 'KHR',
+		'code': 'KHR',
 		'name': 'Cambodian Riel',
 		'symbol': 'KHR'
 	},
 	{
-		'id': 'XFU',
+		'code': 'XFU',
 		'name': 'French UIC-Franc',
 		'symbol': 'XFU'
 	},
 	{
-		'id': 'ZMW',
+		'code': 'ZMW',
 		'name': 'ZMW',
 		'symbol': 'ZMW'
 	},
 	{
-		'id': 'GBP',
+		'code': 'GBP',
 		'name': 'British Pound Sterling',
 		'symbol': 'GBP'
 	},
 	{
-		'id': 'DKK',
+		'code': 'DKK',
 		'name': 'Danish Krone',
 		'symbol': 'DKK'
 	},
 	{
-		'id': 'BOV',
+		'code': 'BOV',
 		'name': 'Bolivian Mvdol',
 		'symbol': 'BOV'
 	},
 	{
-		'id': 'IEP',
+		'code': 'IEP',
 		'name': 'Irish Pound',
 		'symbol': 'IEP'
 	},
 	{
-		'id': 'XUA',
+		'code': 'XUA',
 		'name': 'ADB Unit of Account',
 		'symbol': 'XUA'
 	},
 	{
-		'id': 'LKR',
+		'code': 'LKR',
 		'name': 'Sri Lankan Rupee',
 		'symbol': 'LKR'
 	},
 	{
-		'id': 'UYU',
+		'code': 'UYU',
 		'name': 'Uruguayan Peso',
 		'symbol': 'UYU'
 	},
 	{
-		'id': 'XAG',
+		'code': 'XAG',
 		'name': 'Silver',
 		'symbol': 'XAG'
 	},
 	{
-		'id': 'XAU',
+		'code': 'XAU',
 		'name': 'Gold',
 		'symbol': 'XAU'
 	},
 	{
-		'id': 'XXX',
+		'code': 'XXX',
 		'name': 'Unknown Currency',
 		'symbol': 'XXX'
 	},
 	{
-		'id': 'CDF',
+		'code': 'CDF',
 		'name': 'Congolese Franc',
 		'symbol': 'CDF'
 	},
 	{
-		'id': 'MAD',
+		'code': 'MAD',
 		'name': 'Moroccan Dirham',
 		'symbol': 'MAD'
 	},
 	{
-		'id': 'USS',
+		'code': 'USS',
 		'name': 'US Dollar (Same day)',
 		'symbol': 'USS'
 	},
 	{
-		'id': 'WST',
+		'code': 'WST',
 		'name': 'Samoan Tala',
 		'symbol': 'WST'
 	},
 	{
-		'id': 'XPD',
+		'code': 'XPD',
 		'name': 'Palladium',
 		'symbol': 'XPD'
 	},
 	{
-		'id': 'BWP',
+		'code': 'BWP',
 		'name': 'Botswanan Pula',
 		'symbol': 'BWP'
 	},
 	{
-		'id': 'DZD',
+		'code': 'DZD',
 		'name': 'Algerian Dinar',
 		'symbol': 'DZD'
 	},
 	{
-		'id': 'UAH',
+		'code': 'UAH',
 		'name': 'Ukrainian Hryvnia',
 		'symbol': 'UAH'
 	},
 	{
-		'id': 'PGK',
+		'code': 'PGK',
 		'name': 'Papua New Guinean Kina',
 		'symbol': 'PGK'
 	},
 	{
-		'id': 'TWD',
+		'code': 'TWD',
 		'name': 'New Taiwan Dollar',
 		'symbol': 'TWD'
 	},
 	{
-		'id': 'SIT',
+		'code': 'SIT',
 		'name': 'Slovenian Tolar',
 		'symbol': 'SIT'
 	},
 	{
-		'id': 'SGD',
+		'code': 'SGD',
 		'name': 'Singapore Dollar',
 		'symbol': 'SGD'
 	},
 	{
-		'id': 'BSD',
+		'code': 'BSD',
 		'name': 'Bahamian Dollar',
 		'symbol': 'BSD'
 	},
 	{
-		'id': 'RON',
+		'code': 'RON',
 		'name': 'Romanian Leu',
 		'symbol': 'RON'
 	},
 	{
-		'id': 'GMD',
+		'code': 'GMD',
 		'name': 'Gambian Dalasi',
 		'symbol': 'GMD'
 	},
 	{
-		'id': 'AUD',
+		'code': 'AUD',
 		'name': 'Australian Dollar',
 		'symbol': 'AUD'
 	},
 	{
-		'id': 'MZN',
+		'code': 'MZN',
 		'name': 'Mozambican Metical',
 		'symbol': 'MZN'
 	},
 	{
-		'id': 'IRR',
+		'code': 'IRR',
 		'name': 'Iranian Rial',
 		'symbol': 'IRR'
 	},
 	{
-		'id': 'QAR',
+		'code': 'QAR',
 		'name': 'Qatari Rial',
 		'symbol': 'QAR'
 	},
 	{
-		'id': 'COP',
+		'code': 'COP',
 		'name': 'Colombian Peso',
 		'symbol': 'COP'
 	},
 	{
-		'id': 'VND',
+		'code': 'VND',
 		'name': 'Vietnamese Dong',
 		'symbol': 'VND'
 	},
 	{
-		'id': 'BGN',
+		'code': 'BGN',
 		'name': 'Bulgarian Lev',
 		'symbol': 'BGN'
 	},
 	{
-		'id': 'EEK',
+		'code': 'EEK',
 		'name': 'Estonian Kroon',
 		'symbol': 'EEK'
 	},
 	{
-		'id': 'XTS',
+		'code': 'XTS',
 		'name': 'Testing Currency Code',
 		'symbol': 'XTS'
 	},
 	{
-		'id': 'BDT',
+		'code': 'BDT',
 		'name': 'Bangladeshi Taka',
 		'symbol': 'BDT'
 	},
 	{
-		'id': 'CUP',
+		'code': 'CUP',
 		'name': 'Cuban Peso',
 		'symbol': 'CUP'
 	},
 	{
-		'id': 'MKD',
+		'code': 'MKD',
 		'name': 'Macedonian Denar',
 		'symbol': 'MKD'
 	},
 	{
-		'id': 'DOP',
+		'code': 'DOP',
 		'name': 'Dominican Peso',
 		'symbol': 'DOP'
 	},
 	{
-		'id': 'BYB',
+		'code': 'BYB',
 		'name': 'Belarusian New Ruble (1994-1999)',
 		'symbol': 'BYB'
 	},
 	{
-		'id': 'ZAR',
+		'code': 'ZAR',
 		'name': 'South African Rand',
 		'symbol': 'ZAR'
 	},
 	{
-		'id': 'XPF',
+		'code': 'XPF',
 		'name': 'CFP Franc',
 		'symbol': 'XPF'
 	},
 	{
-		'id': 'VUV',
+		'code': 'VUV',
 		'name': 'Vanuatu Vatu',
 		'symbol': 'VUV'
 	},
 	{
-		'id': 'BEF',
+		'code': 'BEF',
 		'name': 'Belgian Franc',
 		'symbol': 'BEF'
 	},
 	{
-		'id': 'DJF',
+		'code': 'DJF',
 		'name': 'Djiboutian Franc',
 		'symbol': 'DJF'
 	},
 	{
-		'id': 'MRO',
+		'code': 'MRO',
 		'name': 'Mauritanian Ouguiya',
 		'symbol': 'MRO'
 	},
 	{
-		'id': 'GYD',
+		'code': 'GYD',
 		'name': 'Guyanaese Dollar',
 		'symbol': 'GYD'
 	},
 	{
-		'id': 'MGA',
+		'code': 'MGA',
 		'name': 'Malagasy Ariary',
 		'symbol': 'MGA'
 	},
 	{
-		'id': 'MDL',
+		'code': 'MDL',
 		'name': 'Moldovan Leu',
 		'symbol': 'MDL'
 	},
 	{
-		'id': 'XPT',
+		'code': 'XPT',
 		'name': 'Platinum',
 		'symbol': 'XPT'
 	},
 	{
-		'id': 'EUR',
+		'code': 'EUR',
 		'name': 'Euro',
 		'symbol': 'EUR'
 	},
 	{
-		'id': 'MXN',
+		'code': 'MXN',
 		'name': 'Mexican Peso',
 		'symbol': 'MXN'
 	},
 	{
-		'id': 'SAR',
+		'code': 'SAR',
 		'name': 'Saudi Riyal',
 		'symbol': 'SAR'
 	},
 	{
-		'id': 'ESP',
+		'code': 'ESP',
 		'name': 'Spanish Peseta',
 		'symbol': 'ESP'
 	},
 	{
-		'id': 'XDR',
+		'code': 'XDR',
 		'name': 'Special Drawing Rights',
 		'symbol': 'XDR'
 	},
 	{
-		'id': 'TTD',
+		'code': 'TTD',
 		'name': 'Trinidad and Tobago Dollar',
 		'symbol': 'TTD'
 	},
 	{
-		'id': 'MUR',
+		'code': 'MUR',
 		'name': 'Mauritian Rupee',
 		'symbol': 'MUR'
 	},
 	{
-		'id': 'NLG',
+		'code': 'NLG',
 		'name': 'Dutch Guilder',
 		'symbol': 'NLG'
 	},
 	{
-		'id': 'TOP',
+		'code': 'TOP',
 		'name': 'Tongan Pa\u02bbanga',
 		'symbol': 'TOP'
 	},
 	{
-		'id': 'YER',
+		'code': 'YER',
 		'name': 'Yemeni Rial',
 		'symbol': 'YER'
 	},
 	{
-		'id': 'XFO',
+		'code': 'XFO',
 		'name': 'French Gold Franc',
 		'symbol': 'XFO'
 	},
 	{
-		'id': 'CRC',
+		'code': 'CRC',
 		'name': 'Costa Rican Col\u00f3n',
 		'symbol': 'CRC'
 	},
 	{
-		'id': 'UZS',
+		'code': 'UZS',
 		'name': 'Uzbekistan Som',
 		'symbol': 'UZS'
 	},
 	{
-		'id': 'NZD',
+		'code': 'NZD',
 		'name': 'New Zealand Dollar',
 		'symbol': 'NZD'
 	},
 	{
-		'id': 'ZWN',
+		'code': 'ZWN',
 		'name': 'ZWN',
 		'symbol': 'ZWN'
 	},
 	{
-		'id': 'LSL',
+		'code': 'LSL',
 		'name': 'Lesotho Loti',
 		'symbol': 'LSL'
 	},
 	{
-		'id': 'AZN',
+		'code': 'AZN',
 		'name': 'Azerbaijani Manat',
 		'symbol': 'AZN'
 	},
 	{
-		'id': 'UGX',
+		'code': 'UGX',
 		'name': 'Ugandan Shilling',
 		'symbol': 'UGX'
 	},
 	{
-		'id': 'XBD',
+		'code': 'XBD',
 		'name': 'European Unit of Account (XBD)',
 		'symbol': 'XBD'
 	},
 	{
-		'id': 'LUF',
+		'code': 'LUF',
 		'name': 'Luxembourgian Franc',
 		'symbol': 'LUF'
 	},
 	{
-		'id': 'TMT',
+		'code': 'TMT',
 		'name': 'Turkmenistani Manat',
 		'symbol': 'TMT'
 	},
 	{
-		'id': 'SYP',
+		'code': 'SYP',
 		'name': 'Syrian Pound',
 		'symbol': 'SYP'
 	},
 	{
-		'id': 'TMM',
+		'code': 'TMM',
 		'name': 'Turkmenistani Manat (1993-2009)',
 		'symbol': 'TMM'
 	},
 	{
-		'id': 'CHF',
+		'code': 'CHF',
 		'name': 'Swiss Franc',
 		'symbol': 'CHF'
 	},
 	{
-		'id': 'MGF',
+		'code': 'MGF',
 		'name': 'Malagasy Franc',
 		'symbol': 'MGF'
 	},
 	{
-		'id': 'BTN',
+		'code': 'BTN',
 		'name': 'Bhutanese Ngultrum',
 		'symbol': 'BTN'
 	},
 	{
-		'id': 'IDR',
+		'code': 'IDR',
 		'name': 'Indonesian Rupiah',
 		'symbol': 'IDR'
 	},
 	{
-		'id': 'FRF',
+		'code': 'FRF',
 		'name': 'French Franc',
 		'symbol': 'FRF'
 	},
 	{
-		'id': 'AOA',
+		'code': 'AOA',
 		'name': 'Angolan Kwanza',
 		'symbol': 'AOA'
 	},
 	{
-		'id': 'YUM',
+		'code': 'YUM',
 		'name': 'Yugoslavian New Dinar (1994-2002)',
 		'symbol': 'YUM'
 	},
 	{
-		'id': 'BGL',
+		'code': 'BGL',
 		'name': 'Bulgarian Hard Lev',
 		'symbol': 'BGL'
 	},
 	{
-		'id': 'STD',
+		'code': 'STD',
 		'name': 'S\u00e3o Tom\u00e9 and Pr\u00edncipe Dobra',
 		'symbol': 'STD'
 	},
 	{
-		'id': 'XBB',
+		'code': 'XBB',
 		'name': 'European Monetary Unit',
 		'symbol': 'XBB'
 	},
 	{
-		'id': 'BYR',
+		'code': 'BYR',
 		'name': 'Belarusian Ruble',
 		'symbol': 'BYR'
 	},
 	{
-		'id': 'BIF',
+		'code': 'BIF',
 		'name': 'Burundian Franc',
 		'symbol': 'BIF'
 	},
 	{
-		'id': 'ANG',
+		'code': 'ANG',
 		'name': 'Netherlands Antillean Guilder',
 		'symbol': 'ANG'
 	},
 	{
-		'id': 'CVE',
+		'code': 'CVE',
 		'name': 'Cape Verdean Escudo',
 		'symbol': 'CVE'
 	},
 	{
-		'id': 'MZM',
+		'code': 'MZM',
 		'name': 'Mozambican Metical (1980-2006)',
 		'symbol': 'MZM'
 	},
 	{
-		'id': 'BZD',
+		'code': 'BZD',
 		'name': 'Belize Dollar',
 		'symbol': 'BZD'
 	},
 	{
-		'id': 'IQD',
+		'code': 'IQD',
 		'name': 'Iraqi Dinar',
 		'symbol': 'IQD'
 	},
 	{
-		'id': 'BAM',
+		'code': 'BAM',
 		'name': 'Bosnia-Herzegovina Convertible Mark',
 		'symbol': 'BAM'
 	},
 	{
-		'id': 'FJD',
+		'code': 'FJD',
 		'name': 'Fijian Dollar',
 		'symbol': 'FJD'
 	},
 	{
-		'id': 'MXV',
+		'code': 'MXV',
 		'name': 'Mexican Investment Unit',
 		'symbol': 'MXV'
 	},
 	{
-		'id': 'LTL',
+		'code': 'LTL',
 		'name': 'Lithuanian Litas',
 		'symbol': 'LTL'
 	},
 	{
-		'id': 'ZWR',
+		'code': 'ZWR',
 		'name': 'Zimbabwean Dollar (2008)',
 		'symbol': 'ZWR'
 	},
 	{
-		'id': 'LVL',
+		'code': 'LVL',
 		'name': 'Latvian Lats',
 		'symbol': 'LVL'
 	},
 	{
-		'id': 'VEB',
+		'code': 'VEB',
 		'name': 'Venezuelan Bol\u00edvar (1871-2008)',
 		'symbol': 'VEB'
 	},
 	{
-		'id': 'NIO',
+		'code': 'NIO',
 		'name': 'Nicaraguan C\u00f3rdoba',
 		'symbol': 'NIO'
 	},
 	{
-		'id': 'BRL',
+		'code': 'BRL',
 		'name': 'Brazilian Real',
 		'symbol': 'BRL'
 	},
 	{
-		'id': 'JMD',
+		'code': 'JMD',
 		'name': 'Jamaican Dollar',
 		'symbol': 'JMD'
 	},
 	{
-		'id': 'CLP',
+		'code': 'CLP',
 		'name': 'Chilean Peso',
 		'symbol': 'CLP'
 	},
 	{
-		'id': 'ARS',
+		'code': 'ARS',
 		'name': 'Argentine Peso',
 		'symbol': 'ARS'
 	},
 	{
-		'id': 'BBD',
+		'code': 'BBD',
 		'name': 'Barbadian Dollar',
 		'symbol': 'BBD'
 	},
 	{
-		'id': 'LYD',
+		'code': 'LYD',
 		'name': 'Libyan Dinar',
 		'symbol': 'LYD'
 	},
 	{
-		'id': 'SKK',
+		'code': 'SKK',
 		'name': 'Slovak Koruna',
 		'symbol': 'SKK'
 	},
 	{
-		'id': 'LBP',
+		'code': 'LBP',
 		'name': 'Lebanese Pound',
 		'symbol': 'LBP'
 	},
 	{
-		'id': 'JOD',
+		'code': 'JOD',
 		'name': 'Jordanian Dinar',
 		'symbol': 'JOD'
 	},
 	{
-		'id': 'CNY',
+		'code': 'CNY',
 		'name': 'Chinese Yuan',
 		'symbol': 'CNY'
 	},
 	{
-		'id': 'KRW',
+		'code': 'KRW',
 		'name': 'South Korean Won',
 		'symbol': 'KRW'
 	},
 	{
-		'id': 'SHP',
+		'code': 'SHP',
 		'name': 'Saint Helena Pound',
 		'symbol': 'SHP'
 	},
 	{
-		'id': 'BND',
+		'code': 'BND',
 		'name': 'Brunei Dollar',
 		'symbol': 'BND'
 	},
 	{
-		'id': 'CYP',
+		'code': 'CYP',
 		'name': 'Cypriot Pound',
 		'symbol': 'CYP'
 	},
 	{
-		'id': 'SEK',
+		'code': 'SEK',
 		'name': 'Swedish Krona',
 		'symbol': 'SEK'
 	},
 	{
-		'id': 'GIP',
+		'code': 'GIP',
 		'name': 'Gibraltar Pound',
 		'symbol': 'GIP'
 	},
 	{
-		'id': 'MOP',
+		'code': 'MOP',
 		'name': 'Macanese Pataca',
 		'symbol': 'MOP'
 	},
 	{
-		'id': 'USD',
+		'code': 'USD',
 		'name': 'US Dollar',
 		'symbol': '$'
 	},
 	{
-		'id': 'AMD',
+		'code': 'AMD',
 		'name': 'Armenian Dram',
 		'symbol': 'AMD'
 	},
 	{
-		'id': 'ERN',
+		'code': 'ERN',
 		'name': 'Eritrean Nakfa',
 		'symbol': 'ERN'
 	},
 	{
-		'id': 'SZL',
+		'code': 'SZL',
 		'name': 'Swazi Lilangeni',
 		'symbol': 'SZL'
 	},
 	{
-		'id': 'FKP',
+		'code': 'FKP',
 		'name': 'Falkland Islands Pound',
 		'symbol': 'FKP'
 	},
 	{
-		'id': 'ATS',
+		'code': 'ATS',
 		'name': 'Austrian Schilling',
 		'symbol': 'ATS'
 	},
 	{
-		'id': 'XOF',
+		'code': 'XOF',
 		'name': 'CFA Franc BCEAO',
 		'symbol': 'XOF'
 	},
 	{
-		'id': 'ZWL',
+		'code': 'ZWL',
 		'name': 'Zimbabwean Dollar (2009)',
 		'symbol': 'ZWL'
 	},
 	{
-		'id': 'GRD',
+		'code': 'GRD',
 		'name': 'Greek Drachma',
 		'symbol': 'GRD'
 	},
 	{
-		'id': 'MTL',
+		'code': 'MTL',
 		'name': 'Maltese Lira',
 		'symbol': 'MTL'
 	},
 	{
-		'id': 'CSD',
+		'code': 'CSD',
 		'name': 'Serbian Dinar (2002-2006)',
 		'symbol': 'CSD'
 	},
 	{
-		'id': 'ZMK',
+		'code': 'ZMK',
 		'name': 'Zambian Kwacha',
 		'symbol': 'ZMK'
 	},
 	{
-		'id': 'GHS',
+		'code': 'GHS',
 		'name': 'Ghanaian Cedi',
 		'symbol': 'GHS'
 	},
 	{
-		'id': 'HNL',
+		'code': 'HNL',
 		'name': 'Honduran Lempira',
 		'symbol': 'HNL'
 	},
 	{
-		'id': 'HTG',
+		'code': 'HTG',
 		'name': 'Haitian Gourde',
 		'symbol': 'HTG'
 	},
 	{
-		'id': 'NGN',
+		'code': 'NGN',
 		'name': 'Nigerian Naira',
 		'symbol': 'NGN'
 	},
 	{
-		'id': 'THB',
+		'code': 'THB',
 		'name': 'Thai Baht',
 		'symbol': 'THB'
 	},
 	{
-		'id': 'PYG',
+		'code': 'PYG',
 		'name': 'Paraguayan Guarani',
 		'symbol': 'PYG'
 	},
 	{
-		'id': 'SRG',
+		'code': 'SRG',
 		'name': 'Surinamese Guilder',
 		'symbol': 'SRG'
 	},
 	{
-		'id': 'KGS',
+		'code': 'KGS',
 		'name': 'Kyrgystani Som',
 		'symbol': 'KGS'
 	},
 	{
-		'id': 'SVC',
+		'code': 'SVC',
 		'name': 'Salvadoran Col\u00f3n',
 		'symbol': 'SVC'
 	},
 	{
-		'id': 'KWD',
+		'code': 'KWD',
 		'name': 'Kuwaiti Dinar',
 		'symbol': 'KWD'
 	},
 	{
-		'id': 'SDG',
+		'code': 'SDG',
 		'name': 'Sudanese Pound',
 		'symbol': 'SDG'
 	},
 	{
-		'id': 'XBC',
+		'code': 'XBC',
 		'name': 'European Unit of Account (XBC)',
 		'symbol': 'XBC'
 	},
 	{
-		'id': 'KPW',
+		'code': 'KPW',
 		'name': 'North Korean Won',
 		'symbol': 'KPW'
 	},
 	{
-		'id': 'GTQ',
+		'code': 'GTQ',
 		'name': 'Guatemalan Quetzal',
 		'symbol': 'GTQ'
 	},
 	{
-		'id': 'ROL',
+		'code': 'ROL',
 		'name': 'Romanian Leu (1952-2006)',
 		'symbol': 'ROL'
 	},
 	{
-		'id': 'FIM',
+		'code': 'FIM',
 		'name': 'Finnish Markka',
 		'symbol': 'FIM'
 	},
 	{
-		'id': 'XSU',
+		'code': 'XSU',
 		'name': 'Sucre',
 		'symbol': 'XSU'
 	},
 	{
-		'id': 'LRD',
+		'code': 'LRD',
 		'name': 'Liberian Dollar',
 		'symbol': 'LRD'
 	},
 	{
-		'id': 'EGP',
+		'code': 'EGP',
 		'name': 'Egyptian Pound',
 		'symbol': 'EGP'
 	},
 	{
-		'id': 'GEL',
+		'code': 'GEL',
 		'name': 'Georgian Lari',
 		'symbol': 'GEL'
 	},
 	{
-		'id': 'BMD',
+		'code': 'BMD',
 		'name': 'Bermudan Dollar',
 		'symbol': 'BMD'
 	},
 	{
-		'id': 'TJS',
+		'code': 'TJS',
 		'name': 'Tajikistani Somoni',
 		'symbol': 'TJS'
 	},
 	{
-		'id': 'AZM',
+		'code': 'AZM',
 		'name': 'Azerbaijani Manat (1993-2006)',
 		'symbol': 'AZM'
 	},
 	{
-		'id': 'GWP',
+		'code': 'GWP',
 		'name': 'Guinea-Bissau Peso',
 		'symbol': 'GWP'
 	},
 	{
-		'id': 'ETB',
+		'code': 'ETB',
 		'name': 'Ethiopian Birr',
 		'symbol': 'ETB'
 	},
 	{
-		'id': 'XBA',
+		'code': 'XBA',
 		'name': 'European Composite Unit',
 		'symbol': 'XBA'
 	},
 	{
-		'id': 'LAK',
+		'code': 'LAK',
 		'name': 'Laotian Kip',
 		'symbol': 'LAK'
 	},
 	{
-		'id': 'PAB',
+		'code': 'PAB',
 		'name': 'Panamanian Balboa',
 		'symbol': 'PAB'
 	},
 	{
-		'id': 'MMK',
+		'code': 'MMK',
 		'name': 'Myanma Kyat',
 		'symbol': 'MMK'
 	},
 	{
-		'id': 'SOS',
+		'code': 'SOS',
 		'name': 'Somali Shilling',
 		'symbol': 'SOS'
 	},
 	{
-		'id': 'CUC',
+		'code': 'CUC',
 		'name': 'Cuban Convertible Peso',
 		'symbol': 'CUC'
 	},
 	{
-		'id': 'ITL',
+		'code': 'ITL',
 		'name': 'Italian Lira',
 		'symbol': 'ITL'
 	},
 	{
-		'id': 'TPE',
+		'code': 'TPE',
 		'name': 'Timorese Escudo',
 		'symbol': 'TPE'
 	},
 	{
-		'id': 'KYD',
+		'code': 'KYD',
 		'name': 'Cayman Islands Dollar',
 		'symbol': 'KYD'
 	},
 	{
-		'id': 'CAD',
+		'code': 'CAD',
 		'name': 'Canadian Dollar',
 		'symbol': 'CAD'
 	},
 	{
-		'id': 'GHC',
+		'code': 'GHC',
 		'name': 'Ghanaian Cedi (1979-2007)',
 		'symbol': 'GHC'
 	},
 	{
-		'id': 'MNT',
+		'code': 'MNT',
 		'name': 'Mongolian Tugrik',
 		'symbol': 'MNT'
 	},
 	{
-		'id': 'OMR',
+		'code': 'OMR',
 		'name': 'Omani Rial',
 		'symbol': 'OMR'
 	},
 	{
-		'id': 'AED',
+		'code': 'AED',
 		'name': 'United Arab Emirates Dirham',
 		'symbol': 'AED'
 	},
 	{
-		'id': 'HUF',
+		'code': 'HUF',
 		'name': 'Hungarian Forint',
 		'symbol': 'HUF'
 	}

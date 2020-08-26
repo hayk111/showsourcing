@@ -305,8 +305,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** redirects to a page inside products and scroll into that view */
 	goToTable(page: string) {
-		this.productMainSectionFragment = page;
 		this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
+		this.productMainSectionFragment = page;
 	}
 
 	goToSupplier(supplier: Supplier) {

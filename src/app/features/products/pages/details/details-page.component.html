@@ -2,7 +2,7 @@
 	<product-header-details-app
 		[product]="product"
 		[backButtonIcon]="previewMode ? 'close' : 'arrow-left'"
-		[ngStyle]="{ width: previewMode ? '90%' : 'calc(100% - 64px)'}"
+		[ngStyle]="{ width: previewMode ? 'calc((100% - 64px) * 0.95)' : 'calc(100% - 64px)'}"
 		(update)="updateProduct($event)"
 		(export)="onExport()"
 		(delete)="deleteProduct($event?.id)"
