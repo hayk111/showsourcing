@@ -66,13 +66,11 @@
 <sample-preview-app
 	*ngIf="previewOpened && sample"
 	[sample]="sample"
-	(close)="closePreview()"
-	(clickOutside)="closePreview()">
+	(close)="closePreview()">
 </sample-preview-app>
 
 <task-preview-app
 	*ngIf="previewOpened && task"
 	[task]="task"
-	(close)="closePreview()"
-	(clickOutside)="closePreview()">
+	(close)="closePreview()">
 </task-preview-app>

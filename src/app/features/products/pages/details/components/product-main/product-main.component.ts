@@ -21,27 +21,13 @@ export class ProductMainComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		this.section = this.urlHash;
 		this.sampleCount$ = api.Sample.findByProduct$(this.product.id).count$;
 		this.taskCount$ = api.Task.findByProduct$(this.product.id).count$;
 		this.commentCount$ =  api.Comment.findByNodeId$('Product:' + this.product.id).count$;
 	}
 
-	@HostListener('window:hashchange')
-	onHashChange() {
-		this.section = this.urlHash;
-	}
-
 	onRouteChange(fragment: string) {
 		this.section = fragment;
-		this.urlHash = this.section;
 	}
 
-	get urlHash() {
-		return window.location.hash.replace('#', '');
-	}
-
-	set urlHash(fragment: string) {
-		window.location.hash = fragment;
-	}
 }

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { state, trigger, style, transition, animate } from '@angular/animations';
 import { TrackingComponent } from '~utils/tracking-component';
+import { DialogService } from '~shared/dialog';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'preview-screen-app',
@@ -8,19 +10,18 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./preview-screen.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewScreenComponent extends TrackingComponent implements OnInit {
+export class PreviewScreenComponent extends TrackingComponent {
 
 	@Output() close = new EventEmitter<void>();
 
-	constructor() {
+	constructor(private dlgSrv: DialogService) {
 		super();
 	}
 
-	ngOnInit() {
-
-	}
-
-	onClose() {
+	onClose(ev: MouseEvent) {
+		if (this.dlgSrv.opened) {
+			return;
+		}
 		this.close.emit();
 	}
 }

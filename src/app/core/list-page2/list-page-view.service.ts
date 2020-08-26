@@ -40,7 +40,7 @@ export class ListPageViewService<T> {
 	openPreview(item: T) {
 		this.previewed = item;
 		this.previewOpen = true;
-		this.location.go('/products/' + (item as any).id + '#info');
+		this.location.go('/products/' + (item as any).id);
 	}
 
 	/** closes the preview */

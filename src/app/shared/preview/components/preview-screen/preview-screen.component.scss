@@ -3,7 +3,7 @@
 	background: white;
 	width: 90%;
 	height: 100%;
-	z-index: 1000;
+	z-index: var(--z-preview-section);
 	top: 0;
 	right: 0;
 	position: absolute;
