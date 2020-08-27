@@ -18,7 +18,6 @@ import { TeamService } from '../../../core/auth/services/team.service';
 export class ProductsTableComponent extends EntityTableComponent<Product> {
 	static DEFAULT_COLUMNS = [
 		'logo',
-		'reference',
 		'name',
 		'preview',
 		'price',

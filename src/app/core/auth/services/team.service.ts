@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {  Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { filter, first, map, shareReplay, tap, switchMap } from 'rxjs/operators';
-import { api, Team, client } from 'showsourcing-api-lib';
+import { api, Team, client, synchronizer } from 'showsourcing-api-lib';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
 import { CompanyService } from './company.service';
@@ -15,19 +15,14 @@ const SELECTED_TEAM = 'selected-team';
  */
 @Injectable({ providedIn: 'root' })
 export class TeamService {
-
 	/** event the team selected at the moment of the selection */
 	private _teamSelected$ = new ReplaySubject<Team>(1);
 	/** value saved in local storage */
 	private storedSelection: Team;
 
-	teamSelected$ = this._teamSelected$.pipe(
-		shareReplay(1)
-	);
+	teamSelected$ = this._teamSelected$.pipe(shareReplay(1));
 
-	hasTeamSelected$ = this._teamSelected$.pipe(
-		map(team => !!team)
-	);
+	hasTeamSelected$ = this._teamSelected$.pipe(map(team => !!team));
 	// synchronous version for easy access
 	static teamSelected: Team;
 	private _teams$ = new ReplaySubject<Team[]>(1);
@@ -37,22 +32,20 @@ export class TeamService {
 	constructor(
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
-		protected companySrv: CompanyService,
-	) {	}
+		protected companySrv: CompanyService
+	) {}
 
 	init() {
 		this.restoreSelectedTeam();
-		this.companySrv.company$.pipe(
-			filter(company => !!company)
-		).subscribe(company => this._teams$.next(company.teams));
+		this.companySrv.company$
+			.pipe(filter(company => !!company))
+			.subscribe(company => this._teams$.next(company.teams));
 		// when logging out let's clear the current selected team
 		this.teams$.subscribe(teams => this.onTeams(teams));
 		// putting a sync version of team
-		this._teamSelected$
-		.subscribe(teamSelected => {
+		this._teamSelected$.subscribe(teamSelected => {
 			TeamService.teamSelected = teamSelected;
-			if (teamSelected)
-				client.setTeam(teamSelected);
+			if (teamSelected) client.setTeam(teamSelected);
 		});
 		this.authSrv.signOut$.subscribe(_ => this.resetSelectedTeam());
 	}
@@ -74,6 +67,14 @@ export class TeamService {
 	create(teamName: string): Observable<any> {
 		const companyId = this.companySrv.companySync.id;
 		return api.Team.create(companyId, teamName, 'BUYER').online$.pipe(
+			tap(team => {
+				setTimeout(() => synchronizer.syncManyDeltas([
+					'WorkflowStatus',
+					'PropertyOption',
+					'Descriptor',
+					'PropertyDefinition',
+				]), 1000);
+			}),
 			tap(team => this._teams$.next([team])),
 			switchMap(team => this.pickTeam(team))
 		);
@@ -103,6 +104,4 @@ export class TeamService {
 		this.storage.remove(SELECTED_TEAM);
 		this._teamSelected$.next(undefined);
 	}
-
 }
-

@@ -112,7 +112,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 					[ngClass]="{ selected: isSelected(row, i) }"
 					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)"
-					(mouseleave)="hoverRow(-1)">>
+					(mouseleave)="hoverRow(-1)">
 					<context-menu-app
 						*ngIf="isSelectable(row)"
 						[ngClass]="{ hover: (i === hoverIndex) }"
