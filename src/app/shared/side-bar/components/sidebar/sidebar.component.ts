@@ -5,7 +5,7 @@ import { GetStreamNotification } from '~common/activity/interfaces/get-stream-fe
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Team, User } from '~core/erm';
 import { sideNavItems } from './side-nav-items.const';
-
+import * as lib from 'lib';
 
 @Component({
 	selector: 'sidebar-app',
@@ -20,18 +20,16 @@ export class SidebarComponent implements OnInit {
 	isProd = environment.production;
 	sideNavItems = sideNavItems;
 
-	constructor(private authSrv: AuthenticationService) { }
+	constructor(private authSrv: AuthenticationService) {}
 
-	ngOnInit() {
-
-	}
+	ngOnInit() {}
 
 	openNotifPanel() {
 		// this.notifActivitySrv.openNotificationPanel();
 	}
 
 	logout() {
+		indexedDB.deleteDatabase('LokiCatalog');
 		this.authSrv.signOut();
 	}
-
 }
