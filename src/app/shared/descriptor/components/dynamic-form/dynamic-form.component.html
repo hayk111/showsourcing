@@ -3,7 +3,7 @@
 	<ng-container>
 		<div class="flex">
 			<div 
-				*ngFor="let propertyDescriptors of section.columns; let isLast = last"
+				*ngFor="let propertyDescriptors of section?.columns; let isLast = last"
 				[ngClass]="{ 'mg-right-m': !isLast }"
 				[ngStyle]="{ 'flex-basis': 100 / section.columns.length + '%' }">
 				<ng-container *ngIf="style === 'form'; else editable">
@@ -18,7 +18,8 @@
 					<dynamic-editable-field-app
 						*ngFor="let descriptor of propertyDescriptors" 
 						[descriptor]="descriptor"
-						[control]="formGroup?.controls[descriptor?.definition?.name]">
+						[control]="formGroup?.controls[descriptor?.definition?.name]"
+						(save)="onFormUpdate()">
 					</dynamic-editable-field-app>
 				</ng-template>
 			</div>

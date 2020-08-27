@@ -1,23 +1,26 @@
 
 :host {
 	display: block;
+	overflow-y: auto;
 	height: 100%;
 }
 
 product-header-details-app {
 	position: fixed;
 	z-index: var(--z-top-selection);
-	width: calc(100% - #{var(--side-bar-width)});
 }
 
 product-sub-header-details-app {
-	// product header details app height
 	padding-top: 62px;
+}
+
+.details-main {
+	background: var(--color-bg-secondary);
 }
 
 .ctnr {
 	margin: auto;
-	margin-top: var(--spacing-l);
+	padding-top: var(--spacing-l);
 	justify-content: center;
 	padding-bottom: 160px;
 }

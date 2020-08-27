@@ -1,16 +1,19 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { api, Product, Sample, Project, Task, Supplier, ProjectProduct } from 'showsourcing-api-lib';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { api, Product, Sample, Project, Task, Supplier, ProjectProduct, Vote, Image } from 'showsourcing-api-lib';
+import { Observable, Subject, BehaviorSubject, interval } from 'rxjs';
 import { TeamService } from '~core/auth';
-import { map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap, first, shareReplay, throttleTime } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
-import { AutoUnsub, log } from '~utils';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { RatingService } from '~shared/rating/services/rating.service';
+import { AutoUnsub, log, weightUnits } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
-import _ from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
+import * as _ from 'lodash';
 
 /**
  *
@@ -27,14 +30,25 @@ import _ from 'lodash';
 	host: { class: 'details-page' }
 })
 export class DetailsPageComponent extends AutoUnsub implements OnInit {
+	@Input() product: Product;
 	@Input() requestCount: number;
+	@Input() previewMode = false;
+
+	// this is used only on preview mode
+	@Output() back = new EventEmitter();
+
 	@ViewChild('main', { read: ElementRef, static: false }) main: ElementRef;
 	@ViewChild('rating', { read: ElementRef, static: false }) rating: ElementRef;
 
-	product: Product;
 	productId: string;
 	product$: Observable<Product>;
-	productProjects: Project[];
+	productProjects: (ProjectProduct | string)[];
+	projects: Project[] | undefined;
+
+	_productRemoved = false;
+
+	teamVotes$: Observable<Vote[]>;
+	productMainSectionFragment = 'info';
 
 	// sample & task used for the preview
 	sample: Sample;
@@ -46,6 +60,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
+		private ratingSrv: RatingService,
+		private translate: TranslateService,
 		public listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
 	) {
@@ -53,42 +69,56 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const id$ = this.route.params.pipe(
-			map(params => params.id),
-			tap(id => this.productId = id),
-			takeUntil(this._destroy$)
-		);
+		if (!!this.product) { // for the previews
+			this.onProduct(this.product);
 
-		this.product$ = id$.pipe(
-			switchMap(id => api.Product.get$(id)),
-			takeUntil(this._destroy$),
-		);
-
-		this.product$.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(
-			product => this.onProduct(product),
-			err => this.onError(err)
-		);
+			api.Product
+				 .get$(this.product.id)
+				 .data$
+				 .pipe(
+					 takeUntil(this._destroy$),
+					 tap(product => this.productId = product?.id),
+					 map((product: any) => this.assignImagesToProduct(product)),
+				 )
+				 .subscribe(
+					product => this.onProduct(product),
+					err => this.onError(err)
+				);
+		} else {
+			this.route.params.pipe(
+				map(params => params.id),
+				tap(id => this.productId = id),
+				switchMap(() => api.Product.get$(this.productId).data$),
+				map((product: any) => {
+					if (product) {
+						return this.assignImagesToProduct(product);
+					}
+				}),
+				takeUntil(this._destroy$),
+			).subscribe(
+				product => this.onProduct(product),
+				err => this.onError(err)
+			);
+		}
 
 		api.ProjectProduct.find$({
 			filter: {
 				property: 'id',
-				contains: this.productId
+				contains: this.product?.id
 			}
 		}).data$
 			.pipe(
 				map((productProjects: ProjectProduct[]) => {
+					this.productProjects = productProjects;
 					return productProjects.map((projectProduct: ProjectProduct) => projectProduct.project);
 				}),
-				tap(projects => this.productProjects = projects),
+				tap((projects: Project[]) => this.projects = projects),
 				takeUntil(this._destroy$),
 			).subscribe();
-
 	}
 
 	private onProduct(product) {
-		if (!product) {
+		if (!product && !this._productRemoved) {
 			this.toastSrv.add({
 				type: ToastType.ERROR,
 				title: 'title.product-not-exist',
@@ -97,6 +127,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			this.router.navigate(['products']);
 		} else {
 			this.product = product;
+			// this.teamVotes$ = this.ratingSrv.getTeamVotes('Product:' + this.product.id) as any;
 		}
 	}
 
@@ -111,35 +142,37 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		this.router.navigate(['products']);
 	}
 
-	onArchive(product: Product | Product[]) {
-		// TODO add this in a shared Archive service
-
-		// if (Array.isArray(product)) {
-		// 	this.productSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
-		// 		.subscribe(_ => {
-		// 			this.toastSrv.add({
-		// 				type: ToastType.SUCCESS,
-		// 				title: 'title.products-archived',
-		// 				message: 'message.products-archived-successfully'
-		// 			});
-		// 		});
-		// } else {
-		// 	const { id } = product;
-		// 	this.productSrv.update({ id, archived: true })
-		// 		.subscribe(_ => {
-		// 			this.toastSrv.add({
-		// 				type: ToastType.SUCCESS,
-		// 				title: 'title.product-archived',
-		// 				message: 'message.product-archived-successfully'
-		// 			});
-		// 		});
-		// }
+	private assignImagesToProduct(product: any) {
+		const updatedProduct = {...product};
+		updatedProduct.images = this.getProductImgs(product.id);
+		return updatedProduct;
 	}
 
-	/** item status update */
-	updateStatus(statusId: string) {
-		api.Product
-			.update([{ id: this.product.id, status: { id: statusId } } as any]);
+	private getProductImgs(productId: string): Image[] {
+		return api.Image.findLocal({
+			filter: {
+				property: 'nodeId',
+				isString: 'Product:' + productId
+			}
+		});
+	}
+
+	goBack() { // back to list page
+		if (this.previewMode) {
+			this.back.emit();
+			return;
+		}
+		const secondSlashIndex = this.router.url.slice(1).indexOf('/');
+		const pathToBack = this.router.url.slice(1, secondSlashIndex + 1);
+		this.router.navigate([pathToBack]);
+	}
+
+	onArchive(product: Product | Product[]) {
+		// TODO: implement on archive
+	}
+
+	onExport() {
+		this.dlgCommonSrv.openExportDlg('Product', [this.product]);
 	}
 
 	/** item has been favorited */
@@ -166,36 +199,57 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(propValue: any) {
-		api.Product.update([{ id: this.product.id, ...propValue } as any]);
+		api.Product.update([{ id: this.product.id, ...propValue } as any]).local$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe();
 	}
 
 	updateProductProjects(projects: Project[]) {
 		if (projects.length < this.productProjects.length) {
-			const deletedIds = _.difference(this.productProjects.map(p => p.id), projects.map(p => p.id));
-			// TODO: implement delete
-			// api.ProjectProduct.delete(deletedIds);
+			const projectIds = _.difference(
+				this.productProjects.map((p: ProjectProduct) => (p.project as Project).id),
+				projects.map(p => p.id)
+			);
+			const idsToDelete = this.productProjects
+				.filter(
+					(productProject: ProjectProduct) => projectIds.includes((productProject.project as Project).id)
+				).map((productProject: ProjectProduct) => ({ id: productProject.id}));
+
+			api.ProjectProduct.delete(idsToDelete);
 			return;
 		}
 		const toPass = [];
 
 		projects.forEach(project => {
-			const { teamId, id } = project;
+			const { id } = project;
  			toPass.push({
-				teamId,
-				projectId: id,
-				productId: this.productId
+				project: id,
+				product: this.productId
 			});
 		});
 		api.ProjectProduct.create(toPass);
 	}
 
-	/** when deleting this product */
-	deleteProduct(product: Product) {
-		// const text = this.translate.instant('message.confirm-delete-product');
-		// this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-		// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-		// 	switchMap(_ => this.productSrv.delete(product.id))
-		// ).subscribe(_ => this.router.navigate(['products']));
+	deleteProduct(id: string) {
+		this.dlgSrv
+			.open(ConfirmDialogComponent, {
+				text: 'message.confirm-delete-product'
+			})
+			.data$.pipe(
+				tap((confirmed: boolean) => this._productRemoved = !!confirmed),
+				switchMap(() => {
+					return api.Product.delete([{id}]).local$;
+				}),
+				tap(_ => {
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
+						title: 'title.success',
+						message: 'message.product-deleted',
+						timeout: 3500
+					});
+				}),
+				takeUntil(this._destroy$),
+			).subscribe(_ => this.router.navigate(['products', 'table']));
 	}
 
 	openSupplierRequest(product: Product) {
@@ -251,10 +305,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** redirects to a page inside products and scroll into that view */
 	goToTable(page: string) {
-		// if we dont scroll after the navigate, the navigation will stop the scroll mid-way
-		this.router.navigate(['products', this.product.id, page]).then(_ => {
-			this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
-		});
+		this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
+		this.productMainSectionFragment = page;
 	}
 
 	goToSupplier(supplier: Supplier) {
@@ -265,8 +317,14 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		this.rating.nativeElement.scrollIntoView({ behavior: 'smooth' });
 	}
 
-	dissociateProject(productProjects: Project[], projectToDelete: Project) {
-		const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
+	dissociateProject(projectToDelete: Project) {
+		const idToDelete = this.productProjects
+			.filter(
+				(productProject: ProjectProduct) => projectToDelete.id === (productProject.project as Project).id
+			)
+			.map((productProject: ProjectProduct) => ({ id: productProject.id}));
+
+		api.ProjectProduct.delete(idToDelete);
 	}
 
 }

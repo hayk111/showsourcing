@@ -16,9 +16,12 @@ export class DialogService {
 	private _data$ = new Subject<any>();
 	private _cancel$ = new Subject<void>();
 
+	opened = false;
+
 	/** opens a dialog, returns an object that contains observables as data$, close$ and cancel$ */
 	open(component: new (...args: any[]) => any, props?: Object, closeOnOutsideClick = true): DialogRef {
 		this._open$.next({ component, props, closeOnOutsideClick });
+		this.opened = true;
 		return {
 			component,
 			data$: this._data$.asObservable().pipe(takeUntil(this._close$)),
@@ -30,7 +33,7 @@ export class DialogService {
 	/** Close the dialog. */
 	close(reOpenDlg?: { component: new (...args: any[]) => any, type: string }) { // component to reopen
 		this._close$.next(reOpenDlg);
-
+		this.opened = false;
 		return {
 			reOpenDlg,
 			data$: this._data$.asObservable().pipe(takeUntil(this._close$)),

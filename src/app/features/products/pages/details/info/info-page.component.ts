@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { isUuid } from '~utils/uuid.utils';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, map, first } from 'rxjs/operators';
 import { productDetailsDescriptorMock, shippingPackagingDescriptorMock } from './descriptors';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
 import { api, Product, Descriptor } from 'showsourcing-api-lib';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'info-page-app',
@@ -20,15 +22,11 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	properties: any;
 
-	descriptor$ = api.Descriptor.findByType('PRODUCT')
-		.data$
-		.pipe(
-			map(descriptors => descriptors.length && descriptors[0]),
-			first(),
-		);
+	descriptor: Descriptor = api.Descriptor.getByType('PRODUCT');
 
 	constructor(
 		private route: ActivatedRoute,
+		private location: Location,
 		private cd: ChangeDetectorRef,
 		public dlgCommonSrv: DialogCommonService
 	) {
@@ -36,11 +34,9 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		api.Descriptor.findByType('PRODUCT').data$.subscribe(data => {
-			console.log('Desctriptor data:', data); // this log is needed to stay for a little while
-		});
-
-		this.product$ = api.Product.get$(this.route.parent.snapshot.params.id)
+		const productId = this.route.snapshot?.params?.id ||
+			this.location.path().split('/').find((val: string) => isUuid(val));
+		this.product$ = api.Product.get$(productId).data$
 			.pipe(
 				takeUntil(this._destroy$),
 				tap(product => {
@@ -48,17 +44,16 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 				}),
 				tap(product => {
 					const props = {
-						...product.propertiesMap,
-						name: product.name,
-						supplierId: product.supplierId,
-						categoryId: product.categoryId,
+						...product?.propertiesMap,
+						name: product?.name,
+						supplier: product?.supplier,
+						category: product?.category,
 					};
 
 					if (!_.isEqual(this.properties, props)) {
 						this.properties = props;
 					}
 				}),
-				// tap(_ => this.properties = { ...this.product.propertiesMap }),
 				tap(_ => this.cd.markForCheck()),
 			);
 	}
@@ -74,10 +69,16 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 					propertiesToUpdate[key] = property[key];
 				} else {
 					propertiesToUpdate.propertiesMap[key] = property[key];
-					if (key === 'price') { // temporary solutionn for price with default currenct "USD"
+					if (key === 'price') {
 						propertiesToUpdate.propertiesMap[key] = {
-							...propertiesToUpdate.propertiesMap[key],
-							currency: 'USD'
+							...this.product?.propertiesMap?.price,
+							...((property as any).price.value && {value: (property as any).price.value} ),
+							...((property as any).price.code && {currency: (property as any).price.code} )
+						};
+					} else if (key === 'product_dimension') {
+						propertiesToUpdate.propertiesMap[key] = {
+							...this.product?.propertiesMap?.product_dimension,
+							...property[key],
 						};
 					}
 				}
@@ -90,16 +91,13 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		}]);
 	}
 
-	get rootProperties() {
-		const { supplierId, categoryId } = this.product;
-		return { name: this.product.name, supplierId, categoryId };
-	}
-
 	private isRoot(propertyName: string) {
 		switch (propertyName) {
-			case 'name':
+			case 'name'			 :
 			case 'supplierId':
 			case 'categoryId':
+			case 'supplier'   :
+			case 'category'  :
 				return true;
 			default:
 				return false;

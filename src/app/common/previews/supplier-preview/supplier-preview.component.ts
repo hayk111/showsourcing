@@ -31,7 +31,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	@Output() close = new EventEmitter<null>();
 	@Input() set supplier(value: any) {
 		this._supplierSubscription$?.unsubscribe();
-		this._supplierSubscription$ = api.Supplier.get$(value?.id).subscribe(supplier => {
+		this._supplierSubscription$ = api.Supplier.get$(value?.id).data$.subscribe(supplier => {
 			this._supplier = supplier;
 			this.cd.markForCheck();
 		});
@@ -72,8 +72,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.userVote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id);
-		this.teamVotes$ = this.ratingSrv.getTeamVotes('supplier:' + this._supplier.id);
+		this.userVote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id) as any;
+		this.teamVotes$ = this.ratingSrv.getTeamVotes('supplier:' + this._supplier.id) as any;
 	}
 
 	updateVote(vote$: Observable<Vote>) {

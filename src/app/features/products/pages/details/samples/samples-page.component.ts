@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Product } from '~core/erm';
 import { FilterService } from '~core/filters';
+import { isUuid } from '~utils/uuid.utils';
 import { ListPageViewService, SelectionService } from '~core/list-page2';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -31,17 +33,19 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public viewSrv: ListPageViewService<any>,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
-		protected filterSrv: FilterService
+		protected filterSrv: FilterService,
+		private location: Location,
 	) {
 		super();
 	}
 	ngOnInit() {
-		this.productId = this.route.parent.snapshot.params.id;
+		this.productId = this.route.snapshot?.params?.id ||
+			this.location.path().split('/').find((val: string) => isUuid(val));
 		this.product = { id: this.productId };
 		this.listHelper.setup(
 			'Sample',
 			this._destroy$,
-			(options) => api.Sample.findByProduct(this.productId)
+			(options) => api.Sample.findByProduct$(this.productId)
 		);
 	}
 }

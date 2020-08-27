@@ -11,6 +11,7 @@
 		class="label-ctnr" 
 		[hasOverflow]="false"
 		[readonly]="readonly"
+		(saved)="saved.emit()"
 		(opened)="inpLabel.focus()">
 		<editable-value-app>{{ value[i].label || 'Label'}}</editable-value-app>
 			<input
@@ -29,6 +30,7 @@
 		class="price-ctnr" 
 		[hasOverflow]="false"
 		[readonly]="readonly"
+		(saved)="saved.emit()"
 		(opened)="inpPrice.focus()">
 		<editable-value-app class="amount-display fullWidth">
 			{{ 
@@ -52,14 +54,14 @@
 
 <button 
 	type="button" 
-	class="mg-v-ms mg-right-s small" 
+	class="mg-v-ms mg-right-s small"
 	(click)="addPrice()">
 	+
 </button>
 <button 
 	*ngIf="value.length > 1"
 	type="button" 
-	class="mg-v-ms small warn" 
+	class="mg-v-ms small warn"
 	(click)="removePrice()">
 	-
 </button>

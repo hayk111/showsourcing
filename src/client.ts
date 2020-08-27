@@ -1,18 +1,24 @@
-import { client, state, authStatus } from 'lib';
-import * as localforage from 'localforage';
-import { first, filter } from 'rxjs/operators';
+import { loki, api, state, client, authStatus } from 'showsourcing-api-lib';
+import * as Loki from 'lokijs';
+import LokiIndexedAdapter from 'lokijs/src/loki-indexed-adapter.js';
+import { LogLevel } from 'showsourcing-api-lib/dist/services';
+import { switchMap } from 'rxjs/operators';
 
-localforage.config({
-	driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
-	name: 'apiLib',
-	version: 1.0,
-	// size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
-	storeName: 'appsync', // Should be alphanumeric, with underscores.
-	description:
-		'entities stored locally with apollo appsync for the showsourcing app',
-});
+const idbAdapter = new LokiIndexedAdapter();
+const pa = new Loki.LokiPartitioningAdapter(idbAdapter, { paging: true });
 
+export const initializedClient$ = authStatus.signin$.pipe(
+	switchMap(() => {
+		return client.init({
+			dbConfig: { adapter: pa },
+			shouldSync: true,
+			logs: {
+				logLevel: LogLevel.ALL,
+				asyncLogs: true,
+			},
+		});
+	})
+);
 
-// state.auth$.pipe(
-// 	filter(state => state === 'AUTHENTICATED')
-// ).subscribe(_ => client.sync('14fd7963-0437-4821-80fc-01f74bb78a95'));
+window.addEventListener('online', () => state.setOnlineSate(true));
+window.addEventListener('offline', () => state.setOnlineSate(false));

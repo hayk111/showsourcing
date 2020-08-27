@@ -1,9 +1,13 @@
-<ng-container *ngIf="product$ | async as product; else spinner">
+<ng-container *ngIf="product; else spinner">
 	<product-header-details-app
 		[product]="product"
+		[backButtonIcon]="previewMode ? 'close' : 'arrow-left'"
+		[ngStyle]="{ width: previewMode ? 'calc((100% - 64px) * 0.95)' : 'calc(100% - 64px)'}"
 		(update)="updateProduct($event)"
-		(delete)="deleteProduct($event)"
+		(export)="onExport()"
+		(delete)="deleteProduct($event?.id)"
 		(archive)="onArchive($event)"
+		(back)="goBack()"
 		(supplierRequest)="openSupplierRequest($event)">
 	</product-header-details-app>
 
@@ -15,14 +19,14 @@
 		(openSupplier)="goToSupplier($event)">
 	</product-sub-header-details-app>
 
-	<div class="flex ctnr flexWrap">
+	<div class="flex ctnr flexWrap details-main">
 		<div class="left">
 			<!-- docket card -->
 			<product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
-				(addTask)="listHelper.openCreationDialog({ productId: product.id }, 'Task')"
-				(addSample)="listHelper.openCreationDialog({ productId: product.id }, 'Sample')"
+				(addTask)="listHelper.openCreationDialog({ product: product.id }, 'Task')"
+				(addSample)="listHelper.openCreationDialog({ product: product.id }, 'Sample')"
 				(previewSample)="openSamplePreview($event)"
 				(previewTask)="openTaskPreview($event)"
 				(goToSamples)="goToTable('samples')"
@@ -33,7 +37,7 @@
 			<card-app #rating class="mg-top-l">
 				<card-title-app size="s">Team Rating</card-title-app>
 				<rating-dashboard-app
-					[teamVotes]="product?.votes"
+					[teamVotes]="teamVotes$ | async"
 					(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
 					(update)="updateProduct({ id: product?.id, votes: $event })">
 				</rating-dashboard-app>
@@ -41,14 +45,14 @@
 
 			<!-- Project card -->
 			<project-list-card-app
-				[projects]="productProjects || []"
+				[projects]="projects || []"
 				(update)="updateProductProjects($event)"
 				(openProject)="openProjectDetails($event)"
-				(deleteProject)="dissociateProject([], $event)">
+				(deleteProject)="dissociateProject($event)">
 			</project-list-card-app>
 
 		</div>
-		<product-main-app #main class="right" [product]="product"></product-main-app>
+		<product-main-app #main class="right" [product]="product" [section]="productMainSectionFragment"></product-main-app>
 	</div>
 </ng-container>
 
@@ -62,13 +66,11 @@
 <sample-preview-app
 	*ngIf="previewOpened && sample"
 	[sample]="sample"
-	(close)="closePreview()"
-	(clickOutside)="closePreview()">
+	(close)="closePreview()">
 </sample-preview-app>
 
 <task-preview-app
 	*ngIf="previewOpened && task"
 	[task]="task"
-	(close)="closePreview()"
-	(clickOutside)="closePreview()">
+	(close)="closePreview()">
 </task-preview-app>

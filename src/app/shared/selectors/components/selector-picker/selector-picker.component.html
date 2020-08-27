@@ -1,13 +1,15 @@
 <!-- input -->
 <form [formGroup]="group">
-	<form-field-app class="search-input" [ngClass]="{ 'field-focused': inp.focussed || !!inp.control.value }">
-			<input 
-				inputApp 
-				formControlName="name" 
-				[value]="searchTxt" type="text" 
-				[placeholder]="'ERM.' + placeholderTypeName + '.singular' | translate | capitalize" 
-				(keyup)="onKeydown($event)" 
-				(input)="search(inp.control.value)">
+	<form-field-app class="search-input">
+		<input
+			#searchInput
+			inputApp
+			formControlName="name" 
+			type="text" 
+			[value]="searchTxt" 
+			[placeholder]="'ERM.' + placeholderTypeName + '.singular' | translate | capitalize"  
+			(input)="search(inp.control.value)"
+			(keyup)="onKeydown($event)">
 	</form-field-app>
 </form>
 
@@ -43,17 +45,19 @@
 <!-- dropdown items -->
 <div class="container-items" infiniScroll (bottomReached)="selectorSrv.loadMore()">
 
-	<ng-container *ngIf="(choices$ | async) as choices; else spinner">
+	<ng-container *ngIf="!!choices; else spinner">
 		
 		<ng-container [ngSwitch]="typename">
 			<ng-container *ngSwitchDefault>
-				<selector-option-name-app 
+				<selector-option-app 
 					#abstract 
 					*ngFor="let item of choices; trackBy: trackById" 
 					class="selector-row" 
+					[typename]="typename"
+					[customType]="customType"
 					[item]="item" 
 					(click)="onSelect(item)">
-				</selector-option-name-app>
+				</selector-option-app>
 			</ng-container>
 			<ng-container *ngSwitchCase="'TeamUser'">
 				<selector-option-user-app 

@@ -6,6 +6,8 @@ import { ToastService, ToastType } from '~shared/toast';
 import { UserService } from '~core/auth';
 import { ObservableFileUpload, ObservableImageUpload } from '../interfaces/observable-upload.interface';
 import { uuid } from '~utils';
+import { AuthenticationService } from '~core/auth';
+import * as _ from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -14,7 +16,7 @@ export class UploaderService {
 
 	constructor(
 		private toastSrv: ToastService,
-		private userSrv: UserService
+		private authSrv: AuthenticationService,
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): ObservableFileUpload {
@@ -23,7 +25,7 @@ export class UploaderService {
 			switchMap((files) => {
 				const toCreate = [];
 				files.forEach((file: any) => {
-					toCreate.push({ fileName: `${this.userSrv.identityId}/${file.key}`, nodeId });
+					toCreate.push({ fileName: `${this.authSrv.identityId}/${file.key}`, nodeId });
 				});
 				return api.Attachment.create(toCreate).local$;
 			}),
@@ -45,9 +47,9 @@ export class UploaderService {
 			switchMap((images) => { // images are returned from s3upload function with corresponding names in S3
 				const toCreate = [];
 				images.forEach((img: any) => {
-					toCreate.push({ fileName: `${this.userSrv.identityId}/${img.key}`, nodeId });
+					toCreate.push({ fileName: `${this.authSrv.identityId}/${img.key}`, nodeId });
 				});
-				return api.Image.create(toCreate).local$;
+				return api.Image.create(toCreate).online$;
 			}),
 			// switchMap(() => Auth.currentUserCredentials()),
 		) as ObservableImageUpload;		// casting to add the temp function
@@ -74,7 +76,7 @@ export class UploaderService {
 		const extension = file.name.slice(file.name.lastIndexOf('.'));
 		return from(Storage.put(
 			// for file attachments we use file name and replace spaces with dashes
-			byName ? file.name.replace(/\s+/g, '-') : uuid() + extension,
+			byName ? _.deburr(file.name).replace(/[^a-z0-9\._]/gi, '-') : uuid() + extension,
 			file,
 			{
 				level: 'private',

@@ -1,7 +1,8 @@
 <div class="flex container flexWrap">
 	<carousel-app
 		[nodeId]="'Product:' + product?.id"
-		[hasPreview]="true">
+		[hasPreview]="true"
+		(uploaded)="updated.emit()">
 	</carousel-app>
 
 	<div class="flexColumn product-info">
@@ -67,11 +68,12 @@
 						<selector-app
 							#supplierSelector
 							typename="Supplier"
+							[value]="product?.supplier"
 							[canCreate]="true"
 							[extraOffset]="{ offsetX: 0, offsetY: 35 }"
 							[leftSideOrientation]="true"
 							[width]="370"
-							(update)="update($event.supplierId, 'supplierId'); edtSupplier.close()">
+							(update)="update($event.supplierId, 'supplier'); edtSupplier.close()">
 							<editable-value-app>
 								<div *ngIf="product?.supplier && (product?.supplier | json) != '{}'" class="supplier-container flex">
 									<logo-app
@@ -119,7 +121,7 @@
 				[hoverLight]="true"
 				[value]="product?.category"
 				[leftSideOrientation]="true"
-				(update)="update($event.categoryId, 'categoryId')">
+				(update)="update($event.categoryId, 'category')">
 			</badge-selector-app>
 		</section>
 

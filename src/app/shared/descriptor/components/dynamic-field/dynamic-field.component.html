@@ -202,7 +202,7 @@
 			<selector-app 
 				inputApp
 				[typename]="descriptor?.definition?.selectorSettings.type"
-				[customType]="descriptor?.definition?.selectorSettings.propertyOptionType"
+				[customType]="descriptor?.definition?.selectorSettings.propertyOptionType.toUpperCase()"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control">

@@ -10,10 +10,12 @@ import { api, Product } from 'showsourcing-api-lib';
 })
 export class ProductHeaderDetailsComponent {
 	@Input() product: Product;
+	@Input() backButtonIcon: 'arrow-left' | 'close' = 'arrow-left';
 	@Output() delete = new EventEmitter<Product>();
 	@Output() export = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();
 	@Output() archive = new EventEmitter<Product>();
+	@Output() back = new EventEmitter<void>();
 	@Output() supplierRequest = new EventEmitter<Product>();
 
 	constructor() { }
@@ -27,7 +29,7 @@ export class ProductHeaderDetailsComponent {
 	}
 
 	onUserChanged(user: User) {
-		this.update.emit({ id: this.product.id, assigneeId: user.id });
+		this.update.emit({ id: this.product.id, assignee: user.id });
 	}
 
 	updateProductName(isCancel: boolean, value: any, prop: string) {

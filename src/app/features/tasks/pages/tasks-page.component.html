@@ -23,7 +23,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="false"
 	(update)="listHelper.update($event)"
-	(select)="selectionSrv.selectOne($event, true)"
+	(selectOne)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(unselectAll)="selectionSrv.unselectAll()"

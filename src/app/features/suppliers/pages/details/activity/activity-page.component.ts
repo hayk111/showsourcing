@@ -46,7 +46,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 		this.comments$ = id$.pipe(
 			map(id => this.nodeId = `Supplier:${id}`),
-			map(nodeId => api['Comment'].findByNodeId(nodeId).data$),
+			map(nodeId => api['Comment'].findByNodeId$(nodeId).data$),
 			tap(query => this.commentListRef = query),
 			switchMap(query => query)
 		);

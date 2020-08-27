@@ -1,22 +1,20 @@
-<header-details-app [headerType]="'details'">
+<header-details-app [headerType]="'details'" [backButtonIcon]="backButtonIcon" (back)="back.emit()">
 
 	<header-details-title-app *ngIf="product">
 		{{ product?.name }}
 	</header-details-title-app>
 
-
 	<logo-app [logo]="product?.images | firstImage" size="l" typename="Product"></logo-app>
 
 	<header-details-info-app>
 		<div class="flex flexVAlign color-txt-secondary">
-			<logo-app typename="Product" name="product" size="xs"></logo-app>
 			<div class="flex flexVAlign info-container dot-separator">
 				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
 				</span>
 				<span *ngIf="product && product.propertiesMap.price && product.propertiesMap.price.value">
-					<price-app 
-						class="color-txt-secondary" 
+					<price-app
+						txtColor="txt-secondary"
 						[price]="{
 							value: product?.propertiesMap?.price?.value,
 							currency: product?.propertiesMap?.price?.currency
@@ -34,24 +32,33 @@
 
 	<header-details-actions-app>
 
-		<button class="icon medium txt-secondary" (click)="export.emit(product)">
+		<button
+			class="icon medium txt-secondary"
+			(click)="export.emit(product)"
+			toolTip [toolTipMessage]="'text.export-product' | translate">
 			<icon-app name="export" size="m"></icon-app>
 		</button>
 
-		<button class="light big icon-with-text flexVAlign flexAround">
-			<icon-app name="share" size="m"></icon-app><div class="capitalize" translate="button.share"></div>
-		</button>
-
-		<button class="vibrant big icon-with-text flexVAlign" (click)="supplierRequest.emit(product)">
+		<button 
+			class="vibrant big icon-with-text flexVAlign" 
+			(click)="supplierRequest.emit(product)"
+			toolTip [toolTipMessage]="'text.contact-supplier' | translate">
 			<icon-app name="envelope"></icon-app><div class="capitalize" translate="button.contact-supplier"></div>
 		</button>
 
-		<status-selector-app typename="Product" [entity]="product" selectSize="l" type="button"></status-selector-app>
+		<status-selector-app 
+			typename="Product" 
+			[entity]="product" 
+			toolTip 
+			[toolTipMessage]="'text.change-product-status' | translate"
+			selectSize="l" 
+			type="button">
+		</status-selector-app>
 
 		<context-menu-app>
 
 			<context-menu-trigger-app>
-				<button class="icon light dots pointer">
+				<button class="icon light medium dots pointer">
 					<icon-app [size]="16" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>

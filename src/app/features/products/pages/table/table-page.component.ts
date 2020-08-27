@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, OnDestroy } from '@angular/core';
+import { Subscription, combineLatest } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import { Product } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
-
+import { RatingService } from '~shared/rating/services/rating.service';
+import { api, Product } from 'showsourcing-api-lib';
+import { AutoUnsub } from '~utils';
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
 // dailah lama: Make me one with everything.
@@ -25,7 +28,7 @@ import { PaginationService } from '~shared/pagination/services/pagination.servic
 		class: 'table-page'
 	}
 })
-export class TablePageComponent implements OnInit {
+export class TablePageComponent extends AutoUnsub implements OnInit, OnDestroy {
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -40,6 +43,10 @@ export class TablePageComponent implements OnInit {
 	];
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
+	productsWithImages: any [];
+	productsSub: Subscription;
+
+	@ViewChild(ProductsTableComponent, { static: false }) productsTable: ProductsTableComponent;
 
 	constructor(
 		public filterSrv: FilterService,
@@ -47,13 +54,37 @@ export class TablePageComponent implements OnInit {
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
+		public ratingSrv: RatingService,
+		private cdr: ChangeDetectorRef,
 		protected dlgSrv: DialogService,
-	) { }
+		private paginationSrv: PaginationService,
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
-		this.listHelper.setup('Product');
+		this.listHelper.setup('Product', this._destroy$);
+
+		// this.paginationSrv.pagination$
+		// 	.pipe(
+		// 		switchMap((pagination) => api.Product.find$({ pagination }).data$),
+		// 		// map((products: Product[]) => {
+		// 		// 	return products.map((product: any) => {
+		// 		// 		product.images = api.Image.findLocal({
+		// 		// 			filter: {
+		// 		// 				property: 'nodeId',
+		// 		// 				isString: 'Product:' + product.id
+		// 		// 			}
+		// 		// 		});
+		// 		// 		return product;
+		// 		// 	});
+		// 		// })
+		// 	).subscribe(data => {
+		// 		this.productsWithImages = data;
+		// 		this.cdr.markForCheck();
+		// 	});
 	}
 
 	addProject() {
@@ -61,4 +92,8 @@ export class TablePageComponent implements OnInit {
 		// TODO add the correct logic for submit
 	}
 
+	addToProject(event) {
+		// this.dlgCommonSrv.openSelectionDlg('Project', [event]);
+		// TODO add the logic after closing dialog
+	}
 }

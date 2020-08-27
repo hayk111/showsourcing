@@ -64,13 +64,14 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	}
 
 	ngOnInit(): void {
-		this.filterSrv.setup([], ['value']);
 		this.typename = filterTypeToTypename(this.type);
 
 		if (this.typename === 'PropertyOption') {
+			this.filterSrv.setup([], ['value']);
 			this.propertyOptionSrv.setup(this.type as any);
 			this.choices$ = this.propertyOptionSrv.data$;
 		} else {
+			this.filterSrv.setup([], ['name']);
 			this.listHelper.setup(this.typename);
 			this.choices$ = this.listHelper.data$;
 		}
@@ -100,7 +101,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		switch (type) {
 			case FilterType.ASSIGNEE:
 			case FilterType.CREATED_BY:
-				return `${choice.lastName} ${choice.firstName}`;
+				return `${choice.user.firstName} ${choice.user.lastName}`;
 			case FilterType.EVENT:
 			case FilterType.EVENTS:
 				return `${choice.description.name}`;

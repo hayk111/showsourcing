@@ -6,7 +6,6 @@
   [pending]="pending"
 	[isSeaching]="isFiltering"
 	[createEntityBtnName]="createEntityBtnName"
-	[selected]="selection"
 	[listView]="listView"
 	[hasMenu]="hasMenu"
   [hasHeader]="hasHeader"
@@ -31,6 +30,7 @@
 		[sortable]="column.sortable !== false"
     [width]="column.width"
 		[sortBy]="column.sortProperty"
+		[type]="column.name"
 		[grows]="!column.fixedWidth">
     <ng-container [ngSwitch]="column.name">
 
@@ -58,12 +58,13 @@
 							#sel
 							typename="PropertyOption"
 							customType="category"
+							[value]="row?.category?.value"
 							[hasPicker]="canUpdate"
 							[leftSideOrientation]="true"
 							[canCreate]="true"
 							[width]="370"
 							(menuClosed)="eca.close()"
-							(update)="update.emit({ id: row?.id, categoryId: $event?.categoryId})">
+							(update)="update.emit({ id: row?.id, category: $event?.categoryId})">
 							<div class="pointer" >
 								{{ (row?.category?.value) || '-' }}
 							</div>
@@ -86,8 +87,8 @@
 					</editable-value-app>
 					<input-price-app
 						#inp
-						[value]="{ 
-							currency: price?.currency || row?.propertiesMap?.price?.currency, 
+						[value]="{
+							currency: price?.currency || row?.propertiesMap?.price?.currency,
 							value: price?.price || row?.propertiesMap?.price?.value}"
 						(keyup.enter)="editable.close()">
 					</input-price-app>
@@ -105,21 +106,20 @@
 					(closed)="updatePriceMoq(row?.propertiesMap?.price, { minimumOrderQuantity: inp?.value }, 'moq', row?.id)">
           <editable-value-app>
             <moq-app
-							*ngIf="row | property:'price':'minimumOrderQuantity'"
-							[moq]="row | property:'price':'minimumOrderQuantity'"
+							[moq]="row.propertiesMap.price?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
-						<div *ngIf="!(row | property:'price':'minimumOrderQuantity')">-</div>
           </editable-value-app>
-					<input #inp inputApp type="number"
-						[value]="row | property:'price':'minimumOrderQuantity'" (keyup.enter)="editable.close()"/>
+					<input #inp type="number"
+						(focus)="$event.target.select();"
+						[value]="row.propertiesMap.price?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>
       </ng-container>
 
       <!-- projects -->
       <ng-container *ngSwitchCase="'projects'">
         <div class="flexCenter">
-          <span *ngFor="let project of row.projects; trackBy: trackByFn">
+          <span *ngFor="let project of row.projects; trackBy: trackById">
             {{ project.name || '-' }}
           </span>
         </div>

@@ -3,6 +3,10 @@
 	max-width: 100%;
 }
 
+badge-app:hover {
+	background: var(--color-hover);
+}
+
 icon-app.close {
 	padding-left: var(--spacing-xs);
 	margin-right: -3px;

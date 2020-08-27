@@ -9,18 +9,17 @@ export const routes: Array<Route> = [
 		redirectTo: 'table'
 	},
 	{ path: 'table', component: Pages.TablePageComponent },
-	{ path: 'card', component: Pages.CardPageComponent },
 	{
 		path: ':id',
 		component: Pages.DetailsPageComponent,
-		children: [
-			{ path: '', redirectTo: 'info', pathMatch: 'full' },
-			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
-			{ path: 'info', component: DetailsPage.InfoPageComponent },
-			{ path: 'files', component: DetailsPage.FilesPageComponent },
-			{ path: 'samples', component: DetailsPage.SamplesPageComponent },
-			{ path: 'tasks', component: DetailsPage.TasksPageComponent },
-			// { path: 'requests', component: DetailsPage.RequestsPageComponent }
-		],
+		// children: [
+		// 	{ path: '', redirectTo: 'info', pathMatch: 'full' },
+		// 	{ path: 'activity', component: DetailsPage.ActivityPageComponent },
+		// 	{ path: 'info', component: DetailsPage.InfoPageComponent },
+		// 	{ path: 'files', component: DetailsPage.FilesPageComponent },
+		// 	{ path: 'samples', component: DetailsPage.SamplesPageComponent },
+		// 	{ path: 'tasks', component: DetailsPage.TasksPageComponent },
+		// 	// { path: 'requests', component: DetailsPage.RequestsPageComponent }
+		// ],
 	},
 ];

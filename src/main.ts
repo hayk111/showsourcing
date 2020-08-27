@@ -6,6 +6,7 @@ import { hmrBootstrap } from './hmr';
 
 import { AppRootModule } from './app/app-root/app-root.module';
 
+
 log.info(`%c 🐱‍🚀 App init. Time: ${performance.now()}`, LogColor.METADATA);
 
 // using console log so it's not removed in production..

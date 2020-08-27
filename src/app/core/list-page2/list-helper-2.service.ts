@@ -1,8 +1,8 @@
-import { Injectable, NgZone } from '@angular/core';
-import { api, ISearchOptions, Typename, IApiResponse } from 'showsourcing-api-lib';
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil, tap, map, share, distinctUntilChanged, shareReplay } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, map, shareReplay, switchMap, tap, takeUntil } from 'rxjs/operators';
+import { api, IApiResponse, ISearchOptions, Typename } from 'showsourcing-api-lib';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
 import { DialogService } from '~shared/dialog';
@@ -30,6 +30,8 @@ export class ListHelper2Service<G = any> {
 	private _total$ = new Subject<number>();
 	total$ = this._total$.asObservable();
 
+	private _lastSub: IApiResponse<G> | undefined;
+
 	constructor(
 		private selectionSrv: SelectionService,
 		private filterSrv: FilterService,
@@ -39,7 +41,7 @@ export class ListHelper2Service<G = any> {
 		private translate: TranslateService
 	) {
 		// When the total change, we setup pagination
-		this.total$.pipe().subscribe((total) => {
+		this.total$.pipe().subscribe(total => {
 			this.total = total;
 			this.paginationSrv.setupTotal(total);
 		});
@@ -53,46 +55,69 @@ export class ListHelper2Service<G = any> {
 	setup(
 		typename: Typename,
 		componentDestroy$?: Observable<any>,
-		findFn?: (options: ISearchOptions) => IApiResponse,
+		findFn?: (options: ISearchOptions) => IApiResponse
 	) {
-		componentDestroy$ = componentDestroy$ || new Subject();
 		findFn = findFn || ((options: ISearchOptions) => api[typename].find$(options));
 		this.typename = typename;
+		componentDestroy$?.subscribe(() => {
+			this._lastSub.unsubscribe();
+		});
 
 		const reactiveFind = combineLatest(
 			this.filterSrv.valueChanges$,
 			this.paginationSrv.pagination$,
 			this.sortSrv.sort$
 		).pipe(
-			map(([filter, pagination, sort]) => findFn({ filter, sort, pagination }))
+			takeUntil(componentDestroy$),
+			map(([filter, pagination, sort]) => {
+				this._lastSub?.unsubscribe();
+				this._lastSub = findFn({ filter, sort, pagination }) as IApiResponse<G>;
+				return this._lastSub;
+			}),
+			shareReplay()
 		);
 
 		// data
-		reactiveFind.pipe(
-			switchMap(result => result.data$),
-			tap(_ => this._pending$.next(false)),
-			takeUntil(componentDestroy$),
-		).subscribe(data => this._data$.next(data));
+		reactiveFind
+			.pipe(
+				switchMap(result => result.data$),
+				tap(_ => this._pending$.next(false))
+			)
+			.subscribe(data => this._data$.next(data));
 		// total
-		reactiveFind.pipe(
-			switchMap(result => result.count$),
-			takeUntil(componentDestroy$),
-			distinctUntilChanged()
-		).subscribe(count => this._total$.next(count));
+		reactiveFind
+			.pipe(
+				switchMap(result => result.count$),
+				distinctUntilChanged()
+			)
+			.subscribe(count => this._total$.next(count));
 	}
 
 	openCreationDialog(addedProperties: any = {}, typename: Typename = this.typename) {
-		console.log('ListHelper2Service<G -> openCreationDialog -> typename', typename);
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
 				typename,
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				switchMap((entity) => {
-					return api[typename].create([{...entity, ...addedProperties}]).local$;
-				}),
-			).subscribe();
+				switchMap(entity => {
+					return api[typename].create([{ ...entity, ...addedProperties }]).local$;
+				})
+			)
+			.subscribe();
+	}
+
+	openDeletionDialog(id: string, typename: Typename = this.typename) {
+		this.dlgSrv
+			.open(ConfirmDialogComponent, {
+				text: 'message.confirm-delete-' + typename.toLowerCase(),
+			})
+			.data$.pipe(
+				switchMap(() => {
+					return api[typename].delete([{ id }]).local$;
+				})
+			)
+			.subscribe();
 	}
 
 	update(entity: any, typename?: Typename) {
@@ -106,27 +131,25 @@ export class ListHelper2Service<G = any> {
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		return api[this.typename].update(
-			selected.map(ent => ({ id: ent.id, ...entity}))
-		).local$;
+		return api[this.typename].update(selected.map(ent => ({ id: ent.id, ...entity }))).local$;
 	}
 
 	deleteSelected(text?: string) {
 		const selectedIds = this.selectionSrv.getSelectedValues().map(selected => selected.id);
 		this.dlgSrv
-			.open(ConfirmDialogComponent, { text: text || 'message.confirm-action', elementsCount: selectedIds.length })
-			.data$
-			.pipe(
+			.open(ConfirmDialogComponent, {
+				text: text || 'message.confirm-action',
+				elementsCount: selectedIds.length,
+			})
+			.data$.pipe(
 				map(_ => {
-					console.log('deleteSelected -> selectedIds1', selectedIds);
 					return selectedIds.map(selected => ({ id: selected }));
 				}),
-				switchMap((selectedIds) => {
-					console.log('deleteSelected -> selectedIds2', selectedIds);
+				switchMap(selectedIds => {
 					return api[this.typename].delete(selectedIds).local$;
 				})
 			)
-			.subscribe((_) => {
+			.subscribe(_ => {
 				this.selectionSrv.unselectAll();
 			});
 	}

@@ -7,11 +7,11 @@
 	}"
 >
 
-	<ng-container *ngIf="product?.images as images; else noImg">
+	<ng-container *ngIf="product?.images | firstImage as image; else noImg">
 		<!-- picture -->
 		<img-app
 			[ngClass]="{ 'small-img': size === 's' }"
-			[image]="product?.images | firstImage"
+			[image]="image"
 			objectFit="cover"
 			size="xl"
 		>
@@ -42,7 +42,7 @@
 	<checkbox-app
 		*ngIf="hasCheckbox"
 		[value]="selected"
-		class="action-hover-item-0"
+		class="action-hover-item-0 select-checkbox pointer"
 		[size]="17"
 		[ngClass]="{ 'full-opacity': selected }"
 		(check)="selectionSrv.selectOne(product)"
@@ -60,7 +60,7 @@
 			[offsetX]="316"
 			[multiple]="true"
 			[width]="330"
-			(update)="update.emit({ id: product?.id, projects: $event })"
+			(update)="updateProductProjects($event)"
 		>
 			<icon-app
 				class="folder action-hover-item-0 pointer color-third"

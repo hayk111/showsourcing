@@ -11,18 +11,22 @@ export class DescriptorService {
 
 	descriptorToFormGroup(section: SectionWithColumns, options?: AbstractControlOptions): FormGroup {
 		const ctrls = {};
-		section.properties.forEach(prop => {
-			const validators = [];
-			if (prop.required) {
-				validators.push(Validators.required);
-			}
-			if (prop.definition && prop.definition.name) {
-				ctrls[prop.definition.name] = [
-					prop.defaultValue ? JSON.parse(prop.defaultValue) : null,
-					...validators
-				];
-			}
-		});
+
+		if (section && section.properties) {
+			section.properties.forEach(prop => {
+				const validators = [];
+				if (prop.required) {
+					validators.push(Validators.required);
+				}
+				if (prop.definition && prop.definition.name) {
+					ctrls[prop.definition.name] = [
+						prop.defaultValue ? JSON.parse(prop.defaultValue) : null,
+						...validators
+					];
+				}
+			});
+		}
+
 		return this.fb.group(ctrls, options);
 	}
 
@@ -35,9 +39,11 @@ export class DescriptorService {
 
 	descriptorToValueObject(section: SectionWithColumns) {
 		const obj = {};
-		section.properties.forEach(prop => {
-			obj[prop.definition.name] = prop.defaultValue ? JSON.parse(prop.defaultValue) : null;
-		});
+		if (section && section.properties) {
+			section.properties.forEach(prop => {
+				obj[prop.definition.name] = prop.defaultValue ? JSON.parse(prop.defaultValue) : null;
+			});
+		}
 		return obj;
 	}
 

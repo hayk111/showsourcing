@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Typename } from '~core/erm3/typename.type';
 import { View } from '~shared/controller-table/components';
+import { Location } from '@angular/common';
 
 @Injectable({
 	providedIn: 'root'
@@ -25,7 +26,8 @@ export class ListPageViewService<T> {
 	destUrl: string;
 
 	constructor(
-		private router: Router
+		private router: Router,
+		private location: Location,
 	) { }
 
 	setup({ typename, destUrl, view }: { typename: Typename, destUrl: string, view: View }) {
@@ -38,16 +40,19 @@ export class ListPageViewService<T> {
 	openPreview(item: T) {
 		this.previewed = item;
 		this.previewOpen = true;
+		this.location.go('/products/' + (item as any).id);
 	}
 
 	/** closes the preview */
 	closePreview() {
 		this.previewOpen = false;
+		this.location.back();
 	}
 
 	/** Open details page of a product */
 	goToDetails(itemId: string) {
-		this.router.navigate(['../', this.destUrl, itemId]);
+		console.log('goToDetails -> itemId', itemId);
+		this.router.navigate(['/', this.destUrl, itemId]);
 	}
 
 	/** when filter button is clicked at the top we open the panel */
@@ -65,6 +70,6 @@ export class ListPageViewService<T> {
 	*/
 	changeView(view: View) {
 		this.view = view;
-		this.router.navigate([this.destUrl, view]);
+		// this.router.navigate([this.destUrl, view]);
 	}
 }

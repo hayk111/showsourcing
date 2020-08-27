@@ -1,14 +1,14 @@
 
 <div *ngFor="let category of getGroupedProducts(); first as first; index as i; trackBy: trackByFn"
-	class="category-section">
-	<div *ngIf="getGroupedValue(category)" class="section-title">
-		<div class="mg-bottom-ms">
-			{{ getGroupedValue(category) }}
+	class="category-section mg-top-m">
+	<div class="section-title">
+		<div *ngIf="category !== 'productsWithoutCategory'" class="mg-bottom-ms">
+			{{ category }}
 		</div>
 		<divider-app></divider-app>
 	</div>
 	<div class="products-section">
-		<ng-container *ngFor="let product of category.value; index as i; trackBy: trackById">
+		<ng-container *ngFor="let product of grouppedProducts[category]; index as i; trackBy: trackById">
 			<product-grid-card-app
 				[product]="product"
 				[selected]="selectionSrv.selection.has(product?.id)"

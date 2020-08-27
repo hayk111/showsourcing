@@ -12,6 +12,7 @@ import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
+import { UtilsModule } from '~shared/utils';
 import { SharedModule } from '~shared/shared.module';
 
 import * as DetailsPage from './pages/details';
@@ -26,6 +27,7 @@ import * as Pages from './pages';
 		NavBarModule,
 		CatalogCommonModule,
 		RouterModule.forChild(routes),
+		UtilsModule,
 		PreviewsCommonModule,
 		TablesCommonModule,
 		BoardsCommonModule,
@@ -36,7 +38,6 @@ import * as Pages from './pages';
 	],
 	declarations: [
 		Pages.TablePageComponent,
-		Pages.CardPageComponent,
 		Pages.DetailsPageComponent,
 		DetailsPage.ActivityPageComponent,
 		DetailsPage.SamplesPageComponent,

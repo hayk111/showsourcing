@@ -16,7 +16,7 @@
 	(goToPage)="listHelper.loadPage($event)"
 	(open)="viewSrv.goToDetails($event)"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
-	(select)="selectionSrv.selectOne($event, true)"
+	(selectOne)="selectionSrv.selectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(sort)="listHelper.sort($event)"
 	(unselect)="selectionSrv.unselectOne($event, true)"

@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { api, Product, Supplier, ProductTag } from 'lib';
+import { api, Product, Supplier, ProductTag } from 'showsourcing-api-lib';
 import { Price } from '~core/erm3';
 import { updateProductPriceMOQ } from '~utils/price.utils';
-import { first, switchMap } from 'rxjs/operators';
+import { first, switchMap, map, takeUntil } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -11,7 +12,7 @@ import { first, switchMap } from 'rxjs/operators';
 	styleUrls: ['./product-sub-header-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductSubHeaderDetailsComponent implements OnInit {
+export class ProductSubHeaderDetailsComponent extends AutoUnsub implements OnInit {
 	@Input() product: Product;
 	@Output() updated = new EventEmitter<Product>();
 	@Output() redirect = new EventEmitter<string>();
@@ -29,38 +30,33 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 
 	constructor(
 		private cdr: ChangeDetectorRef,
-	) { }
+	) { super(); }
 
 	ngOnInit() {
-		api.Product.get$(this.product.id)
+		api.ProductTag.find$({
+			filter: { property: 'product', isString: this.product.id },
+		}).data$
 			.pipe(
-				switchMap((updatedProduct: Product) => {
-					const tagIds = updatedProduct.tags ? updatedProduct.tags.map((tag: ProductTag) => tag.tagId) : [];
-					return api.PropertyOption.findByType(
-						'TAG',
-						{
-							filter: {
-								property: 'id',
-								inStrings: tagIds
-							}
-						}
-					).data$;
-				})
+				takeUntil(this._destroy$),
+				map((productTags: ProductTag[]) => productTags.map(productTag => productTag.tag))
 			)
-			.subscribe((tags) => {
-				this.productTags = [...tags];
+			.subscribe(tags => {
+				this.productTags = [...tags] as ProductTag[];
 			});
 
 		this.price = this.product.propertiesMap.price ? this.product.propertiesMap.price : undefined;
-		this.samplesCount$ = api.Sample.findByProduct(this.product.id).count$;
-		this.tasksCount$ = api.Task.findByProduct(this.product.id).count$;
-		this.commentsCount$ = api.Comment.findByNodeId('product:' + this.product.id).count$;
+		this.samplesCount$ = api.Sample.findByProduct$(this.product.id).count$;
+		this.tasksCount$ = api.Task.findByProduct$(this.product.id).count$;
+		this.commentsCount$ = api.Comment.findByNodeId$('Product:' + this.product.id).count$;
 	}
 
 	updatePriceMoq(priceVal: Partial<Price>, type: 'price' | 'moq') {
 		const newVal = type === 'moq' ? { minimumOrderQuantity: priceVal } : priceVal;
 		updateProductPriceMOQ(this.price, newVal as any, type, this.product.id)
-			.pipe(first())
+			.pipe(
+				first(),
+				takeUntil(this._destroy$)
+			)
 			.subscribe((updatedProducts: Product[]) => {
 				if (updatedProducts.length && updatedProducts[0].propertiesMap) {
 					this.price = updatedProducts[0].propertiesMap.price;

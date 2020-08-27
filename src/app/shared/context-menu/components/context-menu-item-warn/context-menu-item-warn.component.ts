@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 	styleUrls: ['./context-menu-item-warn.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'color-warn flex pointer capitalize'
+		class: 'color-warn flex pointer'
 	}
 })
 export class ContextMenuItemWarnComponent implements OnInit {

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
+import { Router} from '@angular/router';
 import { TrackingComponent } from '~utils';
 
 @Component({
@@ -13,4 +14,12 @@ export class SidebarItemComponent extends TrackingComponent {
 	@Input() badge: any;
 	@Input() subItems: any[];
 	hovered = false;
+
+	constructor(private ngZone: NgZone, private router: Router) { super(); }
+
+	navigate(link: string) {
+		this.ngZone.run(() => {
+			return this.router.navigate(link.split('/').filter(str => !!str));
+		}).then();
+	}
 }

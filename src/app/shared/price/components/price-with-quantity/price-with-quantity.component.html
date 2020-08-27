@@ -4,21 +4,23 @@
 	[ngClass]="{'empty': !price || !price?.value}"
 	[hideOnOpen]="true"
 	[hasAction]="true"
-	(closed)="updateProductField($event, inpPrice?.value, 'price')"
-	(opened)="inpPrice?.focus()"
-	(saved)="updateProductField(false, inpPrice?.value, 'price')">
+	(opened)="inpPrice?.focus()">
 	<editable-value-app>
 		<price-app
 			*ngIf="price && price?.value; else priceHolder"
 			size="xxxl" 
-			[primary]="false"
+			txtColor="primary"
 			[price]="price">
 		</price-app>
 		<ng-template #priceHolder>
 			<div class="capitalize pd-top-s pd-bottom-s">set price</div>
 		</ng-template>
 	</editable-value-app>
-	<input-price-app #inpPrice [value]="price" (keyup.enter)="editablePrice.close()"></input-price-app>
+	<input-price-app 
+		#inpPrice 
+		[value]="price" 
+		(keyup.enter)="editablePrice.close()" 
+		(saved)="updateProductField(false, inpPrice?.value, 'price')"></input-price-app>
 </editable-container-app>
 
 <editable-container-app
@@ -31,12 +33,12 @@
 	(opened)="inputMOQ.select()"
 	(saved)="updateProductField(false, inputMOQ.value, 'moq')">
 	<editable-value-app>
-		<div *ngIf="price && price?.minimumOrderQuantity; else moqHolder" class="moq flexCenter">
+		<div *ngIf="price && price?.minimumOrderQuantity; else moqHolder" class="flexCenter color-txt-primary">
 			{{ 'OBJ.min-pcs' | translate: { count : (price?.minimumOrderQuantity || 0)} }}
 			{{ price?.moqDescription ? ' ' + price?.moqDescription : ''}}
 		</div>
 		<ng-template #moqHolder>
-			<div class="capitalize pd-top-s pd-bottom-s">set MOQ</div>
+			<div class="capitalize pd-top-s pd-bottom-s color-txt-secondary">set MOQ</div>
 		</ng-template>
 	</editable-value-app>
 	<input inputApp

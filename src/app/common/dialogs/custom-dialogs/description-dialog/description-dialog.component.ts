@@ -1,25 +1,29 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 
 @Component({
-	selector: 'description-dlg-app',
-	templateUrl: './description-dlg.component.html',
-	styleUrls: ['./description-dlg.component.scss'],
+	selector: 'description-dialog-app',
+	templateUrl: './description-dialog.component.html',
+	styleUrls: ['./description-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DescriptionDlgComponent {
+export class DescriptionDlgComponent implements OnInit {
 
 	private _description: string;
 	@Input() set description(description: string) {
 		this._description = description;
-		// we set it to edit
-		this.toggleEdition(true);
+		// assert value instead in case we don't update txtAreaDesc
+		if (this.txtAreaDesc === undefined) {
+			this.txtAreaDesc = description;
+		}
 	}
 	get description() {
 		return this._description;
 	}
+	@Input() editingMode = true;
+
 	// if we are editing or not
 	editing$ = new ReplaySubject();
 	// to store the value of the txtArea, since sometimes we will cancel instead of save, this way we don't override initial description
@@ -27,7 +31,11 @@ export class DescriptionDlgComponent {
 
 	@ViewChild(InputDirective, { static: true }) txtArea: InputDirective;
 
-	constructor(private dlgSrv: DialogService) { }
+	constructor(private dlgSrv: DialogService) {}
+
+	ngOnInit() {
+		this.toggleEdition(this.editingMode);
+	}
 
 	toggleEdition(state = false) {
 		this.editing$.next(state);

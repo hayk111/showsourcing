@@ -9,7 +9,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				inputApp
 				#inp
@@ -29,7 +29,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -49,7 +49,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -67,7 +67,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -86,7 +86,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -131,7 +131,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -150,7 +150,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-'}}</editable-value-app>
 			<input 
 				#inp
 				inputApp
@@ -172,7 +172,7 @@
 			(saved)="onSave()"
 			(canceled)="reset()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
-			<editable-value-app>{{ control?.value }}</editable-value-app>
+			<editable-value-app>{{ control?.value || '-' }}</editable-value-app>
 			<textarea 
 				#inp
 				inputApp
@@ -189,6 +189,7 @@
 			#edt
 			[readonly]="true"
 			[clickableReadonly]="!descriptor.readonly"
+			(saved)="onSave()"
 			(click)="toggleValue()">
 			<editable-label-app>{{ descriptor?.definition?.label }}</editable-label-app>
 			<editable-value-app>
@@ -205,21 +206,25 @@
 		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
-			(saved)="onSave()"
 			(canceled)="reset()"
 			(opened)="priceInput.focus()">
 			<editable-label-app>
 				{{ descriptor?.definition?.label }}
 			</editable-label-app>
 			<editable-value-app>
-				{{ control?.value?.value }} 
-				{{ control?.value?.currency }}
+				<ng-container *ngIf="control?.value?.value || control?.value?.currency; else noVal">
+					{{ control?.value?.value }} 
+					{{ control?.value?.currency }}
+				</ng-container>
+				<ng-template #noVal><span>-</span></ng-template>
 			</editable-value-app>
 			<input-price-app
 				#priceInput 
+				[dynamicInput]="true"
 				[inline]="true"
 				[readonly]="descriptor.readonly"
-				[formControl]="control">
+				[formControl]="control"
+				(saved)="save.emit()">
 			</input-price-app>
 		</editable-field-app>
 	</ng-container>
@@ -230,7 +235,8 @@
 		<editable-price-matrix-app
 			[readonly]="descriptor.readonly"
 			[formControl]="control"
-			[required]="descriptor.required">
+			[required]="descriptor.required"
+			(saved)="onSave()">
 		</editable-price-matrix-app>
 	</ng-container>
 
@@ -240,7 +246,8 @@
 		<editable-packaging-app
 			[readonly]="descriptor.readonly"
 			[formControl]="control"
-			[required]="descriptor.required">
+			[required]="descriptor.required"
+			(saved)="onSave()">
 		</editable-packaging-app>
 	</ng-container>
 
@@ -257,13 +264,13 @@
 				<selector-app
 					#sel
 					[typename]="typename"
-					[customType]="customType"
-					[canCreate]="true"
+					[customType]="customType.toUpperCase()"
+					[canCreate]="canCreate()"
 					[readonly]="descriptor.readonly"
 					[required]="descriptor.required"
 					[formControl]="control"
-					(update)="selectorUpdate($event)">
-					<span>{{ selectorValue$ | async }}</span>
+					(update)="save.emit()">
+					<span>{{ control?.value?.name || control?.value?.value || control?.value?.code || '-'}}</span>
 				</selector-app>
 			</editable-value-app>		
 		</editable-field-app>

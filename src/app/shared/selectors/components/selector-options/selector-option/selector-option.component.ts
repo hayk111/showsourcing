@@ -1,15 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
-	selector: 'selector-option-name-app',
-	templateUrl: './selector-option-name.component.html',
-	styleUrls: ['./selector-option-name.component.scss'],
+	selector: 'selector-option-app',
+	templateUrl: './selector-option.component.html',
+	styleUrls: ['./selector-option.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorOptionNameComponent extends AbstractSelectorHighlightableComponent {
-
+export class SelectorOptionComponent extends AbstractSelectorHighlightableComponent {
+	@Input() typename: Typename;
 	@Input() item: any;
+	@Input() customType: string;
 
 	constructor() { super(); }
 

@@ -25,7 +25,7 @@ export class StatusSelectorService {
 			return;
 		}
 		this.typename = typename;
-		api.WorkflowStatus.findByType(typename.toUpperCase() as any)
+		api.WorkflowStatus.findByType$(typename.toUpperCase() as any)
 			.data$
 			.subscribe(statuses => {
 				this._listStatus$.next(statuses);

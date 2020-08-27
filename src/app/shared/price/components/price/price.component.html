@@ -4,7 +4,7 @@
 		[ngStyle]="{
 			'font-size': 'var(--font-size-' + size + ')', 
 			'font-weight': size === 'xxxl' ? '600' : '500',
-			'color': primary ? 'var(--color-txt-primary)' : 'var(--color-primary)' 
+			'color': 'var(--color-' + txtColor + ')' 
 		}">
 		{{ price?.currency | const : 'currency' : 'symbol' : '1.0-2'}}
 	</span>
@@ -13,7 +13,7 @@
 		[ngStyle]="{
 			'font-size': 'var(--font-size-' + size + ')', 
 			'font-weight': size === 'xxxl' ? '600' : '500',
-			'color': primary ? 'var(--color-txt-primary)' : 'var(--color-primary)' 
+			'color': 'var(--color-' + txtColor + ')' 
 		}">
 		{{ price?.value || '-' }}
 	</span>

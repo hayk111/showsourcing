@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren,
+	EventEmitter, Input, Output, QueryList, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 import { ColumnDirective } from '~shared/table/components/column.directive';
@@ -75,20 +76,25 @@ export class TableComponent extends TrackingComponent {
 	@Input() rows;
 	hoverIndex: number;
 
+	rowDrawnTimes = 0;
+
 	/** whether specific rows are selectable or not */
 	@Input() isSelectable = (item) => true;
 
-	/** function used by the ng for, using an arrow to not lose this context */
-	trackByIdentify = (index, item) => this.identify(index, item);
-
-	/** function used by the ng for, using an arrow to not lose this context */
-	columnTrackByFn = (index: any) => index;
+	cellTrackByFn = (columnName: string) => (index, cell) => {
+		return columnName + '-' + index ;
+	}
 
 	constructor(
 		public sortSrv: SortService,
-		public paginationSrv: PaginationService
+		public paginationSrv: PaginationService,
+		private cdr: ChangeDetectorRef
 	) {
 		super();
+	}
+
+	getRowDisplayCount() {
+		return this.rowDrawnTimes++;
 	}
 
 	getSelectionState(): SelectionState {
@@ -124,10 +130,6 @@ export class TableComponent extends TrackingComponent {
 		if (!this.rows || this.rows.length === 0)
 			return false;
 		return this.selected.size === this.rows.length;
-	}
-
-	identify(index, item) {
-		return item[this.idName];
 	}
 
 	hoverRow(index: number) {

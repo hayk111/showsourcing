@@ -13,5 +13,7 @@ export abstract class TrackingComponent implements OnDestroy {
 		return index;
 	}
 
-	public trackById = (index, item) => item.id;
+	public trackById = (index, item) => {
+		return item.id;
+	}
 }

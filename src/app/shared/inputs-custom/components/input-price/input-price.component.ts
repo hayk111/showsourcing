@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Price } from '~core/erm3';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { InputDirective } from '~shared/inputs/components-directives';
+import _ from 'lodash';
 
 @Component({
 	selector: 'input-price-app',
@@ -32,12 +33,21 @@ export class InputPriceComponent extends AbstractInput {
 		}
 	}
 
+	get currency() {
+		return typeof this.valueTemp?.currency === 'object' ? this.valueTemp.currency?.code : this.valueTemp.currency;
+	}
+
 	valueTemp: Price = {};
 	@Input() hasLabel = false;
 	/** whether the input has borders */
 	@Input() inline = false;
+	@Input() dynamicInput = false;
+	@Output() saved = new EventEmitter<void>();
+
 	@ViewChild(InputDirective) amountInp: InputDirective;
 	focussed = false;
+
+	onFocusValue: Price;
 
 	constructor() {
 		super();
@@ -55,6 +65,25 @@ export class InputPriceComponent extends AbstractInput {
 		return Number(value.replace( /^([^.]*\.)(.*)$/, function ( a, b, c ) {
 				return b + c.replace( /\./g, '' );
 		}));
+	}
+
+	update(ev) {
+		console.log('InputPriceComponent -> update -> ev', ev);
+	}
+
+	onFocus() {
+		this.focussed = true;
+		this.onFocusValue = {...this.valueTemp};
+	}
+
+	onSave(value) {
+		this.focussed = false;
+		this.onTouchedFn();
+		if (_.isEqual(this.onFocusValue, this.valueTemp)) {
+			return;
+		}
+		this.onChangeFn(value);
+		this.saved.emit(value);
 	}
 
 }

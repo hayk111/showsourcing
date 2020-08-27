@@ -16,7 +16,7 @@
 		<div class="flex buttons-container">
 			<button
 				class="capitalize"
-				(click)="listHelper.openCreationDialog({ productId: product.id })"
+				(click)="listHelper.openCreationDialog({ product: product.id })"
 				translate="button.create-sample">
 			</button>
 			<div class="flexCenter">
@@ -28,10 +28,8 @@
 					class="warn capitalize"
 					(click)="listHelper.deleteSelected(size === 1 ? 'message.confirm-delete-sample' : 'message.confirm-delete-samples')"
 					translate="button.delete">
-			</button>
-
+				</button>
 			</ng-container>
-	
 		</div>
 	</ng-container>
 </ng-container>
@@ -41,8 +39,8 @@
 		typename="Sample"
 		[title]="'No samples on this product'"
 		[subtitle]="'Create & Track your samples'">
-		<button class="capitalize" 
-		(click)="listHelper.openCreationDialog({ productId: product.id })" 
+		<button class="capitalize"
+		(click)="listHelper.openCreationDialog({ product: product.id })"
 		translate="button.create-sample"></button>
 	</entity-placeholder-app>
 </ng-template>
@@ -55,6 +53,5 @@
 <sample-preview-app
 	*ngIf="viewSrv.previewOpen"
 	[sample]="viewSrv.previewed"
-	(close)="viewSrv.closePreview()"
-	(clickOutside)="viewSrv.closePreview()">
+	(close)="viewSrv.closePreview()">
 </sample-preview-app>

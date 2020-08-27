@@ -1,7 +1,7 @@
 import { Filter } from './filter.class';
 import { FilterType } from './filter-type.enum';
 import { ValuesByType, FiltersByType } from './filter-by.type';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 /**
  * Helper class to help with filter convertion
@@ -92,14 +92,19 @@ export class FilterConverter {
 					isTrue: value
 				};
 			case FilterType.SEARCH:
-				return {
-					property: this.searchedFields[0], // TODO: implement multiple filters pass
+				return {or: this.searchedFields.map((searchField) => ({
+					property: searchField, // TODO: implement multiple filters pass
 					contains: value
-				};
+				}))};
 			case FilterType.SUPPLIER:
 			case FilterType.CATEGORY:
 				return {
 					property: type,
+					isString: value
+				};
+			case FilterType.CREATED_BY:
+				return {
+					property: 'teamUser',
 					isString: value
 				};
 			default:

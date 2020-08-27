@@ -24,6 +24,15 @@
 	}
 }
 
+$num: 25;
+
+@for $i from 1 through $num {
+	.cell--#{$i}:hover {
+		.cell--#{$i} {
+			background-color: red;
+		}
+	}
+}
 
 .pendingCtnr {
 	padding: var(--spacing-xl);

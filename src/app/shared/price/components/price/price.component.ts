@@ -22,7 +22,7 @@ export class PriceComponent {
 	@Input() moqDesc: string;
 
 	// whether input text color is primary
-	@Input() primary = true;
+	@Input() txtColor: 'primary' | 'txt-primary' | 'txt-secondary' = 'txt-primary';
 
 	@Input() size: 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' = 'm';
 

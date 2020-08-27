@@ -72,7 +72,7 @@ button, input[type="submit"], .button {
 
 	&.icon {
 		background: transparent;
-		color: var(--color-txt-third);
+		color: var(--color-txt-secondary);
 		&:hover, &.cdk-keyboard-focused {
 			background: var(--color-hover);
 			color: var(--color-txt-secondary);

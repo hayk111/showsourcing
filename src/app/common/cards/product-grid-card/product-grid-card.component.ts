@@ -10,6 +10,7 @@ import { RatingService } from '~shared/rating/services/rating.service';
 import { StatusUtils } from '~utils';
 import { ListPageViewService } from '~core/list-page2/list-page-view.service';
 import { SelectionService } from '~core/list-page2';
+import { api, Project } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'product-grid-card-app',
@@ -39,6 +40,19 @@ export class ProductGridCardComponent {
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService
 	) {}
+
+	updateProductProjects(projects: Project[]) {
+		const toPass = [];
+
+		projects.forEach(project => {
+ 			toPass.push({
+				project: project.id,
+				product: this.product.id
+			});
+		});
+
+		api.ProjectProduct.create(toPass);
+	}
 
 	thumbUp() {
 		// const votes = this.ratingSrv.thumbUp(this.product, EntityName.PRODUCT);

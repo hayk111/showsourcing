@@ -4,23 +4,6 @@ import { FormFieldControlDirective } from '~shared/inputs/components-directives/
 import { Subject } from 'rxjs';
 import { FocusableDirective } from './focusable.directive';
 
-const supportedTypes = new Set([
-	'color',
-	'date',
-	'datetime-local',
-	'email',
-	'month',
-	'number',
-	'password',
-	'search',
-	'tel',
-	'text',
-	'time',
-	'url',
-	'week',
-]);
-// TODO input directive shouldn't extend focusable and there shoud be 2 separate directives
-
 // Native input properties that are overwritten by Angular inputs need to be synced with
 // the native input element. Otherwise property bindings for those don't work.
 @Directive({
@@ -55,7 +38,6 @@ export class InputDirective extends FocusableDirective implements OnChanges {
 
 	/** Whether the input is on focus */
 	set focussed(value: boolean) {
-		this._focussed = value;
 		this.stateChanges.next();
 	}
 	get focussed() {

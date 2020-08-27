@@ -21,27 +21,57 @@
 </controller-table-app>
 
 <products-table-app
+	*ngIf="viewSrv.view === 'table'"
 	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"
-	(open)="viewSrv.goToDetails($event)"
+	(open)="viewSrv.goToDetails($event?.id)"
 	(createClick)="listHelper.openCreationDialog()"
 	(update)="listHelper.update($event, 'Product')"
 	(previewClick)="viewSrv.openPreview($event)"
-	(select)="selectionSrv.selectOne($event)"
+	(selectOne)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(delete)="listHelper.delete($event)">
+	(delete)="listHelper.openDeletionDialog($event?.id)">
 </products-table-app>
+
+<products-grid-app
+	*ngIf="viewSrv.view === 'card'"
+	cdk-scrollable
+	class="card-view will-change-scroll"
+	infiniScroll
+	[rows]="listHelper.data$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	(addToProject)="addToProject($event)"
+	(disliked)="ratingSrv.onThumbDown($event)"
+	(liked)="ratingSrv.onThumbUp($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(selectOne)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(update)="listHelper.update($event)"
+	(bottomReached)="listHelper.loadMore()"
+>
+</products-grid-app>
 
 <product-selection-bar-app></product-selection-bar-app>
 
-<product-preview-app
+<preview-screen-app
+	[opened]="viewSrv.previewOpen"
+	(close)="viewSrv.closePreview()">
+	<details-page-app
+			*ngIf="viewSrv.previewOpen"
+			[product]="viewSrv.previewed" 
+			[previewMode]="true"
+			(back)="viewSrv.closePreview()"></details-page-app>
+</preview-screen-app>
+
+<!-- <product-preview-app
 	*ngIf="viewSrv.previewOpen"
 	[product]="viewSrv.previewed"
 	(close)="viewSrv.closePreview()">
-</product-preview-app>
+</product-preview-app> -->
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app

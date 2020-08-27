@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product, Project, Sample, Task } from '~core/erm3';
-import { api } from 'showsourcing-api-lib';
+import { Product, Project, Task } from '~core/erm3';
+import { api, Sample } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'product-docket-app',
@@ -25,8 +25,8 @@ export class ProductDocketComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.productSamples$ = api.Sample.findByProduct(this.product.id).data$;
-		this.productTasks$ = api.Task.findByProduct(this.product.id).data$ as Observable<any[]>;
+		this.productSamples$ = api.Sample.findByProduct$(this.product.id).data$;
+		this.productTasks$ = api.Task.findByProduct$(this.product.id).data$ as Observable<any[]>;
 	}
 
 }

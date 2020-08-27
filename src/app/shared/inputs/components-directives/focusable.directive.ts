@@ -18,6 +18,7 @@ export class FocusableDirective {
 		setTimeout(_ => {
 			const input = this._elementRef.nativeElement;
 			const length = input.value.length;
+			// TODO: find out why focus was called anytime on selector
 			input.focus();
 			// input.setSelectionRange(length, length);
 		});

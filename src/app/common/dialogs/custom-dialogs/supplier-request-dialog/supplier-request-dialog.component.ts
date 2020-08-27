@@ -5,7 +5,8 @@ import { of, ReplaySubject } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { ProductSelectionDialogComponent } from '~common/dialogs/selection-dialogs';
 import { TemplateMngmtDlgComponent } from '~common/dialogs/custom-dialogs';
-import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/erm';
+import { ContactService, CreateRequestService, RequestTemplateService } from '~core/erm';
+import { UserService } from '~core/auth';
 // import { ListPageService } from '~core/list-page2';
 import { Contact, CreateRequest, Product, RequestTemplate, Supplier } from '~core/erm';
 import { ProductService } from '~core/erm';
@@ -127,8 +128,8 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 
 	private setMessage() {
 		let event;
-		const firstName = this.userSrv.userSync.firstName || '';
-		const lastName = this.userSrv.userSync.lastName || '';
+		const firstName = this.userSrv.user.firstName || '';
+		const lastName = this.userSrv.user.lastName || '';
 		this.form.get('message').setValue(
 			'Hello,\n' +
 			(this.request.products.length && (event = this.request.products[0].event) && event.description && event.description.name ?
@@ -282,7 +283,7 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 
 	openTemplateMngmtDialog(event: MouseEvent, templateSelected: RequestTemplate) {
 		event.stopPropagation();
-		let request = new CreateRequest(this.form.value);
+		const request = new CreateRequest(this.form.value);
 		this.dlgSrv.data(request);
 		this.dlgSrv.close();
 		// TODO extract this logic

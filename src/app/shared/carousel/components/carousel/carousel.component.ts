@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { takeUntil, tap, filter, first, switchMap } from 'rxjs/operators';
+import { takeUntil, tap, filter, first, switchMap, take } from 'rxjs/operators';
 import { api, Image } from 'showsourcing-api-lib';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UploaderService } from '~shared/file/services/uploader.service';
@@ -12,7 +12,7 @@ import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
 import { ToastType } from '~shared/toast';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'carousel-app',
@@ -68,7 +68,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		});
 
 		if (this.nodeId) {
-			api.Image.findByNodeId(this.nodeId, {
+			api.Image.findByNodeId$(this.nodeId, {
 				sort: { direction: 'ASC', property: 'createdAt' }
 			}).data$
 				.pipe(
@@ -129,12 +129,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 				this.images = [...this.images, ...temp];
 				this.cdr.markForCheck();
 			})
-			.subscribe(() => {
-				this.cdr.markForCheck();
+			.subscribe((uploadedImgs: Image[]) => {
 				this.uploaded.emit();
-				if (!this.images.some(img => img.type && img.type === 'pending')) {
-					this.uploaderSrv.showToast(`Uploaded ${files.length} image(s)`);
-				}
+				// const updatedImgs: Image[] = [...this.images.filter(img => img.type !== 'pending'), ...uploadedImgs];
+				// this.selectedIndex = updatedImgs.length - 1;
+				console.log('CarouselComponent -> add -> this.images 222', this.images, uploadedImgs);
+				// this.images$.next(updatedImgs);
+				this.uploaderSrv.showToast(`Uploaded ${files.length} image(s)`);
 			}, error => {
 				this.images = this.images.filter(img => img.type !== 'pending');
 				this.selectedIndex = this.images.length - 1;

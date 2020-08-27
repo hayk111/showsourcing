@@ -1,46 +1,46 @@
 export const incoTerms = [
 	{
-		'id': 'EXW',
-		'name': 'EXW'
+		'code': 'EXW',
+		'name': 'Ex Works'
 	},
 	{
-		'id': 'FCA',
-		'name': 'FCA'
+		'code': 'FCA',
+		'name': 'Free Carrier'
 	},
 	{
-		'id': 'FAS',
-		'name': 'FAS'
+		'code': 'FAS',
+		'name': 'Free Alongside Ship'
 	},
 	{
-		'id': 'FOB',
-		'name': 'FOB'
+		'code': 'FOB',
+		'name': 'Free On Board'
 	},
 	{
-		'id': 'CFR',
-		'name': 'CFR'
+		'code': 'CFR',
+		'name': 'Cost and Freight'
 	},
 	{
-		'id': 'CIF',
-		'name': 'CIF'
+		'code': 'CIF',
+		'name': 'Cost, Insurance, and Freight'
 	},
 	{
-		'id': 'CPT',
-		'name': 'CPT'
+		'code': 'CPT',
+		'name': 'Carriage Paid To'
 	},
 	{
-		'id': 'CIP',
-		'name': 'CIP'
+		'code': 'CIP',
+		'name': 'Carriage and Insurance Paid To'
 	},
 	{
-		'id': 'DAT',
-		'name': 'DAT'
+		'code': 'DAT',
+		'name': 'Delivered at Terminal'
 	},
 	{
-		'id': 'DAP',
-		'name': 'DAP'
+		'code': 'DAP',
+		'name': 'Delivered at Place'
 	},
 	{
-		'id': 'DDP',
-		'name': 'DDP'
+		'code': 'DDP',
+		'name': 'Delivered Duty Paid'
 	}
 ];

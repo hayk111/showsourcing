@@ -9,7 +9,7 @@ import { ID } from '~utils/id.utils';
 import { defaultConfig } from '../default-columns/default-config';
 import { EntityTableComponent, TableConfig } from '../entity-table.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 const tableConfig: TableConfig = {
 	...defaultConfig,

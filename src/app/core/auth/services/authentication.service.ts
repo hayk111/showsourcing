@@ -4,6 +4,7 @@ import { filter, map, mapTo, first } from 'rxjs/operators';
 import { state, Auth, client } from 'showsourcing-api-lib';
 import { Credentials, RegistrationCredentials } from './credentials.interface';
 import { log } from '~utils/log';
+import { debug } from 'console';
 
 /**
  * Authentication service responsible for authentication.
@@ -54,17 +55,12 @@ export class AuthenticationService {
 		mapTo(null)
 	);
 
+	_identityId: string;
+
 	constructor(
 		private router: Router
 	) {
 		state.auth$.subscribe(state => log.debug(`auth state: ${state}`));
-		this.signIn$.pipe(first()).subscribe(_ => {
-			log.debug('client init');
-			client.init({
-				offlineConfigAWS: {storage: undefined, storeCacheRootMutation: false},
-				shouldSync: true,
-			});
-		});
 	}
 
 	// SIGN IN FLOWS
@@ -117,6 +113,14 @@ export class AuthenticationService {
 
 	signOut() {
 		Auth.signOut().then(_ => this.router.navigate(['auth', 'sign-in']));
+	}
+
+	setIdentityId(id: string) {
+		this._identityId = id;
+	}
+
+	get identityId(): string {
+		return this._identityId;
 	}
 
 	// SIGN UP FLOWS

@@ -10,14 +10,14 @@
 			[task]="task"
 			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="viewSrv.openPreview($event)"
-			(select)="selectionSrv.selectOne($event, true)"
+			(selectOne)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)">
 		</task-list-item-app>
 		<!-- buttons -->
 		<div class="flex buttons-container">
 			<button
 				class="flexVAlign capitalize"
-				(click)="listHelper.openCreationDialog({ productId: productId })"
+				(click)="listHelper.openCreationDialog({ product: productId })"
 				translate="button.create-task">
 			</button>
 		</div>
@@ -29,9 +29,9 @@
 		typename="Task"
 		[title]="'No tasks on this product'"
 		[subtitle]="'Create & Track your tasks'">
-		<button class="capitalize" 
+		<button class="capitalize"
 			translate="button.create-task"
-			(click)="listHelper.openCreationDialog({ productId: productId })">
+			(click)="listHelper.openCreationDialog({ product: productId })">
 		</button>
 	</entity-placeholder-app>
 </ng-template>

@@ -7,7 +7,7 @@ import { Descriptor, PropertyDescriptor } from '~core/erm3/models';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
 import { log } from '~utils/log';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import { Typename, api } from 'showsourcing-api-lib';
 
 const	toUpdate = false;
@@ -35,7 +35,6 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	/** form group for the form */
 	formGroup: FormGroup = this.fb.group({name: ''});
 	/** when a new formgroup is created */
-	private currentFormGroupSub = [];
 	private _destroy$ = new Subject<void>();
 
 	get valid() {
@@ -45,33 +44,26 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(
 		private fb: FormBuilder,
 		private descriptorSrv: DescriptorService,
-		private cd: ChangeDetectorRef) {}
+		private cd: ChangeDetectorRef) { }
 
 	ngOnInit() {
-		/**
-		 * The first subscription to the dynamic form group, this for any dynamic form updates.
-		 * As formGroup periodically updates when the product is changed by parent components
-		 * we keep track of all the subscriptions to it's changes and unsubscribe before new subscription is created
-		 */
-		this.currentFormGroupSub.push(this.subscribeOnValueChanges(this.formGroup));
-
 		/**
 		 * Subscription to any Product changes, like when parent component updates the product, in order to not
 		 * have memory leak errors we're keeping track of all subscriptions to the @formGroup changes
 		 */
 		api.Product.get$(this.entityId)
+			.data$
+			.pipe(takeUntil(this._destroy$))
 			.subscribe(product => {
-			this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
-			this.formGroupUnsubscribe();
-			this.cd.markForCheck();
-			this.formGroup.patchValue({
-				...product.propertiesMap,
-				name: product.name,
-				supplierId: product.supplierId,
-				categoryId: product.categoryId,
-			}, { emitEvent: false });
-			this.currentFormGroupSub.push(this.subscribeOnValueChanges(this.formGroup));
-		});
+				this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
+				this.cd.markForCheck();
+				this.formGroup.patchValue({
+					...product?.propertiesMap,
+					name: product?.name,
+					supplierId: product?.supplier,
+					categoryId: product?.category,
+				}, { emitEvent: false });
+			});
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -108,28 +100,20 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	 * @param  {FormGroup} formGroup
 	 * @returns Subscription
 	 */
-	subscribeOnValueChanges(formGroup: FormGroup): Subscription {
-		return from(formGroup.valueChanges).pipe(
-			map(properties => _.pickBy(properties, (val, key) => !!properties[key])),
-			map(properties => {
-				const returnObj: any = {};
-				// TODO: remove this block, temporary solution for properties with key containing "Id"
-				// - like supplierId, categoryId, etc
-				Object.keys(properties).forEach(key => {
-					if (key.toLowerCase().includes('id')) {
-						returnObj[key] = properties[key][key];
-					} else {
-						returnObj[key] = properties[key];
-					}
-				});
+	onFormUpdate() {
+		const updatedFields = _.pickBy(this.formGroup.value, (val, key) => !!this.formGroup.value[key]);
 
-				return returnObj;
-			}),
-			debounceTime(400),
-			takeUntil(this._destroy$),
-		).subscribe(properties => {
-			this.update.emit(properties);
+		Object.keys(updatedFields).forEach(key => {
+			if (key.toLowerCase().includes('id')) {
+				console.log('here', key, updatedFields);
+				updatedFields[key.slice(0, key.toLowerCase().indexOf('id'))] = updatedFields[key][key] || updatedFields[key]?.id;
+				delete updatedFields[key];
+			} else {
+				updatedFields[key] = updatedFields[key];
+			}
 		});
+
+		this.update.emit(updatedFields);
 	}
 
 	reset() {
@@ -166,18 +150,9 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		log.debug('built form group', this.formGroup);
 	}
 
-	/**
-	 * Function that unsubscribes from all the form group subscriptions
-	 */
-	private formGroupUnsubscribe() {
-		[...this.currentFormGroupSub].forEach(subscription => subscription.unsubscribe());
-		this.currentFormGroupSub = [];
-	}
-
 	ngOnDestroy() {
 		this._destroy$.next();
 		this._destroy$.complete();
-		this.formGroupUnsubscribe();
 	}
 
 }

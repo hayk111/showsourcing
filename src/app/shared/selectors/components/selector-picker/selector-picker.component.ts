@@ -3,11 +3,11 @@ import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
 	AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener,
-	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren
+	Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren, OnDestroy, Renderer2
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subject, Subscription, of, BehaviorSubject } from 'rxjs';
-import { map, switchMap, tap, debounce, debounceTime, first } from 'rxjs/operators';
+import { Observable, Subject, Subscription, of, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, switchMap, tap, debounce, debounceTime, first, takeUntil } from 'rxjs/operators';
 import { ERM } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
@@ -18,6 +18,11 @@ import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ID, uuid } from '~utils';
 import { Typename, api } from 'showsourcing-api-lib';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { lengthUnits, weightUnits } from '~utils/constants/units.const';
+import { currencies } from '~utils/constants/currencies.const';
+import { incoTerms } from '~utils/constants/inco-terms.const';
+import { harbours } from '~utils/constants/harbour.const';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -28,12 +33,13 @@ import { Typename, api } from 'showsourcing-api-lib';
 		ListHelper2Service,
 		PropertyOptionsService,
 		SelectorsService,
-		FilterService
+		FilterService,
+		PaginationService
 	]
 })
-export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
+export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 	@Input() typename: Typename;
-	@Input() customType: Typename;
+	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() filterList = new FilterList([]);
@@ -50,18 +56,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
 
-	// this closes the selector without closing dialogs, etc
-	@HostListener('keydown.escape', ['$event'])
-	onKeydownEsc(event) {
-		event.stopPropagation();
-		this.close.emit();
-	}
-
 	/** choices to iterate */
 	choices$: Observable<any[]>;
 	choices: any[];
+	/** this is for keeping track of initial coming choices, e.g for global element selectors like - length unit, currency, etc */
+	initialChoices: any[];
+	_choicesSub: Subscription;
 
-	choicesSubscription: Subscription;
+	_valueUpdated$ = new BehaviorSubject(null);
 
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
@@ -75,15 +77,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** cdk virtual scroll viewport so we can determine the scroll index in combination with cdk a11y */
 	@ViewChild(CdkVirtualScrollViewport, { static: false }) cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
-	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
-	group: FormGroup;
+	@ViewChild('searchInput') input;
 
+	@ViewChild(InputDirective, { static: false }) inp: InputDirective;
+	group: FormGroup;
 
 	/** key manager that controlls the selection with arrowkeys  */
 	keyManager: ActiveDescendantKeyManager<AbstractSelectorHighlightableComponent>;
 	/** index when using manager keys and virtual scrolling */
 	count = 0;
-
 	searched$: Subject<string> = new Subject();
 
 	/** whether the search has a exact match or not to display the create button */
@@ -94,11 +96,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	erm = ERM;
 
+	// subject to call when the component is destroyed
+	_destroy$ = new Subject<void>();
+
 	constructor(
 		public selectorSrv: SelectorsService,
 		private listHelper: ListHelper2Service,
 		private propertyOptionSrv: PropertyOptionsService,
 		private filterSrv: FilterService,
+		private renderer: Renderer2,
 		protected cd: ChangeDetectorRef,
 		private fb: FormBuilder
 	) { super(cd); }
@@ -109,44 +115,88 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		});
 
 		if (this.typename === 'PropertyOption' || this.isTagElement()) {
-			this.filterSrv.setup([], ['value']);
-			this.propertyOptionSrv.setup(this.typename === 'PropertyOption' ? this.customType : 'TAG');
-			this.choices$ = this.propertyOptionSrv.data$
-				.pipe(
-					tap(choices => {
-						this.choices = choices;
-					})
+			this.filterSrv.setup([], ['value', 'code']);
+
+			if (['weightUnit', 'lengthUnit', 'CURRENCY', 'INCOTERM', 'HARBOUR'].includes(this.customType)) {
+				let choices: any[];
+
+				switch (this.customType) {
+					case 'weightUnit':
+						choices = weightUnits;
+						break;
+					case 'lengthUnit':
+						choices = lengthUnits;
+						break;
+					case 'CURRENCY':
+						choices = currencies;
+						break;
+					case 'INCOTERM':
+						choices = incoTerms;
+						break;
+					case 'HARBOUR':
+						choices = harbours;
+				}
+				this.choices = choices.filter((choice: any) => choice?.name !== this.value);
+			} else {
+				this.propertyOptionSrv.setup(
+					this.typename === 'PropertyOption' ? (this.customType.toUpperCase() as Typename) : 'TAG',
+					this._destroy$
 				);
-			this.cd.markForCheck();
+				this.choices$ = combineLatest(this.propertyOptionSrv.data$, this._valueUpdated$)
+					.pipe(
+						takeUntil(this._destroy$),
+						tap(([choices, _]) => {
+							this.choices = this.filterChoices(choices);
+						}),
+					);
+			}
 		} else {
 			this.filterSrv.setup([], ['name']);
-			this.listHelper.setup(this.typename);
-			this.choices$ = this.listHelper.data$.pipe(tap(choices => this.choices = choices));
-			this.cd.markForCheck();
+			this.listHelper.setup(this.typename, this._destroy$);
+			this.choices$ = combineLatest(this.listHelper.data$, this._valueUpdated$)
+				.pipe(
+					takeUntil(this._destroy$),
+					tap(([choices, _]) => {
+						this.choices = this.filterChoices(choices);
+					}));
 		}
+
+		this._choicesSub = this.choices$?.subscribe();
+		this.initialChoices = [...this.choices];
 
 		if (this.canCreate) {
 			this.searched$.pipe(
+				takeUntil(this._destroy$),
 				debounceTime(400),
 				map(_ => this.checkExist(this.choices)),
 				map(items => {
 					return (!!items.length || !this.searchTxt || this.hasName(this.searchTxt));
 				}),
-				tap((exists: boolean) => this.nameExists$.next(exists))
+				tap(_ => this.keyManager.setFirstItemActive()),
+				tap((exists: boolean) => this.nameExists$.next(exists)),
+			).subscribe();
+		} else {
+			this.searched$.pipe(
+				takeUntil(this._destroy$),
+				debounceTime(400),
+				map(_ => this.checkContains(this.initialChoices)),
+				tap(items => this.choices = items),
+				tap(_ => this.keyManager.setFirstItemActive()),
+				tap(_ => this.cd.markForCheck())
 			).subscribe();
 		}
 
-		// this.initializeChoices();
-
 		// if there is any search text available when we start the component, we search for it
-		if (this.searchTxt)
+		if (this.searchTxt) {
 			this.search(this.searchTxt);
+		}
 	}
 
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
-		this.inp.focus();
+		this.keyManager.setFirstItemActive();
 		this.search(this.searchTxt);
+		this.inp.focus();
 	}
 
 	ngOnChanges() {
@@ -177,13 +227,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	private resetInput() {
 		this.inp.control.reset();
 		this.inp.focus();
+		this.filterSrv.reset();
 	}
 
 	/**
 	 * search a text and set first item active on selector
 	 * @param text
 	 */
-	search(text, setFirstItemActive = true) {
+	search(text) {
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
 		this.filterSrv.search(this.searchTxt);
@@ -193,19 +244,19 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/**
 	 * this is called when we want to update the value
 	 */
-	onChange() {
+	onChange(deleted = false, deletedIds?: string[]) {
 		this.onChangeFn(this.value);
 		if (!this.multiple) {
 			this.updateSingle();
 		} else {
-			this.updateMultiple();
+			this.updateMultiple(deleted, deletedIds);
 		}
 	}
 
 	/**
 	 * Emits an array of new values so they can be updated and refetch the selector
 	 */
-	private updateMultiple() {
+	private updateMultiple(deleted?: boolean, deletedIds?: string[]) {
 		let trimValues;
 		switch (this.typename) {
 			case 'Product':
@@ -221,23 +272,32 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					break;
 			case 'ProductTag':
 				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
-				trimValues = this.value.map(value => {
-					return {
-						id: this.entityId + ':' + value.id,
-						tagId: value.id,
-						[entityType + 'Id']: this.entityId,
-					};
-				});
+				trimValues = this.value.map(value => ({
+					id: this.entityId + ':' + value.id,
+					tag: value.id,
+					[entityType]: this.entityId,
+				}));
 				break;
 			default:
-				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
+				trimValues = this.value.map(v => ({ id: v.id, name: v.name }));
 				break;
 		}
 
+		// TODO: Updates for the tag element is implemented with different logic, combine this logic with the other entities
 		if (this.isTagElement()) {
-			this.selectorSrv.create(this.typename as any, trimValues[trimValues.length - 1])
-				.pipe(first())
-				.subscribe();
+			if (deleted) {
+				const idsToDelete = deletedIds?.map(id => ({ id }));
+				api.ProductTag.delete(idsToDelete)
+					.local$
+					.pipe(
+						takeUntil(this._destroy$)
+					).subscribe();
+			} else {
+				this.selectorSrv.create(this.typename as any, trimValues[trimValues.length - 1])
+					.pipe(
+						takeUntil(this._destroy$)
+					).subscribe();
+			}
 		} else {
 			this.update.emit(trimValues);
 		}
@@ -248,9 +308,28 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateSingle() {
 		const type = this.typename === 'PropertyOption' ? this.value.type : this.value.__typename;
-		const updateData = {
-			[type.toLowerCase() + 'Id']: this.typename === 'TeamUser' ? this.value.user.id : this.value.id,
-		};
+		let updateData: any = {};
+
+		switch (this.typename) {
+			case 'TeamUser':
+				updateData = { [type.toLowerCase() + 'Id']: this.value.user.id};
+				break;
+			case 'PropertyOption':
+				if (['weightUnit', 'lengthUnit', 'CURRENCY', 'INCOTERM', 'HARBOUR'].includes(this.customType)) {
+					updateData = {
+						[this.customType]: this.value?.name,
+						...(this.value.code && { code: this.value.code})
+					};
+				} else {
+					updateData = {
+						[type.toLowerCase() + 'Id']: this.value.id,
+						...(this.value?.value && {value: this.value?.value})
+					};
+				}
+				break;
+			default:
+				updateData = { [type.toLowerCase() + 'Id']: this.value.id};
+		}
 
 		this.update.emit(updateData);
 		this.close.emit();
@@ -274,12 +353,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 
 		if (this.multiple && !this.isStored(itemToReturn)) {
-			this.value.push(itemToReturn);
+			if (this.value && Array.isArray(this.value)) {
+				this.value.push(itemToReturn);
+			} else {
+				this.value = [itemToReturn];
+			}
 			this.onChange();
 		} else if (!this.multiple) { // if not multiple we update and close
 			this.value = itemToReturn;
 			this.onChange();
 		}
+		this._valueUpdated$.next(null);
 		this.resetInput();
 	}
 
@@ -293,6 +377,22 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	/**
+	 * checks if any of items contains searched text - searchText
+	 * @param items items to check if they match with current searchText
+	 * @returns list of items that contains the current searchTxt
+	 */
+	private checkContains(items: any[]) {
+		if (!this.searchTxt) {
+			return items;
+		}
+
+		return items.filter(it =>
+					 it?.name?.toLowerCase().includes(this.searchTxt.toLowerCase())  ||
+					 it?.value?.toLowerCase().includes(this.searchTxt.toLowerCase()) ||
+					 it?.id?.toLowerCase().includes(this.searchTxt.toLowerCase()));
+	}
+
+	/**
 	 * Creates a new entity if its a supported type
 	 */
 	create() {
@@ -303,24 +403,21 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			if (this.isTagElement()) {
 				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
 				added = {
-					[entityType + 'Id']: this.entityId,
+					[entityType]: this.entityId,
 				};
 				createObs$ = this.propertyOptionSrv.createPropertyOptions([{type: 'TAG', value}])
 					.pipe(
-						switchMap((createdTags: any[]) => {
-							added.tagId = createdTags[0] ? createdTags[0].id : undefined;
-							return this.selectorSrv.create(this.typename as any, added);
-						}),
 						first()
 					);
 			} else {
-				added = this.typename === 'PropertyOption' ? { value, type: this.customType } : { name: value };
+				added = this.typename === 'PropertyOption' ?
+									{ value, type: this.customType } :
+									{ name: value, __typename: this.typename };
 				createObs$ = this.typename === 'PropertyOption' 															 ?
-				this.propertyOptionSrv.createPropertyOptions([{type: this.customType, value}]) :
+				this.propertyOptionSrv.createPropertyOptions([{type: this.customType.toUpperCase(), value}]) :
 				this.selectorSrv.create(this.typename as any, added);
 			}
 
-			// we add it directly to the value
 			if (this.multiple) {
 				if (this.value && this.value.length) {
 					this.value.push(added);
@@ -338,13 +435,16 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// we are using take 1 in srv, no need for fancy destroying
 			createObs$.subscribe((created) => {
 				this.nameExists$.next(true);
-				if (this.isTagElement()) {
-					added.id = created[0].tag;
+				// we add it directly to the value
+				if (this.multiple) {
+					// take the last element that we pushed into this.value and set it's id
+					this.value[this.value.length - 1].id = created[0].id;
 				} else {
 					this.value.id = created[0].id;
-					// we changed the value directly so we have to notify the formControl
-					this.onChange();
 				}
+
+				this._valueUpdated$.next(null);
+				this.onChange();
 				this.resetInput();
 			});
 		}
@@ -355,7 +455,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param event keyboard event
 	 */
 	onKeydown(event: KeyboardEvent) {
-		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem) {
+		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem && !!this.choices.length) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
 			const item = this.keyManager.activeItem.getItem();
@@ -372,6 +472,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			}
 
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			event.stopPropagation();
 			// we use this number to know between how many rows navigated we have to scroll Into view
 			// we set it to 5 since its the number of elements we see on the selector.
 			const numberRows = 5;
@@ -443,11 +544,40 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	delete(item) {
 		this.value = this.value.filter(value => value.id !== item.id);
-		this.onChange();
+		// TODO: to be implemented for many items
+		this.onChange(true, [this.entityId + ':' + item.id]);
+		this._valueUpdated$.next(null);
 	}
 
 	private isTagElement() {
 		return this.typename.toLowerCase().includes('tag');
 	}
 
+
+	/**
+	 * filters choices so they're not in the current "value"
+	 * @param  {any[]} choices
+	 */
+	filterChoices(choices: any[]): any[] {
+		const result =  choices.filter(choice => {
+
+			if (Array.isArray(this.value)) {
+				if (this.value && this.value.length && this.value.some(val => val?.id === choice?.id)) {
+					return false;
+				}
+			} else if (typeof this.value === 'object') {
+				return choice?.id !== this.value?.id;
+			}
+
+			return true;
+		});
+
+		return result;
+	}
+
+	ngOnDestroy() {
+		this._destroy$.next();
+		this._destroy$.complete();
+		this._choicesSub?.unsubscribe();
+	}
 }
