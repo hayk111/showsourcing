@@ -34,17 +34,17 @@ index: {{ currentPage }}
 
 		<button
 			class="arrow-btn icon primary-light mg-right-s"
-			[ngClass]="{ 'secondary-light': currentPage === range.length - 1, 'no-hover': currentPage === range.length - 1 }"
+			[ngClass]="{ 'secondary-light': isLastPage, 'no-hover': isLastPage }"
 			(click)="paginationSrv.goToNextPage()"
-			[disabled]="currentPage === range.length - 1">
+			[disabled]="isLastPage">
 			<icon-app name="fat-angle-right" size="xs"></icon-app>
 		</button>
 
 		<button
 			class="arrow-btn icon primary-light mg-right-s"
-			[ngClass]="{ 'secondary-light': currentPage === range.length - 1, 'no-hover': currentPage === range.length - 1 }"
+			[ngClass]="{ 'secondary-light': isLastPage, 'no-hover': isLastPage }"
 			(click)="paginationSrv.goToLastPage()"
-			[disabled]="currentPage === range.length - 1">
+			[disabled]="isLastPage">
 			<icon-app name="double-fat-angle-right" size="xs"></icon-app>
 		</button>
 	</ng-container>

@@ -99,6 +99,11 @@ export class PaginationService {
 			this._page$.next(lastPage);
 			this._currentPage = lastPage;
 		}
+		console.log('Current page: ', this._currentPage);
+		this._range$.subscribe((range) => {
+			console.log('Range: ', range[range.length - 1]);
+			console.log('shold disable: ', range[range.length - 1] === this._currentPage)
+		})
 	}
 
 	setLimit(limit: number) {
