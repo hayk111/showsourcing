@@ -32,7 +32,7 @@ export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('Project');
+		this.listHelper.setup('Project', this._destroy$);
 		this.selectionSrv.selectAll(this.initialSelecteds);
 	}
 

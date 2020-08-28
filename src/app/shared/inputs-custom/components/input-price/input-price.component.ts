@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild, Output, EventEmit
 import { Price } from '~core/erm3';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { InputDirective } from '~shared/inputs/components-directives';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'input-price-app',

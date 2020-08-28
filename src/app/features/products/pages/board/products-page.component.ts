@@ -65,7 +65,7 @@ export class ProductsPageComponent extends AutoUnsub
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Product');
+		this.listHelper.setup('Product', this._destroy$);
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'board' });
 	}
 

@@ -57,7 +57,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Product');
+		this.listHelper.setup('Product', this._destroy$);
 		this.excludedSrv.excludedIds = this.ignoredIds;
 	}
 

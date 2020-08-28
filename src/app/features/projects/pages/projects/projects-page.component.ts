@@ -45,7 +45,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Project');
+		this.listHelper.setup('Project', this._destroy$);
 	}
 
 	create() {

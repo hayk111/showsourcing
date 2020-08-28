@@ -28,7 +28,7 @@ export class TablePageComponent extends EntityTableComponent<Supplier> implement
 	}
 
 	ngOnInit() {
-		this.listSrv.setup('Product');
+		this.listSrv.setup('Product', this._destroy$);
 	}
 
 

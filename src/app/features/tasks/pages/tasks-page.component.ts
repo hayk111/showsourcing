@@ -7,6 +7,7 @@ import {
 } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -22,7 +23,7 @@ import { ListHelper2Service, ListPageViewService, SelectionService } from '~core
 		class: 'table-page'
 	}
 })
-export class TasksPageComponent implements OnInit {
+export class TasksPageComponent extends AutoUnsub implements OnInit {
 	public tableWidth: string;
 
 	erm = ERM;
@@ -45,11 +46,12 @@ export class TasksPageComponent implements OnInit {
 		public listHelper: ListHelper2Service,
 		public viewSrv: ListPageViewService<any>
 	) {
+		super();
 	}
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Task');
+		this.listHelper.setup('Task', this._destroy$);
 		this.viewSrv.setup({ typename: 'Task', destUrl: 'tasks', view: 'table' });
 	}
 
