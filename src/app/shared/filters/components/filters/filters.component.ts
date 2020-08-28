@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filter, FilterService, FilterType } from '~core/filters';
+import { Typename } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'filters-app',
@@ -10,6 +11,7 @@ export class FiltersComponent {
 	view: 'BTNS' | 'SELECTION' = 'BTNS';
 	@Input() filterTypes = [];
 	@Input() sidePanel = true;
+	@Input() typenameFiltered: Typename;
 	typeSelected: FilterType;
 
 	constructor(public filterSrv: FilterService) {}
