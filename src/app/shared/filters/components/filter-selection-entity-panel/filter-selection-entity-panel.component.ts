@@ -6,6 +6,7 @@ import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 import { AutoUnsub } from '~utils';
 import { Typename } from 'showsourcing-api-lib';
+import { SortService } from '~shared/table/services/sort.service';
 
 
 export function filterTypeToTypename(type: FilterType): Typename {
@@ -36,6 +37,7 @@ export function filterTypeToTypename(type: FilterType): Typename {
 	styleUrls: ['./filter-selection-entity-panel.component.scss'],
 	providers: [
 		FilterService,
+		SortService,
 		PropertyOptionsService,
 		ListHelper2Service,
 	]
@@ -68,7 +70,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 
 		if (this.typename === 'PropertyOption') {
 			this.filterSrv.setup([], ['value']);
-			this.propertyOptionSrv.setup(this.type as any);
+			this.propertyOptionSrv.setup(this.type.toUpperCase() as any, this._destroy$);
 			this.choices$ = this.propertyOptionSrv.data$;
 		} else {
 			this.filterSrv.setup([], ['name']);
