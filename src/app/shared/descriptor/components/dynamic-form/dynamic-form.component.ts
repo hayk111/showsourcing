@@ -94,18 +94,15 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			this.cd.markForCheck();
 		}
 	}
+
 	/**
-	 * Function to subscribe to the current form group changes, which will return a Subscrption
-	 * so we're able to keep it in @subscribeOnValueChanges array
-	 * @param  {FormGroup} formGroup
-	 * @returns Subscription
+	 * Function to call when form field value is updated
 	 */
 	onFormUpdate() {
 		const updatedFields = _.pickBy(this.formGroup.value, (val, key) => !!this.formGroup.value[key]);
 
 		Object.keys(updatedFields).forEach(key => {
 			if (key.toLowerCase().includes('id')) {
-				console.log('here', key, updatedFields);
 				updatedFields[key.slice(0, key.toLowerCase().indexOf('id'))] = updatedFields[key][key] || updatedFields[key]?.id;
 				delete updatedFields[key];
 			} else {

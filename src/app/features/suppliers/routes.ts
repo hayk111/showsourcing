@@ -14,10 +14,6 @@ export const routes: Array<Route> = [
 		component: Pages.TablePageComponent
 	},
 	{
-		path: 'board',
-		component: Pages.BoardPageComponent
-	},
-	{
 		path: ':id',
 		component: Pages.DetailsPageComponent,
 		children: [

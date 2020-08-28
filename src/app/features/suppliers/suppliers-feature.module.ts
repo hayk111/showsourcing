@@ -31,7 +31,6 @@ import { routes } from './routes';
 	],
 	declarations: [
 		Pages.TablePageComponent,
-		Pages.BoardPageComponent,
 		Pages.DetailsPageComponent,
 		DetailsPage.ProductsPageComponent,
 		DetailsPage.ActivityPageComponent,

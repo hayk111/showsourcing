@@ -72,29 +72,4 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 
 		return keys;
 	}
-
-	getGroupedValue(group) {
-		// const fieldSortyBy = this.sortSrv.currentSort.property;
-		// const fieldSortByTokens = fieldSortyBy.split('.');
-		// const field = fieldSortByTokens[0];
-		// let value = null;
-		// if (group && group.value.length > 0) {
-		// 	if (group.value[0]) {
-		// 		switch (field) {
-		// 			case 'favorite':
-		// 				value = group.value[0][field] ? 'Favorite' : 'Not Favorite';
-		// 				value = translate(value);
-		// 				break;
-		// 			case 'category':
-		// 			case 'supplier':
-		// 				value = group.value[0][field] ? group.value[0][field].value : null;
-		// 				break;
-		// 			default:
-		// 				// category value is picked by default title
-		// 				value = group.value[0]['category'] ? group.value[0]['category'].value : '';
-		// 				break;
-		// 		}
-		// 	}
-		// }
-	}
 }

@@ -93,10 +93,6 @@ export class TableComponent extends TrackingComponent {
 		super();
 	}
 
-	getRowDisplayCount() {
-		return this.rowDrawnTimes++;
-	}
-
 	getSelectionState(): SelectionState {
 		if (!this.rows || this.rows.length === 0)
 			return 'unchecked';

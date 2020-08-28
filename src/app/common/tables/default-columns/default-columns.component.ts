@@ -43,11 +43,6 @@ export class DefaultColumnsComponent {
 		this.logoClick.emit(row);
 	}
 
-	routerPath(row) {
-		// if (this.redirectOnNameClick)
-		// 	return (['/', this._getTypenameUrl(this.typename), row.id]);
-	}
-
 	_getTypenameUrl(typename) {
 		switch (typename) {
 			default:
@@ -56,9 +51,6 @@ export class DefaultColumnsComponent {
 	}
 
 	nameClicked(row) {
-		// if (this.redirectOnNameClick)
-		// 	return;
-
 		this.nameClick.emit(row);
 	}
 

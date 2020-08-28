@@ -66,25 +66,6 @@ export class TablePageComponent extends AutoUnsub implements OnInit, OnDestroy {
 		this.filterSrv.setup([], ['name']);
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
 		this.listHelper.setup('Product', this._destroy$);
-
-		// this.paginationSrv.pagination$
-		// 	.pipe(
-		// 		switchMap((pagination) => api.Product.find$({ pagination }).data$),
-		// 		// map((products: Product[]) => {
-		// 		// 	return products.map((product: any) => {
-		// 		// 		product.images = api.Image.findLocal({
-		// 		// 			filter: {
-		// 		// 				property: 'nodeId',
-		// 		// 				isString: 'Product:' + product.id
-		// 		// 			}
-		// 		// 		});
-		// 		// 		return product;
-		// 		// 	});
-		// 		// })
-		// 	).subscribe(data => {
-		// 		this.productsWithImages = data;
-		// 		this.cdr.markForCheck();
-		// 	});
 	}
 
 	addProject() {

@@ -75,7 +75,7 @@
 							[width]="370"
 							(update)="update($event.supplierId, 'supplier'); edtSupplier.close()">
 							<editable-value-app>
-								<div *ngIf="product?.supplier && (product?.supplier | json) != '{}'" class="supplier-container flex">
+								<div *ngIf="product?.supplier" class="supplier-container flex">
 									<logo-app
 										class="mg-right-s pointer"
 										typename="Supplier"
@@ -98,7 +98,7 @@
 						</selector-app>
 					</editable-value-app>
 				</editable-container-app>
-				<div *ngIf="product?.supplier && (product?.supplier | json) != '{}' && supplierSelectorHovered" class="eye-container">
+				<div *ngIf="product?.supplier && supplierSelectorHovered" class="eye-container">
 					<button class="eye-icon icon light">
 						<icon-app
 							size="20"

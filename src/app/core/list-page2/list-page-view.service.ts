@@ -51,7 +51,6 @@ export class ListPageViewService<T> {
 
 	/** Open details page of a product */
 	goToDetails(itemId: string) {
-		console.log('goToDetails -> itemId', itemId);
 		this.router.navigate(['/', this.destUrl, itemId]);
 	}
 

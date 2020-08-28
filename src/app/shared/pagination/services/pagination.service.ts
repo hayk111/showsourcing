@@ -17,9 +17,6 @@ export class PaginationService {
 
 	pagination$ = combineLatest(this.limit$, this.page$)
 		.pipe(
-			tap(pagination => {
-				console.log('PaginationService -> pagination', pagination);
-			}),
 			map(([limit, page]) => ({ limit, page })
 		));
 	/** the range of pages displayed, to display page buttons */
