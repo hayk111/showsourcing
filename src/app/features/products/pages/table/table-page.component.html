@@ -22,7 +22,7 @@
 
 <products-table-app
 	*ngIf="viewSrv.view === 'table'"
-	[rows]="listHelper.data$ | async"
+	[rows]="products$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"
@@ -62,7 +62,7 @@
 	(close)="viewSrv.closePreview()">
 	<details-page-app
 			*ngIf="viewSrv.previewOpen"
-			[product]="viewSrv.previewed" 
+			[product]="viewSrv.previewed"
 			[previewMode]="true"
 			(back)="viewSrv.closePreview()"></details-page-app>
 </preview-screen-app>
