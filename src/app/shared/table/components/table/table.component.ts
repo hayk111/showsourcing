@@ -1,12 +1,22 @@
-import { ChangeDetectionStrategy, Component, ContentChildren,
-	EventEmitter, Input, Output, QueryList, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChildren,
+	EventEmitter,
+	Input,
+	Output,
+	QueryList,
+	TemplateRef
+} from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
+import { SelectionService } from '~core/list-page2';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { ColumnDirective } from '~shared/table/components/column.directive';
+import { Sort } from '~shared/table/models/sort.interface';
 import { SortService } from '~shared/table/services/sort.service';
 import { TrackingComponent } from '~utils/tracking-component';
-import { Sort } from '~shared/table/models/sort.interface';
-import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { map } from 'rxjs/operators'
 
 // Here is a stackblitz with a smaller version of the tables to understand it more easily
 
@@ -18,8 +28,8 @@ import { PaginationService } from '~shared/pagination/services/pagination.servic
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.scrollable-y]': 'hasVerticalScroll',
-		'[class.pending]': 'pending'
-	}
+		'[class.pending]': 'pending',
+	},
 })
 export class TableComponent extends TrackingComponent {
 	/** whether the table is currently loading */
@@ -51,19 +61,11 @@ export class TableComponent extends TrackingComponent {
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */
 	@Input() idName = 'id';
-	/** maps of the <id, true> so we can access the items that are selected */
-	@Input() selected: Map<string, boolean> = new Map();
 	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
 	@Input() createEntityBtnName: string;
 	/** event when we click the create button on placeholder */
 	@Output() createClick = new EventEmitter<null>();
-	/** event when we select all rows */
-	@Output() selectAll = new EventEmitter<string[]>();
-	@Output() unselectAll = new EventEmitter<null>();
-	/** selecting one row with the checkbox */
-	@Output() selectOne = new EventEmitter<string>();
-	@Output() unselectOne = new EventEmitter<string>();
 	/** when we scroll down to the end of the table */
 	@Output() bottomReached = new EventEmitter<null>();
 	@Output() sort = new EventEmitter<Sort>();
@@ -79,16 +81,16 @@ export class TableComponent extends TrackingComponent {
 	rowDrawnTimes = 0;
 
 	/** whether specific rows are selectable or not */
-	@Input() isSelectable = (item) => true;
+	@Input() isSelectable = item => true;
 
 	cellTrackByFn = (columnName: string) => (index, cell) => {
-		return columnName + '-' + index ;
-	}
+		return columnName + '-' + index;
+	};
 
 	constructor(
 		public sortSrv: SortService,
 		public paginationSrv: PaginationService,
-		private cdr: ChangeDetectorRef
+		public selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -97,13 +99,12 @@ export class TableComponent extends TrackingComponent {
 		return this.rowDrawnTimes++;
 	}
 
-	getSelectionState(): SelectionState {
-		if (!this.rows || this.rows.length === 0)
-			return 'unchecked';
+	getSelectAllState(): SelectionState {
+		if (!this.rows || this.rows.length === 0) return 'unchecked';
 
-		if (this.selected.size === this.rows.length) {
+		if (this.selectionSrv.selection.size === this.rows.length) {
 			return 'selectedAll';
-		} else if (this.selected.size === 0) {
+		} else if (this.selectionSrv.selection.size === 0) {
 			return 'unchecked';
 		} else {
 			return 'selectedPartial';
@@ -111,25 +112,19 @@ export class TableComponent extends TrackingComponent {
 	}
 
 	onSelectOne(entity: any) {
-		this.selectOne.emit(entity);
+		this.selectionSrv.selectOne(entity);
 	}
 
 	onUnselectOne(entity: any) {
-		this.unselectOne.emit(entity);
+		this.selectionSrv.unselectOne(entity);
 	}
 
 	onSelectAll(rows: any[]) {
-		this.selectAll.emit(rows);
+		this.selectionSrv.selectAll(rows);
 	}
 
 	onUnselectAll() {
-		this.unselectAll.emit();
-	}
-
-	isAllSelected(): boolean {
-		if (!this.rows || this.rows.length === 0)
-			return false;
-		return this.selected.size === this.rows.length;
+		this.selectionSrv.unselectAll();
 	}
 
 	hoverRow(index: number) {
@@ -139,14 +134,8 @@ export class TableComponent extends TrackingComponent {
 		this.hovered.emit(idEmit);
 	}
 
-	isSelected(row) {
-		if (!this.hasSelection)
-			return false;
-
-		if (this.selected)
-			return this.selected.has(row.id);
-
-		throw Error(`Selection Input is undefined`);
+	isSelected$(row) {
+		// if (!this.hasSelection) return false;
+		return this.selectionSrv.selection$.pipe(map(selection => selection.has(row.id)));
 	}
-
 }

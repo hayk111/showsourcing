@@ -5,7 +5,6 @@ import { Product, Price } from '~core/erm3';
 import { updateProductPriceMOQ } from '~utils/price.utils';
 import { ListHelper2Service } from '~core/list-page2';
 import { config } from './config';
-import { TeamService } from '../../../core/auth/services/team.service';
 
 @Component({
 	selector: 'products-table-app',

@@ -18,7 +18,7 @@
       <div *ngIf="typename" class="capitalize entity-selected">
 				{{ 'OBJ.n-OBJ-selected' | translate: {
 					count: selectionSrv.selection.size,
-					entity: ('ERM.' + typename + (selectionSrv.selection.size === 1 ? '.singular' : '.plural') | translate) }
+					entity: ('ERM.' + typename.toUpperCase() + (selectionSrv.selection.size === 1 ? '.singular' : '.plural') | translate) }
 				}}
 				<!-- TODO change translationKey -->
 			</div>

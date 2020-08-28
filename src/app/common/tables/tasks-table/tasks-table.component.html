@@ -3,7 +3,6 @@
 	typename="Task"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
-	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
 	[hasHeader]="hasHeader"
 	[hasMenu]="hasMenu"
@@ -11,10 +10,6 @@
 	[hasPagination]="hasPagination"
 	[hasBorder]="hasBorder"
 	[placeholder]="'placeholder.no-task' | translate"
-	(selectOne)="select.emit($event)"
-	(unselectOne)="unselect.emit($event)"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit($event)"
 	(createClick)="createClick.emit()"
 	(bottomReached)="bottomReached.emit()">
 

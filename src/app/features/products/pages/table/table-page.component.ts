@@ -54,7 +54,6 @@ export class TablePageComponent extends AutoUnsub implements OnInit, OnDestroy {
 		public filterSrv: FilterService,
 		public listHelper: ListHelper2Service<Product>,
 		public viewSrv: ListPageViewService<Product>,
-		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
 		public ratingSrv: RatingService,
 		protected dlgSrv: DialogService

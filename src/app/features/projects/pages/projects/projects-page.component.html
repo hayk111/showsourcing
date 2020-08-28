@@ -17,12 +17,7 @@
 
 <projects-table-app
 	[rows]="listHelper.paginedItems$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
-	(selectOne)="selectionSrv.selectOne($event, true)"
-	(unselect)="selectionSrv.unselectOne($event, true)"
-	(selectAll)="selectionSrv.selectAll($event, true)"
-	(unselectAll)="selectionSrv.unselectAll()"
 	(createClick)="create()"
 	(update)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)">

@@ -16,13 +16,8 @@
 	[columns]="columns"
 	[pending]="pending"
 	[hasMenu]="false"
-	[selection]="selectionSrv.selection$ | async"
 	createEntityBtnName="Add Product"
 	(previewClick)="viewSrv.openPreview($event)"
-	(selectOne)="selectionSrv.selectOne($event, true)"
-	(unselect)="selectionSrv.unselectOne($event, true)"
-	(selectAll)="selectionSrv.selectAll($event, true)"
-	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="addProducts()"
 	(update)="updateProduct($event)"
@@ -35,16 +30,13 @@
 		cdk-scrollable
 		*ngIf="viewSrv.view === 'card'"
 		[rows]="listSrv.items$ | async"
-		[selection]="selectionSrv.selection$ | async"
 		(addToProject)="dialogCommonSrv.openAddToProjectDialog([$event])"
 		(bottomReached)="listSrv.loadMore()"
 		(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
 		(liked)="ratingSrv.onThumbUp($event)"
 		(open)="viewSrv.goToDetails($event)"
 		(previewClick)="viewSrv.openPreview($event)"
-		(selectOne)="selectionSrv.selectOne($event, true)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
-		(unselect)="selectionSrv.unselectOne($event, true)"
 		(update)="listSrv.update($event)">
 	</products-grid-app>
 
