@@ -24,6 +24,8 @@
 			<!-- docket card -->
 			<product-docket-app
 				[product]="product"
+				[tasks]="tasks$ | async"
+				[samples]="samples$ | async"
 				(update)="updateProduct($event)"
 				(addTask)="listHelper.openCreationDialog({ product: product.id }, 'Task')"
 				(addSample)="listHelper.openCreationDialog({ product: product.id }, 'Sample')"
@@ -50,9 +52,16 @@
 				(openProject)="openProjectDetails($event)"
 				(deleteProject)="dissociateProject($event)">
 			</project-list-card-app>
-
 		</div>
-		<product-main-app #main class="right" [product]="product" [section]="productMainSectionFragment"></product-main-app>
+		<product-main-app 
+			#main 
+			class="right" 
+			[product]="product"
+			[samples]="samples$ | async"
+			[tasks]="tasks$ | async"
+			[comments]="comments$ | async"
+			[section]="productMainSectionFragment"
+		></product-main-app>
 	</div>
 </ng-container>
 

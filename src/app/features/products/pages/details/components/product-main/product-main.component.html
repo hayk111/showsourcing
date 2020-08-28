@@ -6,17 +6,17 @@
 				icon="product" 
 				[name]="'nav.product-details' | translate" 
 				(click)="onRouteChange('info')"></nav-item-app>
-			<nav-item-app 
+			<nav-item-app
 				[active]="section === 'activity'"
 				icon="activity" 
 				[name]="'nav.comments' | translate" 
-				[badgeContent]="commentCount$ | async"
+				[badgeContent]="comments?.length"
 				(click)="onRouteChange('activity')"></nav-item-app>
 			<nav-item-app
 				[active]="section === 'samples'"
 				icon="sample" 
 				[name]="'nav.samples' | translate"
-				[badgeContent]="sampleCount$ | async"
+				[badgeContent]="samples?.length"
 				(click)="onRouteChange('samples')"></nav-item-app>
 			<nav-item-app
 				[active]="section === 'files'"
@@ -29,7 +29,7 @@
 				[active]="section === 'tasks'"
 				icon="check-circle" 
 				[name]="'nav.tasks' | translate" 
-				[badgeContent]="taskCount$ | async"
+				[badgeContent]="tasks?.length"
 				(click)="onRouteChange('tasks')"></nav-item-app>
 			<nav-item-app
 				[active]="section === 'requests'"
@@ -45,13 +45,13 @@
 			<activity-page-app></activity-page-app>
 		</ng-container>
 		<ng-container *ngSwitchCase="'samples'">
-			<samples-page-app></samples-page-app>
+			<samples-page-app [samples]="samples"></samples-page-app>
 		</ng-container>
 		<ng-container *ngSwitchCase="'files'">
 			<files-page-app></files-page-app>
 		</ng-container>
 		<ng-container *ngSwitchCase="'tasks'">
-			<tasks-page-app></tasks-page-app>
+			<tasks-page-app [tasks]="tasks"></tasks-page-app>
 		</ng-container>
 		<ng-container *ngSwitchCase="'requests'">
 			<!-- <requests-page-sup></requests-page-sup> -->

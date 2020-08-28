@@ -43,7 +43,7 @@
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
 		<task-catalog-app
-			[tasks]="productTasks$ | async"
+			[tasks]="tasks"
 			(taskClicked)="previewTask.emit($event)"
 			(showMore)="goToTasks.emit()">
 		</task-catalog-app>
@@ -56,7 +56,7 @@
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addSample.emit()" translate="button.add"></div>
 		</div>
 		<sample-catalog-app
-			[samples]="productSamples$ | async"
+			[samples]="samples"
 			(sampleClicked)="previewSample.emit($event)"
 			(showMore)="goToSamples.emit()">
 		</sample-catalog-app>

@@ -18,7 +18,7 @@ import { input } from 'aws-amplify';
 			state('false', style({
 				right: '-95%',
 			})),
-			transition('* => *', animate('500ms')),
+			transition('* => *', animate('400ms')),
 		]),
 	],
 })
@@ -61,6 +61,6 @@ export class PreviewScreenComponent extends TrackingComponent {
 			if (!this.animationPending && !this.opened) { // for the closed case
 				this.cdr.detectChanges();
 			}
-		}, 600);
+		}, 550);
 	}
 }

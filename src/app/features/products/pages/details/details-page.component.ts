@@ -45,6 +45,10 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	productProjects: (ProjectProduct | string)[];
 	projects: Project[] | undefined;
 
+	samples$: Observable<Sample[]>;
+	tasks$: Observable<Task[]>;
+	comments$: Observable<Comment[]>;
+
 	_productRemoved = false;
 
 	teamVotes$: Observable<Vote[]>;
@@ -70,8 +74,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		if (!!this.product) { // for the previews
-			this.onProduct(this.product);
-
 			api.Product
 				 .get$(this.product.id)
 				 .data$
@@ -79,6 +81,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 					 takeUntil(this._destroy$),
 					 tap(product => this.productId = product?.id),
 					 map((product: any) => this.assignImagesToProduct(product)),
+					 tap(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
+					 tap(_ => this.tasks$ = api.Sample.findByProduct$(this.productId).data$),
+					 tap(_ => this.comments$ = api.Comment.findByNodeId$('Product:' + this.productId).data$ as any),
 				 )
 				 .subscribe(
 					product => this.onProduct(product),
@@ -94,6 +99,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 						return this.assignImagesToProduct(product);
 					}
 				}),
+				tap(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
+				tap(_ => this.tasks$ = api.Sample.findByProduct$(this.productId).data$),
+				tap(_ => this.comments$ = api.Comment.findByNodeId$('Product:' + this.productId).data$ as any),
 				takeUntil(this._destroy$),
 			).subscribe(
 				product => this.onProduct(product),
@@ -118,6 +126,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	private onProduct(product) {
+		api.Comment.findByNodeId$('Product:' + this.productId).data$.subscribe(comments => {
+			console.log('DetailsPageComponent -> onProduct -> comments', comments);
+		});
 		if (!product && !this._productRemoved) {
 			this.toastSrv.add({
 				type: ToastType.ERROR,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
@@ -10,6 +10,7 @@ import { ListHelper2Service } from '~core/list-page2/list-helper-2.service';
 import { TrackingComponent } from '~utils/tracking-component';
 import { api } from 'showsourcing-api-lib';
 import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
+import { Sample } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'samples-page-app',
@@ -23,8 +24,8 @@ import { AutoUnsub } from '../../../../../utils/auto-unsub.component';
 	]
 })
 export class SamplesPageComponent extends AutoUnsub implements OnInit {
-	private productId: string;
-	product: Product;
+	@Input() samples: Sample[];
+	productId: string;
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -39,13 +40,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		super();
 	}
 	ngOnInit() {
-		this.productId = this.route.snapshot?.params?.id ||
-			this.location.path().split('/').find((val: string) => isUuid(val));
-		this.product = { id: this.productId };
-		this.listHelper.setup(
-			'Sample',
-			this._destroy$,
-			(options) => api.Sample.findByProduct$(this.productId)
-		);
+		this.productId = this.route.snapshot?.params?.id || this.location.path().split('/').find((val: string) => isUuid(val));
 	}
 }

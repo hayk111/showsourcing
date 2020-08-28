@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
@@ -7,6 +7,7 @@ import { isUuid } from '~utils/uuid.utils';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { api } from 'showsourcing-api-lib';
+import { Task } from '~core/erm3';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -22,6 +23,7 @@ import { api } from 'showsourcing-api-lib';
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit {
 	productId: string;
+	@Input() tasks: Task[];
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -38,10 +40,6 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.productId = this.route.snapshot?.params?.id || this.location.path().split('/').find((val: string) => isUuid(val));
-		this.listHelper.setup(
-			'Task',
-			this._destroy$,
-			(options) => api.Task.findByProduct$(this.productId)
-		);
+		console.log('TasksPageComponent -> ngOnInit -> this.productId', this.productId);
 	}
 }
