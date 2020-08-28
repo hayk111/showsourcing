@@ -7,6 +7,7 @@ import { PropertyOptionsService } from '~shared/selectors/services/property-opti
 import { AutoUnsub } from '~utils';
 import { Typename } from 'showsourcing-api-lib';
 import { SortService } from '~shared/table/services/sort.service';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 
 export function filterTypeToTypename(type: FilterType): Typename {
@@ -40,6 +41,7 @@ export function filterTypeToTypename(type: FilterType): Typename {
 		SortService,
 		PropertyOptionsService,
 		ListHelper2Service,
+		PaginationService
 	]
 })
 export class FilterSelectionEntityPanelComponent extends AutoUnsub implements OnInit {
@@ -74,7 +76,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			this.choices$ = this.propertyOptionSrv.data$;
 		} else {
 			this.filterSrv.setup([], ['name']);
-			this.listHelper.setup(this.typename);
+			this.listHelper.setup(this.typename, this._destroy$);
 			this.choices$ = this.listHelper.data$;
 		}
 	}

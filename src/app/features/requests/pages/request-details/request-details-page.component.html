@@ -31,15 +31,11 @@
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
-					[selection]="selectionSrv.selection$ | async"
 					(openReviewRequestReply)="openReviewRequestReply($event)"
 					(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
 					(cancelReply)="cancelReply($event)"
 					(bottomReached)="listSrv.loadMore()"
-					(selectOne)="selectionSrv.selectOne($event)"
-					(selectAll)="selectionSrv.selectAll($event)"
-					(unselect)="selectionSrv.unselectOne($event)"
-					(unselectAll)="selectionSrv.unselectAll()">
+				>
 				</request-elements-table-app>
 		</card-app>
 	</div>

@@ -8,12 +8,14 @@ import { ListHelper2Service, ListPageViewService, SelectionService } from '~core
 import { DialogService } from '~shared/dialog';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { SortService } from '~shared/table/services/sort.service';
 
 @Component({
 	selector: 'table-page-app',
 	templateUrl: './table-page.component.html',
 	styleUrls: ['./table-page.component.scss'],
-	providers: [ListHelper2Service, ListPageViewService, FilterService, SelectionService],
+	providers: [ListHelper2Service, ListPageViewService, FilterService, SortService, SelectionService, PaginationService],
 	host: {
 		class: 'table-page',
 	},

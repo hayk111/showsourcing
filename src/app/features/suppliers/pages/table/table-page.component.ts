@@ -6,6 +6,7 @@ import { ListHelper2Service, ListPageViewService, SelectionService } from '~core
 import { FilterType } from '~shared/filters';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
+import { AutoUnsub } from '~utils';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -21,13 +22,15 @@ import { SortService } from '~shared/table/services/sort.service';
 		ListHelper2Service,
 		ListPageViewService,
 		FilterService,
+		SortService,
+		PaginationService,
 		SelectionService
 	],
 	host: {
 		class: 'table-page'
 	}
 })
-export class TablePageComponent implements OnInit {
+export class TablePageComponent extends AutoUnsub implements OnInit {
 
 
 	filterTypes = [
@@ -48,11 +51,13 @@ export class TablePageComponent implements OnInit {
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<any>,
 		public selectionSrv: SelectionService
-	) { }
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Supplier');
+		this.listHelper.setup('Supplier', this._destroy$);
 		this.viewSrv.setup({ typename: 'Supplier', destUrl: 'suppliers', view: 'table' });
 	}
 
