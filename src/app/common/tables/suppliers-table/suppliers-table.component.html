@@ -4,7 +4,6 @@
 	[rows]="rows"
   [pending]="pending"
 	[isSeaching]="isFiltering"
-	[selected]="selection"
 	[hasMenu]="hasMenu"
   [hasHeader]="hasHeader"
 	[hasPagination]="hasPagination"
@@ -12,10 +11,6 @@
 	[hasBorder]="hasBorder"
   [contextualMenu]="contextualMenuTemplate"
   (bottomReached)="bottomReached.emit()"
-  (selectOne)="select.emit($event)"
-  (unselectOne)="unselect.emit($event)"
-  (selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
 	(hovered)="hovered = $event">
 

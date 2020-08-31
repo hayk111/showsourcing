@@ -3,7 +3,6 @@
 	typename="Sample"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
-	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
 	[hasPagination]="hasPagination"
 	[hasSelection]="hasSelection"
@@ -12,10 +11,6 @@
 	[hasBorder]="hasBorder"
 	[placeholder]="'placeholder.no-sample' | translate"
 	[rowHeight]="rowHeight"
-	(selectOne)="select.emit($event)"
-	(unselectOne)="unselect.emit($event)"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(createClick)="createClick.emit()">
 

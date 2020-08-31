@@ -43,17 +43,12 @@
 <list-management-table-app
 	class="spacing-ms"
 	[rows]="listHelper.paginedItems$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	[isFiltering]="listHelper.pending$ | async"
 	[typename]="typename"
 	(renameEntity)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)"
-	(selectOne)="selectionSrv.selectOne($event, false)"
-	(unselect)="selectionSrv.unselectOne($event, false)"
-	(selectAll)="selectionSrv.selectAll($event, false)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(unselectAll)="selectionSrv.unselectAll()"
 	(createClick)="listHelper.openCreationDialog()"
 >
 </list-management-table-app>

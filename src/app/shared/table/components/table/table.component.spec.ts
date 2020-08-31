@@ -30,7 +30,6 @@ class Item {
 			[rows]="rows"
 			[pending]="pending"
 			[hasSelection]="hasSelection"
-			[selected]="selection"
 			[contextualMenu]="contextualMenuTemplate"
 			[hasPagination]="hasPagination"
 			[total]="total"
@@ -38,10 +37,6 @@ class Item {
 			(next)="next.emit()"
 			(previous)="previous.emit()"
 			(goToPage)="goToPage.emit($event)"
-			(selectOne)="select.emit($event)"
-			(unselectOne)="unselect.emit($event)"
-			(selectAll)="selectAll.emit($event)"
-			(unselectAll)="unselectAll.emit($event)"
 			(bottomReached)="bottomReached.emit()"
 			(sort)="sort.emit($event)">
 			<!-- name -->

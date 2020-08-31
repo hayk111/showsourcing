@@ -11,15 +11,11 @@
 	[hasBorder]="hasBorder"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
-	[selected]="selection"
 	[placeholder]="'placeholder.no-requests' | translate"
 	[contextualMenu]="contextualMenuTemplate"
 	(bottomReached)="bottomReached.emit()"
-	(selectAll)="selectAll.emit($event)"
-	(selectOne)="select.emit($event)"
 	(createClick)="createClick.emit()"
-	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)">
+>
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">

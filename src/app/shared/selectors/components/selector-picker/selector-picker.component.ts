@@ -139,7 +139,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.choices = choices.filter((choice: any) => choice?.name !== this.value);
 			} else {
 				this.propertyOptionSrv.setup(
-					this.typename === 'PropertyOption' ? (this.customType.toUpperCase() as Typename) : 'TAG',
+					this.typename === 'PropertyOption' ? this.customType.toUpperCase() : 'TAG',
 					this._destroy$
 				);
 				this.choices$ = combineLatest(this.propertyOptionSrv.data$, this._valueUpdated$)

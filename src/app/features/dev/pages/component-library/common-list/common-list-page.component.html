@@ -12,9 +12,7 @@
 	<products-table-app
 	[pending]="pending"
 	[rows]="products"
-	[selection]="productSelectionSrv.selection"
-	(selectAll)="productSelectionSrv.selectAll(products)"
-	(unselectAll)="productSelectionSrv.unselectAll()"></products-table-app>
+	></products-table-app>
 </card-app>
 
 <card-app class="ex">
@@ -24,7 +22,6 @@
 		[hasPagination]="false"
 		[pending]="pending"
 		[rows]="products"
-		[selection]="productSelectionSrv.selection"
 		[columns]="[ 'reference', 'supplier']"
 		(selectAll)="productSelectionSrv.selectAll(products)"
 		(unselectAll)="productSelectionSrv.unselectAll()"></products-table-app>
@@ -36,7 +33,5 @@
 	<suppliers-table-app
 		[pending]="pending"
 		[rows]="suppliers"
-		[selection]="supplierSelectionSrv.selection"
-		(selectAll)="supplierSelectionSrv.selectAll(suppliers)"
-		(unselectAll)="supplierSelectionSrv.unselectAll()"></suppliers-table-app>
+		></suppliers-table-app>
 </card-app>

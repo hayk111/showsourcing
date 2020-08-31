@@ -3,13 +3,8 @@
 	[rows]="rows"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
-	[selected]="selection"
 	[hasMenu]="false"
 	[placeholder]="'placeholder.no-data' | translate"
-	(selectOne)="select.emit($event)"
-	(unselectOne)="unselect.emit($event)"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(createClick)="createClick.emit()">

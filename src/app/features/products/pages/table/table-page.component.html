@@ -22,18 +22,13 @@
 
 <products-table-app
 	*ngIf="viewSrv.view === 'table'"
-	[rows]="listHelper.data$ | async"
+	[rows]="products$ | async"
 	[pending]="listHelper.pending$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	[hasMenu]="true"
 	(open)="viewSrv.goToDetails($event?.id)"
 	(createClick)="listHelper.openCreationDialog()"
-	(update)="listHelper.update($event, 'Product')"
 	(previewClick)="viewSrv.openPreview($event)"
-	(selectOne)="selectionSrv.selectOne($event)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselect)="selectionSrv.unselectOne($event)"
-	(delete)="listHelper.openDeletionDialog($event?.id)">
+>
 </products-table-app>
 
 <products-grid-app
@@ -42,14 +37,11 @@
 	class="card-view will-change-scroll"
 	infiniScroll
 	[rows]="listHelper.data$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	(addToProject)="addToProject($event)"
 	(disliked)="ratingSrv.onThumbDown($event)"
 	(liked)="ratingSrv.onThumbUp($event)"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
-	(selectOne)="selectionSrv.selectOne($event, true)"
-	(unselect)="selectionSrv.unselectOne($event, true)"
 	(update)="listHelper.update($event)"
 	(bottomReached)="listHelper.loadMore()"
 >
@@ -62,7 +54,7 @@
 	(close)="viewSrv.closePreview()">
 	<details-page-app
 			*ngIf="viewSrv.previewOpen"
-			[product]="viewSrv.previewed" 
+			[product]="viewSrv.previewed"
 			[previewMode]="true"
 			(back)="viewSrv.closePreview()"></details-page-app>
 </preview-screen-app>
@@ -77,6 +69,8 @@
 	<filters-app
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
-		(close)="viewSrv.closeFilterPanel()">
+		(close)="viewSrv.closeFilterPanel()"
+		typenameFiltered="Product"
+	>
 	</filters-app>
 </side-panel-app>

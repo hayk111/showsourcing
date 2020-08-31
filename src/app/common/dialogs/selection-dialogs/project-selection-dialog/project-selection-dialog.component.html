@@ -17,13 +17,8 @@
 			[hasMenu]="false"
 			[hasPagination]="false"
 			[navigation]="false"
-			[selection]="selectionSrv.selection$ | async"
 			[rows]="listHelper.data$ | async"
 			[pending]="listHelper.pending$ | async"
-			(selectAll)="selectionSrv.selectAll($event)"
-			(unselect)="selectionSrv.unselectOne($event)"
-			(unselectAll)="selectionSrv.unselectAll()"
-			(selectOne)="selectionSrv.selectOne($event)"
 			(update)="listHelper.update($event)"
 			(delete)="listHelper.delete($event)">
 		</projects-table-app>

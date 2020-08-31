@@ -29,11 +29,12 @@
 	</div>
 
 	<filter-selection-entity-panel-app
-		*ngIf="view === 'SELECTION'"
     [type]="typeSelected"
     [selected]="filterSrv.getValuesForType(typeSelected)"
     (filterAdded)="addFilter($event)"
-    (filterRemoved)="removeFilter($event)">
+		(filterRemoved)="removeFilter($event)"
+		[typenameFiltered]="typenameFiltered"
+	>
   </filter-selection-entity-panel-app>
 </ng-container>
 

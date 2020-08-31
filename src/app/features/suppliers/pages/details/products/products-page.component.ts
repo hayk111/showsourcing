@@ -28,7 +28,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		FilterType.FAVORITE,
 		FilterType.STATUS,
 		FilterType.PROJECTS,
-		FilterType.TAGS
+		FilterType.TAG
 	];
 
 	constructor(

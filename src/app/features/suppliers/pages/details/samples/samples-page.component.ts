@@ -4,6 +4,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { Supplier } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'samples-page-app',
@@ -18,7 +19,7 @@ import { ListHelper2Service, ListPageViewService, SelectionService } from '~core
 	],
 	host: { class: 'table-page' }
 })
-export class SamplesPageComponent implements OnInit {
+export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	filterTypes = [FilterType.PRODUCT, FilterType.STATUS];
 	supplier: Supplier;
 
@@ -29,12 +30,14 @@ export class SamplesPageComponent implements OnInit {
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public filterSrv: FilterService
-	) { }
+	) {
+		super()
+	}
 
 	ngOnInit() {
 		const supplierId = this.route.parent.snapshot.params.id;
 		this.supplier = { id: supplierId };
 		this.filterSrv.setup([{ type: FilterType.SUPPLIER, value: supplierId }]);
-		this.listHelper.setup('Sample');
+		this.listHelper.setup('Sample', this._destroy$);
 	}
 }

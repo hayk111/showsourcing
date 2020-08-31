@@ -4,17 +4,12 @@
 	typename="Project"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
-	[selected]="selection"
 	[hasPagination]="hasPagination"
 	[hasShowItemsPerPage]="hasShowItemsPerPage"
 	[hasMenu]="hasMenu"
 	[hasBorder]="hasBorder"
 	[contextualMenu]="contextualMenuTemplate"
 	[placeholder]="'placeholder.no-project' | translate"
-	(selectOne)="select.emit($event)"
-	(unselectOne)="unselect.emit($event)"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(createClick)="createClick.emit()">
 

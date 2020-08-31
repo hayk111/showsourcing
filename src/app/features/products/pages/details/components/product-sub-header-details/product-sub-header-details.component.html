@@ -1,9 +1,5 @@
 <div class="flex container flexWrap">
-	<carousel-app
-		[nodeId]="'Product:' + product?.id"
-		[hasPreview]="true"
-		(uploaded)="updated.emit()">
-	</carousel-app>
+	<carousel-app [nodeId]="'Product:' + product?.id" [hasPreview]="true"> </carousel-app>
 
 	<div class="flexColumn product-info">
 		<!-- name -->
@@ -14,10 +10,9 @@
 				[hideOnOpen]="true"
 				[isFullWidth]="false"
 				(opened)="inpName.select()"
-				(closed)="update(inpName.value, 'name')">
-				<editable-value-app 
-					class="ellipsis bold-s color-txt-primary fs-xxxl" 
-					[primary]="true">
+				(closed)="update(inpName.value, 'name')"
+			>
+				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxl" [primary]="true">
 					{{ product?.name || '-' }}
 				</editable-value-app>
 				<input
@@ -26,19 +21,27 @@
 					#inpName
 					type="text"
 					[value]="product?.name"
-					(keyup.enter)="edtName.close()"/>
+					(keyup.enter)="edtName.close()"
+				/>
 			</editable-container-app>
 			<!-- badges -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
-				<rating-badge-app 
-					class="pointer"	
-					[score]="product?.score" 
-					[hasNumber]="true" 
-					(click)="ratingClicked.emit()">
+				<rating-badge-app
+					class="pointer"
+					[score]="product?.score"
+					[hasNumber]="true"
+					(click)="ratingClicked.emit()"
+				>
 				</rating-badge-app>
-				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ getCount(samplesCount$ | async, 'Sample') }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ getCount(tasksCount$ | async, 'Task') }}</div>
-				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ getCount(commentsCount$ | async, 'Comment') }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">
+					{{ getCount(samplesCount$ | async, 'Sample') }}
+				</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">
+					{{ getCount(tasksCount$ | async, 'Task') }}
+				</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">
+					{{ getCount(commentsCount$ | async, 'Comment') }}
+				</div>
 			</div>
 		</div>
 
@@ -46,23 +49,26 @@
 		<section>
 			<price-with-quantity-app
 				[price]="product?.propertiesMap?.price"
-				(updateField)="updatePriceMoq($event.newValue, $event.field)">
+				(updateField)="updatePriceMoq($event.newValue, $event.field)"
+			>
 			</price-with-quantity-app>
 		</section>
 
 		<!-- supplier -->
 		<section>
 			<h3 class="section-title">supplier</h3>
-			<div 
+			<div
 				class="flexVAlign supplier-section"
-				(mouseenter) ="supplierSelectorHovered = true"
-				(mouseleave) ="supplierSelectorHovered = false">
+				(mouseenter)="supplierSelectorHovered = true"
+				(mouseleave)="supplierSelectorHovered = false"
+			>
 				<editable-container-app
 					#edtSupplier
 					class="supplier-editable hover-with-padding"
 					[hasAction]="false"
 					[isOpen]="supplierSelector?.menuOpen"
-					(click)="supplierSelector?.openMenu($event, true)">
+					(click)="supplierSelector?.openMenu($event, true)"
+				>
 					<editable-value-app>
 						<!-- Put this inside a component has a unique style tho -->
 						<selector-app
@@ -73,16 +79,20 @@
 							[extraOffset]="{ offsetX: 0, offsetY: 35 }"
 							[leftSideOrientation]="true"
 							[width]="370"
-							(update)="update($event.supplierId, 'supplier'); edtSupplier.close()">
+							(update)="update($event.supplierId, 'supplier'); edtSupplier.close()"
+						>
 							<editable-value-app>
 								<div *ngIf="product?.supplier" class="supplier-container flex">
 									<logo-app
 										class="mg-right-s pointer"
 										typename="Supplier"
-										[logo]="product?.supplier?.logoImage">
+										[logo]="product?.supplier?.logoImage"
+									>
 									</logo-app>
 									<div class="supplier-info">
-										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ product?.supplier?.name }}</span>
+										<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{
+											product?.supplier?.name
+										}}</span>
 										<div class="flex dot-separator">
 											<div *ngIf="product?.supplier?.propertiesMap?.supplierType">
 												{{ product?.supplier?.propertiesMap?.supplierType }}
@@ -90,7 +100,10 @@
 											<div *ngIf="product?.supplier?.propertiesMap?.country">
 												{{ product?.supplier?.propertiesMap?.country | const: 'country' }}
 											</div>
-											<rating-badge-app	[score]="product?.supplier?.score" [activeColor]="'primary'"></rating-badge-app>
+											<rating-badge-app
+												[score]="product?.supplier?.score"
+												[activeColor]="'primary'"
+											></rating-badge-app>
 										</div>
 									</div>
 								</div>
@@ -103,8 +116,13 @@
 						<icon-app
 							size="20"
 							name="eye"
-							toolTip [toolTipMessage]="'text.open-supplier' | translate" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
-							(click)="onOpenSupplier(product?.supplier, $event)">
+							toolTip
+							[toolTipMessage]="'text.open-supplier' | translate"
+							toolTipPosition="above-left"
+							[offsetX]="-15"
+							[offsetY]="-7"
+							(click)="onOpenSupplier(product?.supplier, $event)"
+						>
 						</icon-app>
 					</button>
 				</div>
@@ -121,7 +139,8 @@
 				[hoverLight]="true"
 				[value]="product?.category"
 				[leftSideOrientation]="true"
-				(update)="update($event.categoryId, 'category')">
+				(update)="update($event.categoryId, 'category')"
+			>
 			</badge-selector-app>
 		</section>
 
@@ -131,20 +150,21 @@
 			<input-description-app
 				[description]="product?.propertiesMap?.description"
 				[hoverLight]="true"
-				(update)="update({ description: $event }, 'propertiesMap')">
+				(update)="update({ description: $event }, 'propertiesMap')"
+			>
 			</input-description-app>
 		</section>
 
-	<!-- tags -->
-	<section>
-		<h3 class="section-title">tags</h3>
-		<input-badge-selector-app
-			[entityId]="product?.id"
-			[value]="productTags"
-			typename="ProductTag"
-			(change)="update($event, 'tags')">
-		</input-badge-selector-app>
-	</section>
-
+		<!-- tags -->
+		<section>
+			<h3 class="section-title">tags</h3>
+			<input-badge-selector-app
+				[entityId]="product?.id"
+				[value]="productTags"
+				typename="ProductTag"
+				(change)="update($event, 'tags')"
+			>
+			</input-badge-selector-app>
+		</section>
 	</div>
 </div>

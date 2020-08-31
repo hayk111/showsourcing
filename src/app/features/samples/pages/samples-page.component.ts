@@ -62,7 +62,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Sample');
+		this.listHelper.setup('Sample', this._destroy$);
 	}
 
 	// toggleMyProducts(show: boolean) {
