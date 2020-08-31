@@ -133,10 +133,11 @@ export class FilterService {
 	/** returns the number of added filter above the start filters */
 	getFilterAmount() {
 		return this.filters.filter(
-			fil =>
-				!this.startFilters.some(
+			fil => {
+			return	!this.startFilters.some(
 					startFil => startFil.type === fil.type && startFil.value === fil.value
-				)
+				) || fil.type !== FilterType.ID;
+			}
 		).length;
 	}
 
