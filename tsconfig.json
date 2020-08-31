@@ -8,7 +8,8 @@
     "moduleResolution": "node",
 		"resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
     "target": "es2019",
     "baseUrl": "./src/",
     "typeRoots": [

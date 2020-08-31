@@ -126,9 +126,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	private onProduct(product) {
-		api.Comment.findByNodeId$('Product:' + this.productId).data$.subscribe(comments => {
-			console.log('DetailsPageComponent -> onProduct -> comments', comments);
-		});
 		if (!product && !this._productRemoved) {
 			this.toastSrv.add({
 				type: ToastType.ERROR,

@@ -101,7 +101,6 @@ export class ListHelper2Service<G = any> {
 			})
 			.data$.pipe(
 				switchMap(entity => {
-					debugger;
 					return api[typename].create([{ ...entity, ...addedProperties }]).local$;
 				})
 			)

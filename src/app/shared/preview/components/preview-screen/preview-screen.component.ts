@@ -58,7 +58,7 @@ export class PreviewScreenComponent extends TrackingComponent {
 		setTimeout(() => {
 			this.animationPending = false;
 
-			if (!this.animationPending && !this.opened) { // for the closed case
+			if (!this.opened) { // for the closed case
 				this.cdr.detectChanges();
 			}
 		}, 550);
