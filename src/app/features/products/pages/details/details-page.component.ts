@@ -82,7 +82,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 					 tap(product => this.productId = product?.id),
 					 map((product: any) => this.assignImagesToProduct(product)),
 					 tap(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
-					 tap(_ => this.tasks$ = api.Sample.findByProduct$(this.productId).data$),
+					 tap(_ => this.tasks$ = api.Task.findByProduct$(this.productId).data$),
 					 tap(_ => this.comments$ = api.Comment.findByNodeId$('Product:' + this.productId).data$ as any),
 				 )
 				 .subscribe(
@@ -100,7 +100,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 					}
 				}),
 				tap(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
-				tap(_ => this.tasks$ = api.Sample.findByProduct$(this.productId).data$),
+				tap(_ => this.tasks$ = api.Task.findByProduct$(this.productId).data$),
 				tap(_ => this.comments$ = api.Comment.findByNodeId$('Product:' + this.productId).data$ as any),
 				takeUntil(this._destroy$),
 			).subscribe(

@@ -26,7 +26,7 @@
 				<button
 					*ngIf="size > 0"
 					class="warn capitalize"
-					(click)="listHelper.deleteSelected(size === 1 ? 'message.confirm-delete-sample' : 'message.confirm-delete-samples')"
+					(click)="listHelper.deleteSelected(size === 1 ? 'message.confirm-delete-sample' : 'message.confirm-delete-samples', 'Sample')"
 					translate="button.delete">
 				</button>
 			</ng-container>
