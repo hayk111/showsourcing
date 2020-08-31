@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { isUuid } from '~utils/uuid.utils';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap, map, first } from 'rxjs/operators';
+import { switchMap, takeUntil, tap, map, skip } from 'rxjs/operators';
 import { productDetailsDescriptorMock, shippingPackagingDescriptorMock } from './descriptors';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
@@ -38,6 +38,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 			this.location.path().split('/').find((val: string) => isUuid(val));
 		this.product$ = api.Product.get$(productId).data$
 			.pipe(
+				skip(1),
 				takeUntil(this._destroy$),
 				tap(product => {
 					this.product = product;
