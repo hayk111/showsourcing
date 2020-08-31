@@ -41,7 +41,7 @@ export class ProductsPageComponent extends AutoUnsub
 		FilterType.EVENT,
 		FilterType.CATEGORY,
 		FilterType.STATUS,
-		FilterType.TAGS,
+		FilterType.TAG,
 		FilterType.ARCHIVED,
 		FilterType.FAVORITE
 	];

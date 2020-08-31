@@ -28,7 +28,7 @@ export class TablePageComponent extends AutoUnsub implements OnInit, OnDestroy {
 		FilterType.PROJECT,
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
-		FilterType.TAGS,
+		FilterType.TAG,
 		FilterType.STATUS,
 		FilterType.ARCHIVED,
 		FilterType.FAVORITE,

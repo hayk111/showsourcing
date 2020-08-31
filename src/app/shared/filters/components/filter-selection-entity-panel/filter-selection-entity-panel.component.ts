@@ -15,7 +15,7 @@ export function filterTypeToTypename(type: FilterType): Typename {
 		case FilterType.ASSIGNEE:
 		case FilterType.CREATED_BY:
 			return 'TeamUser';
-		case FilterType.TAGS:
+		// case FilterType.TAGS:
 		case FilterType.TAG:
 		case FilterType.CATEGORY:
 		case FilterType.CATEGORIES:
@@ -70,11 +70,6 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	}
 
 	ngOnInit(): void {
-		// The FilterType should not use the type to display on ui and to filter on properties
-		if (this.type === 'tags') {
-			this.type = FilterType.TAG;
-		}
-
 		this.typename = filterTypeToTypename(this.type);
 		const findFn = this.getCustomFindFn();
 		const searchedFields = this.getSearchedFields();

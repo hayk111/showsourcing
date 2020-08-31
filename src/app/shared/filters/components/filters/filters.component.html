@@ -29,7 +29,6 @@
 	</div>
 
 	<filter-selection-entity-panel-app
-		*ngIf="view === 'SELECTION'"
     [type]="typeSelected"
     [selected]="filterSrv.getValuesForType(typeSelected)"
     (filterAdded)="addFilter($event)"
