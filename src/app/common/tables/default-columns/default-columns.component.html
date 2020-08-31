@@ -5,7 +5,7 @@
 		<logo-app
 			class="pointer"
 			size="s"
-			[logo]="row.images && (row.images | firstImage)"
+			[logo]="row?.images && (row?.images | firstImage)"
 			[color]="logoColor"
 			[typename]="typename"
 			(click)="onLogoClick(row)">
@@ -18,7 +18,7 @@
 		<!-- we tried to handle it by MouseEvent via (mousedown) (since click or auxclick didnt detect middle mouse button), but it kept redirecting to the new tab, this way it works (its ugly)  -->
 		<!-- TLDR; by us handling the event ourselves we lose all the advantages provided by the navigator for links (right click, left click, ctrl click, etc) -->
 		<a [routerLink]="routerPath(row)" (click)="nameClicked(row)" class="txt-btn ellipsis">
-			{{ row.name || '-' }}
+			{{ row?.name || '-' }}
 		</a>
 	</ng-container>
 
@@ -26,7 +26,7 @@
 	<!-- Not used anymore for product. To see for others -->
 	<!-- <ng-container *ngSwitchCase="'reference'">
 		<span [routerLink]="routerPath(row)" (click)="nameClicked(row)" class="txt-btn ellipsis">
-			{{ row.reference || '-' }}
+			{{ row?.reference || '-' }}
 		</span>
 	</ng-container> -->
 
@@ -41,8 +41,8 @@
 	<ng-container *ngSwitchCase="'favorite'">
 		<rating-heart-app
 			[favorite]="row?.favorite"
-			(favorited)="update.emit({ id: row.id, favorite: true })"
-			(unfavorited)="update.emit({ id: row.id, favorite: false })">
+			(favorited)="update.emit({ id: row?.id, favorite: true })"
+			(unfavorited)="update.emit({ id: row?.id, favorite: false })">
 		</rating-heart-app>
 	</ng-container>
 
@@ -75,10 +75,10 @@
 				</editable-value-app>
 			</editable-container-app>
 			<icon-app
-				*ngIf="row.supplier"
+				*ngIf="row?.supplier"
 				class="mg-left-xs action-hover-item-0 color-primary"
 				name="eye"
-				[routerLink]="['/suppliers', row.supplier.id]">
+				[routerLink]="['/suppliers', row?.supplier.id]">
 			</icon-app>
 		</div>
 	</ng-container>

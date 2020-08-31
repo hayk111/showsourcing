@@ -81,9 +81,10 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			<!-- cells -->
 			<ng-container *ngIf="!pending">
 				<div
-					*ngFor="let row of rows; index as i; trackBy: cellTrackByFn(column.type)"
+					*ngFor="let i of indexRows; trackBy: cellTrackByFn(column.type)"
 					class="cell"
-					[class.selected]="(isSelected$(row, i) | async)"
+					[class.none]="!rows[i]"
+					[class.selected]="(isSelected$(rows[i], i) | async)"
 					[ngClass]="'cell--' + i"
 					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)"
@@ -91,7 +92,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 					<!-- Render the column template when specified -->
 					<ng-container *ngIf="!column.showOnHover || i === hoverIndex">
 						<ng-container
-							*ngTemplateOutlet="column.template; context: { column: column, row: row, index: i }">
+							*ngTemplateOutlet="column.template; context: { column: column, row: rows[i], index: i }">
 						</ng-container>
 						<!-- <icon-app name="eye"></icon-app> -->
 					</ng-container>
