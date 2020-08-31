@@ -6,7 +6,8 @@ import {
 	Input,
 	Output,
 	QueryList,
-	TemplateRef
+	TemplateRef,
+	OnInit
 } from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
 import { SelectionService } from '~core/list-page2';
@@ -31,7 +32,7 @@ import { map } from 'rxjs/operators'
 		'[class.pending]': 'pending',
 	},
 })
-export class TableComponent extends TrackingComponent {
+export class TableComponent extends TrackingComponent implements OnInit {
 	/** whether the table is currently loading */
 	@Input() pending = false;
 	/** whether rows are selectable */
@@ -78,7 +79,7 @@ export class TableComponent extends TrackingComponent {
 	@Input() rows;
 	hoverIndex: number;
 
-	rowDrawnTimes = 0;
+	indexRows: any[];
 
 	/** whether specific rows are selectable or not */
 	@Input() isSelectable = item => true;
@@ -95,9 +96,12 @@ export class TableComponent extends TrackingComponent {
 		super();
 	}
 
-	getRowDisplayCount() {
-		return this.rowDrawnTimes++;
+	ngOnInit() {
+		this.paginationSrv.limit$.subscribe(limit => {
+			this.indexRows = Array(Number(limit)).fill(1).map((_, i) => i);
+		});
 	}
+
 
 	getSelectAllState(): SelectionState {
 		if (!this.rows || this.rows.length === 0) return 'unchecked';
@@ -136,6 +140,6 @@ export class TableComponent extends TrackingComponent {
 
 	isSelected$(row) {
 		// if (!this.hasSelection) return false;
-		return this.selectionSrv.selection$.pipe(map(selection => selection.has(row.id)));
+		return this.selectionSrv.selection$.pipe(map(selection => selection.has(row?.id)));
 	}
 }

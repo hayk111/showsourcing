@@ -15,9 +15,9 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				[style.height]="rowHeight + 'px'">
 			</div>
 			<div
-				*ngFor="let row of rows; index as i; trackBy: trackByFn"
+				*ngFor="let i of indexRows; trackBy: trackByFn"
 				class="cell"
-				[ngClass]="{ selected: (isSelected$(row, i) | async) }"
+				[ngClass]="{ selected: (isSelected$(rows[i], i) | async) }"
 				[style.height]="rowHeight + 'px'">
 			</div>
 		</div>
@@ -91,7 +91,6 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 						<ng-container
 							*ngTemplateOutlet="column.template; context: { column: column, row: row, index: i }">
 						</ng-container>
-						<!-- {{getRowDisplayCount()}} -->
 						<!-- <icon-app name="eye"></icon-app> -->
 					</ng-container>
 				</div>
