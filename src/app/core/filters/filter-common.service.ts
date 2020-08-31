@@ -1,8 +1,7 @@
 import { FilterService } from './filter.service';
 import { Injectable } from '@angular/core';
 import { FilterType } from './filter-type.enum';
-import { UserService } from '~core/erm';
-
+import { UserService } from '~core/auth';
 
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +9,7 @@ export class FilterCommonService {
 
 	constructor(
 		private filterSrv: FilterService,
-		private userSrv: UserService
+		private userSrv: UserService,
 	) {}
 
 
@@ -26,7 +25,7 @@ export class FilterCommonService {
 	filterByAssignedToMe(shouldAdd: boolean) {
 		const filterParam = {
 			type: FilterType.ASSIGNEE,
-			value: this.userSrv.userIdSync
+			value: this.userSrv.userId,
 		};
 		if (shouldAdd) {
 			this.filterSrv.addFilter(filterParam);
@@ -47,7 +46,7 @@ export class FilterCommonService {
 	filterByCreatedByMe(shouldAdd: boolean) {
 		const filterParam = {
 			type: FilterType.CREATED_BY,
-			value: this.userSrv.userIdSync
+			value: this.userSrv.userId
 		};
 		if (shouldAdd) {
 			this.filterSrv.addFilter(filterParam);
