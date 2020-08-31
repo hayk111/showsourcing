@@ -28,11 +28,8 @@
 <!-- in case selection comes back -->
 <!-- <selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
-	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="selectableItems"
 	(close)="selectionSrv.unselectAll()"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
 
 	<div class="flex">
 		<button class="icon light download" (click)="downloadSelected()">

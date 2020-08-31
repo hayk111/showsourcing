@@ -54,7 +54,7 @@ export class ListHelper2Service<G = any> {
 	 */
 	setup(
 		typename: Typename,
-		componentDestroy$?: Observable<any>,
+		componentDestroy$: Observable<any>,
 		findFn?: (options: ISearchOptions) => IApiResponse
 	) {
 		findFn = findFn || ((options: ISearchOptions) => api[typename].find$(options));

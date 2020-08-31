@@ -20,6 +20,7 @@ export enum FilterType {
 	EVENT = 'event',
 	EVENTS = 'events',
 	FAVORITE = 'favorite',
+	ID = 'id',
 	PRODUCT = 'product',
 	PROJECT = 'project',
 	PROJECTS = 'projects',
@@ -28,7 +29,7 @@ export enum FilterType {
 	SUPPLIER = 'supplier',
 	SUPPLIERS = 'suppliers',
 	TAG = 'tag',
-	TAGS = 'tags',
-	TEAM = 'team'
+	// TAGS = 'tags',
+	TEAM = 'team',
 }
 

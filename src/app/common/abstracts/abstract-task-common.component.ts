@@ -56,7 +56,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub
 
 		this.filterSrv.setup([...initialFilters, ...addedFilters], ['name', 'supplier.name', 'product.name', 'reference']);
 		this.listHelper.setup(
-			'Task'
+			'Task', this._destroy$
 		);
 	}
 

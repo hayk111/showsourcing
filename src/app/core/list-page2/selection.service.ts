@@ -11,29 +11,25 @@ export type SelectionMap = Map<string, Selectable>;
 export class SelectionService {
 	selection: SelectionMap = new Map();
 	private _selection$ = new BehaviorSubject<SelectionMap>(this.selection);
-	selection$ = this._selection$.asObservable().pipe();
+	selection$ = this._selection$.asObservable();
 
 	selectOne(item: Selectable) {
 		// we do this so change detection, detects the change
-		this.selection = new Map(this.selection);
 		this.selection.set(item.id, item);
 		this.emit();
 	}
 
 	unselectOne(item: Selectable) {
-		this.selection = new Map(this.selection);
 		this.selection.delete(item.id);
 		this.emit();
 	}
 
 	selectAll(items: Selectable[]) {
-		this.selection = new Map(this.selection);
 		items.forEach(item => this.selection.set(item.id, item));
 		this.emit();
 	}
 
 	unselectMany(items: Selectable[]) {
-		this.selection = new Map(this.selection);
 		items.forEach(item => this.selection.delete(item.id));
 		this.emit();
 	}

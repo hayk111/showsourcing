@@ -20,13 +20,8 @@
 
 <task-table-app
 	[rows]="listHelper.data$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	[pending]="false"
 	(update)="listHelper.update($event)"
-	(selectOne)="selectionSrv.selectOne($event, true)"
-	(unselect)="selectionSrv.unselectOne($event, true)"
-	(selectAll)="selectionSrv.selectAll($event, true)"
-	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"

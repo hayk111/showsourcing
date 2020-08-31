@@ -7,7 +7,6 @@ import * as _ from 'lodash';
  * Helper class to help with filter convertion
  */
 export class FilterConverter {
-
 	constructor(private searchedFields = ['name']) {}
 
 	/** returns a new map of <type, <filter.value, filter>> */
@@ -51,7 +50,10 @@ export class FilterConverter {
 			return {};
 		}
 		if (filters.length === 1) {
-			return this.getFieldCondition((filters[0] as any).property || (filters[0] as any).type, filters[0]);
+			return this.getFieldCondition(
+				(filters[0] as any).property || (filters[0] as any).type,
+				filters[0]
+			);
 		}
 
 		let and = [];
@@ -62,13 +64,15 @@ export class FilterConverter {
 			const propertiesWithType = this.propertyInArr(property, and);
 
 			if (propertiesWithType.length) {
-				const index = and.findIndex((item) => ('or' in item) && item.or[0].property.startsWith(property));
+				const index = and.findIndex(
+					item => 'or' in item && item.or[0].property.startsWith(property)
+				);
 				and.splice(index, 1);
 
 				or.push(...propertiesWithType, this.getFieldCondition(property, filter));
-				and.push({or});
-				and = and.filter((item) => {
-					return 'property' in item ? !item.property.startsWith(property) : true ;
+				and.push({ or });
+				and = and.filter(item => {
+					return 'property' in item ? !item.property.startsWith(property) : true;
 				});
 				return;
 			}
@@ -81,7 +85,13 @@ export class FilterConverter {
 	/** the way a Filter is translated into graphql changes with
 	 * its type. This method return the translated predicate
 	 */
-	private getFieldCondition(type: FilterType, { value, equality }: Partial<Filter>) {
+	private getFieldCondition(
+		type: FilterType,
+		{ value, equality, ignoreForQuery }: Partial<Filter>
+	) {
+		if (ignoreForQuery) {
+			return {};
+		}
 		const eq = equality || 'contains';
 		switch (type) {
 			case FilterType.DELETED:
@@ -89,46 +99,48 @@ export class FilterConverter {
 			case FilterType.FAVORITE:
 				return {
 					property: type,
-					isTrue: value
+					isTrue: value,
 				};
 			case FilterType.SEARCH:
-				return {or: this.searchedFields.map((searchField) => ({
-					property: searchField, // TODO: implement multiple filters pass
-					contains: value
-				}))};
+				return {
+					or: this.searchedFields.map(searchField => ({
+						property: searchField, // TODO: implement multiple filters pass
+						contains: value,
+					})),
+				};
 			case FilterType.SUPPLIER:
 			case FilterType.CATEGORY:
 				return {
 					property: type,
-					isString: value
+					isString: value,
 				};
 			case FilterType.CREATED_BY:
 				return {
 					property: 'teamUser',
-					isString: value
+					isString: value,
 				};
 			default:
 				return {
 					property: type,
-					[eq]: value
+					[eq]: value,
 				};
 		}
 	}
 
 	private propertyInArr(prop: string, arr: any[]): any[] {
 		let propertyMatches = [];
-		arr.forEach((item) => {
-			if (('property' in item) && item.property.startsWith(prop)) {
+		arr.forEach(item => {
+			if ('property' in item && item.property.startsWith(prop)) {
 				propertyMatches.push(item);
 			}
 
 			if ('or' in item) {
-				propertyMatches = item.or.filter(elem => ('property' in elem) && elem.property.startsWith(prop));
+				propertyMatches = item.or.filter(
+					elem => 'property' in elem && elem.property.startsWith(prop)
+				);
 			}
 		});
 
 		return propertyMatches;
 	}
-
 }
-

@@ -4,15 +4,10 @@
 	typename="Contact"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
-	[selected]="selection"
 	[hasPagination]="hasPagination"
 	[hasMenu]="hasMenu"
 	[hasBorder]="hasBorder"
 	[placeholder]="'placeholder.no-contact' | translate"
-	(selectOne)="select.emit($event)"
-	(unselectOne)="unselect.emit($event)"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(createClick)="createClick.emit()">
 

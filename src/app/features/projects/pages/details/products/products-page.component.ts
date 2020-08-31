@@ -88,7 +88,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.filterSrv.setup([], ['name']);
-		this.listHelper.setup('Product');
+		this.listHelper.setup('Product', this._destroy$);
 		this.projectId =  this.route.parent.snapshot.params.id;
 		this.paginationSrv.setLimit(10000);
 

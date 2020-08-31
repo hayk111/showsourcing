@@ -33,7 +33,7 @@ export class FilterService {
 		})
 	);
 	/** default state */
-	startFilters: Filter[] = [{ type: FilterType.DELETED, value: false }];
+	startFilters: Filter[] = [];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */

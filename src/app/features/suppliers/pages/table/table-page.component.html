@@ -18,12 +18,8 @@
 <suppliers-table-app
 	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
-	(selectOne)="selectionSrv.selectOne($event)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselect)="selectionSrv.unselectOne($event)"
 	(createClick)="listHelper.openCreationDialog()"
 	(update)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)">

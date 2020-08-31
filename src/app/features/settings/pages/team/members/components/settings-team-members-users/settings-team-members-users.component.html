@@ -34,11 +34,6 @@
 	[rows]="rows$ | async"
 	[user]="user"
 	[pending]="false"
-	[selection]="selectionSrv.selection$ | async"
-	(selectOne)="selectionSrv.selectOne($event, false)"
-	(unselect)="selectionSrv.unselectOne($event, false)"
-	(selectAll)="selectionSrv.selectAll($event, false)"
-	(unselectAll)="selectionSrv.unselectAll()"
 	(accessTypeUpdated)="updateAccessType($event)"
 	(delete)="deleteItem($event)">
 </team-members-table-app>
@@ -49,5 +44,4 @@
 			(close)="resetSelection()"
 			(delete)="deleteSelection()"
 			[isShown]="selected.size > 0"
-			[selection]="selected"></selection-bar-app>
 	</ng-container -->

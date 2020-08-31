@@ -27,7 +27,7 @@ export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('Project');
+		this.listHelper.setup('Project', this._destroy$);
 
 		const id = this.route.snapshot.params.id;
 		this.project$ = api.Project.get$(id).data$ as any;

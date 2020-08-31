@@ -12,13 +12,8 @@
 
 <task-table-app
 	[rows]="listHelper.filteredItems$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	(goToPage)="listHelper.loadPage($event)"
-	(selectOne)="selectionSrv.selectOne($event, true)"
-	(unselect)="selectionSrv.unselectOne($event, true)"
-	(selectAll)="selectionSrv.selectAll($event, true)"
-	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="dialogCommonSrv.openCreationTaskDlg(undefined, supplier)"

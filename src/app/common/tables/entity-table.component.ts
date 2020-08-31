@@ -37,7 +37,6 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];
 	// Data
-	@Input() selection: Map<string, boolean>;
 	@Input() rows: Array<T>;
 	@Input() pending = true;
 	@Input() skipped: number;
@@ -59,11 +58,6 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	// column clicks
 	@Output() previewClick = new EventEmitter<T>();
 	@Output() open = new EventEmitter<string>();
-	// selection
-	@Output() select = new EventEmitter<any>();
-	@Output() unselect = new EventEmitter<any>();
-	@Output() selectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() unselectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() update = new EventEmitter<T>();
 	@Output() propertyUpdated = new EventEmitter<PropertyUpdate>();
 	@Output() bottomReached = new EventEmitter<string>();

@@ -12,17 +12,13 @@
 <contacts-table-app
 	[hasMenu]="false"
 	[rows]="listHelper.filteredItems$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	(goToPage)="listHelper.loadPage($event)"
 	(open)="viewSrv.goToDetails($event)"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
-	(selectOne)="selectionSrv.selectOne($event, true)"
-	(selectAll)="selectionSrv.selectAll($event, true)"
 	(sort)="listHelper.sort($event)"
-	(unselect)="selectionSrv.unselectOne($event, true)"
 	(update)="listHelper.update($event)"
 	(createClick)="openNewContactDlg({id: supplierId})"
-	(unselectAll)="selectionSrv.unselectAll()">
+	>
 </contacts-table-app>
 
 <contact-selection-bar-app

@@ -70,13 +70,8 @@
 	<table-app
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
-		[selected]="selectionSrv.selection$ | async"
 		[contextualMenu]="contextualMenuTemplate"
 		placeholder="'No suppliers'"
-		(selectOne)="selectionSrv.selectOne($event, true)"
-		(unselectOne)="selectionSrv.unselectOne($event, true)"
-		(selectAll)="selectionSrv.selectAll($event, true)"
-		(unselectAll)="selectionSrv.unselectAll()"
 		(bottomReached)="bottomReached.emit()">
 
 		<ng-template #contextualMenuTemplate let-row="row">

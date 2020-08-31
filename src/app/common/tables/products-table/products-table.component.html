@@ -15,10 +15,6 @@
 	[hasBorder]="hasBorder"
   [contextualMenu]="contextualMenuTemplate"
   (bottomReached)="bottomReached.emit()"
-  (selectOne)="select.emit($event)"
-  (unselectOne)="unselect.emit($event)"
-  (selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
 	(hovered)="hovered = $event">
 
@@ -40,7 +36,7 @@
 				[column]="column"
 				[hovered]="row.id === hovered"
 				typename="Product"
-				(update)="update.emit($event)"
+				(update)="listHelper.update($event)"
 				(previewClick)="previewClick.emit($event)"
 				(nameClick)="open.emit($event)"
 				(logoClick)="previewClick.emit($event)">
@@ -64,7 +60,7 @@
 							[canCreate]="true"
 							[width]="370"
 							(menuClosed)="eca.close()"
-							(update)="update.emit({ id: row?.id, category: $event?.categoryId})">
+							(update)="listHelper.update({ id: row?.id, category: $event?.categoryId})">
 							<div class="pointer" >
 								{{ (row?.category?.value) || '-' }}
 							</div>
@@ -133,7 +129,7 @@
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
-		(click)="update.emit({ id: row.id, favorite: true })">
+		(click)="listHelper.update({ id: row.id, favorite: true })">
 		<div class="icon-box square flexCenter mg-right-s">
 			<icon-app name="heart" size="s"></icon-app>
 		</div>
@@ -169,7 +165,7 @@
 		<span translate="button.archive"></span>
 	</context-menu-item-app>
 	<context-menu-item-warn-app
-		(click)="delete.emit(row)">
+		(click)="listHelper.delete(row)">
 		<div class="icon-box square flexCenter mg-right-s">
 			<icon-app name="delete" size="s"></icon-app>
 		</div>

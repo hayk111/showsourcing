@@ -17,12 +17,8 @@
 <requests-table-app
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
-	[selection]="selectionSrv.selection$ | async"
 	(cancelRequest)="cancelRequest($event)"
-	(selectOne)="selectionSrv.selectOne($event)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselect)="selectionSrv.unselectOne($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	>
 </requests-table-app>
 
 <request-selection-bar-app

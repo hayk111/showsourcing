@@ -20,14 +20,9 @@
 			[hasMenu]="false"
 			[hasPagination]="false"
 			[pending]="listHelper.pending$ | async"
-			[selection]="selectionSrv.selection$ | async"
 			(createClick)="createProduct()"
 			(delete)="listHelper.delete($event)"
 			(update)="listHelper.update($event)"
-			(selectOne)="selectionSrv.selectOne($event)"
-			(selectAll)="selectionSrv.selectAll($event)"
-			(unselect)="selectionSrv.unselectOne($event)"
-			(unselectAll)="selectionSrv.unselectAll()"
 			(previewClick)="viewSrv.openPreview($event)"
 		>
 		</products-table-app>

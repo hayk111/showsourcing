@@ -43,27 +43,12 @@ export class ControllerTableQuickFiltersComponent {
 
 	toggleAssignedToMe() {
 		const shouldAdd = !this.isAssignedToMeChecked;
-		const filterParam = {
-			type: FilterType.ASSIGNEE,
-			value: this.userSrv.userId
-		};
-
-		if (shouldAdd) {
-			this.filterSrv.addFilter(filterParam);
-		} else {
-			this.filterSrv.removeFilter(filterParam);
-		}
+		this.filterCommonSrv.filterByAssignedToMe(shouldAdd);
 	}
 
 	toggleArchived() {
 		const isChecked = this.isArchivedChecked;
-
-		if (isChecked) {
-			this.filterSrv.removeFilterType(FilterType.ARCHIVED);
-		} else {
-			const filterParam = { type: FilterType.ARCHIVED, value: !isChecked };
-			this.filterSrv.addFilter(filterParam);
-		}
+		this.filterCommonSrv.filterByArchived(isChecked);
 	}
 
 	toggleCompleted() {

@@ -16,13 +16,9 @@
 <products-table-app
 	[rows]="listHelper.data$ | async"
 	[pending]="listHelper.pending$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	(createClick)="listHelper.openCreationDialog({ supplier: supplier })"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
-	(selectOne)="selectionSrv.selectOne($event)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselect)="selectionSrv.unselectOne($event)"
 	(showItemsPerPage)="paginationSrv.setLimit($event)">
 </products-table-app>
 

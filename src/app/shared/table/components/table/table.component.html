@@ -17,12 +17,12 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			<div
 				*ngFor="let row of rows; index as i; trackBy: trackByFn"
 				class="cell"
-				[ngClass]="{ selected: isSelected(row, i) }"
+				[ngClass]="{ selected: (isSelected$(row, i) | async) }"
 				[style.height]="rowHeight + 'px'">
 			</div>
 		</div>
 
-		<!-- selection column -->
+		<!-- selection column: header -->
 		<div
 			*ngIf="hasSelection"
 			class="col selectionCol no-grows"
@@ -32,20 +32,22 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				class="header"
 				[style.height]="rowHeight + 'px'">
 				<select-checkbox-app
-					[state]="getSelectionState()"
+					[state]="getSelectAllState()"
 					(check)="onSelectAll(rows)"
 					(uncheck)="onUnselectAll()">
 				</select-checkbox-app>
 			</div>
+
+			<!-- selection column: rows -->
 			<ng-container *ngIf="!pending">
 				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByFn"
 					class="cell"
-					[ngClass]="{ selected: isSelected(row, i) }"
+					[ngClass]="{ selected: (isSelected$(row, i) | async) }"
 					[style.height]="rowHeight + 'px'">
 					<checkbox-app
 						*ngIf="isSelectable(row)"
-						[value]="selected.has(row[idName])"
+						[value]="(isSelected$(row) | async)"
 						(check)="onSelectOne(row)"
 						(uncheck)="onUnselectOne(row)">
 					</checkbox-app>
@@ -79,7 +81,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				<div
 					*ngFor="let row of rows; index as i; trackBy: cellTrackByFn(column.type)"
 					class="cell"
-					[class.selected]="isSelected(row, i)"
+					[class.selected]="(isSelected$(row, i) | async)"
 					[ngClass]="'cell--' + i"
 					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)"
@@ -108,14 +110,14 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByFn"
 					class="menuCell cell flexCenter"
-					[ngClass]="{ selected: isSelected(row, i) }"
+					[ngClass]="{ selected: (isSelected$(row, i) | async) }"
 					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)"
-					(mouseleave)="hoverRow(-1)">>
+					(mouseleave)="hoverRow(-1)">
 					<context-menu-app
 						*ngIf="isSelectable(row)"
 						[ngClass]="{ hover: (i === hoverIndex) }"
-						[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
+						[ngStyle]="{ visibility: ((i === hoverIndex) || (isSelected$(row, i) | async)) ? 'visible' : 'hidden' }"
 						[closeOnScroll]="true">
 						<context-menu-trigger-app>
 							<icon-app

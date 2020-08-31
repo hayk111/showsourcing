@@ -3,6 +3,7 @@ import { TeamService } from '~core/auth';
 import { StatusSeederService } from './status-seeder.service';
 import { ListHelper2Service } from '~core/list-page2';
 import { first } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
@@ -26,7 +27,7 @@ export class SeederService {
 			};
 
 			// this must be updated with the future query lists
-			this.listHelper.setup('WorkflowStatus');
+			this.listHelper.setup('WorkflowStatus', of(null));
 		});
 	}
 

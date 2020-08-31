@@ -20,7 +20,6 @@
 	[hasPagination]="false"
 	[pending]="listHelper.pending$ | async"
 	[rows]="listHelper.filteredItems$ | async"
-	[selection]="selectionSrv.selection$ | async"
 	(delete)="listHelper.delete($event)"
 	(update)="listHelper.update($event)"
 	(open)="viewSrv.goToDetails($event)"
@@ -30,13 +29,10 @@
 	(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 	(previewClick)="viewSrv.openPreview($event)"
-	(selectOne)="selectionSrv.selectOne($event, true)"
-	(selectAll)="selectionSrv.selectAll($event, true)"
 	(sort)="listHelper.sort($event)"
-	(unselect)="selectionSrv.unselectOne($event, true)"
 	(update)="listHelper.update($event)"
 	(createClick)="dialogCommonSrv.openCreationProductDlg()"
-	(unselectAll)="selectionSrv.unselectAll()">
+>
 </attachments-table-app>
 
 
