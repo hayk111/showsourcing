@@ -23,13 +23,15 @@ export function filterTypeToTypename(type: FilterType): Typename {
 		case FilterType.PRODUCT:
 			return 'Product';
 		case FilterType.PROJECT:
-		case FilterType.PROJECTS:
+		// case FilterType.PROJECTS:
 			return 'Project';
 		case FilterType.SUPPLIER:
 		case FilterType.SUPPLIERS:
 			return 'Supplier';
 		case FilterType.STATUS:
 			return 'WorkflowStatus';
+		case FilterType.EVENT:
+			return 'Event';
 	}
 }
 
@@ -83,19 +85,26 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	}
 
 	onItemAdded(entity) {
-		this.filterAdded.emit({
-			type: this.type,
-			value: entity.id,
-			displayValue: this.formatDisplayName(this.type, entity),
-		});
+		this.filterAdded.emit(this._buildFilter(entity));
 	}
 
 	onItemRemoved(entity) {
-		this.filterRemoved.emit({
+		this.filterRemoved.emit(this._buildFilter(entity));
+	}
+
+	/** build the filter object to add/remove */
+	private _buildFilter(entity): Filter {
+		let value = entity.id;
+		// if we use some nested entities, we could want to pass the nested id as value.
+		// e.g. TeamUser is used to display User. we can pass user.id
+		if (entity.__typename === 'TeamUser') {
+			value = entity.user?.id;
+		}
+		return {
 			type: this.type,
-			value: entity.id,
+			value,
 			displayValue: this.formatDisplayName(this.type, entity),
-		});
+		};
 	}
 
 	formatDisplayName(type: string, choice) {

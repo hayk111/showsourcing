@@ -1,6 +1,7 @@
 import { Filter } from './filter.class';
 import { FilterType } from './filter-type.enum';
 import { ValuesByType, FiltersByType } from './filter-by.type';
+import { FilterType as LibFilterType } from 'showsourcing-api-lib';
 import * as _ from 'lodash';
 
 /**
@@ -46,27 +47,25 @@ export class FilterConverter {
 	 * Attention: the filters in an array are ordened with the order that is in FilterType
 	 */
 	filtersToQueryArg(filters: Filter[]): any {
+		filters = filters.filter(_filter => !_filter.ignoreForQuery);
 		if (filters.length === 0) {
 			return {};
 		}
 		if (filters.length === 1) {
-			return this.getFieldCondition(
-				(filters[0] as any).property || (filters[0] as any).type,
-				filters[0]
-			);
+			return this.getFieldCondition(filters[0].type, filters[0]);
 		}
 
-		let and = [];
+		let and: LibFilterType[] = [];
 		filters.forEach(filter => {
-			const or = [];
-			const property = (filter as any).property || (filter as any).type;
+			const or: LibFilterType[] = [];
+			const property = filter.type;
 			// finding duplicate filters in the "and" array
 			const propertiesWithType = this.propertyInArr(property, and);
 
 			if (propertiesWithType.length) {
-				const index = and.findIndex(
-					item => 'or' in item && item.or[0].property.startsWith(property)
-				);
+				const index = and.findIndex(item => {
+					return 'or' in item && item.or[0].property.startsWith(property);
+				});
 				and.splice(index, 1);
 
 				or.push(...propertiesWithType, this.getFieldCondition(property, filter));
@@ -89,9 +88,6 @@ export class FilterConverter {
 		type: FilterType,
 		{ value, equality, ignoreForQuery }: Partial<Filter>
 	) {
-		if (ignoreForQuery) {
-			return {};
-		}
 		const eq = equality || 'contains';
 		switch (type) {
 			case FilterType.DELETED:
@@ -110,13 +106,9 @@ export class FilterConverter {
 				};
 			case FilterType.SUPPLIER:
 			case FilterType.CATEGORY:
-				return {
-					property: type,
-					isString: value,
-				};
 			case FilterType.CREATED_BY:
 				return {
-					property: 'teamUser',
+					property: type,
 					isString: value,
 				};
 			default:
@@ -130,11 +122,9 @@ export class FilterConverter {
 	private propertyInArr(prop: string, arr: any[]): any[] {
 		let propertyMatches = [];
 		arr.forEach(item => {
-			if ('property' in item && item.property.startsWith(prop)) {
+			if ('property' in item && item.property.startsWith(prop) && item.property !== 'id') {
 				propertyMatches.push(item);
-			}
-
-			if ('or' in item) {
+			} if ('or' in item) {
 				propertyMatches = item.or.filter(
 					elem => 'property' in elem && elem.property.startsWith(prop)
 				);

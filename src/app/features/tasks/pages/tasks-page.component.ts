@@ -31,7 +31,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.CREATED_BY,
-		FilterType.PROJECTS,
+		FilterType.PROJECT,
 		FilterType.SUPPLIER
 	];
 	columns = TasksTableComponent.DEFAULT_COLUMNS;
