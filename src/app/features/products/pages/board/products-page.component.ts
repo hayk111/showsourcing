@@ -36,7 +36,7 @@ export class ProductsPageComponent extends AutoUnsub
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
-		FilterType.PROJECTS,
+		FilterType.PROJECT,
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
 		FilterType.CATEGORY,

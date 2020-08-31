@@ -16,5 +16,10 @@ export const bridgeFiltersConfig: Partial<Record<
 			searchProp: 'project',
 			resultProp: 'product',
 		},
+		// [FilterType.CREATED_BY]: {
+		// 	bridgeTypename: 'User',
+		// 	searchProp: 'id',
+		// 	resultProp: 'createdBy',
+		// }
 	},
 };

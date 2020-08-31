@@ -39,7 +39,7 @@ export class SuppliersBoardComponent extends AutoUnsub {
 		FilterType.EVENT,
 		FilterType.FAVORITE,
 		FilterType.STATUS,
-		FilterType.PROJECTS,
+		FilterType.PROJECT,
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];

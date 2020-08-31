@@ -106,13 +106,9 @@ export class FilterConverter {
 				};
 			case FilterType.SUPPLIER:
 			case FilterType.CATEGORY:
-				return {
-					property: type,
-					isString: value,
-				};
 			case FilterType.CREATED_BY:
 				return {
-					property: 'teamUser',
+					property: type,
 					isString: value,
 				};
 			default:
