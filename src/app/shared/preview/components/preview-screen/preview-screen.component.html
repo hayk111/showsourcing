@@ -1,9 +1,11 @@
-<div class="preview" *ngIf="opened || animationPending">
+<div class="preview" [class.z-index-visible]="opened || animationPending">
 	<div class="preview-screen"
-		*ngIf="opened"
+		*ngIf="opened || animationPending"
 		[@opened]="opened"
 		[@opened.start]="animationStarted()"
 		(clickOutside)="onClose($event)">
 		<ng-content></ng-content>		
 	</div>
 </div>
+
+<div class="black-background" *ngIf="opened || animationPending"></div>

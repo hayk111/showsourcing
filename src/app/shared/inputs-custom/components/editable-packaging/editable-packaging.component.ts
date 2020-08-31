@@ -23,9 +23,10 @@ export class EditablePackagingComponent extends AbstractInput {
 		this.resetValues[property] = value;
 	}
 
-	onSave(value) {
-		this.onChangeFn(value);
-		this.saved.emit(value);
+	onSave(value, updated) {
+		const toUpdate = { ...value, ...updated };
+		this.onChangeFn(toUpdate);
+		this.saved.emit(toUpdate);
 	}
 
 	onCancel(property: string) {

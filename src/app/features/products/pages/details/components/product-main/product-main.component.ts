@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
 import { api, Typename } from 'showsourcing-api-lib';
+import { Sample, Task } from '~core/erm3';
 
 @Component({
 	selector: 'product-main-app',
@@ -18,19 +19,17 @@ export class ProductMainComponent implements OnInit {
 	get section() {
 		return this._section;
 	}
+	@Input() samples: Sample[];
+	@Input() tasks: Task[];
+	@Input() comments: Comment[];
 
 	_section = 'info';
-
-	sampleCount$: Observable<number>;
-	taskCount$: Observable<number>;
-	commentCount$: Observable<number>;
 
 	constructor() {}
 
 	ngOnInit() {
-		this.sampleCount$ = api.Sample.findByProduct$(this.product.id).count$;
-		this.taskCount$ = api.Task.findByProduct$(this.product.id).count$;
-		this.commentCount$ =  api.Comment.findByNodeId$('Product:' + this.product.id).count$;
+		// TODO: implement info page and comments things
+		console.log('ProductMainComponent -> ngOnInit -> this.comments', this.comments);
 	}
 
 	onRouteChange(fragment: string) {

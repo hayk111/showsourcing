@@ -101,6 +101,7 @@ export class ListHelper2Service<G = any> {
 			})
 			.data$.pipe(
 				switchMap(entity => {
+					debugger;
 					return api[typename].create([{ ...entity, ...addedProperties }]).local$;
 				})
 			)
@@ -134,7 +135,7 @@ export class ListHelper2Service<G = any> {
 		return api[this.typename].update(selected.map(ent => ({ id: ent.id, ...entity }))).local$;
 	}
 
-	deleteSelected(text?: string) {
+	deleteSelected(text?: string, typename = this.typename) {
 		const selectedIds = this.selectionSrv.getSelectedValues().map(selected => selected.id);
 		this.dlgSrv
 			.open(ConfirmDialogComponent, {
@@ -146,7 +147,7 @@ export class ListHelper2Service<G = any> {
 					return selectedIds.map(selected => ({ id: selected }));
 				}),
 				switchMap(selectedIds => {
-					return api[this.typename].delete(selectedIds).local$;
+					return api[typename].delete(selectedIds).local$;
 				})
 			)
 			.subscribe(_ => {

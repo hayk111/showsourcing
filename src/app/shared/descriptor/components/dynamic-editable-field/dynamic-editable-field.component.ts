@@ -25,9 +25,9 @@ export class DynamicEditableFieldComponent implements OnInit {
 		this.initialValue = this.control ? this.control.value : '';
 	}
 
-	onSave() {
+	onSave(event) {
 		this.initialValue = this.control.value;
-		this.save.emit();
+		this.save.emit(event);
 	}
 
 	reset() {

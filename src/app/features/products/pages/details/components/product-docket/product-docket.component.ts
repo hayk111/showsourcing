@@ -11,6 +11,8 @@ import { api, Sample } from 'showsourcing-api-lib';
 })
 export class ProductDocketComponent implements OnInit {
 	@Input() product: Product;
+	@Input() samples: Sample[];
+	@Input() tasks: Task[];
 	@Output() update = new EventEmitter<Product>();
 	@Output() addTask = new EventEmitter<undefined>();
 	@Output() addSample = new EventEmitter<undefined>();
@@ -25,8 +27,6 @@ export class ProductDocketComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.productSamples$ = api.Sample.findByProduct$(this.product.id).data$;
-		this.productTasks$ = api.Task.findByProduct$(this.product.id).data$ as Observable<any[]>;
 	}
 
 }

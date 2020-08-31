@@ -1,5 +1,20 @@
 export const currencies = [
 	{
+		'code': 'USD',
+		'name': 'US Dollar',
+		'symbol': '$'
+	},
+	{
+		'code': 'EUR',
+		'name': 'Euro',
+		'symbol': 'EUR'
+	},
+	{
+		'code': 'CNY',
+		'name': 'Chinese Yuan',
+		'symbol': 'CNY'
+	},
+	{
 		'code': 'PKR',
 		'name': 'Pakistani Rupee',
 		'symbol': 'PKR'
@@ -515,11 +530,6 @@ export const currencies = [
 		'symbol': 'XPT'
 	},
 	{
-		'code': 'EUR',
-		'name': 'Euro',
-		'symbol': 'EUR'
-	},
-	{
 		'code': 'MXN',
 		'name': 'Mexican Peso',
 		'symbol': 'MXN'
@@ -800,11 +810,6 @@ export const currencies = [
 		'symbol': 'JOD'
 	},
 	{
-		'code': 'CNY',
-		'name': 'Chinese Yuan',
-		'symbol': 'CNY'
-	},
-	{
 		'code': 'KRW',
 		'name': 'South Korean Won',
 		'symbol': 'KRW'
@@ -838,11 +843,6 @@ export const currencies = [
 		'code': 'MOP',
 		'name': 'Macanese Pataca',
 		'symbol': 'MOP'
-	},
-	{
-		'code': 'USD',
-		'name': 'US Dollar',
-		'symbol': '$'
 	},
 	{
 		'code': 'AMD',
