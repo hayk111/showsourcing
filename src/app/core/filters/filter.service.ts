@@ -6,6 +6,8 @@ import { Filter } from './filter.class';
 import { FilterConverter } from './_filter-converter.class';
 import { ValuesByType, FiltersByType } from './filter-by.type';
 import { distinct, distinctUntilChanged } from 'rxjs/operators';
+import { bridgeFiltersConfig } from './bridge-filter.config';
+import { api, Typename } from 'showsourcing-api-lib';
 
 /**
  * This class basically contains a Array<Filter> and then the same array of filters under different data structure.
@@ -80,15 +82,23 @@ export class FilterService {
 	}
 
 	/** adds one filter */
-	addFilter(added: Filter) {
-		this.setFilters([...this.filters, added]);
+	addFilter(added: Filter, typenameFiltered?: Typename, currentFilterType?: FilterType) {
+		let newFilters = [...this.filters, added];
+
+		newFilters = this._addBridgeFilters(newFilters, typenameFiltered, currentFilterType);
+
+		this.setFilters(newFilters);
 	}
 
 	/** removes one filter */
-	removeFilter(removed: Filter) {
-		this.setFilters(
-			this.filters.filter(fltr => fltr.type !== removed.type || fltr.value !== removed.value)
+	removeFilter(removed: Filter, typenameFiltered?: Typename, currentFilterType?: FilterType) {
+		let newFilters = this.filters.filter(
+			fltr => fltr.type !== removed.type || fltr.value !== removed.value
 		);
+
+		newFilters = this._addBridgeFilters(newFilters, typenameFiltered, currentFilterType);
+
+		this.setFilters(newFilters);
 	}
 
 	/** removes all filters except the ones we started with */
@@ -97,8 +107,10 @@ export class FilterService {
 	}
 
 	/** remove all filters of a given type */
-	removeFilterType(type: FilterType) {
-		this.setFilters(this.filters.filter(f => f.type !== type));
+	removeFilterType(type: FilterType, typenameFiltered?: Typename) {
+		let newFilters = this.filters.filter(f => f.type !== type);
+		newFilters = this._addBridgeFilters(newFilters, typenameFiltered, type);
+		this.setFilters(newFilters);
 	}
 
 	/** check if we have any filter for a given FilterType */
@@ -135,5 +147,38 @@ export class FilterService {
 		} else {
 			this.removeFilterType(type);
 		}
+	}
+
+	/** add bridge filter for many to many relations (e.g. Product => tag type will query ProductTag ids then add the product ids as filter) */
+	_addBridgeFilters(
+		newFilters: Filter[],
+		typenameFiltered?: Typename,
+		currentFilterType?: FilterType
+	) {
+		if (bridgeFiltersConfig[typenameFiltered]?.[currentFilterType]) {
+			const { bridgeTypename, resultProp, searchProp } = bridgeFiltersConfig[typenameFiltered]?.[
+				currentFilterType
+			];
+			// TODO add a foreach bridgeType => to work with projectProduct
+			newFilters = newFilters.filter(_filter => _filter.type !== FilterType.ID);
+			const bridgeFilters = newFilters.filter(_filter => _filter.type === currentFilterType);
+			if (!bridgeFilters.length) {
+				return newFilters;
+			}
+			const bridgeIds = bridgeFilters.reduce((ids, _filter) => {
+				_filter.ignoreForQuery = true;
+				ids.push(_filter.value);
+				return ids;
+			}, []);
+			const entitiesBridge = api[bridgeTypename].findLocal({
+				filter: { property: searchProp, inStrings: bridgeIds },
+			});
+			const bridgeFilter: Partial<Filter> = {};
+			bridgeFilter.type = FilterType.ID;
+			bridgeFilter.equality = 'inStrings';
+			bridgeFilter.value = entitiesBridge.map(entity => entity[resultProp]?.id);
+			newFilters.push(bridgeFilter as Filter);
+		}
+		return newFilters;
 	}
 }

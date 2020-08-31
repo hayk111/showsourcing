@@ -11,7 +11,8 @@
 			<icon-app name="close" class="fs-s"></icon-app>
 		</button>
 	</div>
-  <filter-btn-list-app
+	<filter-btn-list-app
+		[typenameFiltered]="typenameFiltered"
     [filterTypes]="filterTypes"
     (editClicked)="openEditPanel($event)">
   </filter-btn-list-app>

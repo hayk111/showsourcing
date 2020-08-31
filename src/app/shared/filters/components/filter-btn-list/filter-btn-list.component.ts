@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filter, FilterType, FilterService } from '~core/filters';
 import { TrackingComponent } from '~utils/tracking-component';
+import { Typename } from 'showsourcing-api-lib';
 
 /**
  * displays a label with its active filters under it. If no active filters it displays a btn, ence the name
@@ -14,6 +15,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class FilterBtnListComponent extends TrackingComponent {
 	/** btns displayed */
 	@Input() filterTypes: FilterType[];
+	@Input() typenameFiltered: Typename;
 	/** when the filter button is clicked */
 	@Output() editClicked = new EventEmitter<string>();
 
@@ -24,6 +26,10 @@ export class FilterBtnListComponent extends TrackingComponent {
 		public filterSrv: FilterService
 	) {
 		super();
+	}
+
+	removeFilter(filter: Filter) {
+		this.filterSrv.removeFilter(filter, this.typenameFiltered, filter.type);
 	}
 
 	isArchived() {
@@ -55,6 +61,10 @@ export class FilterBtnListComponent extends TrackingComponent {
 	updateFilter(type, value) {
 		this.filterSrv.filterByProp(type, value);
 		this.otherFiltersLabelShown = false; // reinitializing otherFiltersLabelShown value
+	}
+
+	trackByValue(i, item) {
+		return item.value;
 	}
 
 }
