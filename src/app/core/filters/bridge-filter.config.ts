@@ -11,5 +11,10 @@ export const bridgeFiltersConfig: Partial<Record<
 			searchProp: 'tag',
 			resultProp: 'product',
 		},
+		[FilterType.PROJECT]: {
+			bridgeTypename: 'ProjectProduct',
+			searchProp: 'project',
+			resultProp: 'product',
+		},
 	},
 };

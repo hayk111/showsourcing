@@ -132,13 +132,13 @@ export class FilterService {
 
 	/** returns the number of added filter above the start filters */
 	getFilterAmount() {
-		return this.filters.filter(
-			fil => {
-			return	!this.startFilters.some(
+		return this.filters.filter(fil => {
+			return (
+				!this.startFilters.some(
 					startFil => startFil.type === fil.type && startFil.value === fil.value
-				) || fil.type !== FilterType.ID;
-			}
-		).length;
+				) && fil.type !== FilterType.ID
+			);
+		}).length;
 	}
 
 	filterByProp(type: FilterType, value: boolean) {
@@ -157,28 +157,33 @@ export class FilterService {
 		currentFilterType?: FilterType
 	) {
 		if (bridgeFiltersConfig[typenameFiltered]?.[currentFilterType]) {
-			const { bridgeTypename, resultProp, searchProp } = bridgeFiltersConfig[typenameFiltered]?.[
-				currentFilterType
-			];
+			// const { bridgeTypename, resultProp, searchProp } = bridgeFiltersConfig[typenameFiltered]?.[
+			// 	currentFilterType
+			// ];
 			// TODO add a foreach bridgeType => to work with projectProduct
 			newFilters = newFilters.filter(_filter => _filter.type !== FilterType.ID);
-			const bridgeFilters = newFilters.filter(_filter => _filter.type === currentFilterType);
-			if (!bridgeFilters.length) {
-				return newFilters;
-			}
-			const bridgeIds = bridgeFilters.reduce((ids, _filter) => {
-				_filter.ignoreForQuery = true;
-				ids.push(_filter.value);
-				return ids;
-			}, []);
-			const entitiesBridge = api[bridgeTypename].findLocal({
-				filter: { property: searchProp, inStrings: bridgeIds },
-			});
-			const bridgeFilter: Partial<Filter> = {};
-			bridgeFilter.type = FilterType.ID;
-			bridgeFilter.equality = 'inStrings';
-			bridgeFilter.value = entitiesBridge.map(entity => entity[resultProp]?.id);
-			newFilters.push(bridgeFilter as Filter);
+
+			Object.keys(bridgeFiltersConfig[typenameFiltered]).forEach(
+				(bridgeType) => {
+					const { bridgeTypename, resultProp, searchProp } = bridgeFiltersConfig[typenameFiltered][bridgeType];
+					const bridgeFilters = newFilters.filter(_filter => _filter.type === bridgeType);
+					if (!bridgeFilters.length) {
+						return newFilters;
+					}
+					const bridgeIds = bridgeFilters.reduce((ids, _filter) => {
+						_filter.ignoreForQuery = true;
+						ids.push(_filter.value);
+						return ids;
+					}, []);
+					const entitiesBridge = api[bridgeTypename].findLocal({
+						filter: { property: searchProp, inStrings: bridgeIds },
+					});
+					const bridgeFilter: Partial<Filter> = {};
+					bridgeFilter.type = FilterType.ID;
+					bridgeFilter.equality = 'inStrings';
+					bridgeFilter.value = entitiesBridge.map(entity => entity[resultProp]?.id);
+					newFilters.push(bridgeFilter as Filter);
+				});
 		}
 		return newFilters;
 	}
