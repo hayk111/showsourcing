@@ -7,6 +7,7 @@ import { FiltersByType, ValuesByType } from './filter-by.type';
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
 import { FilterConverter } from './_filter-converter.class';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 /**
  * This class basically contains a Array<Filter> and then the same array of filters under different data structure.
@@ -46,6 +47,10 @@ export class FilterService {
 	/** keep accessible for helpers */
 	searchedFields: string[] = [];
 
+	constructor(private paginationSrv: PaginationService) {
+
+	}
+
 	/** if we want something else than the defaults */
 	setup(startFilters: Filter[] = [], searchedFields?: string[]) {
 		// adding the start filters
@@ -58,6 +63,7 @@ export class FilterService {
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */
 	setFilters(filters: Filter[]) {
+		this.paginationSrv.goToPage(0);
 		this.filters = filters;
 		this.valuesByType = this.converter.valuesByType(this.filters);
 		this.filtersByType = this.converter.filtersByType(this.filters);
