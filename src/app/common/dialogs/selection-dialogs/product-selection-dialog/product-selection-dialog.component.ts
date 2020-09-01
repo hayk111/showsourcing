@@ -35,7 +35,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		FilterType.SUPPLIER,
 		FilterType.ARCHIVED,
 		FilterType.CATEGORY,
-		FilterType.PROJECTS,
+		FilterType.PROJECT,
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
 		FilterType.TAG,

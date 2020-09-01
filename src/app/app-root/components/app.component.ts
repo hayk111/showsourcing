@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
+import { api } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
 		private companySrv: CompanyService,
 		private teamSrv: TeamService,
 		private userSrv: UserService,
-		private translate: TranslateService,
+		private translate: TranslateService
 	) {}
 
 	ngOnInit() {

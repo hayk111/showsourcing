@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, switchMap, tap, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { api, IApiResponse, ISearchOptions, Typename } from 'showsourcing-api-lib';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { FilterService } from '~core/filters';
@@ -37,8 +36,7 @@ export class ListHelper2Service<G = any> {
 		private filterSrv: FilterService,
 		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
-		private sortSrv: SortService,
-		private translate: TranslateService
+		private sortSrv: SortService
 	) {
 		// When the total change, we setup pagination
 		this.total$.pipe().subscribe(total => {

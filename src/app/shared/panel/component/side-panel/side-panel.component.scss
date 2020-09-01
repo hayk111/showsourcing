@@ -27,6 +27,7 @@ $filters-pane-width: 380px;
 @media only screen and (min-width: $max-screen-overlap) {
 	:host {
 		position: absolute;
+		box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
 		bottom: 0;
 		width: $filters-pane-width;
 		right: 0;
