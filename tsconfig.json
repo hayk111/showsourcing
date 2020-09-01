@@ -23,7 +23,13 @@
 			"lib": [
 				"../node_modules/showsourcing-api-lib"
 			],
-			"~app-root/*": [
+			"rxjs": [
+				"../node_modules/showsourcing-api-lib/node_modules/rxjs"
+			],
+			"rxjs/operators": [
+				"../node_modules/showsourcing-api-lib/node_modules/rxjs/operators"
+			],
+      "~app-root/*": [
         "app/app-root/*"
       ],
       "~app-root/": [
