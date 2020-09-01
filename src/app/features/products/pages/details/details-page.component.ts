@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { api, Product, Sample, Project, Task, Supplier, ProjectProduct, Vote, Image } from 'showsourcing-api-lib';
 import { Observable, Subject, BehaviorSubject, interval } from 'rxjs';
@@ -13,6 +13,7 @@ import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, log, weightUnits } from '~utils';
 import { ListHelper2Service } from '~core/list-page2';
 import { TranslateService } from '@ngx-translate/core';
+import { tapOnce } from '~shared/utils';
 import * as _ from 'lodash';
 
 /**
@@ -68,12 +69,17 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		private translate: TranslateService,
 		public listHelper: ListHelper2Service,
 		public dlgCommonSrv: DialogCommonService,
+		private cdr: ChangeDetectorRef,
 	) {
 		super();
 	}
 
 	ngOnInit() {
 		if (!!this.product) { // for the previews
+
+			this.samples$ = api.Sample.findByProduct$(this.product.id).data$;
+			this.tasks$ = api.Task.findByProduct$(this.product.id).data$;
+
 			api.Product
 				 .get$(this.product.id)
 				 .data$
@@ -81,9 +87,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 					 takeUntil(this._destroy$),
 					 tap(product => this.productId = product?.id),
 					 map((product: any) => this.assignImagesToProduct(product)),
-					 tap(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
-					 tap(_ => this.tasks$ = api.Task.findByProduct$(this.productId).data$),
-					 tap(_ => this.comments$ = api.Comment.findByNodeId$('Product:' + this.productId).data$ as any),
+
 				 )
 				 .subscribe(
 					product => this.onProduct(product),
@@ -99,9 +103,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 						return this.assignImagesToProduct(product);
 					}
 				}),
-				tap(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
-				tap(_ => this.tasks$ = api.Task.findByProduct$(this.productId).data$),
-				tap(_ => this.comments$ = api.Comment.findByNodeId$('Product:' + this.productId).data$ as any),
+				tapOnce(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
+				tapOnce(_ => this.tasks$ = api.Task.findByProduct$(this.productId).data$),
 				takeUntil(this._destroy$),
 			).subscribe(
 				product => this.onProduct(product),
@@ -135,6 +138,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			this.router.navigate(['products']);
 		} else {
 			this.product = product;
+			this.cdr.markForCheck();
 			// this.teamVotes$ = this.ratingSrv.getTeamVotes('Product:' + this.product.id) as any;
 		}
 	}

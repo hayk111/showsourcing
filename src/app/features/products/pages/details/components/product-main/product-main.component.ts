@@ -11,7 +11,7 @@ import { Sample, Task } from '~core/erm3';
 	styleUrls: ['./product-main.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductMainComponent implements OnInit {
+export class ProductMainComponent {
 	@Input() product: Product;
 	@Input() set section(fragment: string) {
 		this._section = fragment;
@@ -26,11 +26,6 @@ export class ProductMainComponent implements OnInit {
 	_section = 'info';
 
 	constructor() {}
-
-	ngOnInit() {
-		// TODO: implement info page and comments things
-		console.log('ProductMainComponent -> ngOnInit -> this.comments', this.comments);
-	}
 
 	onRouteChange(fragment: string) {
 		this.section = fragment;

@@ -11,11 +11,12 @@
 		<ng-container *ngFor="let section of sections">
 			<accordion-app>
 				<accordion-title-app>{{section?.name}}</accordion-title-app>
-				<accordion-content-app *ngIf="(product$ | async) as product; else loader">
+				<accordion-content-app *ngIf="!!product; else loader">
 					<dynamic-form2-app
 						#form
 						[style]="'editable'"
 						[typename]="'Product'"
+						[entity]="product"
 						[entityId]="product.id"
 						[section]="section"
 						[properties]="properties"

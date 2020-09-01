@@ -20,6 +20,7 @@ const	toUpdate = false;
 })
 export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() typename: Typename;
+	@Input() entity: any;
 	@Input() entityId: string;
 	@Input() section: SectionWithColumns;
 	@Input() style: 'form' | 'editable' = 'form';
@@ -37,6 +38,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	/** when a new formgroup is created */
 	private _destroy$ = new Subject<void>();
 
+	initialized = false;
+
 	get valid() {
 		return this.formGroup.valid;
 	}
@@ -46,25 +49,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		private descriptorSrv: DescriptorService,
 		private cd: ChangeDetectorRef) { }
 
-	ngOnInit() {
-		/**
-		 * Subscription to any Product changes, like when parent component updates the product, in order to not
-		 * have memory leak errors we're keeping track of all subscriptions to the @formGroup changes
-		 */
-		api.Product.get$(this.entityId)
-			.data$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(product => {
-				this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
-				this.cd.markForCheck();
-				this.formGroup.patchValue({
-					...product?.propertiesMap,
-					name: product?.name,
-					supplierId: product?.supplier,
-					categoryId: product?.category,
-				}, { emitEvent: false });
-			});
-	}
+	ngOnInit() {}
 
 	ngOnChanges(changes: SimpleChanges) {
 		const colChanged = changes.columnAmount &&
@@ -74,6 +59,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		const sectionChanged = changes.section &&
 			changes.section.previousValue !== changes.section.currentValue;
 		const styleChanged = changes.style && changes.style.previousValue !== changes.style.currentValue;
+		const entityChanged = !(_.isEqual(changes.entity.previousValue, changes.entity.currentValue));
 
 		/**
 		 * Creating form columns based on @section input provided
@@ -86,7 +72,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		 * Building real form group based on @section input provided and
 		 * filling the form with data provided via @properties input
 		 */
-		if (changes.section && (sectionChanged || updateOnChanged)) {
+		if ((changes.section && (sectionChanged || updateOnChanged)) || entityChanged) {
 			this.buildFormGroup();
 		}
 
@@ -143,7 +129,15 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	 */
 	private buildFormGroup() {
 		this.formGroup = this.descriptorSrv.descriptorToFormGroup(this.section, { updateOn: this.updateOn });
-		this.formGroup.patchValue({...this.properties}, { emitEvent: false });
+		const updateVal = {
+			...this.entity.propertiesMap,
+			name: this.entity.name,
+			supplierId: this.entity?.supplier,
+			categoryId: this.entity?.category,
+		};
+
+		this.formGroup.patchValue(updateVal, { emitEvent: false });
+
 		log.debug('built form group', this.formGroup);
 	}
 

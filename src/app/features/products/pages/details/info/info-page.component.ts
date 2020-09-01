@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { isUuid } from '~utils/uuid.utils';
@@ -17,9 +17,9 @@ import * as _ from 'lodash';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfoPageComponent extends AutoUnsub implements OnInit {
+	@Input() product: Product;
 
 	product$: Observable<Product>;
-	product: Product;
 	properties: any;
 
 	descriptor: Descriptor = api.Descriptor.getByType('PRODUCT');
@@ -34,29 +34,15 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const productId = this.route.snapshot?.params?.id ||
-			this.location.path().split('/').find((val: string) => isUuid(val));
-		this.product$ = api.Product.get$(productId).data$
-			.pipe(
-				skip(1),
-				takeUntil(this._destroy$),
-				tap(product => {
-					this.product = product;
-				}),
-				tap(product => {
-					const props = {
-						...product?.propertiesMap,
-						name: product?.name,
-						supplier: product?.supplier,
-						category: product?.category,
-					};
+		const props = {
+			...this.product?.propertiesMap,
+			name: this.product?.name,
+			supplier: this.product?.supplier,
+			category: this.product?.category,
+		};
 
-					if (!_.isEqual(this.properties, props)) {
-						this.properties = props;
-					}
-				}),
-				tap(_ => this.cd.markForCheck()),
-			);
+		// properties should be removed
+		this.properties = props;
 	}
 
 	update(property: Partial<Product>) {
