@@ -1,6 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '~core/auth';
-import { authStatus } from 'lib';
 import { FilterCommonService, FilterService, FilterType } from '~core/filters';
 import { Typename } from 'showsourcing-api-lib';
 
@@ -21,7 +20,6 @@ export class ControllerTableQuickFiltersComponent {
 	constructor(
 		private filterSrv: FilterService,
 		private userSrv: UserService,
-		private cdr: ChangeDetectorRef,
 		private filterCommonSrv: FilterCommonService
 	) {}
 
@@ -48,7 +46,9 @@ export class ControllerTableQuickFiltersComponent {
 
 	toggleArchived() {
 		const isChecked = this.isArchivedChecked;
-		this.filterCommonSrv.filterByArchived(isChecked);
+		this.filterCommonSrv.filterByArchived(!isChecked);
+		console.log(isChecked);
+		console.log(this.filterSrv.filters);
 	}
 
 	toggleCompleted() {

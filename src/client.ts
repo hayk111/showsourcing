@@ -13,7 +13,7 @@ export const initializedClient$ = authStatus.signin$.pipe(
 			dbConfig: { adapter: pa },
 			shouldSync: true,
 			logs: {
-				logLevel: LogLevel.ALL,
+				logLevel: LogLevel.OFF,
 				asyncLogs: true,
 			},
 		});

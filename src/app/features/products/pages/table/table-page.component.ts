@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { api, Product } from 'showsourcing-api-lib';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import { FilterService, FilterType } from '~core/filters';
+import { FilterService, FilterType, FilterCommonService } from '~core/filters';
 import { ListHelper2Service, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
 import { RatingService } from '~shared/rating/services/rating.service';
@@ -15,7 +15,7 @@ import { SortService } from '~shared/table/services/sort.service';
 	selector: 'table-page-app',
 	templateUrl: './table-page.component.html',
 	styleUrls: ['./table-page.component.scss'],
-	providers: [ListHelper2Service, ListPageViewService, FilterService, SortService, SelectionService, PaginationService],
+	providers: [ListHelper2Service, ListPageViewService, FilterService, FilterCommonService, SortService, SelectionService, PaginationService],
 	host: {
 		class: 'table-page',
 	},

@@ -114,7 +114,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 				return `${choice.user.firstName} ${choice.user.lastName}`;
 			case FilterType.EVENT:
 			case FilterType.EVENTS:
-				return `${choice.description.name}`;
+				return `${choice.name}`;
 			case FilterType.CATEGORY:
 			case FilterType.TAG:
 				return choice.value;
