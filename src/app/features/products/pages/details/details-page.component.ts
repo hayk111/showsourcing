@@ -87,7 +87,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 					 takeUntil(this._destroy$),
 					 tap(product => this.productId = product?.id),
 					 map((product: any) => this.assignImagesToProduct(product)),
-
 				 )
 				 .subscribe(
 					product => this.onProduct(product),
@@ -239,7 +238,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				product: this.productId
 			});
 		});
+		debugger;
 		api.ProjectProduct.create(toPass);
+		debugger;
 	}
 
 	deleteProduct(id: string) {

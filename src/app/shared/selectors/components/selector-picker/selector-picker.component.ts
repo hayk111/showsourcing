@@ -412,7 +412,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			} else {
 				added = this.typename === 'PropertyOption' ?
 									{ value, type: this.customType } :
-									{ name: value, __typename: this.typename };
+									{ name: value };
 				createObs$ = this.typename === 'PropertyOption' 															 ?
 				this.propertyOptionSrv.createPropertyOptions([{type: this.customType.toUpperCase(), value}]) :
 				this.selectorSrv.create(this.typename as any, added);
