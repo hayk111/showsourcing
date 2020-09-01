@@ -17,13 +17,8 @@
 		<!-- we use the router link instead of an event (click), cause this way it can handle automatically ctrl + click and middle button of mouse to open on new tab -->
 		<!-- we tried to handle it by MouseEvent via (mousedown) (since click or auxclick didnt detect middle mouse button), but it kept redirecting to the new tab, this way it works (its ugly)  -->
 		<!-- TLDR; by us handling the event ourselves we lose all the advantages provided by the navigator for links (right click, left click, ctrl click, etc) -->
-<<<<<<< HEAD
 		<a (click)="nameClicked(row)" class="txt-btn ellipsis">
 			{{ row.name || '-' }}
-=======
-		<a [routerLink]="routerPath(row)" (click)="nameClicked(row)" class="txt-btn ellipsis">
-			{{ row?.name || '-' }}
->>>>>>> migration-lib-init-3-aug
 		</a>
 	</ng-container>
 
