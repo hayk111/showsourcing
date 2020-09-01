@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, Input, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, Input, TemplateRef, ChangeDetectorRef, SimpleChanges, OnChanges } from '@angular/core';
 import { state, trigger, style, transition, animate } from '@angular/animations';
 import { TrackingComponent } from '~utils/tracking-component';
 import { DialogService } from '~shared/dialog';
@@ -18,22 +18,18 @@ import { input } from 'aws-amplify';
 			state('false', style({
 				right: '-95%',
 			})),
-			transition('* => *', animate('400ms')),
+			transition('* => *', animate(400)),
 		]),
 	],
 })
-export class PreviewScreenComponent extends TrackingComponent {
-
+export class PreviewScreenComponent extends TrackingComponent implements OnChanges {
 	@Output() close = new EventEmitter<void>();
 
 	_opened = false;
-	showPreview = false;
-
 	animationPending = false;
 
 	@Input() set opened(open: boolean) {
 		this._opened = open;
-		this.showPreview = open;
 	}
 
 	get opened() {
@@ -44,22 +40,25 @@ export class PreviewScreenComponent extends TrackingComponent {
 		super();
 	}
 
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.opened.previousValue !== changes.opened.currentValue) {
+			this.animationStarted();
+		}
+	}
+
 	onClose(ev: MouseEvent) {
 		if (this.dlgSrv.opened) {
 			return;
 		}
 		this.close.emit();
-		this.animationStarted();
 	}
 
 	animationStarted() {
 		this.animationPending = true;
-
 		setTimeout(() => {
-			this.animationPending = false;
-
-			if (!this.opened) { // for the closed case
-				this.cdr.detectChanges();
+			if (this.animationPending) {
+				this.animationPending = false;
+				this.cdr.markForCheck();
 			}
 		}, 550);
 	}

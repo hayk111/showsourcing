@@ -2,7 +2,6 @@
 	<div class="preview-screen"
 		*ngIf="opened || animationPending"
 		[@opened]="opened"
-		[@opened.start]="animationStarted()"
 		(clickOutside)="onClose($event)">
 		<ng-content></ng-content>		
 	</div>
