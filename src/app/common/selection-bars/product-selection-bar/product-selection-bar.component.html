@@ -9,36 +9,36 @@
 
 	<!-- Mass edit -->
 	<button class="icon-with-text light mg-right-ms" (click)="massEdit()">
-		<icon-app name="note"></icon-app>
-		<span translate="button.edit"></span>
+		<icon-app class="color-txt-primary" name="note"></icon-app>
+		<span class="color-txt-primary" translate="button.edit"></span>
 	</button>
 
 	<ng-container *ngIf="!projectProductSelection; else projectProduct">
 		<!-- Project -->
 		<button class="icon-with-text light mg-right-ms" (click)="addProductsToProjects()">
-			<icon-app name="project"></icon-app>
-			<span translate="button.project"></span>
+			<icon-app class="color-txt-primary" name="project"></icon-app>
+			<span class="color-txt-primary" translate="button.project"></span>
 		</button>
 	</ng-container>
 
 	<ng-template #projectProduct>
 		<!-- Remove from project -->
 		<button class="icon-with-text light mg-right-ms" (click)="removeFromProject()">
-			<icon-app name="close-square"></icon-app>
-			<span>Remove from project</span>
+			<icon-app class="color-txt-primary" name="close-square"></icon-app>
+			<span class="color-txt-primary">Remove from project</span>
 		</button>
 	</ng-template>
 
 	<!-- Compare products -->
 	<button class="icon-with-text light mg-right-ms" (click)="compareProducts()">
-		<icon-app name="compare"></icon-app>
-		<span translate="button.compare"></span>
+		<icon-app class="color-txt-primary" name="compare"></icon-app>
+		<span class="color-txt-primary" translate="button.compare"></span>
 	</button>
 
 	<!-- Export -->
 	<button class="icon-with-text light mg-right-ms" (click)="exportProducts()">
-		<icon-app name="export"></icon-app>
-		<span translate="button.export"></span>
+		<icon-app class="color-txt-primary" name="export"></icon-app>
+		<span class="color-txt-primary" translate="button.export"></span>
 	</button>
 
 	<!-- 3 dots menu -->
@@ -46,7 +46,7 @@
 		<!-- trigger -->
 		<context-menu-trigger-app>
 			<button class="icon light mg-right-ms">
-				<icon-app name="dots-vertical" size="m"></icon-app>
+				<icon-app class="color-txt-primary" name="dots-vertical" size="m"></icon-app>
 			</button>
 		</context-menu-trigger-app>
 
