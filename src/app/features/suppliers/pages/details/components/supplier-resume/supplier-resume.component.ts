@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, Supplier } from '~core/erm';
+import { Product, Supplier, SupplierTag } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'supplier-resume-app',
@@ -10,6 +10,7 @@ import { Product, Supplier } from '~core/erm';
 export class SupplierResumeComponent implements OnInit {
 
 	@Input() supplier: Supplier;
+	@Input() supplierTags: SupplierTag[];
 	@Output() updated = new EventEmitter<Product>();
 
 	constructor() { }

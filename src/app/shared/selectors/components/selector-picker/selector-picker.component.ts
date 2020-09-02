@@ -271,6 +271,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					));
 					break;
 			case 'ProductTag':
+			case 'SupplierTag':
 				const entityType = this.typename.slice(0, this.typename.toLowerCase().indexOf('tag')).toLowerCase();
 				trimValues = this.value.map(value => ({
 					id: this.entityId + ':' + value.id,
@@ -287,7 +288,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (this.isTagElement()) {
 			if (deleted) {
 				const idsToDelete = deletedIds?.map(id => ({ id }));
-				api.ProductTag.delete(idsToDelete)
+				api[this.typename].delete(idsToDelete)
 					.local$
 					.pipe(
 						takeUntil(this._destroy$)

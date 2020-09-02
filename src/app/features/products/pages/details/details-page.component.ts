@@ -238,9 +238,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				product: this.productId
 			});
 		});
-		debugger;
 		api.ProjectProduct.create(toPass);
-		debugger;
 	}
 
 	deleteProduct(id: string) {

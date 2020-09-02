@@ -1,10 +1,11 @@
 <div class="content flex mg-top-l">
 	<div class="left">
 		<!-- supplier-resume -->
-		<!-- <supplier-resume-app
+		<supplier-resume-app
 			[supplier]="supplier"
+			[supplierTags]="supplierTags"
 			(updated)="update($event)">
-		</supplier-resume-app> -->
+		</supplier-resume-app>
 		<!-- products card -->
 		<!-- <products-card-app
 			[products]="products$ | async"
@@ -36,8 +37,8 @@
 		<!-- <supplier-docket-app
 			[supplier]="supplier"
 			(update)="update($event)"
-			(addTask)="dlgCommonSrv.openCreationTaskDlg(null, supplier)"
-			(addSample)="dlgCommonSrv.openCreationSampleDialog(null, supplier)"
+			(addTask)="dlgCommonSrv.openCreationDlg('Task', { supplier: this.supplier })"
+			(addSample)="dlgCommonSrv.openCreationDlg('Sample', { supplier: this.supplier })"
 			(previewSample)="openSamplePreview($event)"
 			(previewTask)="openTaskPreview($event)">
 		</supplier-docket-app> -->

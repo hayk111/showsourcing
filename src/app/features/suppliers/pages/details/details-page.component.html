@@ -1,11 +1,31 @@
 <supplier-header-details-app
 	class="supplier-top-header"
-	[supplier]="supplier$ | async"
+	[supplier]="supplier"
 	(delete)="delete($event)"
 	(contact)="contact($event)"
 	(archive)="onArchive($event)"
 	(export)="export($event)"
+	(sectionChange)="section = $event"
 	(updateFavorite)="update($event)">
 </supplier-header-details-app>
 
-<router-outlet></router-outlet>
+<ng-container [ngSwitch]="section">
+	<ng-container *ngSwitchCase="'products'">
+		<products-page-app></products-page-app>
+	</ng-container>
+	<ng-container *ngSwitchCase="'contacts'">
+		<contacts-page-app></contacts-page-app>
+	</ng-container>
+	<ng-container *ngSwitchCase="'samples'">
+		<samples-page-app></samples-page-app>
+	</ng-container>
+	<ng-container *ngSwitchCase="'files'">
+		<files-page-app></files-page-app>
+	</ng-container>
+	<ng-container *ngSwitchCase="'tasks'">
+		<tasks-page-app></tasks-page-app>
+	</ng-container>
+	<ng-container *ngSwitchDefault>
+		<activity-page-app [supplier]="supplier" [supplierTags]="supplierTags"></activity-page-app>
+	</ng-container>
+</ng-container>

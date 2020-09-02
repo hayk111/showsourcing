@@ -41,6 +41,9 @@ export class InitialsLogoComponent implements AfterViewInit {
 	ngAfterViewInit() {
 		const color = IconUtils.iconsColorMap[this.type] || 'secondary';
 		const size = IconUtils.iconsSizeMap[this.size] || IconUtils.iconsSizeMap.m;
+		if (this.size === 'xxl') {
+			size.font = 28;
+		}
 		this.render.setStyle(this.hostElement.nativeElement, 'height', `${size.background}px`);
 		this.render.setStyle(this.hostElement.nativeElement, 'width', `${size.background}px`);
 		if (this.initialsElement) {

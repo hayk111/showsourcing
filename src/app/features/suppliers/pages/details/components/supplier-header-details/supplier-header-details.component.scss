@@ -1,3 +1,7 @@
 header-details-actions-app > *:not(:last-child) {
 	margin-right: var(--spacing-ms);
 }
+
+button.share {
+	color: var(--color-txt-secondary);
+}

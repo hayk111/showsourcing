@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Comment, Contact, Product, Sample, Supplier, Task } from '~core/erm3';
 import { AutoUnsub } from '~utils';
-import { api } from 'showsourcing-api-lib';
-import { customQueries } from '~core/erm3/queries/custom-queries';
+import { api, Sample, Supplier, Task, Comment, Contact, Product, SupplierTag } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'activity-page-app',
@@ -18,6 +16,10 @@ import { customQueries } from '~core/erm3/queries/custom-queries';
 export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	private supplierId: string;
 	private nodeId: string;
+
+	@Input() supplier: Supplier;
+	@Input() supplierTags: SupplierTag[];
+
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
@@ -55,7 +57,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	update(supplier: Supplier) {
-		api.Supplier.update([{ id: this.supplierId, ...supplier } as any]);
+		api.Supplier.update([{ id: this.supplier.id, ...supplier } as any]);
 	}
 
 	sendComment(message: string) {
@@ -63,8 +65,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			message,
 			nodeId: this.nodeId
 		};
-		api['Comment'].create([comment]).local$
-		.subscribe(_ => this.commentListRef.refetch());
+		api['Comment'].create([comment]).local$.subscribe();
 	}
 
 	onCommentDeleted(comment: Comment) {

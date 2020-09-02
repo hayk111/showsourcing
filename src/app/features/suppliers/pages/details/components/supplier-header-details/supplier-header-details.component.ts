@@ -15,11 +15,14 @@ import { AutoUnsub } from '~utils';
 })
 export class SupplierHeaderDetailsComponent extends AutoUnsub implements OnInit {
 	@Input() supplier: Supplier;
+
+	@Output() sectionChange = new EventEmitter<string>();
 	@Output() delete = new EventEmitter<Supplier>();
 	@Output() archive = new EventEmitter<Supplier>();
 	@Output() export = new EventEmitter<Supplier>();
 	@Output() contact = new EventEmitter<Supplier>();
 
+	section: string;
 	tasksCount$: Observable<number>;
 	samplesCount$: Observable<number>;
 	productsCount$: Observable<number>;
@@ -37,6 +40,11 @@ export class SupplierHeaderDetailsComponent extends AutoUnsub implements OnInit 
 			map(params => params.id),
 			takeUntil(this._destroy$)
 		);
+	}
+
+	onSectionChange(section: string) {
+		this.section = section;
+		this.sectionChange.emit(section);
 	}
 
 	goBack() {

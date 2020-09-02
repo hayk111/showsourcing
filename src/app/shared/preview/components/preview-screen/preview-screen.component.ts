@@ -41,7 +41,7 @@ export class PreviewScreenComponent extends TrackingComponent implements OnChang
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.opened.previousValue !== changes.opened.currentValue) {
+		if (!!changes.opened.previousValue !== !!changes.opened.currentValue) {
 			this.animationStarted();
 		}
 	}

@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, tap, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Supplier } from '~core/erm3/models/supplier.model';
-import { api } from 'showsourcing-api-lib';
+import { api, Supplier, SupplierTag } from 'showsourcing-api-lib';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
@@ -24,7 +23,11 @@ import { AutoUnsub, log } from '~utils';
 })
 export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
-	supplier$: Observable<Supplier>;
+	supplier: Supplier;
+	supplierId: string;
+
+	supplierTags: SupplierTag[];
+	section = 'activity';
 
 	constructor(
 		private route: ActivatedRoute,
@@ -40,18 +43,18 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const id$ = this.route.params.pipe(
 			map(params => params.id),
+			tap(id => this.supplierId = id),
+			switchMap(() => api.SupplierTag.find$({filter: { property: 'supplier', isString: this.supplierId }}).data$),
+			map((supplierTags: SupplierTag[]) => supplierTags.map(supplierTag => supplierTag.tag)),
+			tap((tags: SupplierTag[]) => {
+				this.supplierTags = tags;
+			}),
+			switchMap(id => api.Supplier.get$(this.supplierId).data$),
 			takeUntil(this._destroy$)
-		);
-
-		this.supplier$ = id$.pipe(
-			switchMap(id => api.Supplier.get$(id).data$),
-		) as any;
-
-		this.supplier$.subscribe(
+		).subscribe(
 			supplier => this.onSupplier(supplier),
 			err => this.onError(err)
 		);
-
 	}
 
 	update(supplier: Supplier) {
@@ -109,9 +112,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			});
 			this.router.navigate(['suppliers']);
 		} else {
-			if (supplier.supplierType) {
-				supplier.supplierType.name = supplier.supplierType.name.toLowerCase().replace(' ', '-');
-			}
+			this.supplier = supplier;
 		}
 	}
 
