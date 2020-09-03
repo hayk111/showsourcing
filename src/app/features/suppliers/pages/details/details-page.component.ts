@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import { map, tap, switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { api, Supplier, SupplierTag } from 'showsourcing-api-lib';
+import { api, Supplier, SupplierTag, Sample, Task } from 'showsourcing-api-lib';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
-
+import { tapOnce } from '~shared/utils';
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”
 // -
@@ -25,6 +25,9 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	supplier: Supplier;
 	supplierId: string;
+
+	samples$: Observable<Sample[]>;
+	tasks$: Observable<Task[]>;
 
 	supplierTags: SupplierTag[];
 	section = 'activity';
@@ -49,6 +52,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 			tap((tags: SupplierTag[]) => {
 				this.supplierTags = tags;
 			}),
+			tapOnce(_ => this.samples$ = api.Sample.findBySupplier$(this.supplierId).data$),
+			tapOnce(_ => this.tasks$ = api.Task.findBySupplier$(this.supplierId).data$),
 			switchMap(id => api.Supplier.get$(this.supplierId).data$),
 			takeUntil(this._destroy$)
 		).subscribe(

@@ -59,7 +59,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		const sectionChanged = changes.section &&
 			changes.section.previousValue !== changes.section.currentValue;
 		const styleChanged = changes.style && changes.style.previousValue !== changes.style.currentValue;
-		const entityChanged = !(_.isEqual(changes.entity.previousValue, changes.entity.currentValue));
+		const entityChanged = !(_.isEqual(changes?.entity?.previousValue, changes?.entity?.currentValue));
 
 		/**
 		 * Creating form columns based on @section input provided

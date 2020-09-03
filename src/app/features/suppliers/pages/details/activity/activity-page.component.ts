@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creatio
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
 import { api, Sample, Supplier, Task, Comment, Contact, Product, SupplierTag } from 'showsourcing-api-lib';
+import { ListHelper2Service } from '~core/list-page2';
 
 @Component({
 	selector: 'activity-page-app',
@@ -18,10 +19,10 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	private nodeId: string;
 
 	@Input() supplier: Supplier;
+	@Input() samples: Sample;
+	@Input() tasks: Task;
 	@Input() supplierTags: SupplierTag[];
 
-	supplier$: Observable<Supplier>;
-	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 	descriptor = descriptorMock;
 	comments$: Observable<any>;
@@ -29,10 +30,14 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	// sample & task used for the preview
 	previewOpened = false;
 
+	previewedSample: Sample;
+	previewedTask: Task;
+
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
 		public dlgCommonSrv: DialogCommonService,
+		public listHelper: ListHelper2Service,
 	) {
 		super();
 	}
@@ -94,8 +99,8 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	 * @param task
 	 */
 	openTaskPreview(task: Task) {
-		// this.task = task;
-		// this.sample = null;
+		this.previewedTask = task;
+		this.previewedSample = null;
 		this.openPreview();
 	}
 	/**
@@ -103,8 +108,8 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	 * @param sample
 	 */
 	openSamplePreview(sample: Sample) {
-		// this.sample = sample;
-		// this.task = null;
+		this.previewedSample = sample;
+		this.previewedTask = null;
 		this.openPreview();
 	}
 

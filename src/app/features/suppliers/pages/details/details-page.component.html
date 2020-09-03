@@ -26,6 +26,11 @@
 		<tasks-page-app></tasks-page-app>
 	</ng-container>
 	<ng-container *ngSwitchDefault>
-		<activity-page-app [supplier]="supplier" [supplierTags]="supplierTags"></activity-page-app>
+		<activity-page-app
+			[supplier]="supplier"
+			[supplierTags]="supplierTags"
+			[samples]="samples$ | async"
+			[tasks]="tasks$ | async">
+		</activity-page-app>
 	</ng-container>
 </ng-container>

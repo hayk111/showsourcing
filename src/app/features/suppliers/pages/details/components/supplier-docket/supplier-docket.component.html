@@ -5,14 +5,14 @@
 		<h3 class="section-title">Supplier Owner</h3>
 		<editable-container-app
 			[hasAction]="false"
-			(click)="sel?.selector?.openMenu($event)">
+			(click)="sel?.openMenu($event)">
 			<editable-value-app>
 				<selector-app
 					#sel
-					typename="User"
+					typename="TeamUser"
 					[width]="320"
 					[offsetX]="4"
-					(update)="update.emit({ assignee: $event })">
+					(update)="update.emit({ assignee: $event?.teamuserId })">
 					<div *ngIf="supplier?.assignee; else none" class="flex">
 						<user-picture-app	class="mg-right-ms" [user]="supplier?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
 					</div>
@@ -42,10 +42,10 @@
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
 		<task-catalog-app
-			[tasks]="supplier?.tasksLinked?.items"
+			[tasks]="tasks"
 			(taskClicked)="previewTask.emit($event)"
 			(viewMore)="goToTasks.emit()">
-			</task-catalog-app>
+		</task-catalog-app>
 	</section>
 
 	<!-- sample list -->
@@ -55,16 +55,16 @@
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addSample.emit()" translate="button.add"></div>
 		</div>
 		<sample-catalog-app
-			[samples]="supplier?.samplesLinked?.items"
+			[samples]="samples"
 			(sampleClicked)="previewSample.emit($event)"
 			(showMore)="goToSamples.emit()">
-			</sample-catalog-app>
+		</sample-catalog-app>
 	</section>
 
 	<!-- about -->
 	<section>
 		<h3 class="section-title">About this supplier</h3>
-		<small>Created by {{ supplier.createdBy | formatUserName }} on  {{ supplier.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
-		<small>Last updated by {{ supplier.lastUpdatedBy | formatUserName }} on {{ supplier.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+		<small>Created by {{ supplier.createdBy | formatUserName: true }} on {{ supplier.createdAt | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ supplier.lastUpdatedBy | formatUserName: true }} on {{ supplier.lastUpdatedAt | date: 'dd MMMM yyyy' }}</small><br>
 	</section>
 </card-app>

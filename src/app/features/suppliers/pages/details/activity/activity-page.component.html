@@ -34,14 +34,16 @@
 
 	<div class="right">
 		<!-- supplier docket -->
-		<!-- <supplier-docket-app
+		<supplier-docket-app
 			[supplier]="supplier"
+			[samples]="samples"
+			[tasks]="tasks"
 			(update)="update($event)"
-			(addTask)="dlgCommonSrv.openCreationDlg('Task', { supplier: this.supplier })"
-			(addSample)="dlgCommonSrv.openCreationDlg('Sample', { supplier: this.supplier })"
+			(addTask)="listHelper.openCreationDialog({ supplier: supplier.id }, 'Task')"
+			(addSample)="listHelper.openCreationDialog({ supplier: supplier.id }, 'Sample')"
 			(previewSample)="openSamplePreview($event)"
 			(previewTask)="openTaskPreview($event)">
-		</supplier-docket-app> -->
+		</supplier-docket-app>
 		<!-- supplier info -->
 		<!-- <card-app>
 			<card-title-app size="s">Supplier Information</card-title-app>
@@ -70,14 +72,14 @@
 </ng-template>
 
 <!-- previews -->
-<!-- <sample-preview-app
-	*ngIf="previewOpened && sample"
-	[sample]="sample"
+<sample-preview-app
+	*ngIf="previewOpened && previewedSample"
+	[sample]="previewedSample"
 	(close)="closePreview()">
-</sample-preview-app> -->
-<!-- 
+</sample-preview-app>
+
 <task-preview-app
-	*ngIf="previewOpened && task"
-	[task]="task"
+	*ngIf="previewOpened && previewedTask"
+	[task]="previewedTask"
 	(close)="closePreview()">
-</task-preview-app> -->
+</task-preview-app>

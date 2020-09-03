@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Sample, Supplier, Task } from '~core/erm';
+import { Sample, Supplier, Task } from 'showsourcing-api-lib';
 
 @Component({
 	selector: 'supplier-docket-app',
@@ -9,6 +9,8 @@ import { Sample, Supplier, Task } from '~core/erm';
 })
 export class SupplierDocketComponent {
 	@Input() supplier: Supplier;
+	@Input() samples: Sample[];
+	@Input() tasks: Task[];
 	@Output() update = new EventEmitter<Supplier>();
 	@Output() addTask = new EventEmitter<undefined>();
 	@Output() addSample = new EventEmitter<undefined>();
