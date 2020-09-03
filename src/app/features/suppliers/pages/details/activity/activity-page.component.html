@@ -13,10 +13,9 @@
 			(viewAll)="goToProducts()">
 		</products-card-app> -->
 		<!-- picutres card -->
-		<!-- <pictures-card-app
-			[images]="suplier?.images"
-			[entity]="supplier">
-		</pictures-card-app> -->
+		<pictures-card-app
+			[nodeId]="'Supplier:' + supplier.id">
+		</pictures-card-app>
 		<!-- comments -->
 		<card-app>
 			<card-title-app size="l" translate="title.comments"></card-title-app>
@@ -45,25 +44,25 @@
 			(previewTask)="openTaskPreview($event)">
 		</supplier-docket-app>
 		<!-- supplier info -->
-		<!-- <card-app>
+		<card-app>
 			<card-title-app size="s">Supplier Information</card-title-app>
 			<dynamic-form2-app
 				#form
 				[style]="'editable'"
-				[descriptor]="descriptor"
+				[typename]="'Product'"
+				[section]="descriptor.sections[0]"
 				[columnAmount]="1">
 			</dynamic-form2-app>
 		</card-app>
 		<!-- supplier rating -->
-		<!-- <card-app>
+		<card-app>
 			<card-title-app size="s">Team Rating</card-title-app>
 			<rating-dashboard-app
-				[votes]="supplier?.votes"
-				[type]="erm.SUPPLIER.singular"
+				[teamVotes]="supplier?.votes"
 				(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
 				(update)="update({ id: supplier?.id, votes: $event })">
 			</rating-dashboard-app>
-		</card-app> -->
+		</card-app>
 	</div>
 </div>
 

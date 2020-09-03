@@ -23,7 +23,9 @@ export class RatingStarsScoreViewComponent {
 	private _userVote: Vote;
 	@Input() set userVote(vote: Vote) {
 		this._userVote = vote;
-		this.setValues(false);
+		if (vote) {
+			this.setValues(false);
+		}
 	}
 	get userVote() {
 		return this._userVote;

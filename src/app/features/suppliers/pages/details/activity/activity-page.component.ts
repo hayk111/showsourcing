@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit, Input, SimpleChanges } from
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AutoUnsub } from '~utils';
-import { api, Sample, Supplier, Task, Comment, Contact, Product, SupplierTag } from 'showsourcing-api-lib';
+import { api, Sample, Supplier, Task, Comment, Contact, Descriptor, SupplierTag } from 'showsourcing-api-lib';
 import { ListHelper2Service } from '~core/list-page2';
 
 @Component({
@@ -24,7 +23,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	@Input() supplierTags: SupplierTag[];
 
 	contacts$: Observable<Contact[]>;
-	descriptor = descriptorMock;
+	descriptor: Descriptor = api.Descriptor.getByType('SUPPLIER');
 	comments$: Observable<any>;
 	commentListRef: any;
 	// sample & task used for the preview
@@ -43,7 +42,6 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-
 		// getting the id of the supplier
 		const id$ = this.route.parent.params.pipe(
 			takeUntil(this._destroy$),

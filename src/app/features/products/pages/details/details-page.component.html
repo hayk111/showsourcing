@@ -40,8 +40,9 @@
 				<card-title-app size="s">Team Rating</card-title-app>
 				<rating-dashboard-app
 					[teamVotes]="teamVotes$ | async"
+					[userVote]="(userVotes$ | async)[0] || null"
 					(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
-					(update)="updateProduct({ id: product?.id, votes: $event })">
+					(update)="updateProduct({ id: product?.id, vote: $event })">
 				</rating-dashboard-app>
 			</card-app>
 

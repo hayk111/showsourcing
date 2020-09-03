@@ -53,6 +53,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	_productRemoved = false;
 
 	teamVotes$: Observable<Vote[]>;
+	userVotes$: Observable<Vote[]>;
 	productMainSectionFragment = 'info';
 
 	// sample & task used for the preview
@@ -79,6 +80,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 			this.samples$ = api.Sample.findByProduct$(this.product.id).data$;
 			this.tasks$ = api.Task.findByProduct$(this.product.id).data$;
+			this.teamVotes$ = api.Vote.findByProduct$(this.product.id).data$;
+			this.userVotes$ = api.Vote.findByProduct$(this.product.id, true).data$;
 
 			api.Product
 				 .get$(this.product.id)
@@ -104,6 +107,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 				}),
 				tapOnce(_ => this.samples$ = api.Sample.findByProduct$(this.productId).data$),
 				tapOnce(_ => this.tasks$ = api.Task.findByProduct$(this.productId).data$),
+				tapOnce(_ => this.teamVotes$ = api.Vote.findByProduct$(this.productId).data$),
+				tapOnce(_ => this.userVotes$ = api.Vote.findByProduct$(this.productId, true).data$),
 				takeUntil(this._destroy$),
 			).subscribe(
 				product => this.onProduct(product),
@@ -210,9 +215,16 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(propValue: any) {
-		api.Product.update([{ id: this.product.id, ...propValue } as any]).local$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe();
+		if (propValue.hasOwnProperty('vote')) {
+			api.Vote.create([{
+				rating: propValue.vote,
+				product: this.productId,
+			}]);
+		} else {
+			api.Product.update([{ id: this.product.id, ...propValue } as any]).local$
+				.pipe(takeUntil(this._destroy$))
+				.subscribe();
+		}
 	}
 
 	updateProductProjects(projects: Project[]) {

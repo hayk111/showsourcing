@@ -16,13 +16,13 @@ export class RatingDashboardComponent {
 	@Input() nodeId: string;
 
 	@Output() viewRatings = new EventEmitter<Vote[]>();
-	@Output() update = new EventEmitter<Observable<Vote>>();
+	@Output() update = new EventEmitter<number>();
 
 	constructor(private ratingSrv: RatingService) { }
 
 	onStarVote(value: number) {
 		if (!this.userVote || value !== this.userVote.rating) {
-			this.update.emit(this.ratingSrv.starVote(this.userVote, value, this.nodeId));
+			this.update.emit(value);
 		}
 	}
 
